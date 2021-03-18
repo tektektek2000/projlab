@@ -1,4 +1,3 @@
-# projlab
+# Szoftver projekt laboratorium 2021
 
-
-hello hello sziasztok Meg akarok halni a faszba
+AzEvfolyamLegJava
