@@ -20,7 +20,7 @@ public class BillCreator {
     //Compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial
     //Returns the number of materials added
     public int CountAndAdd(ArrayList<Material> inventory,Material Comparator,BillOfMaterial bill){
-        System.out.println("How many " + Comparator.GetTypeUnique() + " does the PlayerShip have?");
+        System.out.println("How many " + Comparator.GetTypeUnique() + " does the current entity have?");
         int Count;
         Scanner in = new Scanner(System.in);
         Count = in.nextInt();

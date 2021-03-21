@@ -3,7 +3,7 @@ package Model;
 import java.util.Scanner;
 
 public abstract class Ship {
-    Asteroid asteroid;
+    protected Asteroid asteroid;
     public void Move(Field f){
         asteroid.Remove(this);
         Asteroid dest = f.MovedTo(this);
@@ -15,23 +15,23 @@ public abstract class Ship {
     }
     public void SunStormNow(){
         Scanner in = new Scanner(System.in);
+        boolean yes;
+        yes = Skeleton.AskPlayer("Is there any layers on the asteroid? [Y/N]");
 
-        System.out.println("Is the asteroid drilled through? [Y/N]");
+        if(yes){
 
-        if(in.nextLine().equals("y") || in.nextLine().equals("Y")){
+            yes = Skeleton.AskPlayer("Is the asteroid empty? [Y/N]");
 
-            System.out.println("Is the asteroid empty? [Y/N]");
-
-            if(in.nextLine().equals("y") || in.nextLine().equals("Y")){
+            if(yes){
                 System.out.println("\tHide()");
                 Hide();
             }
-            else if(in.nextLine().equals("n") || in.nextLine().equals("N")){
+            else{
                 System.out.println("\tDie()");
                 Die();
             }
         }
-        else if(in.nextLine().equals("n") || in.nextLine().equals("N")){
+        else{
             System.out.println("\tDie()");
             Die();
         }
@@ -39,6 +39,9 @@ public abstract class Ship {
     public abstract void AsteroidExploding();
     public void Drill(){
         asteroid.GetDrilled();
+    }
+    public Asteroid getAsteroid(){
+        return asteroid;
     }
     public void setAsteroid(Asteroid a){
         asteroid = a;
