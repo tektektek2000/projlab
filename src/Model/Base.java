@@ -29,6 +29,7 @@ public class Base{
     /*Checks whether or not the base has enough resources to be considered complete*/
     private void CheckComplete() {
         BillCreator bc = BillCreator.GetInstance();
+        System.out.println("Checking if base has enough materials.");
         BillOfMaterial Bill = bc.CreateForBase(materials); //Creating a bill to see if the base is complete
         if(Bill != null){ //If the bill is not null than the base has enough materials
             System.out.println("The base is completed, players won.");
