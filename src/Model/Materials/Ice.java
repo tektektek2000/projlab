@@ -9,6 +9,6 @@ public class Ice extends Material {
     }
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
-        //asteroid.Evaporate();
+        asteroid.Evaporate();
     }
 }
