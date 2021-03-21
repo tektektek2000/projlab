@@ -1,4 +1,6 @@
 package Model.Materials;
+import Model.Asteroid;
+
 import java.lang.String;
 
 public class Ice extends Material {
