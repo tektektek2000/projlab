@@ -1,5 +1,7 @@
 package Model.Materials;
-
-public abstract class Coal {
-    protected abstract String GetTypeUnique();
+import java.lang.String;
+public  class Coal extends Material{
+    protected String GetTypeUnique(){
+        return "Coal";
+    }
 }

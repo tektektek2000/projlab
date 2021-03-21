@@ -1,6 +1,10 @@
 package Model.Materials;
-
-public abstract class Uranium {
-    protected abstract String GetTypeUnique();
-    public abstract void DrilledThroughSunClose();
+import java.lang.String;
+public class Uranium extends Material{
+    protected String GetTypeUnique(){
+        return "Uranium";
+    }
+    public void DrilledThroughSunClose(Asteroid asteroid){
+        asteroid.Explode();
+    }
 }
