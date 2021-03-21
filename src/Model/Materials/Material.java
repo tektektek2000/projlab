@@ -6,5 +6,5 @@ public abstract class Material {
         return m.GetTypeUnique().equals(this.GetTypeUnique());
     }
     protected abstract String GetTypeUnique();
-    public abstract void DrilledThroughSunClose(Asteroid asteroid);
+    public void DrilledThroughSunClose(Asteroid asteroid){}
 }
