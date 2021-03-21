@@ -1,5 +1,12 @@
 package Model.Materials;
 
-public abstract class BillOfMaterial {
-    public abstract void Add(Material m);
+import java.util.ArrayList;
+
+public class BillOfMaterial {
+    ArrayList<Material> materials;
+
+    /*Adds the argument material to the stored materials of the bill*/
+    public void Add(Material m){
+        materials.add(m);
+    }
 }

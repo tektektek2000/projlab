@@ -1,4 +1,6 @@
 package Model.Materials;
+import Model.Asteroid;
+
 import java.lang.String;
 
 public class Ice extends Material {
@@ -7,6 +9,6 @@ public class Ice extends Material {
     }
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
-        asteroid.Evaporate();
+        //asteroid.Evaporate();
     }
 }
