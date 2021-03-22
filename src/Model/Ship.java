@@ -29,7 +29,9 @@ public abstract class Ship {
 
         // whether ship can hide in empty asteroid or dies
         if(yes){
+
             yes = Skeleton.AskPlayer("Is the asteroid empty? [Y/N]");
+
             if(yes){
                 System.out.println("\tHide()");
                 Hide();

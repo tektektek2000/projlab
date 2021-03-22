@@ -1,12 +1,25 @@
 package Model;
 
 import Model.Materials.Material;
+
 import java.util.ArrayList;
 
 public class Asteroid extends Field {
     ArrayList<Ship> ships;
     Material core;
     Base base;
+
+
+    public Asteroid(){
+        ships = new ArrayList<>();
+        base=null;
+    }
+
+    public Asteroid(Material Core){
+        ships = new ArrayList<>();
+        core = Core;
+        base=null;
+    }
 
     // setter for base
     public void SetBase(Base b){base=b;}
@@ -48,6 +61,10 @@ public class Asteroid extends Field {
     public void GetDrilled(){
         // asking for shell size
         int shell = Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?");
+        if(shell<=0){
+            System.out.println("Drilling unsuccessful, the asteroid is already drilled through.");
+            return;
+        }
         shell--;
         // if shell size is zero then checks whether it is in sun close area
         if(shell==0){
@@ -56,6 +73,10 @@ public class Asteroid extends Field {
                 core.DrilledThroughSunClose(this);
             }
         }
+        else{
+            System.out.println("Drilling successful, the asteroid shell is reduced.");
+        }
+
     }
 
     // getting mined by a ship
@@ -95,6 +116,7 @@ public class Asteroid extends Field {
 
     // evaporates core material
     public void Evaporate(){
+        System.out.println("Ice inside the core evaporated.");
         core = null;
     }
 }
