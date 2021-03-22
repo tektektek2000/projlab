@@ -1,8 +1,13 @@
 import Model.Ship;
 import Model.Skeleton;
 
+import Model.Skeleton;
+
 public class Program {
     public static void main(String[] args){
-        System.out.println("Hello World");
+
+        Skeleton s = new Skeleton();
+
+        s.AskPlayer("Buzi vagy?");
     }
 }
