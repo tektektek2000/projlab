@@ -10,4 +10,12 @@ public abstract class Field {
         Neighbours.remove(f);
         System.out.println("Removed Neighbour: "  + f);
     }
+    public void AddNeighbour(Field f){
+        Neighbours.remove(f);
+        System.out.println("Removed Neighbour: "  + f);
+    }
+
+    public ArrayList<Field> getNeighbours() {
+        return Neighbours;
+    }
 }
