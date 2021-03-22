@@ -9,6 +9,17 @@ public class Asteroid extends Field {
     Material core;
     Base base;
 
+    public Asteroid(){
+        ships = new ArrayList<>();
+        base=null;
+    }
+
+    public Asteroid(Material Core){
+        ships = new ArrayList<>();
+        core = Core;
+        base=null;
+    }
+
     public void SetBase(Base b){base=b;}
 
     public Base GetBase(){return base;}
@@ -38,13 +49,21 @@ public class Asteroid extends Field {
     }
     public void GetDrilled(){
         int shell = Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?");
+        if(shell<=0){
+            System.out.println("Drilling unsuccessful, the asteroid is already drilled through.");
+            return;
+        }
         shell--;
-        if(shell==0){
+        if(shell==0) {
             System.out.println("Asteroid is drilled through.");
-            if(Skeleton.AskPlayer("Is the asteroid close to the sun?")){
+            if (Skeleton.AskPlayer("Is the asteroid close to the sun?")) {
                 core.DrilledThroughSunClose(this);
             }
         }
+        else{
+            System.out.println("Drilling successful, the asteroid shell is reduced.");
+        }
+
     }
     public Material GetMined(){
         int shell = Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?");
@@ -71,6 +90,7 @@ public class Asteroid extends Field {
         }
     }
     public void Evaporate(){
+        System.out.println("Ice inside the core evaporated.");
         core = null;
     }
 }

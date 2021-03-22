@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public abstract class Ship {
     protected Asteroid asteroid;
+
     public void Move(Field f){
         asteroid.Remove(this);
         Asteroid dest = f.MovedTo(this);
