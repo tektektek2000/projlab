@@ -5,7 +5,7 @@ public class TeleportGate extends Field{
 
     public Asteroid MovedTo(Ship s){
         if(!Skeleton.AskPlayer("Is the Teleport gate active?"))
-            return s.GetAsteroid();
+            return s.getAsteroid();
         return pair.Neighbours.get(0).MovedTo(s);
     }
 
@@ -18,5 +18,10 @@ public class TeleportGate extends Field{
             return true;
         }
         return false;
+    }
+
+    void pair(TeleportGate t){
+        pair = t;
+        t.pair = this;
     }
 }
