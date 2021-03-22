@@ -6,4 +6,9 @@ public  class Coal extends Material{
     protected String GetTypeUnique(){
         return "Coal";
     }
+
+    @Override
+    public String toString(){
+        return "Coal";
+    }
 }
