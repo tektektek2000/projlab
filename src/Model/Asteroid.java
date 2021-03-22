@@ -1,14 +1,12 @@
 package Model;
 
 import Model.Materials.Material;
-
 import java.util.ArrayList;
 
 public class Asteroid extends Field {
     ArrayList<Ship> ships;
     Material core;
     Base base;
-
 
     public Asteroid(){
         ships = new ArrayList<>();
@@ -94,6 +92,7 @@ public class Asteroid extends Field {
     // getting mined by a ship
     public Material GetMined(){
         Skeleton.AddAndPrintCallStack("Asteroid.GetMined()");
+
         // asking for shell size
         int shell = Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?");
         // if shell size is not zero cannot get mined

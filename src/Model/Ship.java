@@ -36,7 +36,6 @@ public abstract class Ship {
         if(!yes){
 
             yes = Skeleton.AskPlayer("Is the asteroid empty?");
-
             if(yes){
                 Hide();
             }
