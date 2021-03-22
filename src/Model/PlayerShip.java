@@ -11,6 +11,7 @@ import java.util.StringJoiner;
 public class PlayerShip extends Ship {
     private ArrayList<Material> materials;
     private ArrayList<TeleportGate> teleports;
+    private Asteroid asteroid;
 
     public void Mine(){
         int ans;
