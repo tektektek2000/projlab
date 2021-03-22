@@ -12,6 +12,7 @@ public class PlayerShip extends Ship {
 
     private ArrayList<Material> materials;
     private ArrayList<TeleportGate> teleports;
+    private Asteroid asteroid;
 
     // mines asteroid's core material
     public void Mine(){
