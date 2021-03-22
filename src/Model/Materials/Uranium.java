@@ -1,5 +1,6 @@
 package Model.Materials;
 import Model.Asteroid;
+import Model.Skeleton;
 
 import java.lang.String;
 public class Uranium extends Material{
@@ -13,6 +14,12 @@ public class Uranium extends Material{
     // in Uranium case it is exploding
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
+        Skeleton.AddAndPrintCallStack("Uranium.DrilledThroughSunClose()");
         asteroid.Explode();
+        Skeleton.RemoveFromCallStack("Uranium.DrilledThroughSunClose()");
+    }
+    @Override
+    public String toString(){
+        return "Uranium";
     }
 }

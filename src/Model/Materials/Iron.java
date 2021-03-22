@@ -6,4 +6,9 @@ public class Iron extends Material {
     protected  String GetTypeUnique(){
         return "Iron";
     }
+
+    @Override
+    public String toString(){
+        return "Iron";
+    }
 }
