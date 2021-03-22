@@ -9,22 +9,27 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 
 public class PlayerShip extends Ship {
+
     private ArrayList<Material> materials;
     private ArrayList<TeleportGate> teleports;
 
+    // mines asteroid's core material
     public void Mine(){
         int ans;
         ans = Skeleton.AskPlayerForInt("How many materials do you have? [num]");
+        // only mines if player ship has 9 material or less
         if(ans < 10) {
             Material core;
             System.out.println("asteroid.GetMined()");
             core = asteroid.GetMined();
+            // only adds if asteroid is not empty
             if(core != null){
                 Add(core);
             }
         } else System.out.println("You have too many materials.");
     }
 
+    // removes material from the inventory
     public void Remove(BillOfMaterial b){
         ArrayList<Material> removable;
         removable = b.GetMaterials();
@@ -32,6 +37,8 @@ public class PlayerShip extends Ship {
             Remove(m);
         }
     }
+
+    // crafts teleport gate pair
     public void CraftTeleportGates(){
         int ans;
         ans = Skeleton.AskPlayerForInt("How many teleports do you have? [num]");
@@ -41,6 +48,7 @@ public class PlayerShip extends Ship {
         else {
             BillCreator bc = BillCreator.GetInstance();
             BillOfMaterial bill = bc.CreateForTeleport(materials);
+            // checks whether player ship has enough material to craft
             if(bill == null) {
                 System.out.println("You don't have enough materials.");
             }
@@ -55,9 +63,12 @@ public class PlayerShip extends Ship {
             }
         }
     }
+
+    // crafts robot
     public void CraftRobot(){
         BillCreator bc = BillCreator.GetInstance();
         BillOfMaterial bill = bc.CreateForRobot(materials);
+        // checks whether player ship has enough material to craft
         if(bill == null) {
             System.out.println("You don't have enough materials.");
         }
@@ -70,9 +81,11 @@ public class PlayerShip extends Ship {
         }
     }
 
+    // crafts base
     public void CraftBase(){
         boolean yes;
         yes = Skeleton.AskPlayer("Is there a base on your current asteroid? [Y/N]");
+        // checks whether player ship has enough material to craft
         if(yes){
             System.out.println("You can't build a base here!");
         }
@@ -94,15 +107,18 @@ public class PlayerShip extends Ship {
         }
     }
 
+    // puts back material to the core
     public void PutBack(Material m){
         if(asteroid.SetCore(m)){
             Remove(m);
         }
     }
 
+    // builds base
     public void BuildBase(){
         boolean yes;
         yes = Skeleton.AskPlayer("Is there a base on your current asteroid? [Y/N]");
+        // checks whether is a base already on the asteroid
         if(yes){
             System.out.println("Base built with needed materials..");
             if(asteroid.GetBase() == null){
@@ -119,9 +135,12 @@ public class PlayerShip extends Ship {
             System.out.println("You can't build a non-existing base.");
         }
     }
+
+    // puts down the teleport gate
     public void PutDown(TeleportGate t){
         boolean yes;
         yes = Skeleton.AskPlayer("Do you have any teleports? [Y/N]");
+        // checks whether is player ship has teleport
         if(yes){
             System.out.println("Teleport placed successfully.");
             Remove(t);
@@ -129,28 +148,42 @@ public class PlayerShip extends Ship {
             asteroid.AddNeighbour(t);
         }
     }
+
+    // player ship dies
     public void Die(){
+        // removes all materials
         for(Material m : materials){
             Remove(m);
         }
+        // removes all teleports
         for(TeleportGate t : teleports){
             Remove(t);
         }
         asteroid.Remove(this);
         Sun.GetInstance().RemoveAffected(this);
     }
+
+    // in case of asteroid exploding player ship dies
     public void AsteroidExploding(){
         Die();
     }
+
+    // adds material
     public void Add(Material m){
         materials.add(m);
     }
+
+    // removes material
     public void Remove(Material m){
         materials.remove(m);
     }
+
+    // adds teleport gate
     public void Add(TeleportGate t){
         teleports.add(t);
     }
+
+    // removes teleport gate
     public void Remove(TeleportGate t){
         teleports.remove(t);
     }
