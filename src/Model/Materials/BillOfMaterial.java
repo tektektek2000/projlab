@@ -9,4 +9,7 @@ public class BillOfMaterial {
     public void Add(Material m){
         materials.add(m);
     }
+    public final ArrayList<Material> GetMaterials(){
+        return materials;
+    }
 }
