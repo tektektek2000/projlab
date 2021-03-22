@@ -1,6 +1,22 @@
 package Model;
 
-public abstract class TeleportGate {
-    public abstract Asteroid MovedTo(Ship s);
-    public abstract void RemoveNeighbour(Field f);
+public class TeleportGate extends Field{
+    TeleportGate pair;
+
+    public Asteroid MovedTo(Ship s){
+        if(!Skeleton.AskPlayer("Is the Teleport gate active?"))
+            return s.GetAsteroid();
+        return pair.Neighbours.get(0).MovedTo(s);
+    }
+
+    boolean isActive(){
+        boolean ret = true;
+        if(pair==null){
+            return false;
+        }
+        else if(Neighbours.size()>0 && pair.Neighbours.size()>0){
+            return true;
+        }
+        return false;
+    }
 }
