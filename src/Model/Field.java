@@ -10,6 +10,10 @@ public abstract class Field extends Saveable {
         sector = s;
     }
 
+    public Field(int UID) {
+        super(UID);
+    }
+
     // ship moves to the asteroid
     public abstract Asteroid MovedTo();
 

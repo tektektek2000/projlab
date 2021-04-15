@@ -1,5 +1,8 @@
 package Model;
 
+import Controllers.FileController;
+
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Map {
@@ -15,5 +18,11 @@ public class Map {
 
     static int GetNewUID(){
         return UIDMax++;
+    }
+
+    public void Save(PrintStream ps){
+        for(Sector it : sectors){
+            it.Save(ps);
+        }
     }
 }

@@ -4,6 +4,7 @@ import Controllers.FileController;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
+import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
@@ -56,8 +57,8 @@ public class Base extends Saveable{
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         for(StringPair it : args) {
-            if(it.key.equals("Materials")){
-                String[] ids = it.value.split(",");
+            if(it.first.equals("Materials")){
+                String[] ids = it.second.split(",");
                 for(String idIt : ids){
                     materials.add((Material)fc.GetWithUID(Integer.getInteger(idIt)));
                 }
@@ -70,13 +71,13 @@ public class Base extends Saveable{
         os.println("Base{");
         os.print("\tMaterials: ");
         for(Material it : materials){
-            os.print(it.getUID());
+            //os.print(it.getUID());
             if(it != materials.get(materials.size()-1)){
                 os.print(",");
             }
         }
         for(Material it : materials){
-            it.Save();
+            //it.Save();
         }
     }
 }

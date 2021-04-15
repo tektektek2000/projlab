@@ -1,7 +1,7 @@
 package Model.Materials;
 import Controllers.FileController;
 import Model.Asteroid;
-import Model.StringPair;
+import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;

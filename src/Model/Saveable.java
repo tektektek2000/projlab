@@ -1,9 +1,9 @@
 package Model;
 
 import Controllers.FileController;
+import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -13,6 +13,11 @@ public abstract class Saveable {
     public Saveable(){
         UID = Map.GetNewUID();
     }
+
+    public Saveable(int uid) {
+        UID = UID;
+    }
+
     int GetUID(){
         return UID;
     }
