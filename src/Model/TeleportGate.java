@@ -9,6 +9,10 @@ public class TeleportGate extends Field{
         WashHitByStorm = false;
     }
 
+    TeleportGate(int UID){
+        super(UID);
+    }
+
     public void SetWashHitByStorm(boolean washHitByStorm){
         WashHitByStorm = washHitByStorm;
     }

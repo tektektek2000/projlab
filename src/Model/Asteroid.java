@@ -32,6 +32,10 @@ public class Asteroid extends Field {
         shell = Shell;
     }
 
+    public Asteroid(int UID) {
+        super(UID);
+    }
+
     public void SetShell(int Shell){
         shell = Shell;
     }
