@@ -1,7 +1,12 @@
 package Model.Materials;
+import Controllers.FileController;
 import Model.Asteroid;
+import Utils.StringPair;
 
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.lang.String;
+import java.util.ArrayList;
 
 public class Ice extends Material {
 
@@ -20,5 +25,17 @@ public class Ice extends Material {
     @Override
     public String toString(){
         return "Ice";
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        super.Link(args,fc);
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("Ice{");
+        super.Save(os);
+        os.println("}");
     }
 }

@@ -1,10 +1,21 @@
 package Model;
 
+import Controllers.FileController;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Ship extends Saveable {
-
     protected Asteroid asteroid;
+
+    Ship(){}
+
+    public Ship(int uid) {
+        super(uid);
+    }
 
     // moves the ship to the given field
     public void Move(Field f){
@@ -54,5 +65,22 @@ public abstract class Ship extends Saveable {
     // sets asteroid
     public void setAsteroid(Asteroid a){
         asteroid = a;
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        for(StringPair it : args) {
+            if(it.first.equals("Asteroid")){
+                asteroid = (Asteroid) fc.GetWithUID(Integer.getInteger(it.second));
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("UID: " + GetUID());
+        if(asteroid!=null) {
+            os.println("Asteroid: " + asteroid.GetUID());
+        }
     }
 }
