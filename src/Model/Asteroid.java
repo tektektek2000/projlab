@@ -1,6 +1,11 @@
 package Model;
 
+import Controllers.FileController;
 import Model.Materials.Material;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -34,6 +39,9 @@ public class Asteroid extends Field {
 
     public Asteroid(int UID) {
         super(UID);
+        ships = new ArrayList<>();
+        base=null;
+        shell = new Random().nextInt(6);
     }
 
     public void SetShell(int Shell){
@@ -136,5 +144,58 @@ public class Asteroid extends Field {
     @Override
     public  String toString(){
         return "Asteroid";
+    }
+
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        super.Link(args,fc);
+        for(StringPair it : args) {
+            if(it.first.equals("Ships")){
+                String[] ids = it.second.split(",");
+                for(String idIt : ids){
+                    ships.add((Ship) fc.GetWithUID(Integer.getInteger(idIt)));
+                }
+            }
+            else if(it.first.equals("Core")){
+                core = (Material) fc.GetWithUID(Integer.getInteger(it.second));
+            }
+            else if(it.first.equals("Shell")){
+                shell = Integer.parseInt(it.second);
+            }
+            else if(it.first.equals("Base")){
+                base = (Base) fc.GetWithUID(Integer.getInteger(it.second));
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("Asteroid{");
+        super.Save(os);
+        os.println("Shell: " + shell);
+        if(ships.size()>0) {
+            os.print("Ships: ");
+            for (Ship it : ships) {
+                os.print(it.GetUID());
+                if (it != ships.get(ships.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+        if(base!=null)
+            os.println("Base:" + base.GetUID());
+        if(core!=null)
+            os.println("Core:" + core.GetUID());
+        os.println("}");
+        if(core!=null)
+            core.Save(os);
+        if(base!=null)
+            base.Save(os);
+        for(Ship s : ships){
+            s.Save(os);
+        }
     }
 }

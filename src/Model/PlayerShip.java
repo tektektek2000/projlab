@@ -4,6 +4,7 @@ import Controllers.FileController;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
+import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
@@ -13,6 +14,14 @@ public class PlayerShip extends Ship {
     private ArrayList<Material> materials = new ArrayList<>();
     private ArrayList<TeleportGate> teleports = new ArrayList<>();
 
+
+    PlayerShip(){}
+
+    PlayerShip(int uid){
+        super(uid);
+        materials = new ArrayList<>();
+        teleports = new ArrayList<>();
+    }
 
     PlayerShip(Asteroid start){
         materials = new ArrayList<>();
@@ -69,7 +78,6 @@ public class PlayerShip extends Ship {
             Remove(bill);
             RobotShip rs = new RobotShip();
             asteroid.Add(rs);
-            Sun.GetInstance().AddAffected(rs);
         }
     }
 
@@ -132,7 +140,6 @@ public class PlayerShip extends Ship {
             Remove(t);
         }
         asteroid.Remove(this);
-        Sun.GetInstance().RemoveAffected(this);
     }
 
     // in case of asteroid exploding player ship dies
@@ -163,6 +170,60 @@ public class PlayerShip extends Ship {
     @Override
     public String toString(){
         return "PlayerShip";
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        super.Link(args,fc);
+        for(StringPair it : args) {
+            if(it.first.equals("Materials")){
+                String[] ids = it.second.split(",");
+                for(String idIt : ids){
+                    materials.add((Material) fc.GetWithUID(Integer.getInteger(idIt)));
+                }
+            }
+            else if(it.first.equals("Teleports")){
+                String[] ids = it.second.split(",");
+                for(String idIt : ids){
+                    teleports.add((TeleportGate) fc.GetWithUID(Integer.getInteger(idIt)));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("PlayerShip{");
+        super.Save(os);
+        if(materials.size()>0) {
+            os.print("Materials: ");
+            for (Material it : materials) {
+                os.print(it.GetUID());
+                if (it != materials.get(materials.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+        if(teleports.size()>0) {
+            os.print("Teleports: ");
+            for (TeleportGate it : teleports) {
+                os.print(it.GetUID());
+                if (it != teleports.get(teleports.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+        os.println("}");
+        for(TeleportGate s : teleports){
+            s.Save(os);
+        }
+        for(Material s : materials){
+            s.Save(os);
+        }
     }
 
 }

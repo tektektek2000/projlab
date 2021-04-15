@@ -1,5 +1,13 @@
 package Model;
 
+import Controllers.FileController;
+import Model.Materials.Material;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+
 public class TeleportGate extends Field{
     private TeleportGate pair;
     private boolean WashHitByStorm;
@@ -7,10 +15,12 @@ public class TeleportGate extends Field{
     TeleportGate(Sector s){
         super(s);
         WashHitByStorm = false;
+        pair = null;
     }
 
     TeleportGate(int UID){
         super(UID);
+        pair = null;
     }
 
     public void SetWashHitByStorm(boolean washHitByStorm){
@@ -61,5 +71,28 @@ public class TeleportGate extends Field{
         if(WashHitByStorm){
 
         }
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        super.Link(args,fc);
+        for(StringPair it : args) {
+            if(it.first.equals("WasHitBySunStorm")){
+                WashHitByStorm = Boolean.parseBoolean(it.second);
+            }
+            else if(it.first.equals("Pair")){
+                pair = (TeleportGate) fc.GetWithUID(Integer.getInteger(it.second));
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("TeleportGate{");
+        super.Save(os);
+        os.println("WasHitBySunStorm: " + WashHitByStorm);
+        if(pair!=null)
+            os.println("Pair:" + pair.GetUID());
+        os.println("}");
     }
 }

@@ -1,5 +1,10 @@
 package Model;
 
+import Controllers.FileController;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public abstract class Field extends Saveable {
@@ -33,4 +38,38 @@ public abstract class Field extends Saveable {
     }
 
     public abstract void SunStorm();
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        for(StringPair it : args) {
+            if(it.first.equals("Neighbours")){
+                String[] ids = it.second.split(",");
+                for(String idIt : ids){
+                    Neighbours.add((Field)fc.GetWithUID(Integer.getInteger(idIt)));
+                }
+            }
+            else if(it.first.equals("Sector")){
+                sector = (Sector) fc.GetWithUID(Integer.getInteger(it.second));
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("UID: " + GetUID());
+        if(sector!=null) {
+            os.println("Sector: " + sector.GetUID());
+        }
+        if(Neighbours.size()>0) {
+            os.print("Neighbours: ");
+            for (Field it : Neighbours) {
+                os.print(it.GetUID());
+                if (it != Neighbours.get(Neighbours.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+    }
 }

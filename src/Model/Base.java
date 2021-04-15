@@ -69,15 +69,21 @@ public class Base extends Saveable{
     @Override
     public void Save(PrintStream os) {
         os.println("Base{");
-        os.print("\tMaterials: ");
-        for(Material it : materials){
-            //os.print(it.getUID());
-            if(it != materials.get(materials.size()-1)){
-                os.print(",");
+        os.println("UID: " + GetUID());
+        if(materials.size()>0) {
+            os.print("\tMaterials: ");
+            for (Material it : materials) {
+                os.print(it.GetUID());
+                if (it != materials.get(materials.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
             }
         }
+        os.println("}");
         for(Material it : materials){
-            //it.Save();
+            it.Save(os);
         }
     }
 }

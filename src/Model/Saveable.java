@@ -15,10 +15,10 @@ public abstract class Saveable {
     }
 
     public Saveable(int uid) {
-        UID = UID;
+        UID = uid;
     }
 
-    int GetUID(){
+    public int GetUID(){
         return UID;
     }
     public abstract void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException;
