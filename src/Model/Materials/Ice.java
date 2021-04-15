@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public class Ice extends Material {
 
+    Ice(){}
+
+    public Ice(int uid) {super(uid);}
+
     // gives back type in string
     protected  String GetTypeUnique(){
         return "Ice";

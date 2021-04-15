@@ -17,7 +17,7 @@ public class PlayerShip extends Ship {
 
     PlayerShip(){}
 
-    PlayerShip(int uid){
+    public PlayerShip(int uid){
         super(uid);
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
@@ -178,13 +178,13 @@ public class PlayerShip extends Ship {
         for(StringPair it : args) {
             if(it.first.equals("Materials")){
                 String[] ids = it.second.split(",");
-                for(String idIt : ids){
+                for (String idIt : ids) {
                     materials.add((Material) fc.GetWithUID(Integer.getInteger(idIt)));
                 }
             }
             else if(it.first.equals("Teleports")){
                 String[] ids = it.second.split(",");
-                for(String idIt : ids){
+                for (String idIt : ids) {
                     teleports.add((TeleportGate) fc.GetWithUID(Integer.getInteger(idIt)));
                 }
             }

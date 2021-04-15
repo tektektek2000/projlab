@@ -18,7 +18,7 @@ public class TeleportGate extends Field{
         pair = null;
     }
 
-    TeleportGate(int UID){
+    public TeleportGate(int UID){
         super(UID);
         pair = null;
     }
@@ -81,7 +81,7 @@ public class TeleportGate extends Field{
                 WashHitByStorm = Boolean.parseBoolean(it.second);
             }
             else if(it.first.equals("Pair")){
-                pair = (TeleportGate) fc.GetWithUID(Integer.getInteger(it.second));
+                pair = (TeleportGate) fc.GetWithUID(Integer.parseInt(it.second));
             }
         }
     }

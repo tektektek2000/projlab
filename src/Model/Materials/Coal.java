@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public  class Coal extends Material{
 
+    Coal(){}
+
+    public Coal(int uid) {super(uid);}
     // gives back type in string
     protected String GetTypeUnique(){
         return "Coal";

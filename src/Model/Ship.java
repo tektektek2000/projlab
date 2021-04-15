@@ -71,7 +71,7 @@ public abstract class Ship extends Saveable {
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         for(StringPair it : args) {
             if(it.first.equals("Asteroid")){
-                asteroid = (Asteroid) fc.GetWithUID(Integer.getInteger(it.second));
+                asteroid = (Asteroid) fc.GetWithUID(Integer.parseInt(it.second));
             }
         }
     }
