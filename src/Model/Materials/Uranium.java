@@ -12,6 +12,10 @@ public class Uranium extends Material{
     int ExposedFor;
     boolean isExposed;
 
+    Uranium(){}
+
+    Uranium(int uid) {super(uid);}
+
     // gives back type in string
     protected String GetTypeUnique(){
         return "Uranium";

@@ -13,10 +13,12 @@ public abstract class Field extends Saveable {
 
     Field(Sector s){
         sector = s;
+        Neighbours = new ArrayList<>();
     }
 
     public Field(int UID) {
         super(UID);
+        Neighbours = new ArrayList<>();
     }
 
     // ship moves to the asteroid
@@ -45,11 +47,11 @@ public abstract class Field extends Saveable {
             if(it.first.equals("Neighbours")){
                 String[] ids = it.second.split(",");
                 for(String idIt : ids){
-                    Neighbours.add((Field)fc.GetWithUID(Integer.getInteger(idIt)));
+                    Neighbours.add((Field)fc.GetWithUID(Integer.parseInt(idIt)));
                 }
             }
             else if(it.first.equals("Sector")){
-                sector = (Sector) fc.GetWithUID(Integer.getInteger(it.second));
+                sector = (Sector) fc.GetWithUID(Integer.parseInt(it.second));
             }
         }
     }

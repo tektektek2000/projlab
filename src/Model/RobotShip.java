@@ -13,7 +13,7 @@ public class RobotShip extends Ship {
 
     RobotShip(){}
 
-    RobotShip(int uid){
+    public RobotShip(int uid){
         super(uid);
     }
 

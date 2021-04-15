@@ -12,7 +12,7 @@ public class Sector extends Saveable{
     private ArrayList<Field> fields;
     private boolean SunClose;
 
-    Sector(int UID) {
+    public Sector(int UID) {
         super(UID);
         SunClose = false;
         fields = new ArrayList<>();
@@ -24,8 +24,8 @@ public class Sector extends Saveable{
         for(StringPair it : args) {
             if(it.first.equals("Fields")){
                 String[] ids = it.second.split(",");
-                for(String idIt : ids){
-                    fields.add((Field)fc.GetWithUID(Integer.getInteger(idIt)));
+                for (String idIt : ids) {
+                    fields.add((Field) fc.GetWithUID(Integer.parseInt(idIt)));
                 }
             }
             else if(it.first.equals("isClose")){

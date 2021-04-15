@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Map {
     static int UIDMax=1;
 
-    private ArrayList<Sector> sectors;
+    private ArrayList<Sector> sectors=new ArrayList<>();
 
     public void AddSector(Sector s){
         sectors.add(s);

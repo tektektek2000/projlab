@@ -154,17 +154,17 @@ public class Asteroid extends Field {
             if(it.first.equals("Ships")){
                 String[] ids = it.second.split(",");
                 for(String idIt : ids){
-                    ships.add((Ship) fc.GetWithUID(Integer.getInteger(idIt)));
+                    ships.add((Ship) fc.GetWithUID(Integer.parseInt(idIt)));
                 }
             }
             else if(it.first.equals("Core")){
-                core = (Material) fc.GetWithUID(Integer.getInteger(it.second));
+                core = (Material) fc.GetWithUID(Integer.parseInt(it.second));
             }
             else if(it.first.equals("Shell")){
                 shell = Integer.parseInt(it.second);
             }
             else if(it.first.equals("Base")){
-                base = (Base) fc.GetWithUID(Integer.getInteger(it.second));
+                base = (Base) fc.GetWithUID(Integer.parseInt(it.second));
             }
         }
     }

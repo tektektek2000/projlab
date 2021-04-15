@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class Iron extends Material {
 
+    Iron(){}
+
+    public Iron(int uid) {super(uid);}
+
     // gives back type in string
     protected  String GetTypeUnique(){
         return "Iron";

@@ -13,7 +13,7 @@ public class UFO extends Ship{
 
     UFO(){}
 
-    UFO(int uid){
+    public UFO(int uid){
         super(uid);
     }
 
@@ -34,7 +34,7 @@ public class UFO extends Ship{
         for(StringPair it : args) {
             if(it.first.equals("Materials")){
                 String[] ids = it.second.split(",");
-                for(String idIt : ids){
+                for (String idIt : ids) {
                     materials.add((Material) fc.GetWithUID(Integer.getInteger(idIt)));
                 }
             }
