@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Sector {
+public class Sector extends Saveable{
     private ArrayList<Field> fields;
     private boolean SunClose;
 

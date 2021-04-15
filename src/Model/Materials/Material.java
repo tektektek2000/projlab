@@ -1,7 +1,9 @@
 package Model.Materials;
 import java.lang.String;
 import Model.Asteroid;
-public abstract class Material {
+import Model.Saveable;
+
+public abstract class Material extends Saveable {
 
     // checks if the material given as parameter is same type
     public boolean isSameType(Material m){

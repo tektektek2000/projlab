@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public abstract class Field {
+public abstract class Field extends Saveable {
     ArrayList<Field> Neighbours = new ArrayList<>();
     Sector sector;
 

@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Scanner;
 
-public abstract class Ship {
+public abstract class Ship extends Saveable {
 
     protected Asteroid asteroid;
 

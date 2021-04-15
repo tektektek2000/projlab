@@ -1,13 +1,21 @@
 package Model;
 
+import Controllers.FileController;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
 
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
-public class Base{
+public class Base extends Saveable{
+    final int UID;
     ArrayList<Material> materials = new ArrayList<>();
+
+    public Base(int uid) {
+        UID = uid;
+    }
 
     // Handles if the base will accept an offered material. Returns true if it added the material,false if not
     public boolean Accept(Material m){
@@ -39,4 +47,36 @@ public class Base{
         materials.add(material); // Adding material
     }
 
+    @Override
+    public int GetUID() {
+        return UID;
+    }
+
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+        for(StringPair it : args) {
+            if(it.key.equals("Materials")){
+                String[] ids = it.value.split(",");
+                for(String idIt : ids){
+                    materials.add((Material)fc.GetWithUID(Integer.getInteger(idIt)));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("Base{");
+        os.print("\tMaterials: ");
+        for(Material it : materials){
+            os.print(it.getUID());
+            if(it != materials.get(materials.size()-1)){
+                os.print(",");
+            }
+        }
+        for(Material it : materials){
+            it.Save();
+        }
+    }
 }

@@ -4,9 +4,7 @@ import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
 
-import java.lang.reflect.AccessibleObject;
 import java.util.ArrayList;
-import java.util.StringJoiner;
 
 public class PlayerShip extends Ship {
     private ArrayList<Material> materials = new ArrayList<>();
@@ -79,7 +77,7 @@ public class PlayerShip extends Ship {
             BillOfMaterial bill = bc.CreateForBaseFoundation(materials);
             if(bill != null) {
                 Remove(bill);
-                Base newbase = new Base();
+                Base newbase = new Base(Map.GetNewUID());
                 for(Material m : bill.GetMaterials()){
                     newbase.Accept(m);
                 }
@@ -100,7 +98,7 @@ public class PlayerShip extends Ship {
         // checks whether is a base already on the asteroid
         if(asteroid.GetBase() != null){
             if(asteroid.GetBase() == null){
-                Base base = new Base();
+                Base base = new Base(Map.GetNewUID());
                 asteroid.SetBase(base);
             }
             for(Material it : materials)
