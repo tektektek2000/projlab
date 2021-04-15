@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class Saveable {
     final int UID;
 
-    Saveable(){
+    public Saveable(){
         UID = Map.GetNewUID();
     }
     int GetUID(){

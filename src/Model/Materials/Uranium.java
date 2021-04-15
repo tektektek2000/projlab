@@ -1,7 +1,13 @@
 package Model.Materials;
+import Controllers.FileController;
 import Model.Asteroid;
+import Model.StringPair;
 
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.lang.String;
+import java.util.ArrayList;
+
 public class Uranium extends Material{
 
     // gives back type in string
@@ -18,5 +24,15 @@ public class Uranium extends Material{
     @Override
     public String toString(){
         return "Uranium";
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+
     }
 }
