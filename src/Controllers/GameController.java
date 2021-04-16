@@ -46,6 +46,11 @@ public class GameController {
         else if(parts[0].equals("ls")){
             //TODO
         }
+        else if(parts[0].equals("compare")){
+            FileController fc = new FileController();
+            System.out.println("Comp " + CurrentWorkingDirectory + "\\" + parts[1] + " to " + CurrentWorkingDirectory + "\\" + parts[2]);
+            fc.Compare(new File(CurrentWorkingDirectory + "\\" + parts[1]),new File(CurrentWorkingDirectory + "\\" + parts[2]));
+        }
         else{
             if(parts.length < 3){
                 throw(new InvalidCommand(CommandLine + "-> Too few parameter for UID search or unknown command"));

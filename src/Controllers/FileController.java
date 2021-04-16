@@ -133,6 +133,8 @@ public class FileController {
     }
 
     public void Save(File f,Map map) throws FileNotFoundException {
+        if(f.exists())
+            f.delete();
         PrintStream ps = new PrintStream(
                 new FileOutputStream(f, true));
         map.Save(ps);
