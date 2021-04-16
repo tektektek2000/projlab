@@ -9,10 +9,11 @@ Asteroid{
 	Neighbours: 2
 	Shell: 10
 	Sector: 8
+	Ships: 5
 }
 Sector{
 	UID: 8
-	Fields: 1, 2, 3
+	Fields: 2, 3
 	isClose: true
 }
 RobotShip{
