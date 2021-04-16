@@ -133,6 +133,7 @@ public class PlayerShip extends Ship {
             Remove(t);
             t.AddNeighbour(asteroid);
             t.SetSector(asteroid.sector);
+            asteroid.sector.Add(t);
             asteroid.AddNeighbour(t);
         }
     }

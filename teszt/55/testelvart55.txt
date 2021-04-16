@@ -15,3 +15,7 @@ Sector{
 	Fields: 1, 2, 3
 	isClose: true
 }
+RobotShip{
+	UID: 5
+	Asteroid: 3
+}
