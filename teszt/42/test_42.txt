@@ -1,6 +1,6 @@
 Asteroid{
 	UID: 1
-	Neighbours: 2,4
+	Neighbours: 2
 	Shell: 2
 	Sector: 3
 }
@@ -12,6 +12,6 @@ TeleportGate{
 }
 Sector{
 	UID: 3
-	Fields: 1
+	Fields: 1,2
 	isClose: false
 }

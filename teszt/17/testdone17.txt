@@ -1,15 +1,15 @@
+Sector{
+UID: 3
+Fields: 1
+isClose: false
+}
 Asteroid{
-	UID: 1
-	Shell: 0
-	Ships: 2
-	Sector: 3
+UID: 1
+Sector: 3
+Shell: 0
+Ships: 2
 }
 PlayerShip{
-	UID: 2
-	Asteroid: 1
-}
-Sector{
-	UID: 3
-	Fields: 1
-	isClose: false
+UID: 2
+Asteroid: 1
 }

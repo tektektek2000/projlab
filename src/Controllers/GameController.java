@@ -25,7 +25,20 @@ public class GameController {
     void InterpretCommand(String CommandLine) throws Exception {
         String[] parts = CommandLine.split(" ");
 
-        if (parts[0].equals("sunStorm")){
+        if (parts[0].equals("@Fail")){
+            boolean Failed = false;
+            try {
+                String LineWithOutFlag = parts[1];
+                for(int i=2;i<parts.length;i++)
+                    LineWithOutFlag += parts[i];
+                InterpretCommand(LineWithOutFlag);
+            } catch (InvalidCommand e){
+                Failed = true;
+            }
+            if(!Failed)
+                throw(new InvalidCommand(CommandLine + "-> Line marked as Fail didn't fail"));
+        }
+        else if (parts[0].equals("sunStorm")){
             SunStorm(Integer.parseInt(parts[1]));
         }
         else if (parts[0].equals("save")){

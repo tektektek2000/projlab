@@ -1,6 +1,6 @@
 load test_41.txt 
 controller off
-u 2 move 4
+@Fail u 2 move 4
 ls all att
 save testdone41.txt
 compare testdone41.txt testelvart41.txt
