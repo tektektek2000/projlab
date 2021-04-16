@@ -30,6 +30,10 @@ public class PlayerShip extends Ship {
         start.Add(this);
     }
 
+    public ArrayList<Material> getMaterials(){return materials;}
+
+    public ArrayList<TeleportGate> getTeleports(){return teleports;}
+
     // mines asteroid's core material
     public void Mine(){
         // only mines if player ship has 9 material or less

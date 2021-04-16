@@ -51,6 +51,14 @@ public class TeleportGate extends Field{
         t.pair = this;
     }
 
+    public void Move(Field f){
+
+    }
+
+    public void TurnOver(){
+
+    }
+
     @Override
     public  String toString(){
         return "TeleportGate";

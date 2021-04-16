@@ -32,6 +32,14 @@ public class Uranium extends Material{
         return "Uranium";
     }
 
+    public void ForceExplode(){
+
+    }
+
+    public void TurnOver(){
+
+    }
+
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         super.Link(args,fc);

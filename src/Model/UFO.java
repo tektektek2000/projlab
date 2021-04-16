@@ -61,4 +61,17 @@ public class UFO extends Ship{
             s.Save(os);
         }
     }
+
+    // mines asteroid's core material
+    public void Mine(){
+        // only mines if player ship has 9 material or less
+        if(materials.size() < 10) {
+            Material core;
+            core = asteroid.GetMined();
+            // only adds if asteroid is not empty
+            if(core != null){
+                materials.add(core);
+            }
+        }
+    }
 }

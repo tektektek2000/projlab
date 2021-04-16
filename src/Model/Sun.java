@@ -27,14 +27,18 @@ public class Sun {
         map = m;
     }
 
+    public void SunStorm(){
+        for(Sector s : map.getSectors()){
+            s.SunStorm();
+        }
+        RoundsUntillStorm = new Random().nextInt(6)+3;
+    }
+
     // calls sun storm if zero turns left until sun storm
     public void TurnOver(){
         RoundsUntillStorm--;
         if(RoundsUntillStorm==0){
-            for(Sector s : map.getSectors()){
-                s.SunStorm();
-            }
-            RoundsUntillStorm = new Random().nextInt(6)+3;
+            SunStorm();
         }
     }
 
