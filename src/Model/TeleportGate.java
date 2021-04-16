@@ -13,6 +13,7 @@ public class TeleportGate extends Field{
     private TeleportGate pair;
     private boolean WashHitByStorm;
 
+
     TeleportGate(Sector s){
         super(s);
         WashHitByStorm = false;

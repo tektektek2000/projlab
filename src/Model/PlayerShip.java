@@ -64,8 +64,8 @@ public class PlayerShip extends Ship {
             // checks whether player ship has enough material to craft
             if(bill != null)  {
                 Remove(bill);
-                TeleportGate t1 = new TeleportGate(null);
-                TeleportGate t2 = new TeleportGate(null);
+                TeleportGate t1 = new TeleportGate(asteroid.sector.map.GetNewUID());
+                TeleportGate t2 = new TeleportGate(asteroid.sector.map.GetNewUID());
                 t1.pair(t2);
                 teleports.add(t1);
                 teleports.add(t2);

@@ -16,8 +16,8 @@ public class Program {
             //Map m = fc.Load(new File("teszt.txt"),gc);
             //m.Save(System.out);
             TestRunner tc = new TestRunner("teszt");
-            tc.RunAllTests(gc);
-            //tc.RunTest("11",gc);
+            //tc.RunAllTests(gc);
+            tc.RunTest("56",gc);
         } catch (Exception e){
             System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
