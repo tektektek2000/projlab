@@ -16,12 +16,10 @@ public class Program {
             //Map m = fc.Load(new File("teszt.txt"),gc);
             //m.Save(System.out);
             TestRunner tc = new TestRunner("teszt");
-            tc.RunAllTests(gc);
-            //tc.RunTest("1",gc);
+            //tc.RunAllTests(gc);
+            tc.RunTest("1",gc);
         } catch (Exception e){
             System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
-
-
     }
 }

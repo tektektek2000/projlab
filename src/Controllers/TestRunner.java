@@ -1,5 +1,6 @@
 package Controllers;
 
+import Utils.AssertException;
 import Utils.BadFileFormat;
 import Utils.InvalidCommand;
 
@@ -27,7 +28,7 @@ public class TestRunner {
         System.out.println("Found " + files.length + " files of which " + DirNum + " are test directories.");
     }
 
-    void Run(File Test,GameController gc) throws IOException, InvalidCommand, BadFileFormat {
+    void Run(File Test,GameController gc) throws Exception {
         File cmd = new File(Test.getCanonicalPath() + "\\cmd.txt");
         Scanner FScanner = new Scanner(cmd);
         while (FScanner.hasNextLine()) {
@@ -56,6 +57,9 @@ public class TestRunner {
                         System.out.println(invalidCommand.getMessage());
                     } catch (BadFileFormat badFileFormat) {
                         System.out.println(badFileFormat.getMessage());
+                    }
+                    catch (AssertException e){
+                        System.out.println(e.getMessage());
                     }
                     //System.out.println("Test[" + f.getName() + "] Done");
                 } catch (IOException e) {
@@ -86,6 +90,9 @@ public class TestRunner {
                 System.out.println(invalidCommand.getMessage());
             } catch (BadFileFormat badFileFormat) {
                 System.out.println(badFileFormat.getMessage());
+            }
+            catch (AssertException e){
+                System.out.println(e.getMessage());
             }
         } catch (IOException e) {
             System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());

@@ -43,7 +43,7 @@ public class PlayerShip extends Ship {
             core = asteroid.GetMined();
             // only adds if asteroid is not empty
             if(core != null){
-                Add(core);
+                materials.add(core);
             }
         }
     }

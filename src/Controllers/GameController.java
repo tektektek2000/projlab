@@ -22,7 +22,7 @@ public class GameController {
     String CurrentWorkingDirectory = System.getProperty("user.dir");
 
 
-    void InterpretCommand(String CommandLine) throws InvalidCommand, FileNotFoundException, BadFileFormat {
+    void InterpretCommand(String CommandLine) throws Exception {
         String[] parts = CommandLine.split(" ");
 
         if (parts[0].equals("sunStorm")){
