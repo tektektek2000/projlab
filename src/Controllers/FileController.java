@@ -173,8 +173,8 @@ public class FileController {
                         for(StringPair ParamIt2 : it2.second){
                             if(ParamIt1.first.equals(ParamIt2.first)){
                                 paramFound = true;
-                                assert ParamIt1.second.equals(ParamIt2.second) : "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter mismatch: "
-                                        + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second;
+                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter mismatch: "
+                                        + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
                             }
                         }
                         Assert(paramFound , "Parameter not found: Object UID" + it1.first.GetUID() + " Paramtype: " + ParamIt1.first);
@@ -196,8 +196,8 @@ public class FileController {
                         for(StringPair ParamIt2 : it2.second){
                             if(ParamIt1.first.equals(ParamIt2.first)){
                                 paramFound = true;
-                                assert ParamIt1.second.equals(ParamIt2.second) : "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter mismatch: "
-                                        + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second;
+                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter mismatch: "
+                                        + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
                             }
                         }
                         Assert( paramFound , "Parameter not found: Object UID" + it1.first.GetUID() + " Paramtype: " + ParamIt1.first);
