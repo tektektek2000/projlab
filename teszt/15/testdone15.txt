@@ -16,4 +16,79 @@ Sector{
 	UID: 4
 	Fields: 1
 	isClose: false
+}Sector{
+UID: 4
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 5
+Ships: 2
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3
+}
+Iron{
+UID: 3
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 5
+Ships: 2
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3
+}
+Iron{
+UID: 3
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 5
+Ships: 2
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3
+}
+Iron{
+UID: 3
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 5
+Ships: 2
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3
+}
+Iron{
+UID: 3
 }

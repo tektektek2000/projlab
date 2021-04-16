@@ -7,7 +7,7 @@ Asteroid{
 PlayerShip{
 	UID: 2
 	Asteroid: 1
-	Materials: 4
+	Materials: 3
 }
 Ice{
 	UID: 3

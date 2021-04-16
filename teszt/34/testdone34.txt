@@ -222,3 +222,183 @@ RobotShip{
 UID: 2
 Asteroid: 1
 }
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: true
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}

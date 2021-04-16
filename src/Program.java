@@ -13,10 +13,11 @@ public class Program {
         FileController fc = new FileController();
         GameController gc = new GameController();
         try {
-            Map m = fc.Load(new File("teszt.txt"),gc);
-            m.Save(System.out);
+            //Map m = fc.Load(new File("teszt.txt"),gc);
+            //m.Save(System.out);
             TestRunner tc = new TestRunner("teszt");
             tc.RunAllTests(gc);
+            //tc.RunTest("8",gc);
         } catch (Exception e){
             System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }

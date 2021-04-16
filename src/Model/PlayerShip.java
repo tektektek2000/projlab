@@ -184,13 +184,13 @@ public class PlayerShip extends Ship {
             if(it.first.equals("Materials")){
                 String[] ids = it.second.split(",");
                 for (String idIt : ids) {
-                    materials.add((Material) fc.GetWithUID(Integer.getInteger(idIt)));
+                    materials.add((Material) fc.GetWithUID(Integer.parseInt(idIt)));
                 }
             }
             else if(it.first.equals("Teleports")){
                 String[] ids = it.second.split(",");
                 for (String idIt : ids) {
-                    teleports.add((TeleportGate) fc.GetWithUID(Integer.getInteger(idIt)));
+                    teleports.add((TeleportGate) fc.GetWithUID(Integer.parseInt(idIt)));
                 }
             }
         }

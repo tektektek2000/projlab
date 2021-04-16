@@ -48,7 +48,7 @@ public class GameController {
         }
         else{
             if(parts.length < 3){
-                throw(new InvalidCommand(CommandLine + "-> Too few parameter for UID search"));
+                throw(new InvalidCommand(CommandLine + "-> Too few parameter for UID search or unknown command"));
             }
             char TypeFlag = parts[0].charAt(0);
             System.out.println(parts[1]);

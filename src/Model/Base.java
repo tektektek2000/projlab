@@ -61,7 +61,7 @@ public class Base extends Saveable{
             if(it.first.equals("Materials")){
                 String[] ids = it.second.split(",");
                 for(String idIt : ids){
-                    materials.add((Material)fc.GetWithUID(Integer.getInteger(idIt)));
+                    materials.add((Material)fc.GetWithUID(Integer.parseInt(idIt)));
                 }
             }
         }

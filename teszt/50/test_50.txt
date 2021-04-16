@@ -2,7 +2,6 @@ Asteroid{
 	UID: 1
 	Neighbours: 2, 3
 	Shell: 10
-	Ships: 3
 	Sector: 4
 }
 TeleportGate{

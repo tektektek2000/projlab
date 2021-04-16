@@ -16,4 +16,123 @@ Sector{
 RobotShip{
 	UID: 7
 	Asteroid: 1
+}Sector{
+UID: 6
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Shell: 5
+Ships: 2,4
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3,4,5
+}
+Iron{
+UID: 3
+}
+Coal{
+UID: 4
+}
+Uranium{
+UID: 5
+ExposedFor: 0
+isExposed: false
+}
+RobotShip{
+UID: 4
+}
+Sector{
+UID: 6
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Shell: 5
+Ships: 2,4
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3,4,5
+}
+Iron{
+UID: 3
+}
+Coal{
+UID: 4
+}
+Uranium{
+UID: 5
+ExposedFor: 0
+isExposed: false
+}
+RobotShip{
+UID: 4
+}
+Sector{
+UID: 6
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Shell: 5
+Ships: 2,4
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3,4,5
+}
+Iron{
+UID: 3
+}
+Coal{
+UID: 4
+}
+Uranium{
+UID: 5
+ExposedFor: 0
+isExposed: false
+}
+RobotShip{
+UID: 4
+}
+Sector{
+UID: 6
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Shell: 5
+Ships: 2,4
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3,4,5
+}
+Iron{
+UID: 3
+}
+Coal{
+UID: 4
+}
+Uranium{
+UID: 5
+ExposedFor: 0
+isExposed: false
+}
+RobotShip{
+UID: 4
 }

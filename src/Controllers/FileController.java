@@ -6,6 +6,7 @@ import Model.Materials.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import Utils.BadFileFormat;
 import Utils.LinkerException;
@@ -121,11 +122,11 @@ public class FileController {
             catch (LinkerException e){
                 String data = "Unknown type Object with UID: " + it.first.GetUID();
                 throw(new BadFileFormat(data,"Couldn't find parameter UID: " + e.GetUID()));
-            }
-            catch (Exception e){
+            }catch (Exception e){
                 String data = "Unknown type Object with UID: " + it.first.GetUID();
-                throw(new BadFileFormat(data,"Unknown linker error in this object"));
+                throw(new BadFileFormat(data,"Unknown issue:" + e.getClass() + ": " + Arrays.toString(e.getStackTrace())));
             }
+
 
         }
         return map;

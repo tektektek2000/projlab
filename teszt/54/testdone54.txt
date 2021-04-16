@@ -206,3 +206,54 @@ Sector: 3
 Neighbours: 1
 WasHitBySunStorm: false
 }
+Sector{
+UID: 3
+Fields: 1,2
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 3
+Neighbours: 2
+Shell: 10
+}
+TeleportGate{
+UID: 2
+Sector: 3
+Neighbours: 1
+WasHitBySunStorm: false
+}
+Sector{
+UID: 3
+Fields: 1,2
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 3
+Neighbours: 2
+Shell: 10
+}
+TeleportGate{
+UID: 2
+Sector: 3
+Neighbours: 1
+WasHitBySunStorm: false
+}
+Sector{
+UID: 3
+Fields: 1,2
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 3
+Neighbours: 2
+Shell: 10
+}
+TeleportGate{
+UID: 2
+Sector: 3
+Neighbours: 1
+WasHitBySunStorm: false
+}

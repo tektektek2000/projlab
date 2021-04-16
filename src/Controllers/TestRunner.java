@@ -70,4 +70,29 @@ public class TestRunner {
         gc.CurrentWorkingDirectory = oldCurr;
     }
 
+    public void RunTest(String Test,GameController gc){
+        String oldCurr = gc.CurrentWorkingDirectory;
+        File f = new File(TestDir + "//" + Test);
+        try {
+            System.out.println();
+            System.out.println("Test[" + f.getName() + "]");
+            try {
+                gc.CurrentWorkingDirectory = f.getPath();
+                Run(f,gc);
+                System.out.println("Test Done");
+            }
+            catch (InvalidCommand invalidCommand) {
+                System.out.println(invalidCommand.getMessage());
+            } catch (BadFileFormat badFileFormat) {
+                System.out.println(badFileFormat.getMessage());
+            }
+        } catch (IOException e) {
+            System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        gc.CurrentWorkingDirectory = oldCurr;
+    }
+
 }
