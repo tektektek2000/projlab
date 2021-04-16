@@ -112,12 +112,16 @@ public class PlayerShip extends Ship {
     public void BuildBase(){
         // checks whether is a base already on the asteroid
         if(asteroid.GetBase() != null){
+            ArrayList<Material> removables = new ArrayList<>();
             if(asteroid.GetBase() == null){
                 Base base = new Base(asteroid.sector.map.GetNewUID());
                 asteroid.SetBase(base);
             }
             for(Material it : materials)
-                asteroid.GetBase().Accept(it);
+                if(asteroid.GetBase().Accept(it))
+                    removables.add(it);
+            for(Material it : removables)
+                materials.remove(it);
             asteroid.GetBase().CheckComplete();
         }
     }
