@@ -1,6 +1,6 @@
 Asteroid{
 	UID: 1
-	Shell: 5
+	Shell: 0
 	Ships: 2
 	Core: 3
 	Sector: 4
