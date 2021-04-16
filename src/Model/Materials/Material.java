@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Controllers.FileController;
 import Model.Asteroid;
+import Model.Map;
 import Model.Saveable;
 import Utils.StringPair;
 
@@ -12,7 +13,7 @@ import javax.management.RuntimeErrorException;
 
 public abstract class Material extends Saveable {
 
-    Material(){}
+    Material(Map m){super(m);}
 
     Material(int uid){
         super(uid);

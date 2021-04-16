@@ -33,12 +33,15 @@ public class FileController {
         return s.replaceAll(" ","");
     }
 
-    private int NextLineShouldBeUID(Scanner FScanner) throws BadFileFormat {
+    private int NextLineShouldBeUID(Scanner FScanner,Map map) throws BadFileFormat {
         String data = Trim(FScanner.nextLine());
         if(data.contains(":")){
             String[] args= data.split(":");
             if(args[0].equals("UID")){
-                return Integer.parseInt(args[1]);
+                int newid = Integer.parseInt(args[1]);
+                if(map.GetUIDMax()<=newid)
+                    map.SetMaxId(newid+1);
+                return newid;
             }
         }
         System.out.println("Failed with:" + data);
@@ -46,6 +49,7 @@ public class FileController {
     }
 
     ArrayList<Pair<Saveable, ArrayList<StringPair>>> BuildLinkeables(File f,GameController GC,Map map) throws FileNotFoundException, BadFileFormat {
+        map.SetMaxId(1);
         ArrayList<Pair<Saveable, ArrayList<StringPair>>> linkables = new ArrayList<>();
         Scanner FScanner = new Scanner(f);
         while (FScanner.hasNextLine()) {
@@ -55,47 +59,47 @@ public class FileController {
                 Pair<Saveable, ArrayList<StringPair>> current = null;
                 switch (ClassType) {
                     case "Asteroid":
-                        current = new Pair<Saveable, ArrayList<StringPair>>(new Asteroid(NextLineShouldBeUID(FScanner)), new ArrayList<>());
+                        current = new Pair<Saveable, ArrayList<StringPair>>(new Asteroid(NextLineShouldBeUID(FScanner,map)), new ArrayList<>());
                         break;
                     case "Base":
-                        current = new Pair<Saveable, ArrayList<StringPair>>(new Base(NextLineShouldBeUID(FScanner)), new ArrayList<>());
+                        current = new Pair<Saveable, ArrayList<StringPair>>(new Base(NextLineShouldBeUID(FScanner,map)), new ArrayList<>());
                         break;
                     case "Coal":
-                        current = new Pair<Saveable, ArrayList<StringPair>>(new Coal(NextLineShouldBeUID(FScanner)), new ArrayList<>());
+                        current = new Pair<Saveable, ArrayList<StringPair>>(new Coal(NextLineShouldBeUID(FScanner,map)), new ArrayList<>());
                         break;
                     case "Iron":
-                        current = new Pair<Saveable, ArrayList<StringPair>>(new Iron(NextLineShouldBeUID(FScanner)), new ArrayList<>());
+                        current = new Pair<Saveable, ArrayList<StringPair>>(new Iron(NextLineShouldBeUID(FScanner,map)), new ArrayList<>());
                         break;
                     case "Ice":
-                        current = new Pair<Saveable, ArrayList<StringPair>>(new Ice(NextLineShouldBeUID(FScanner)), new ArrayList<>());
+                        current = new Pair<Saveable, ArrayList<StringPair>>(new Ice(NextLineShouldBeUID(FScanner,map)), new ArrayList<>());
                         break;
                     case "PlayerShip":
-                        PlayerShip ps = new PlayerShip(NextLineShouldBeUID(FScanner));
+                        PlayerShip ps = new PlayerShip(NextLineShouldBeUID(FScanner,map));
                         current = new Pair<Saveable, ArrayList<StringPair>>(ps, new ArrayList<>());
                         GC.ps.add(ps);
                         break;
                     case "RobotShip":
-                        RobotShip rs = new RobotShip(NextLineShouldBeUID(FScanner));
+                        RobotShip rs = new RobotShip(NextLineShouldBeUID(FScanner,map));
                         current = new Pair<Saveable, ArrayList<StringPair>>(rs, new ArrayList<>());
                         GC.rs.add(rs);
                         break;
                     case "Sector":
-                        Sector s = new Sector(NextLineShouldBeUID(FScanner));
+                        Sector s = new Sector(NextLineShouldBeUID(FScanner,map),map);
                         current = new Pair<Saveable, ArrayList<StringPair>>(s, new ArrayList<>());
                         map.AddSector(s);
                         break;
                     case "TeleportGate":
-                        TeleportGate t = new TeleportGate(NextLineShouldBeUID(FScanner));
+                        TeleportGate t = new TeleportGate(NextLineShouldBeUID(FScanner,map));
                         current = new Pair<Saveable, ArrayList<StringPair>>(t, new ArrayList<>());
                         GC.tgs.add(t);
                         break;
                     case "UFO":
-                        UFO u = new UFO(NextLineShouldBeUID(FScanner));
+                        UFO u = new UFO(NextLineShouldBeUID(FScanner,map));
                         current = new Pair<Saveable, ArrayList<StringPair>>(u, new ArrayList<>());
                         GC.ufos.add(u);
                         break;
                     case "Uranium":
-                        Uranium Uran = new Uranium(NextLineShouldBeUID(FScanner));
+                        Uranium Uran = new Uranium(NextLineShouldBeUID(FScanner,map));
                         current = new Pair<Saveable, ArrayList<StringPair>>(Uran, new ArrayList<>());
                         GC.urans.add(Uran);
                         break;

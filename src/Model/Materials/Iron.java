@@ -1,5 +1,6 @@
 package Model.Materials;
 import Controllers.FileController;
+import Model.Map;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class Iron extends Material {
 
-    Iron(){}
+    Iron(Map m){ super(m);}
 
     public Iron(int uid) {super(uid);}
 

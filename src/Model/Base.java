@@ -12,11 +12,10 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Base extends Saveable{
-    final int UID;
     ArrayList<Material> materials = new ArrayList<>();
 
     public Base(int uid) {
-        UID = uid;
+        super(uid);
     }
 
     // Handles if the base will accept an offered material. Returns true if it added the material,false if not

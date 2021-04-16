@@ -8,12 +8,6 @@ UID: 1
 Sector: 11
 Neighbours: 2,7
 Shell: 0
-Core:6
-}
-Uranium{
-UID: 6
-ExposedFor: 2
-isExposed: false
 }
 Asteroid{
 UID: 2

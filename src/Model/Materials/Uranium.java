@@ -1,6 +1,7 @@
 package Model.Materials;
 import Controllers.FileController;
 import Model.Asteroid;
+import Model.Map;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -12,7 +13,9 @@ public class Uranium extends Material{
     int ExposedFor;
     boolean isExposed;
 
-    Uranium(){}
+    Uranium(Map m){
+        super(m);
+    }
 
     public Uranium(int uid) {super(uid);}
 

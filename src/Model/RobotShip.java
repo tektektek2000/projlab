@@ -12,7 +12,9 @@ import java.util.Random;
 
 public class RobotShip extends Ship {
 
-    RobotShip(){}
+    RobotShip(Asteroid a){
+        super(a);
+    }
 
     public RobotShip(int uid){
         super(uid);

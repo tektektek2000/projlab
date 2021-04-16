@@ -1,6 +1,7 @@
 package Model.Materials;
 import Controllers.FileController;
 import Model.Asteroid;
+import Model.Map;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class Ice extends Material {
 
-    Ice(){}
+    Ice(Map m){super(m);}
 
     public Ice(int uid) {super(uid);}
 

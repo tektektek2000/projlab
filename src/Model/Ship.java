@@ -12,7 +12,10 @@ import java.util.Scanner;
 public abstract class Ship extends Saveable {
     protected Asteroid asteroid;
 
-    Ship(){}
+    public Ship(Asteroid a){
+        super(a.sector.map);
+        asteroid = a;
+    }
 
     public Ship(int uid) {
         super(uid);

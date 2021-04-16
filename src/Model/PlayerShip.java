@@ -16,8 +16,6 @@ public class PlayerShip extends Ship {
     private ArrayList<TeleportGate> teleports = new ArrayList<>();
 
 
-    PlayerShip(){}
-
     public PlayerShip(int uid){
         super(uid);
         materials = new ArrayList<>();
@@ -25,6 +23,7 @@ public class PlayerShip extends Ship {
     }
 
     PlayerShip(Asteroid start){
+        super(start);
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
         asteroid = start;
@@ -53,7 +52,7 @@ public class PlayerShip extends Ship {
         ArrayList<Material> removable;
         removable = b.GetMaterials();
         for(Material m : removable){
-            Remove(m);
+            materials.remove(m);
         }
     }
 
@@ -68,8 +67,8 @@ public class PlayerShip extends Ship {
                 TeleportGate t1 = new TeleportGate(null);
                 TeleportGate t2 = new TeleportGate(null);
                 t1.pair(t2);
-                Add(t1);
-                Add(t2);
+                teleports.add(t1);
+                teleports.add(t2);
             }
         }
     }
@@ -81,7 +80,7 @@ public class PlayerShip extends Ship {
         // checks whether player ship has enough material to craft
         if(bill != null){
             Remove(bill);
-            RobotShip rs = new RobotShip();
+            RobotShip rs = new RobotShip(asteroid);
             asteroid.Add(rs);
         }
     }
@@ -93,7 +92,7 @@ public class PlayerShip extends Ship {
             BillOfMaterial bill = bc.CreateForBaseFoundation(materials);
             if(bill != null) {
                 Remove(bill);
-                Base newbase = new Base(Map.GetNewUID());
+                Base newbase = new Base(asteroid.sector.map.GetNewUID());
                 for(Material m : bill.GetMaterials()){
                     newbase.Accept(m);
                 }
@@ -105,7 +104,7 @@ public class PlayerShip extends Ship {
     // puts back material to the core
     public void PutBack(Material m){
         if(asteroid.SetCore(m)){
-            Remove(m);
+            materials.remove(m);
         }
     }
 
@@ -114,7 +113,7 @@ public class PlayerShip extends Ship {
         // checks whether is a base already on the asteroid
         if(asteroid.GetBase() != null){
             if(asteroid.GetBase() == null){
-                Base base = new Base(Map.GetNewUID());
+                Base base = new Base(asteroid.sector.map.GetNewUID());
                 asteroid.SetBase(base);
             }
             for(Material it : materials)
@@ -138,7 +137,7 @@ public class PlayerShip extends Ship {
     public void Die(){
         // removes all materials
         for(Material m : materials){
-            Remove(m);
+            materials.remove(m);
         }
         // removes all teleports
         for(TeleportGate t : teleports){
@@ -158,14 +157,6 @@ public class PlayerShip extends Ship {
     }
 
     // removes material
-    public void Remove(Material m){
-        materials.remove(m);
-    }
-
-    // adds teleport gate
-    public void Add(TeleportGate t){
-        teleports.add(t);
-    }
 
     // removes teleport gate
     public void Remove(TeleportGate t){

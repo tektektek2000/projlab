@@ -12,7 +12,10 @@ import java.util.ArrayList;
 public class UFO extends Ship{
     ArrayList<Material> materials;
 
-    UFO(){materials = new ArrayList<>();}
+    UFO(Asteroid a){
+        super(a);
+        materials = new ArrayList<>();
+    }
 
     public UFO(int uid){
         super(uid);

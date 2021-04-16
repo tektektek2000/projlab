@@ -13,6 +13,7 @@ public abstract class Field extends Saveable {
     Sector sector;
 
     Field(Sector s){
+        super(s.map);
         sector = s;
         Neighbours = new ArrayList<>();
     }

@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Map {
-    static int UIDMax=1;
+    int UIDMax=1;
 
     private ArrayList<Sector> sectors=new ArrayList<>();
 
@@ -16,9 +16,13 @@ public class Map {
 
     public ArrayList<Sector> getSectors(){return sectors;}
 
-    static int GetNewUID(){
+    int GetNewUID(){
         return UIDMax++;
     }
+
+    public int GetUIDMax() {return  UIDMax; }
+
+    public void SetMaxId(int newmax) {UIDMax = newmax;}
 
     public void Save(PrintStream ps){
         for(Sector it : sectors){

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public abstract class Saveable {
     final int UID;
 
-    public Saveable(){
-        UID = Map.GetNewUID();
+    public Saveable(Map map){
+        UID = map.GetNewUID();
     }
 
     public Saveable(int uid) {

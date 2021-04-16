@@ -12,11 +12,13 @@ import java.util.ArrayList;
 public class Sector extends Saveable{
     private ArrayList<Field> fields;
     private boolean SunClose;
+    Map map = null;
 
-    public Sector(int UID) {
+    public Sector(int UID,Map m) {
         super(UID);
         SunClose = false;
         fields = new ArrayList<>();
+        map = m;
     }
 
 
@@ -55,10 +57,6 @@ public class Sector extends Saveable{
         for(Field it : fields) {
             it.Save(os);
         }
-    }
-
-    Sector(boolean sunclose){
-        SunClose = sunclose;
     }
 
     public void Add(Field f){

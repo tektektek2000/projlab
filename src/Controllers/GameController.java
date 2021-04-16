@@ -34,7 +34,6 @@ public class GameController {
         }
         else if(parts[0].equals("load")){
             FileController fc = new FileController();
-            System.out.println(CurrentWorkingDirectory + "\\" + parts[1]);
             map = fc.Load(new File(CurrentWorkingDirectory + "\\" + parts[1]),this);
         }
         else if(parts[0].equals("controller")){
@@ -48,7 +47,6 @@ public class GameController {
         }
         else if(parts[0].equals("compare")){
             FileController fc = new FileController();
-            System.out.println("Comp " + CurrentWorkingDirectory + "\\" + parts[1] + " to " + CurrentWorkingDirectory + "\\" + parts[2]);
             fc.Compare(new File(CurrentWorkingDirectory + "\\" + parts[1]),new File(CurrentWorkingDirectory + "\\" + parts[2]));
         }
         else{
@@ -56,7 +54,6 @@ public class GameController {
                 throw(new InvalidCommand(CommandLine + "-> Too few parameter for UID search or unknown command"));
             }
             char TypeFlag = parts[0].charAt(0);
-            System.out.println(parts[1]);
             int UID = Integer.parseInt(parts[1]);
             ArrayList<String> Args = new ArrayList<>();
             for(int i=3;i< parts.length;i++){
