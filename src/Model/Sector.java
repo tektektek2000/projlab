@@ -21,7 +21,6 @@ public class Sector extends Saveable{
         map = m;
     }
 
-
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {

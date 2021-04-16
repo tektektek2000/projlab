@@ -12,13 +12,16 @@ import java.util.Random;
 
 public class Asteroid extends Field {
     private ArrayList<Ship> ships;
+    private ArrayList<Ship> Removables;
     private Material core;
     private Base base;
     private int shell;
+    private boolean SunStorm = false;
 
     public Asteroid(Sector s){
         super(s);
         ships = new ArrayList<>();
+        Removables = new ArrayList<>();
         base=null;
         shell = new Random().nextInt(6);
     }
@@ -26,6 +29,7 @@ public class Asteroid extends Field {
     public Asteroid(Sector s,int Shell){
         super(s);
         ships = new ArrayList<>();
+        Removables = new ArrayList<>();
         base=null;
         shell = Shell;
     }
@@ -33,6 +37,7 @@ public class Asteroid extends Field {
     public Asteroid(Sector s,Material Core,int Shell){
         super(s);
         ships = new ArrayList<>();
+        Removables = new ArrayList<>();
         core = Core;
         base=null;
         shell = Shell;
@@ -41,6 +46,7 @@ public class Asteroid extends Field {
     public Asteroid(int UID) {
         super(UID);
         ships = new ArrayList<>();
+        Removables = new ArrayList<>();
         base=null;
         shell = new Random().nextInt(6);
     }
@@ -79,7 +85,10 @@ public class Asteroid extends Field {
 
     // removes ship from the list
     public void Remove(Ship s){
-        ships.remove(s);
+        if(!SunStorm)
+            ships.remove(s);
+        else
+            Removables.add(s);
     }
 
     // adds ship to the list
@@ -104,7 +113,7 @@ public class Asteroid extends Field {
     // getting mined by a ship
     public Material GetMined(){
         // if shell size is not zero cannot get mined
-        if(shell>0){
+        if(shell>0 || core == null){
             return null;
         }
         Material ret = core;
@@ -120,9 +129,14 @@ public class Asteroid extends Field {
 
     @Override
     public void SunStorm() {
+        SunStorm = true;
         for(Ship it : ships){
             it.SunStormNow();
         }
+        for(Ship it : Removables){
+            ships.remove(it);
+        }
+        SunStorm = false;
     }
 
     // asteroid explodes

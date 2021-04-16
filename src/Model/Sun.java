@@ -28,7 +28,7 @@ public class Sun {
     }
 
     public void SunStorm(Sector s){
-        //To do
+        s.SunStorm();
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
@@ -36,7 +36,10 @@ public class Sun {
     public void TurnOver(Map m){
         RoundsUntillStorm--;
         if(RoundsUntillStorm==0){
+            SunStorm(target);
             ArrayList<Sector> sectors = m.getSectors();
+            Random rand = new Random();
+            target = sectors.get(rand.nextInt(sectors.size()));
         }
     }
 
