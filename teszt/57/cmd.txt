@@ -1,0 +1,7 @@
+load test_57.txt
+controller off
+p 4 mine
+p 4 move 7
+p 4 put_back 6
+ls all att
+save map_elvart.txt

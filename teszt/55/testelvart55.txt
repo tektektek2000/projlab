@@ -1,0 +1,17 @@
+Asteroid{
+	UID: 2
+	Neighbours: 3
+	Shell: 0
+	Sector: 8
+}
+Asteroid{
+	UID: 3
+	Neighbours: 2
+	Shell: 10
+	Sector: 8
+}
+Sector{
+	UID: 8
+	Fields: 1, 2, 3
+	isClose: true
+}

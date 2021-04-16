@@ -1,7 +1,22 @@
 package Model.Materials;
+import java.io.PrintStream;
 import java.lang.String;
+import java.util.ArrayList;
+
+import Controllers.FileController;
 import Model.Asteroid;
-public abstract class Material {
+import Model.Saveable;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+
+public abstract class Material extends Saveable {
+
+    Material(){}
+
+    Material(int uid){
+        super(uid);
+    }
 
     // checks if the material given as parameter is same type
     public boolean isSameType(Material m){
@@ -13,4 +28,14 @@ public abstract class Material {
 
     // special action if the sun is close
     public void DrilledThroughSunClose(Asteroid asteroid){}
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("UID: " + GetUID());
+    }
 }

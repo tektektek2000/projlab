@@ -1,18 +1,29 @@
 package Model;
 
+import Controllers.FileController;
+import Utils.LinkerException;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Ship {
-
+public abstract class Ship extends Saveable {
     protected Asteroid asteroid;
+
+    Ship(){}
+
+    public Ship(int uid) {
+        super(uid);
+    }
 
     // moves the ship to the given field
     public void Move(Field f){
-        Skeleton.AddAndPrintCallStack(this + ".Move()");
         asteroid.Remove(this);
-        Asteroid dest = f.MovedTo(this);
+        Asteroid dest = f.MovedTo();
+        dest.Add(this);
         setAsteroid(dest);
-        Skeleton.RemoveFromCallStack(this + ".Move()");
     }
 
     // ship dies
@@ -20,23 +31,14 @@ public abstract class Ship {
 
     // hides ship
     public void Hide(){
-        Skeleton.AddAndPrintCallStack("Ship.Hide()");
-        System.out.println("You hid successfully.");
-        Skeleton.RemoveFromCallStack("Ship.Hide()");
+
     }
 
     // ship gets sun stormed
     public void SunStormNow(){
-        Skeleton.AddAndPrintCallStack("Ship.SunStormNow()");
-        Scanner in = new Scanner(System.in);
-        boolean yes;
-        yes = Skeleton.AskPlayer("Is there any layers on the asteroid?");
-
         // whether ship can hide in empty asteroid or dies
-        if(!yes){
-
-            yes = Skeleton.AskPlayer("Is the asteroid empty?");
-            if(yes){
+        if(asteroid.GetShell() == 0){
+            if(asteroid.GetCore() == null){
                 Hide();
             }
             else{
@@ -46,7 +48,6 @@ public abstract class Ship {
         else{
             Die();
         }
-        Skeleton.RemoveFromCallStack("Ship.SunStormNow()");
     }
 
     // special action if the asteroid explodes
@@ -54,9 +55,7 @@ public abstract class Ship {
 
     // drills on the asteroid
     public void Drill(){
-        Skeleton.AddAndPrintCallStack("Ship.Drill()");
         asteroid.GetDrilled();
-        Skeleton.RemoveFromCallStack("Ship.Drill()");
     }
 
     // gives back asteroid
@@ -67,5 +66,22 @@ public abstract class Ship {
     // sets asteroid
     public void setAsteroid(Asteroid a){
         asteroid = a;
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
+        for(StringPair it : args) {
+            if(it.first.equals("Asteroid")){
+                asteroid = (Asteroid) fc.GetWithUID(Integer.parseInt(it.second));
+            }
+        }
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("UID: " + GetUID());
+        if(asteroid!=null) {
+            os.println("Asteroid: " + asteroid.GetUID());
+        }
     }
 }

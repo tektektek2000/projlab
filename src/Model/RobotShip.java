@@ -1,28 +1,48 @@
 package Model;
 
+import Controllers.FileController;
+import Model.Materials.Material;
+import Utils.LinkerException;
+import Utils.StringPair;
+
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class RobotShip extends Ship {
 
+    RobotShip(){}
+
+    public RobotShip(int uid){
+        super(uid);
+    }
+
     // in case of asteroid exploding robot ship flies over to a close asteroid
     public void AsteroidExploding(){
-        Skeleton.AddAndPrintCallStack("RobotShip.AsteroidExploding()");
         ArrayList<Field> neighbours = asteroid.getNeighbours();
-        neighbours.get(new Random().nextInt(neighbours.size())).MovedTo(this);
-        Skeleton.RemoveFromCallStack("RobotShip.AsteroidExploding()");
+        Move(neighbours.get(new Random().nextInt(neighbours.size())));
     }
 
     // robot ship dies
     public void Die(){
-        Skeleton.AddAndPrintCallStack("RobotShip.Die()");
-        System.out.println("Robot died");
         asteroid.Remove(this);
-        Skeleton.RemoveFromCallStack("RobotShip.Die()");
     }
 
     @Override
     public String toString(){
         return "RobotShip";
+    }
+
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
+        super.Link(args,fc);
+    }
+
+    @Override
+    public void Save(PrintStream os) {
+        os.println("RobotShip{");
+        super.Save(os);
+        os.println("}");
     }
 }
