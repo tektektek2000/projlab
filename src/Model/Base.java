@@ -10,6 +10,7 @@ import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Base extends Saveable{
     ArrayList<Material> materials = new ArrayList<>();
@@ -72,6 +73,12 @@ public class Base extends Saveable{
         os.println("UID: " + GetUID());
         if(materials.size()>0) {
             os.print("\tMaterials: ");
+            materials.sort(new Comparator<Material>() {
+                @Override
+                public int compare(Material o1, Material o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             for (Material it : materials) {
                 os.print(it.GetUID());
                 if (it != materials.get(materials.size() - 1)) {

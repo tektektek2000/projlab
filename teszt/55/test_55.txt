@@ -1,7 +1,7 @@
 Asteroid{
 	UID: 1
 	Neighbours: 2, 3
-	Shell: 2
+	Shell: 1
 	Ships: 5
 	Core: 7
 	Sector: 8

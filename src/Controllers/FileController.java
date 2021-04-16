@@ -167,17 +167,17 @@ public class FileController {
             for(Pair<Saveable, ArrayList<StringPair>> it2 : BLinkeables){
                 if(it1.first.GetUID() == it2.first.GetUID()){
                     found = true;
-                    Assert(it1.second.size() == it2.second.size() , "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter size mismatch");
+                    Assert(it1.second.size() == it2.second.size() , "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter size mismatch");
                     for(StringPair ParamIt1 : it1.second){
                         boolean paramFound = false;
                         for(StringPair ParamIt2 : it2.second){
                             if(ParamIt1.first.equals(ParamIt2.first)){
                                 paramFound = true;
-                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter mismatch: "
+                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter mismatch: "
                                         + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
                             }
                         }
-                        Assert(paramFound , "Parameter not found: Object UID" + it1.first.GetUID() + " Paramtype: " + ParamIt1.first);
+                        Assert(paramFound , "Parameter not found: Object UID:" + it1.first.GetUID() + " Paramtype: " + ParamIt1.first);
                     }
                     break;
                 }
@@ -190,13 +190,13 @@ public class FileController {
             for(Pair<Saveable, ArrayList<StringPair>> it2 : ALinkeables){
                 if(it1.first.GetUID() == it2.first.GetUID()){
                     found = true;
-                    Assert( it1.second.size() == it2.second.size() , "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter size mismatch");
+                    Assert( it1.second.size() == it2.second.size() , "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter size mismatch");
                     for(StringPair ParamIt1 : it1.second){
                         boolean paramFound = false;
                         for(StringPair ParamIt2 : it2.second){
                             if(ParamIt1.first.equals(ParamIt2.first)){
                                 paramFound = true;
-                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1" + it1.first.GetUID() + " UID2" + it2.first.GetUID() + "| Parameter mismatch: "
+                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter mismatch: "
                                         + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
                             }
                         }

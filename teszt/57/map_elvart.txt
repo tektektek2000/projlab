@@ -46,17 +46,13 @@ UID: 3
 Sector: 12
 Neighbours: 2,8
 Shell: 0
-Ships: 5,4
+Ships: 4,5
 Core:6
 }
 Uranium{
 UID: 6
 ExposedFor: 2
 isExposed: true
-}
-RobotShip{
-UID: 5
-Asteroid: 3
 }
 PlayerShip{
 UID: 4
@@ -67,4 +63,8 @@ TeleportGate{
 UID: 10
 WasHitBySunStorm: false
 Pair:9
+}
+RobotShip{
+UID: 5
+Asteroid: 3
 }

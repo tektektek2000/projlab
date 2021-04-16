@@ -1,12 +1,14 @@
 package Model;
 
 import Controllers.FileController;
+import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class Field extends Saveable {
     ArrayList<Field> Neighbours = new ArrayList<>();
@@ -70,6 +72,12 @@ public abstract class Field extends Saveable {
         }
         if(Neighbours.size()>0) {
             os.print("Neighbours: ");
+            Neighbours.sort(new Comparator<Field>() {
+                @Override
+                public int compare(Field o1, Field o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             for (Field it : Neighbours) {
                 os.print(it.GetUID());
                 if (it != Neighbours.get(Neighbours.size() - 1)) {

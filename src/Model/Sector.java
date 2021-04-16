@@ -8,6 +8,7 @@ import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Sector extends Saveable{
     private ArrayList<Field> fields;
@@ -42,6 +43,12 @@ public class Sector extends Saveable{
         os.println("UID: " + GetUID());
         if(fields.size()>0) {
             os.print("Fields: ");
+            fields.sort(new Comparator<Field>() {
+                @Override
+                public int compare(Field o1, Field o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             for (Field it : fields) {
                 os.print(it.GetUID());
                 if (it != fields.get(fields.size() - 1)) {

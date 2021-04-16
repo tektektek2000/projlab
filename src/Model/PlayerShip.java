@@ -10,6 +10,7 @@ import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class PlayerShip extends Ship {
     private ArrayList<Material> materials = new ArrayList<>();
@@ -198,6 +199,12 @@ public class PlayerShip extends Ship {
         super.Save(os);
         if(materials.size()>0) {
             os.print("Materials: ");
+            materials.sort(new Comparator<Material>() {
+                @Override
+                public int compare(Material o1, Material o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             for (Material it : materials) {
                 os.print(it.GetUID());
                 if (it != materials.get(materials.size() - 1)) {
@@ -209,6 +216,12 @@ public class PlayerShip extends Ship {
         }
         if(teleports.size()>0) {
             os.print("Teleports: ");
+            teleports.sort(new Comparator<TeleportGate>() {
+                @Override
+                public int compare(TeleportGate o1, TeleportGate o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             for (TeleportGate it : teleports) {
                 os.print(it.GetUID());
                 if (it != teleports.get(teleports.size() - 1)) {

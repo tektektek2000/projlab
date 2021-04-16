@@ -8,6 +8,7 @@ import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UFO extends Ship{
     ArrayList<Material> materials;
@@ -52,6 +53,12 @@ public class UFO extends Ship{
         super.Save(os);
         if(materials.size()>0) {
             os.print("Materials: ");
+            materials.sort(new Comparator<Material>() {
+                @Override
+                public int compare(Material o1, Material o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             for (Material it : materials) {
                 os.print(it.GetUID());
                 if (it != materials.get(materials.size() - 1)) {

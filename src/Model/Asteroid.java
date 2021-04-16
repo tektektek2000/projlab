@@ -8,6 +8,7 @@ import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Asteroid extends Field {
@@ -195,6 +196,12 @@ public class Asteroid extends Field {
         super.Save(os);
         os.println("Shell: " + shell);
         if(ships.size()>0) {
+            ships.sort(new Comparator<Ship>() {
+                @Override
+                public int compare(Ship o1, Ship o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
             os.print("Ships: ");
             for (Ship it : ships) {
                 os.print(it.GetUID());
