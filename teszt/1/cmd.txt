@@ -3,4 +3,4 @@ controller off
 p 2 mine
 ls all att
 save testdone1.txt
-compare testdone1.txt testcomp1.txt
+compare testdone1.txt testelvart1.txt
