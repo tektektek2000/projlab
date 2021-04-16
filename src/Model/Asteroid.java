@@ -2,6 +2,7 @@ package Model;
 
 import Controllers.FileController;
 import Model.Materials.Material;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -148,7 +149,7 @@ public class Asteroid extends Field {
 
 
     @Override
-    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
         for(StringPair it : args) {
             if(it.first.equals("Ships")){

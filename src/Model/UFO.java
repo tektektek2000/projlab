@@ -2,6 +2,7 @@ package Model;
 
 import Controllers.FileController;
 import Model.Materials.Material;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 public class UFO extends Ship{
     ArrayList<Material> materials;
 
-    UFO(){}
+    UFO(){materials = new ArrayList<>();}
 
     public UFO(int uid){
         super(uid);
+        materials = new ArrayList<>();
     }
 
     @Override
@@ -29,7 +31,7 @@ public class UFO extends Ship{
     }
 
     @Override
-    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
         for(StringPair it : args) {
             if(it.first.equals("Materials")){

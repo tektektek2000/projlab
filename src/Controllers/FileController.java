@@ -3,26 +3,25 @@ package Controllers;
 import Model.*;
 import Model.Materials.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Utils.BadFileFormat;
+import Utils.LinkerException;
 import Utils.Pair;
 import Utils.StringPair;
 
 public class FileController {
     ArrayList<Pair<Saveable, ArrayList<StringPair>>> Linkeables = new ArrayList<>();;
 
-    public Object GetWithUID(int UID){
+    public Object GetWithUID(int UID) throws LinkerException {
         for(Pair<Saveable, ArrayList<StringPair>> it : Linkeables){
             if(it.first.GetUID() == UID){
                 return it.first;
             }
         }
-        return null;
+        throw new LinkerException(UID);
     }
 
     static String Trim(String s){
@@ -39,13 +38,19 @@ public class FileController {
             }
         }
         System.out.println("Failed with:" + data);
-        throw(new BadFileFormat());
+        throw(new BadFileFormat(data,"Invalid UID. First line of object definition should always be UID"));
     }
     //To be vastly expanded
     public Map Load(File file, GameController GC) throws FileNotFoundException, BadFileFormat {
         Map map = new Map();
         Scanner FScanner = new Scanner(file);
+        //Nuking everything that might have been used previously
         Linkeables = new ArrayList<>();
+        GC.ps = new ArrayList<>();
+        GC.rs = new ArrayList<>();
+        GC.ufos = new ArrayList<>();
+        GC.tgs = new ArrayList<>();
+        GC.urans = new ArrayList<>();
         while (FScanner.hasNextLine()) {
             String data = FScanner.nextLine();
             if(data.contains("{")){
@@ -92,8 +97,13 @@ public class FileController {
                         current = new Pair<Saveable, ArrayList<StringPair>>(u, new ArrayList<>());
                         GC.ufos.add(u);
                         break;
+                    case "Uranium":
+                        Uranium Uran = new Uranium(NextLineShouldBeUID(FScanner));
+                        current = new Pair<Saveable, ArrayList<StringPair>>(Uran, new ArrayList<>());
+                        GC.urans.add(Uran);
+                        break;
                     default:
-                        throw(new BadFileFormat());
+                        throw(new BadFileFormat(data,"Invalid class identifier."));
                 }
                 do{
                     data = Trim(FScanner.nextLine());
@@ -105,7 +115,18 @@ public class FileController {
             }
         }
         for(Pair<Saveable, ArrayList<StringPair>> it : Linkeables){
-            it.first.Link(it.second,this);
+            try {
+                it.first.Link(it.second,this);
+            }
+            catch (LinkerException e){
+                String data = "Unknown type Object with UID: " + it.first.GetUID();
+                throw(new BadFileFormat(data,"Couldn't find parameter UID: " + e.GetUID()));
+            }
+            catch (Exception e){
+                String data = "Unknown type Object with UID: " + it.first.GetUID();
+                throw(new BadFileFormat(data,"Unknown linker error in this object"));
+            }
+
         }
         return map;
     }
@@ -161,8 +182,12 @@ public class FileController {
                         UFO u = new UFO(NextLineShouldBeUID(FScanner));
                         current = new Pair<Saveable, ArrayList<StringPair>>(u, new ArrayList<>());
                         break;
+                    case "Uranium":
+                        Uranium Uran = new Uranium(NextLineShouldBeUID(FScanner));
+                        current = new Pair<Saveable, ArrayList<StringPair>>(Uran, new ArrayList<>());
+                        break;
                     default:
-                        throw(new BadFileFormat());
+                        throw(new BadFileFormat(data,"Invalid class identifier."));
                 }
                 do{
                     data = Trim(FScanner.nextLine());
@@ -216,8 +241,12 @@ public class FileController {
                         UFO u = new UFO(NextLineShouldBeUID(FScanner));
                         current = new Pair<Saveable, ArrayList<StringPair>>(u, new ArrayList<>());
                         break;
+                    case "Uranium":
+                        Uranium Uran = new Uranium(NextLineShouldBeUID(FScanner));
+                        current = new Pair<Saveable, ArrayList<StringPair>>(Uran, new ArrayList<>());
+                        break;
                     default:
-                        throw(new BadFileFormat());
+                        throw(new BadFileFormat(data,"Invalid class identifier."));
                 }
                 do{
                     data = Trim(FScanner.nextLine());

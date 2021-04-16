@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -21,6 +22,6 @@ public abstract class Saveable {
     public int GetUID(){
         return UID;
     }
-    public abstract void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException;
+    public abstract void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException;
     public abstract void Save(PrintStream os);
 }

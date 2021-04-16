@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -42,7 +43,7 @@ public abstract class Field extends Saveable {
     public abstract void SunStorm();
 
     @Override
-    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
             if(it.first.equals("Neighbours")){
                 String[] ids = it.second.split(",");

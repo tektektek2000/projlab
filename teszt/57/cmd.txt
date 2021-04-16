@@ -1,4 +1,4 @@
-load map_1.txt
+load test_57.txt
 controller off
 p 4 mine
 p 4 move 7

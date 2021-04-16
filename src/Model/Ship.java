@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -68,7 +69,7 @@ public abstract class Ship extends Saveable {
     }
 
     @Override
-    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
             if(it.first.equals("Asteroid")){
                 asteroid = (Asteroid) fc.GetWithUID(Integer.parseInt(it.second));

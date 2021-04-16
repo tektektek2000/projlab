@@ -4,6 +4,7 @@ import Controllers.FileController;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -55,7 +56,7 @@ public class Base extends Saveable{
 
 
     @Override
-    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
             if(it.first.equals("Materials")){
                 String[] ids = it.second.split(",");

@@ -14,7 +14,7 @@ public class Uranium extends Material{
 
     Uranium(){}
 
-    Uranium(int uid) {super(uid);}
+    public Uranium(int uid) {super(uid);}
 
     // gives back type in string
     protected String GetTypeUnique(){

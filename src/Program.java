@@ -1,5 +1,6 @@
 import Controllers.FileController;
 import Controllers.GameController;
+import Controllers.TestRunner;
 import Model.Map;
 
 import java.io.File;
@@ -14,6 +15,8 @@ public class Program {
         try {
             Map m = fc.Load(new File("teszt.txt"),gc);
             m.Save(System.out);
+            TestRunner tc = new TestRunner("teszt");
+            tc.RunAllTests(gc);
         } catch (Exception e){
             System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }

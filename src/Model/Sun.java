@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Sun {
     private static Sun instance=null;
     private static boolean StormNow=false;
-    private ArrayList<Ship> ToBeDeleted = new ArrayList<>();
     private Map map;
     private int RoundsUntillStorm;
 
@@ -27,10 +26,8 @@ public class Sun {
         map = m;
     }
 
-    public void SunStorm(){
-        for(Sector s : map.getSectors()){
-            s.SunStorm();
-        }
+    public void SunStorm(Sector s){
+        //To do
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
@@ -38,7 +35,7 @@ public class Sun {
     public void TurnOver(){
         RoundsUntillStorm--;
         if(RoundsUntillStorm==0){
-            SunStorm();
+
         }
     }
 

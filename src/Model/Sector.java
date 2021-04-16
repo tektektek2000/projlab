@@ -2,6 +2,7 @@ package Model;
 
 import Controllers.FileController;
 import Model.Materials.Material;
+import Utils.LinkerException;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -20,7 +21,7 @@ public class Sector extends Saveable{
 
 
     @Override
-    public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
             if(it.first.equals("Fields")){
                 String[] ids = it.second.split(",");

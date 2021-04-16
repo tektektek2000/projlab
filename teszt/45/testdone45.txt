@@ -32,4 +32,477 @@ UFO{
 Sector{
 	UID: 6
 	Fields: 1, 2, 3, 4
+}Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
+}
+Sector{
+UID: 6
+Fields: 1,2,3,4
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Neighbours: 3
+Shell: 10
+}
+Asteroid{
+UID: 2
+Sector: 6
+Neighbours: 4
+Shell: 10
+Ships: 5
+}
+UFO{
+UID: 5
+Asteroid: 2
+}
+TeleportGate{
+UID: 3
+Sector: 6
+Neighbours: 1
+WasHitBySunStorm: false
+Pair:4
+}
+TeleportGate{
+UID: 4
+Sector: 6
+Neighbours: 2
+WasHitBySunStorm: false
+Pair:3
 }
