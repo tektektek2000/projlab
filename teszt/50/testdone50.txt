@@ -19,5 +19,5 @@ TeleportGate{
 UID: 3
 Sector: 4
 Neighbours: 1
-WasHitBySunStorm: false
+WasHitBySunStorm: true
 }

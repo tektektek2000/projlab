@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Uranium extends Material{
     int ExposedFor;
     boolean isExposed;
+    Asteroid LastAsteroid;
 
     Uranium(Map m){
         super(m);
@@ -28,19 +29,27 @@ public class Uranium extends Material{
     // in Uranium case it is exploding
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
-        asteroid.Explode();
+        LastAsteroid = asteroid;
+        isExposed = true;
     }
     @Override
     public String toString(){
         return "Uranium";
     }
 
-    public void ForceExplode(){
-
+    @Override
+    public void PickedUp(){
+        isExposed = false;
+        LastAsteroid = null;
     }
 
     public void TurnOver(){
-
+        if(isExposed){
+            ExposedFor++;
+            if(ExposedFor>=3){
+                LastAsteroid.Explode();
+            }
+        }
     }
 
     @Override

@@ -65,6 +65,8 @@ public class Asteroid extends Field {
     public boolean SetCore(Material m){
         if(shell == 0 && core == null){
             core = m;
+            if(sector.getSunClose())
+                core.DrilledThroughSunClose(this);
             return true;
         }
         return false;
@@ -107,6 +109,7 @@ public class Asteroid extends Field {
         }
         Material ret = core;
         core = null;
+        ret.PickedUp();
         return ret;
     }
 

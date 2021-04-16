@@ -8,6 +8,7 @@ import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TeleportGate extends Field{
     private TeleportGate pair;
@@ -54,11 +55,20 @@ public class TeleportGate extends Field{
     }
 
     public void Move(Field f){
-
+        Asteroid dest = f.MovedTo();
+        Neighbours.get(0).RemoveNeighbour(this);
+        Neighbours.remove(Neighbours.get(0));
+        Neighbours.add(dest);
+        dest.AddNeighbour(this);
     }
 
     public void TurnOver(){
-
+        Random rand = new Random();
+        if(WashHitByStorm && rand.nextInt(3)<2){
+            ArrayList<Field> possibilities = Neighbours.get(0).getNeighbours();
+            Field dest = possibilities.get(rand.nextInt(possibilities.size()));
+            Move(dest);
+        }
     }
 
     @Override

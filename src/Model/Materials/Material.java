@@ -30,6 +30,8 @@ public abstract class Material extends Saveable {
     // special action if the sun is close
     public void DrilledThroughSunClose(Asteroid asteroid){}
 
+    public void PickedUp(){}
+
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
 

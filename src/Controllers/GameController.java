@@ -255,9 +255,6 @@ public class GameController {
         if(command.equals("turnover")){
             current.TurnOver();
         }
-        else if(command.equals("explode")){
-            current.ForceExplode();
-        }
     }
 
     public void SunStorm(int UID) throws InvalidCommand {

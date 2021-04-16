@@ -52,7 +52,7 @@ Core:6
 Uranium{
 UID: 6
 ExposedFor: 2
-isExposed: false
+isExposed: true
 }
 RobotShip{
 UID: 5

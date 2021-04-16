@@ -9,6 +9,7 @@ public class Sun {
     private static boolean StormNow=false;
     private Map map;
     private int RoundsUntillStorm;
+    private Sector target;
 
     private Sun(){
         RoundsUntillStorm = new Random().nextInt(6)+3;
@@ -32,10 +33,10 @@ public class Sun {
     }
 
     // calls sun storm if zero turns left until sun storm
-    public void TurnOver(){
+    public void TurnOver(Map m){
         RoundsUntillStorm--;
         if(RoundsUntillStorm==0){
-
+            ArrayList<Sector> sectors = m.getSectors();
         }
     }
 
