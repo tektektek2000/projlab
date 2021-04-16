@@ -1,0 +1,17 @@
+Asteroid{
+	UID: 1
+	Neighbours: 2
+	Shell: 10
+	Sector: 3
+}
+TeleportGate{
+	UID: 2
+	Neighbours: 1
+	Sector: 3
+	WasHitBySunStorm: true
+}
+Sector{
+	UID: 3
+	Fields: 1, 2
+	isClose: false
+}

@@ -1,0 +1,9 @@
+load test_55.txt
+controll off
+r 5 drill
+p 4 drill
+r 5 move 2
+p 4 move 3
+r 5 move 1
+p 5 move 1
+save testdone55.txt 
