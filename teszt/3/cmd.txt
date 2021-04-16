@@ -1,0 +1,5 @@
+load test_3.txt 
+controller off
+u 2 mine
+ls all att
+save testdone3.txt
