@@ -105,7 +105,9 @@ public class Asteroid extends Field {
         if(shell>0){
             return null;
         }
-        return core;
+        Material ret = core;
+        core = null;
+        return ret;
     }
 
     // ship moves to the asteroid

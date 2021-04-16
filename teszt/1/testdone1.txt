@@ -8,10 +8,6 @@ UID: 1
 Sector: 4
 Shell: 0
 Ships: 2
-Core:3
-}
-Coal{
-UID: 3
 }
 PlayerShip{
 UID: 2
