@@ -3,3 +3,4 @@ controller off
 p 3 put_back 4
 ls all att
 save testdone20.txt
+compare testdone20.txt testelvart20.txt

@@ -3,3 +3,4 @@ controller off
 p 2 craft robot
 ls all att
 save testdone11.txt
+compare testdone11.txt testelvart11.txt

@@ -3,3 +3,4 @@ controller off
 r 2 drill
 ls all att
 save testdone32.txt
+compare testdone32.txt testelvart32.txt

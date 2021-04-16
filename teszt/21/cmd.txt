@@ -1,5 +1,6 @@
-load test_21.txt 
+load test_221.txt 
 controller off
 p 2 put_back 4
 ls all att
-save testdone21.txt
+save testdone221.txt
+compare testdone21.txt testelvart21.txt

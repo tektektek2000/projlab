@@ -1,5 +1,6 @@
-load test_51.txt
+load test_551.txt
 controller off
 sunStorm 5
 ls all att
-save testdone51.txt
+save testdone551.txt
+compare testdone51.txt testelvart51.txt

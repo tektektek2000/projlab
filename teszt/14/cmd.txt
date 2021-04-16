@@ -3,3 +3,4 @@ controller off
 p 2 craft base
 ls all att
 save testdone14.txt
+compare testdone14.txt testelvart14.txt

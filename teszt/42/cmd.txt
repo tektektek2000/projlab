@@ -3,3 +3,4 @@ controller off
 t 2 move 4
 ls all att
 save testdone42.txt
+compare testdone42.txt testelvart42.txt

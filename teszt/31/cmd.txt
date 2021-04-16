@@ -1,5 +1,6 @@
-load test_31.txt
+load test_331.txt
 controller off
 p 2 drill
 ls all att
-save testdone31.txt
+save testdone331.txt
+compare testdone31.txt testelvart31.txt

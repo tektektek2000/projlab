@@ -3,3 +3,4 @@ controller off
 p 2 craft teleports
 ls all att
 save testdone8.txt
+compare testdone8.txt testelvart8.txt

@@ -3,3 +3,4 @@ controller off
 p 2 build_base
 ls all att
 save testdone22.txt
+compare testdone22.txt testelvart22.txt

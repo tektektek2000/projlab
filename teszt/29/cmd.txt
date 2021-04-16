@@ -3,3 +3,4 @@ controller off
 p 2 drill
 ls all att
 save testdone29.txt
+compare testdone29.txt testelvart29.txt

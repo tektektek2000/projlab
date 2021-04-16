@@ -49,3 +49,4 @@ p 16 craft base
 p 14 build_base
 p 16 build_base
 save testdone56.txt
+compare testdone56.txt testelvart56.txt
