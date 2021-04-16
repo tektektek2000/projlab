@@ -12,6 +12,6 @@ TeleportGate{
 }
 Sector{
 	UID: 3
-	Fields: 1,2
+	Fields: 1, 2
 	isClose: false
 }

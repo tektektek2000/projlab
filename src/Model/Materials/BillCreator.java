@@ -3,6 +3,7 @@ package Model.Materials;
 import Model.Map;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class BillCreator {
     private static BillCreator instance=null;
@@ -34,7 +35,7 @@ public class BillCreator {
     // Prepares a BillOfMaterial for a pair of TeleportGate-s. If not enough resources are found in the inventory than it returns null.
     public BillOfMaterial CreateForTeleport(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
-        if(!CountAndAdd(inventory,new Uranium(new Map()),bill,1) || !CountAndAdd(inventory,new Coal(new Map()),bill,1) || !CountAndAdd(inventory,new Iron(new Map()),bill,2)){
+        if(!CountAndAdd(inventory,new Uranium(new Map()),bill,1) || !CountAndAdd(inventory,new Ice(new Map()),bill,1) || !CountAndAdd(inventory,new Iron(new Map()),bill,2)){
             return null;
         }
         return bill;

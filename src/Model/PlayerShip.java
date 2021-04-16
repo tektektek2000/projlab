@@ -58,7 +58,7 @@ public class PlayerShip extends Ship {
 
     // crafts teleport gate pair
     public void CraftTeleportGates(){
-        if(teleports.size() > 1) {
+        if(teleports.size() <= 1) {
             BillCreator bc = BillCreator.GetInstance();
             BillOfMaterial bill = bc.CreateForTeleport(materials);
             // checks whether player ship has enough material to craft
