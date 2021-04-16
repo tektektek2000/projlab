@@ -1,6 +1,7 @@
 Asteroid{
 	UID: 1
 	Neighbours: 2, 12
+	Shell: 1
 	Ships: 13, 14
 	Core: 17
 	Sector: 29
@@ -8,6 +9,7 @@ Asteroid{
 Asteroid{
 	UID: 2
 	Neighbours: 1, 3
+	Shell: 1
 	Core: 18
 	Sector: 29
 }
