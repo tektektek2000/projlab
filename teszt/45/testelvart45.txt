@@ -32,4 +32,5 @@ UFO{
 Sector{
 	UID: 6
 	Fields: 1, 2, 3, 4
+	isClose: false
 }

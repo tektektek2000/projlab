@@ -10,14 +10,14 @@ PlayerShip{
 	Asteroid: 1
 	Teleports: 4
 }
-Teleport{
+TeleportGate{
 	UID: 3
 	Pair: 4
 	Neighbours: 1
 	Sector: 5
 	WasHitBySunStorm: false
 }
-Teleport{
+TeleportGate{
 	UID: 4
 	Pair: 3
 	WasHitBySunStorm: false

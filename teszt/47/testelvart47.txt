@@ -9,6 +9,7 @@ TeleportGate{
 	UID: 2
 	Neighbours: 1
 	Sector: 4
+	WasHitBySunStorm: false
 }
 PlayerShip{
 	UID: 3
@@ -17,4 +18,5 @@ PlayerShip{
 Sector{
 	UID: 4
 	Fields: 1, 2
+	isClose: false
 }
