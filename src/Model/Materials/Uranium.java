@@ -38,6 +38,10 @@ public class Uranium extends Material{
         LastAsteroid = asteroid;
         isExposed = true;
     }
+    @Override
+    public String toString(){
+        return "Uranium";
+    }
 
     /**
      * called when the Uranium has been picked up, and sets it's attributes accordingly

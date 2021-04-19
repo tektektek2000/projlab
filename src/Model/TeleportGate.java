@@ -104,6 +104,11 @@ public class TeleportGate extends Field{
         }
     }
 
+    @Override
+    public  String toString(){
+        return "TeleportGate";
+    }
+
     /**
      * Removes a neighbour.
      * @param f The field we want to be removed from neighbours.
