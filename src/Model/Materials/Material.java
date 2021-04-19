@@ -38,7 +38,7 @@ public abstract class Material extends Saveable {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());
     }
 }

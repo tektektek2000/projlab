@@ -1,11 +1,9 @@
 package Model;
 
 import Controllers.FileController;
-import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -107,9 +105,9 @@ public class TeleportGate extends Field{
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("TeleportGate{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("WasHitBySunStorm: " + WashHitByStorm);
         if(pair!=null)
             os.println("Pair:" + pair.GetUID());

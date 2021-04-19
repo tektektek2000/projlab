@@ -30,9 +30,9 @@ public class Iron extends Material {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Iron{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("}");
     }
 }

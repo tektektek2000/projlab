@@ -75,5 +75,5 @@ Current: 2
 }
 Sun{
 Target: 12
-Rounds: 7
+Rounds: 6
 }

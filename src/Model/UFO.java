@@ -5,7 +5,6 @@ import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -48,9 +47,9 @@ public class UFO extends Ship{
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("UFO{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         if(materials.size()>0) {
             os.print("Materials: ");
             materials.sort(new Comparator<Material>() {
@@ -69,8 +68,10 @@ public class UFO extends Ship{
             }
         }
         os.println("}");
-        for(Material s : materials){
-            s.Save(os);
+        if(CallChildren) {
+            for (Material s : materials) {
+                s.Save(os, CallChildren);
+            }
         }
     }
 

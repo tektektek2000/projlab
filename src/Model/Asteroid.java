@@ -5,7 +5,6 @@ import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -200,9 +199,9 @@ public class Asteroid extends Field {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Asteroid{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("Shell: " + shell);
         if(ships.size()>0) {
             ships.sort(new Comparator<Ship>() {
@@ -226,12 +225,14 @@ public class Asteroid extends Field {
         if(core!=null)
             os.println("Core:" + core.GetUID());
         os.println("}");
-        if(core!=null)
-            core.Save(os);
-        if(base!=null)
-            base.Save(os);
-        for(Ship s : ships){
-            s.Save(os);
+        if(CallChildren) {
+            if (core != null)
+                core.Save(os, CallChildren);
+            if (base != null)
+                base.Save(os, CallChildren);
+            for (Ship s : ships) {
+                s.Save(os, CallChildren);
+            }
         }
     }
 }

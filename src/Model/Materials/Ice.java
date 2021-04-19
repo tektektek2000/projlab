@@ -38,9 +38,9 @@ public class Ice extends Material {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Ice{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("}");
     }
 }

@@ -1,7 +1,5 @@
 package Model;
 
-import Controllers.FileController;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -26,7 +24,7 @@ public class Map {
 
     public void Save(PrintStream ps){
         for(Sector it : sectors){
-            it.Save(ps);
+            it.Save(ps, true);
         }
     }
 }

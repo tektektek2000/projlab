@@ -7,7 +7,6 @@ import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -194,9 +193,9 @@ public class PlayerShip extends Ship {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("PlayerShip{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         if(materials.size()>0) {
             os.print("Materials: ");
             materials.sort(new Comparator<Material>() {
@@ -232,11 +231,13 @@ public class PlayerShip extends Ship {
             }
         }
         os.println("}");
-        for(TeleportGate s : teleports){
-            s.Save(os);
-        }
-        for(Material s : materials){
-            s.Save(os);
+        if(CallChildren) {
+            for (TeleportGate s : teleports) {
+                s.Save(os, CallChildren);
+            }
+            for (Material s : materials) {
+                s.Save(os, CallChildren);
+            }
         }
     }
 

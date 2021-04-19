@@ -1,11 +1,9 @@
 package Model;
 
 import Controllers.FileController;
-import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,9 +40,9 @@ public class RobotShip extends Ship {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("RobotShip{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("}");
     }
 }

@@ -66,9 +66,9 @@ public class Uranium extends Material{
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Uranium{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("ExposedFor: " + ExposedFor);
         os.println("isExposed: " + isExposed);
         os.println("}");

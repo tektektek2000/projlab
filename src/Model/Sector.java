@@ -1,11 +1,9 @@
 package Model;
 
 import Controllers.FileController;
-import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,10 +18,6 @@ public class Sector extends Saveable{
         SunClose = false;
         fields = new ArrayList<>();
         map = m;
-    }
-
-    public ArrayList<Field> getFields() {
-        return fields;
     }
 
     @Override
@@ -42,7 +36,7 @@ public class Sector extends Saveable{
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Sector{");
         os.println("UID: " + GetUID());
         if(fields.size()>0) {
@@ -64,8 +58,10 @@ public class Sector extends Saveable{
         }
         os.println("isClose: " + SunClose);
         os.println("}");
-        for(Field it : fields) {
-            it.Save(os);
+        if(CallChildren) {
+            for (Field it : fields) {
+                it.Save(os, CallChildren);
+            }
         }
     }
 

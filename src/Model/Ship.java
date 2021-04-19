@@ -4,10 +4,8 @@ import Controllers.FileController;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Ship extends Saveable {
     protected Asteroid asteroid;
@@ -81,7 +79,7 @@ public abstract class Ship extends Saveable {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());
         if(asteroid!=null) {
             os.println("Asteroid: " + asteroid.GetUID());

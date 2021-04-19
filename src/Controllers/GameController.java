@@ -3,12 +3,9 @@ package Controllers;
 import Model.*;
 import Model.Materials.Material;
 import Model.Materials.Uranium;
-import Utils.BadFileFormat;
 import Utils.InvalidCommand;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameController {
@@ -88,7 +85,7 @@ public class GameController {
                 case "p":
                     for(PlayerShip it : ps){
                         if(all_attrib)
-                            it.Save(System.out);
+                            it.Save(System.out, false);
                         else
                             System.out.println("Player: " + it.GetUID());
                     }
@@ -96,20 +93,20 @@ public class GameController {
                 case "s":
                     for(PlayerShip it : ps){
                         if(all_attrib)
-                            it.Save(System.out);
+                            it.Save(System.out, false);
                         else
                             System.out.println("Player: " + it.GetUID());
                     }
                     for(UFO it : ufos){
                         if(all_attrib)
-                            it.Save(System.out);
+                            it.Save(System.out, false);
                         else
                             System.out.println("Player: " + it.GetUID());
                     }
                 case "r":
                     for(RobotShip it : rs){
                         if(all_attrib)
-                            it.Save(System.out);
+                            it.Save(System.out, false);
                         else
                             System.out.println("Robot: " + it.GetUID());
                     }
@@ -117,7 +114,7 @@ public class GameController {
                 case "u":
                     for(UFO it : ufos){
                         if(all_attrib)
-                            it.Save(System.out);
+                            it.Save(System.out, false);
                         else
                             System.out.println("Player: " + it.GetUID());
                     }
@@ -127,7 +124,7 @@ public class GameController {
                         for(Field f : s.getFields()){
                             if(f.toString().equals("Asteroid")){
                                 if(all_attrib)
-                                    f.Save(System.out);
+                                    f.Save(System.out, false);
                                 else
                                     System.out.println("Player: " + f.GetUID());
                             }
@@ -137,7 +134,7 @@ public class GameController {
                 case "t":
                     for(TeleportGate it : tgs){
                         if(all_attrib)
-                            it.Save(System.out);
+                            it.Save(System.out, false);
                         else
                             System.out.println("Player: " + it.GetUID());
                     }

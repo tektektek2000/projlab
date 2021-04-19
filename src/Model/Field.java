@@ -1,11 +1,9 @@
 package Model;
 
 import Controllers.FileController;
-import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -71,7 +69,7 @@ public abstract class Field extends Saveable {
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());
         if(sector!=null) {
             os.println("Sector: " + sector.GetUID());

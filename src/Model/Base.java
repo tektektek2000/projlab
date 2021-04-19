@@ -7,7 +7,6 @@ import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -68,7 +67,7 @@ public class Base extends Saveable{
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Base{");
         os.println("UID: " + GetUID());
         if(materials.size()>0) {
@@ -89,8 +88,10 @@ public class Base extends Saveable{
             }
         }
         os.println("}");
-        for(Material it : materials){
-            it.Save(os);
+        if(CallChildren) {
+            for (Material it : materials) {
+                it.Save(os, CallChildren);
+            }
         }
     }
 }

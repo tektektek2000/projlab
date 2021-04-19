@@ -29,9 +29,9 @@ public  class Coal extends Material{
     }
 
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os, boolean CallChildren) {
         os.println("Coal{");
-        super.Save(os);
+        super.Save(os, CallChildren);
         os.println("}");
     }
 }
