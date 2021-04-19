@@ -78,6 +78,10 @@ public class MapBuilder {
         return map;
     }
 
+    /**
+     * Generating random Material which is not the given param
+     * @return the sector which should be ignored
+     */
     private Sector genRndSector(Sector s){
         while(true){
             Sector rndSector = map.getSectors().get(random.nextInt(map.getSectors().size()));
