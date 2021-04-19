@@ -1,8 +1,10 @@
 package Utils;
 
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 
+/**
+ * An exception class for invalid commands.
+ */
 public class InvalidCommand extends Exception{
     String line;
     public  InvalidCommand(String Line){line = Line;}
@@ -15,6 +17,11 @@ public class InvalidCommand extends Exception{
         line += ErrorMsg;
     }
 
+    /**
+     * The getter of the error message.
+     * It contains the place where the mistake happened and possible reasons.
+     * @return
+     */
     @Override
     public String getMessage(){
         return "An invalid command was entered: " + line;

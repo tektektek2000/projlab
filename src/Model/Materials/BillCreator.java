@@ -1,17 +1,21 @@
 package Model.Materials;
 
 import Model.Map;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 
+/**
+ * Creates bills for the crafting and building.
+ */
 public class BillCreator {
+    /**
+     * The instance of the singleton BillCreator class.
+     */
     private static BillCreator instance=null;
 
     private BillCreator(){}
 
     /**
-     * @return Singleton class. Returns the only instance of BillCreator that exists
+     * @return Singleton class. Returns the only instance of BillCreator that exists.
      */
     public static BillCreator GetInstance(){
         if(instance==null){
@@ -21,14 +25,13 @@ public class BillCreator {
     }
 
     /**
-     * compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial
-     * @param inventory the list of materials where we search for the needed material
-     * @param Comparator the material what we are looking for
-     * @param bill the BillOfMaterial, where we add the matching material if needed
-     * @param Needed how many materials we need for the bill
-     * @return true, if there was enough materials in the given inventory, and false if not
+     * Compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial.
+     * @param inventory The list of materials where we search for the needed material.
+     * @param Comparator The material what we are looking for.
+     * @param bill The BillOfMaterial, where we add the matching material if needed.
+     * @param Needed How many materials we need for the bill.
+     * @return True, if there was enough materials in the given inventory, and false if not.
      */
-
     public boolean CountAndAdd(ArrayList<Material> inventory,Material Comparator,BillOfMaterial bill,int Needed){
         int Count=0;
         for(Material it : inventory){
@@ -42,9 +45,9 @@ public class BillCreator {
     }
 
     /**
-     * prepares a BillOfMaterial for teleport gates
-     * @param inventory the list of materials where we search for the needed ones
-     * @return the bill, if possible, null if there is not enough materials in the inventory
+     * Prepares a BillOfMaterial for teleport gates.
+     * @param inventory The list of materials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
      */
     public BillOfMaterial CreateForTeleport(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
@@ -55,9 +58,9 @@ public class BillCreator {
     }
 
     /**
-     * prepares a BillOfMaterial for a base foundation
-     * @param inventory the list of materials where we search for the needed ones
-     * @return the bill, if possible, null if there is not enough materials in the inventory
+     * Prepares a BillOfMaterial for a base foundation.
+     * @param inventory The list of materials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
      */
     public BillOfMaterial CreateForBaseFoundation(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
@@ -68,9 +71,9 @@ public class BillCreator {
     }
 
     /**
-     * prepares a BillOfMaterial for a robot
-     * @param inventory the list of materials where we search for the needed ones
-     * @return the bill, if possible, null if there is not enough materials in the inventory
+     * Prepares a BillOfMaterial for a robot.
+     * @param inventory The list of materials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
      */
     public BillOfMaterial CreateForRobot(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
@@ -81,9 +84,9 @@ public class BillCreator {
     }
 
     /**
-     * prepares a BillOfMaterial for a completed base
-     * @param inventory the list of mterials where we search for the needed ones
-     * @return the bill, if possible, null if there is not enough materials in the inventory
+     * Prepares a BillOfMaterial for a completed base.
+     * @param inventory The list of mterials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
      */
     public BillOfMaterial CreateForBase(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
