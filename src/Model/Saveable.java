@@ -16,6 +16,9 @@ public abstract class Saveable {
      */
     final int UID;
 
+    /**
+     * @param map
+     */
     public Saveable(Map map){
         UID = map.GetNewUID();
     }
