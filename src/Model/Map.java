@@ -16,7 +16,7 @@ public class Map {
 
     public ArrayList<Sector> getSectors(){return sectors;}
 
-    int GetNewUID(){
+    public int GetNewUID(){
         return UIDMax++;
     }
 

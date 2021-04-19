@@ -29,6 +29,12 @@ public abstract class Field extends Saveable {
         Neighbours = new ArrayList<>();
     }
 
+    public Field(int UID, Sector s) {
+        super(UID);
+        sector = s;
+        Neighbours = new ArrayList<>();
+    }
+
     // ship moves to the asteroid
     public abstract Asteroid MovedTo();
 
