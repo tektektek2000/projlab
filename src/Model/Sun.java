@@ -17,7 +17,7 @@ public class Sun {
 
     /**
      * tatic instance getter
-     * @return
+     * @return the instance from the Sun
      */
     public static Sun GetInstance(){
         if(instance == null){

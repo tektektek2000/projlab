@@ -7,6 +7,9 @@ import Utils.StringPair;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/**
+ * It's an abstract class. The derived classes can be saved into the output files
+ */
 public abstract class Saveable {
     final int UID;
 
