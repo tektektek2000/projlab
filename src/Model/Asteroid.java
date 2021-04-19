@@ -44,6 +44,15 @@ public class Asteroid extends Field {
         shell = Shell;
     }
 
+    public Asteroid(int UID, Sector s, Material _core, int _shell) {
+        super(UID, s);
+        ships = new ArrayList<>();
+        Removables = new ArrayList<>();
+        core = _core;
+        base = null;
+        shell = _shell;
+    }
+
     public Asteroid(int UID) {
         super(UID);
         ships = new ArrayList<>();
