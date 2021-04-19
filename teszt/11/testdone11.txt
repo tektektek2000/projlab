@@ -17,3 +17,12 @@ RobotShip{
 UID: 7
 Asteroid: 1
 }
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 6
+Rounds: 6
+}

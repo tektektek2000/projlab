@@ -15,3 +15,10 @@ Sector: 3
 Neighbours: 1
 WasHitBySunStorm: true
 }
+Controller{
+controller: false
+}
+Sun{
+Target: 3
+Rounds: 6
+}

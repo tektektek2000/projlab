@@ -12,10 +12,19 @@ Core:3
 }
 Uranium{
 UID: 3
-ExposedFor: 0
+ExposedFor: 1
 isExposed: true
 }
 PlayerShip{
 UID: 2
 Asteroid: 1
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 4
+Rounds: 4
 }

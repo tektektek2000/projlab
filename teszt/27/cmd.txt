@@ -1,6 +1,5 @@
 load test_27.txt 
 controller off
 p 2 drill
-ls all att
 save testdone27.txt
 compare testdone27.txt testelvart27.txt

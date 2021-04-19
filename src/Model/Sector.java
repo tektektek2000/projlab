@@ -83,6 +83,8 @@ public class Sector extends Saveable{
         }
     }
 
+    public ArrayList<Field> getFields(){return fields;}
+
     public boolean getSunClose(){
         return SunClose;
     }

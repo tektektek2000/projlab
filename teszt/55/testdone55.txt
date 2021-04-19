@@ -1,17 +1,31 @@
-Asteroid{
-	UID: 2
-	Neighbours: 3
-	Shell: 0
-	Sector: 8
-}
-Asteroid{
-	UID: 3
-	Neighbours: 2
-	Shell: 10
-	Sector: 8
-}
 Sector{
-	UID: 8
-	Fields: 1, 2, 3
-	isClose: true
+UID: 8
+Fields: 2,3
+isClose: true
+}
+Asteroid{
+UID: 2
+Sector: 8
+Neighbours: 3
+Shell: 0
+}
+Asteroid{
+UID: 3
+Sector: 8
+Neighbours: 2
+Shell: 10
+Ships: 5
+}
+RobotShip{
+UID: 5
+Asteroid: 3
+}
+Controller{
+controller: false
+Order: 4
+Current: 2
+}
+Sun{
+Target: 8
+Rounds: 5
 }

@@ -13,5 +13,12 @@ TeleportGate{
 UID: 2
 Sector: 3
 Neighbours: 1
-WasHitBySunStorm: false
+WasHitBySunStorm: true
+}
+Controller{
+controller: false
+}
+Sun{
+Target: 3
+Rounds: 4
 }

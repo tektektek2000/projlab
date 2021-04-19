@@ -13,3 +13,10 @@ UFO{
 UID: 2
 Asteroid: 1
 }
+Controller{
+controller: false
+}
+Sun{
+Target: 3
+Rounds: 7
+}

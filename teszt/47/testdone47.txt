@@ -20,3 +20,12 @@ Sector: 4
 Neighbours: 1
 WasHitBySunStorm: false
 }
+Controller{
+controller: false
+Order: 3
+Current: 2
+}
+Sun{
+Target: 4
+Rounds: 4
+}

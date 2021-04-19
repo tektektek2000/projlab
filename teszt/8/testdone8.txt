@@ -12,22 +12,28 @@ Ships: 2
 PlayerShip{
 UID: 2
 Asteroid: 1
-Materials: 3,4,5,6,7
+Materials: 4
+Teleports: 9,10
 }
-Iron{
-UID: 3
+TeleportGate{
+UID: 9
+WasHitBySunStorm: false
+Pair:10
+}
+TeleportGate{
+UID: 10
+WasHitBySunStorm: false
+Pair:9
 }
 Coal{
 UID: 4
 }
-Iron{
-UID: 5
+Controller{
+controller: false
+Order: 2
+Current: 2
 }
-Ice{
-UID: 6
-}
-Uranium{
-UID: 7
-ExposedFor: 0
-isExposed: false
+Sun{
+Target: 8
+Rounds: 5
 }

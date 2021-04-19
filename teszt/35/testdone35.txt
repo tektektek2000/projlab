@@ -20,3 +20,12 @@ PlayerShip{
 UID: 3
 Asteroid: 2
 }
+Controller{
+controller: false
+Order: 3
+Current: 2
+}
+Sun{
+Target: 4
+Rounds: 6
+}

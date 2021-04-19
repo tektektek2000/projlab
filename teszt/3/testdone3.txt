@@ -17,3 +17,10 @@ Materials: 3
 Coal{
 UID: 3
 }
+Controller{
+controller: false
+}
+Sun{
+Target: 4
+Rounds: 5
+}

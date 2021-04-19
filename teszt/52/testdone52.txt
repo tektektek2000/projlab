@@ -7,21 +7,17 @@ Asteroid{
 UID: 1
 Sector: 5
 Shell: 0
-Ships: 2,3,4
 Core:6
 }
 Iron{
 UID: 6
 }
-PlayerShip{
-UID: 2
-Asteroid: 1
+Controller{
+controller: false
+Order: 2
+Current: 2
 }
-RobotShip{
-UID: 3
-Asteroid: 1
-}
-UFO{
-UID: 4
-Asteroid: 1
+Sun{
+Target: 5
+Rounds: 3
 }

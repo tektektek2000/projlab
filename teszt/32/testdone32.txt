@@ -12,10 +12,17 @@ Core:3
 }
 Uranium{
 UID: 3
-ExposedFor: 0
+ExposedFor: 1
 isExposed: true
 }
 RobotShip{
 UID: 2
 Asteroid: 1
+}
+Controller{
+controller: false
+}
+Sun{
+Target: 4
+Rounds: 5
 }

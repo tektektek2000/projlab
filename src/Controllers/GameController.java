@@ -20,7 +20,22 @@ public class GameController {
     Map map=null;
     boolean controller = true;
     String CurrentWorkingDirectory = System.getProperty("user.dir");
+    private PlayerShip CurrentPlayer;
 
+    PlayerShip getCurrentPlayer(){
+        if(CurrentPlayer==null){
+            CurrentPlayer = ps.get(0);
+        }
+        return CurrentPlayer;
+    }
+
+    void setCurrentPlayer(PlayerShip p){
+        CurrentPlayer = p;
+    }
+
+    void setController(boolean val){
+        controller = val;
+    }
 
     void InterpretCommand(String CommandLine) throws Exception {
         String[] parts = CommandLine.split(" ");
@@ -28,22 +43,26 @@ public class GameController {
         if (parts[0].equals("@Fail")){
             boolean Failed = false;
             try {
-                String LineWithOutFlag = parts[1];
-                for(int i=2;i<parts.length;i++)
+                String LineWithOutFlag = parts[1] + " ";
+                for(int i=2;i<parts.length;i++) {
                     LineWithOutFlag += parts[i];
+                    if(i < parts.length-1)
+                        LineWithOutFlag += " ";
+                }
                 InterpretCommand(LineWithOutFlag);
             } catch (InvalidCommand e){
                 Failed = true;
             }
-            if(!Failed)
-                throw(new InvalidCommand(CommandLine + "-> Line marked as Fail didn't fail"));
+            if(!Failed) {
+                throw (new InvalidCommand(CommandLine + "-> Line marked as Fail didn't fail"));
+            }
         }
         else if (parts[0].equals("sunStorm")){
             SunStorm(Integer.parseInt(parts[1]));
         }
         else if (parts[0].equals("save")){
             FileController fc = new FileController();
-            fc.Save(new File(CurrentWorkingDirectory + "\\" + parts[1]),map);
+            fc.Save(new File(CurrentWorkingDirectory + "\\" + parts[1]),map,this);
         }
         else if(parts[0].equals("load")){
             FileController fc = new FileController();
@@ -56,7 +75,74 @@ public class GameController {
             EndTurn();
         }
         else if(parts[0].equals("ls")){
-            //TODO
+            boolean all_attrib = false;
+            if(parts.length >= 3){
+                if(parts[2].equals("att")){
+                    all_attrib = true;
+                }
+            }
+            switch (parts[1]){
+                case "all":
+                    map.Save(System.out);
+                    break;
+                case "p":
+                    for(PlayerShip it : ps){
+                        if(all_attrib)
+                            it.Save(System.out);
+                        else
+                            System.out.println("Player: " + it.GetUID());
+                    }
+                    break;
+                case "s":
+                    for(PlayerShip it : ps){
+                        if(all_attrib)
+                            it.Save(System.out);
+                        else
+                            System.out.println("Player: " + it.GetUID());
+                    }
+                    for(UFO it : ufos){
+                        if(all_attrib)
+                            it.Save(System.out);
+                        else
+                            System.out.println("Player: " + it.GetUID());
+                    }
+                case "r":
+                    for(RobotShip it : rs){
+                        if(all_attrib)
+                            it.Save(System.out);
+                        else
+                            System.out.println("Robot: " + it.GetUID());
+                    }
+                    break;
+                case "u":
+                    for(UFO it : ufos){
+                        if(all_attrib)
+                            it.Save(System.out);
+                        else
+                            System.out.println("Player: " + it.GetUID());
+                    }
+                    break;
+                case "a":
+                    for(Sector s : map.getSectors()){
+                        for(Field f : s.getFields()){
+                            if(f.toString().equals("Asteroid")){
+                                if(all_attrib)
+                                    f.Save(System.out);
+                                else
+                                    System.out.println("Player: " + f.GetUID());
+                            }
+                        }
+                    }
+                    break;
+                case "t":
+                    for(TeleportGate it : tgs){
+                        if(all_attrib)
+                            it.Save(System.out);
+                        else
+                            System.out.println("Player: " + it.GetUID());
+                    }
+                    break;
+            }
         }
         else if(parts[0].equals("compare")){
             FileController fc = new FileController();
@@ -68,6 +154,9 @@ public class GameController {
             }
             char TypeFlag = parts[0].charAt(0);
             int UID = Integer.parseInt(parts[1]);
+            if(controller && UID != getCurrentPlayer().GetUID()){
+                throw (new InvalidCommand(CommandLine + " -> " + "The object with this identifier is not the one taking its turn."));
+            }
             ArrayList<String> Args = new ArrayList<>();
             for(int i=3;i< parts.length;i++){
                 Args.add(parts[i]);
@@ -277,5 +366,6 @@ public class GameController {
         for(TeleportGate t : tgs){
             t.TurnOver();
         }
+        Sun.GetInstance().TurnOver();
     }
 }

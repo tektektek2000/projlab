@@ -34,3 +34,10 @@ Neighbours: 2
 WasHitBySunStorm: false
 Pair:3
 }
+Controller{
+controller: false
+}
+Sun{
+Target: 6
+Rounds: 5
+}

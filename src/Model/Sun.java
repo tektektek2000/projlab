@@ -25,6 +25,8 @@ public class Sun {
 
     public void SetMap(Map m){
         map = m;
+        target = m.getSectors().get(new Random().nextInt(m.getSectors().size()));
+        RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
     public void SunStorm(Sector s){
@@ -33,14 +35,30 @@ public class Sun {
     }
 
     // calls sun storm if zero turns left until sun storm
-    public void TurnOver(Map m){
+    public void TurnOver(){
         RoundsUntillStorm--;
         if(RoundsUntillStorm==0){
             SunStorm(target);
-            ArrayList<Sector> sectors = m.getSectors();
+            ArrayList<Sector> sectors = map.getSectors();
             Random rand = new Random();
             target = sectors.get(rand.nextInt(sectors.size()));
         }
+    }
+
+    public Sector getTarget(){
+        return target;
+    }
+
+    public void setTarget(Sector sector){
+        target = sector;
+    }
+
+    public void setRoundsUntillStorm(int val){
+        RoundsUntillStorm = val;
+    }
+
+    public int getRoundsUntillStorm(){
+        return RoundsUntillStorm;
     }
 
     // checks if the given asteroid is in sun close area

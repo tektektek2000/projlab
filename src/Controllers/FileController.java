@@ -52,7 +52,12 @@ public class FileController {
         map.SetMaxId(1);
         ArrayList<Pair<Saveable, ArrayList<StringPair>>> linkables = new ArrayList<>();
         Scanner FScanner = new Scanner(f);
+        ArrayList<Integer> Order = new ArrayList<>();
+        int CurrentPS = 0;
+        int Target = 0;
+        int Rounds = -1;
         while (FScanner.hasNextLine()) {
+            boolean SpecificLine = false;
             String data = FScanner.nextLine();
             if(data.contains("{")){
                 String ClassType = Trim((data.substring(0,data.indexOf('{'))));
@@ -103,18 +108,95 @@ public class FileController {
                         current = new Pair<Saveable, ArrayList<StringPair>>(Uran, new ArrayList<>());
                         GC.urans.add(Uran);
                         break;
+                    case "Controller":
+                    case "Sun":
+                        SpecificLine = true;
+                        break;
                     default:
                         throw(new BadFileFormat(data,"Invalid class identifier."));
                 }
-                do{
-                    data = Trim(FScanner.nextLine());
-                    if(!data.contains("}")){
-                        current.second.add(new StringPair(data.split(":")));
-                    }
-                }while(!data.contains("}"));
-                linkables.add(current);
+                if(!SpecificLine) {
+                    do {
+                        data = Trim(FScanner.nextLine());
+                        if (!data.contains("}")) {
+                            current.second.add(new StringPair(data.split(":")));
+                        }
+                    } while (!data.contains("}"));
+                    linkables.add(current);
+                }
+                else{
+                    do {
+                        data = Trim(FScanner.nextLine());
+                        if (!data.contains("}")) {
+                            if (ClassType.equals("Controller")) {
+                                StringPair val = new StringPair(data.split(":"));
+                                if (val.first.equals("controller")) {
+                                    GC.setController(Boolean.parseBoolean(val.second));
+                                }
+                                else if (val.first.equals("Order")) {
+                                    String[] ids = val.second.split(",");
+                                    for(String s : ids){
+                                        Order.add(Integer.parseInt(s));
+                                    }
+                                }
+                                else if (val.first.equals("Current")) {
+                                    CurrentPS = Integer.parseInt(val.second);
+                                }
+                            }
+                            else if(ClassType.equals("Sun")){
+                                StringPair val = new StringPair(data.split(":"));
+                                if (val.first.equals("Target")) {
+                                    Target = Integer.parseInt(val.second);
+                                }
+                                else if (val.first.equals("Rounds")) {
+                                    Rounds = Integer.parseInt(val.second);
+                                }
+                            }
+                        }
+                    } while (!data.contains("}"));
+                }
             }
         }
+        //Linking Sun's things and Controller's things
+        Sun.GetInstance().SetMap(map);
+        if(Order.size() > 0){
+            ArrayList<PlayerShip> order = new ArrayList<>();
+            for(Integer i : Order) {
+                for (PlayerShip p : GC.ps) {
+                    if(i.equals(p.GetUID())){
+                        order.add(p);
+                        break;
+                    }
+                }
+            }
+            if(GC.ps.size() == order.size()){
+                GC.ps = order;
+            }
+        }
+        if(CurrentPS != 0){
+            PlayerShip c = null;
+            for (PlayerShip p : GC.ps) {
+                if(CurrentPS == p.GetUID()){
+                    c = p;
+                    break;
+                }
+            }
+            if(c != null)
+                GC.setCurrentPlayer(c);
+        }
+        if(Target != 0){
+            Sector t = null;
+            for(Sector s : map.getSectors()){
+                if(s.GetUID() == Target){
+                    t = s;
+                    break;
+                }
+            }
+            if(t != null)
+                Sun.GetInstance().setTarget(t);
+        }
+        if(Rounds != -1)
+            Sun.GetInstance().setRoundsUntillStorm(Rounds);
         return linkables;
     }
 
@@ -142,18 +224,38 @@ public class FileController {
                 String data = "Unknown type Object with UID: " + it.first.GetUID();
                 throw(new BadFileFormat(data,"Unknown issue:" + e.getClass() + ": " + Arrays.toString(e.getStackTrace())));
             }
-
-
         }
         return map;
     }
 
-    public void Save(File f,Map map) throws FileNotFoundException {
+    public void Save(File f,Map map,GameController gc) throws FileNotFoundException {
         if(f.exists())
             f.delete();
-        PrintStream ps = new PrintStream(
+        PrintStream os = new PrintStream(
                 new FileOutputStream(f, true));
-        map.Save(ps);
+        map.Save(os);
+
+        os.println("Controller{");
+        os.println("controller: " + gc.controller);
+        if(gc.ps.size() > 0) {
+            os.print("Order: ");
+            for (PlayerShip it : gc.ps) {
+                os.print(it.GetUID());
+                if (it != gc.ps.get(gc.ps.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+            os.println("Current: " + gc.getCurrentPlayer().GetUID());
+        }
+        os.println("}");
+        os.println("Sun{");
+        if(Sun.GetInstance().getTarget() != null)
+            os.println("Target: " + Sun.GetInstance().getTarget().GetUID());
+        os.println("Rounds: " + Sun.GetInstance().getRoundsUntillStorm());
+        os.println("}");
+        os.close();
     }
 
     public boolean Compare(File a, File b) throws Exception {

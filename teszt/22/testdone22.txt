@@ -40,19 +40,13 @@ UID: 9
 PlayerShip{
 UID: 2
 Asteroid: 1
-Materials: 6,7,8,9
 }
-Coal{
-UID: 6
+Controller{
+controller: false
+Order: 2
+Current: 2
 }
-Ice{
-UID: 7
-}
-Uranium{
-UID: 8
-ExposedFor: 0
-isExposed: false
-}
-Coal{
-UID: 9
+Sun{
+Target: 10
+Rounds: 5
 }

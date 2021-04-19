@@ -17,3 +17,12 @@ Materials: 3
 Iron{
 UID: 3
 }
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 4
+Rounds: 4
+}

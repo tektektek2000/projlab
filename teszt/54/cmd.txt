@@ -1,6 +1,5 @@
 load test_54.txt
 controller off
 sunStorm 3
-ls all att
 save testdone54.txt
 compare testdone54.txt testelvart54.txt

@@ -17,7 +17,7 @@ public class Program {
             //m.Save(System.out);
             TestRunner tc = new TestRunner("teszt");
             tc.RunAllTests(gc);
-            // tc.RunTest("55",gc);
+            //tc.RunTest("52",gc);
         } catch (Exception e){
             System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
