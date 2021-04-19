@@ -19,10 +19,6 @@ public class Sun {
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
-    /**
-     * static instance getter
-     * @return the instance from the Sun
-     */
     public static Sun GetInstance(){
         if(instance == null){
             instance = new Sun();
@@ -36,12 +32,17 @@ public class Sun {
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
+    /**
+     * @param s the sector where the sun storm will happen
+     */
     public void SunStorm(Sector s){
         s.SunStorm();
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
-    // calls sun storm if zero turns left until sun storm
+    /**
+     * calls sun storm if zero turns left until sun storm
+     */
     public void TurnOver(){
         RoundsUntillStorm--;
         if(RoundsUntillStorm==0){
@@ -68,11 +69,18 @@ public class Sun {
         return RoundsUntillStorm;
     }
 
-    // checks if the given asteroid is in sun close area
+    /**
+     * checks if the given asteroid is in sun close area
+     * @param a the asteroid which can be close or not close to the sun
+     * @return
+     */
     public boolean isClose(Asteroid a){
         return false;
     }
 
+    /**
+     * reset the instance
+     */
     public static void Reset(){
         instance = null;
     }
