@@ -18,13 +18,18 @@ public class RobotShip extends Ship {
         super(uid);
     }
 
-    // in case of asteroid exploding robot ship flies over to a close asteroid
+    /**
+     * in case of asteroid exploding robot ship flies over to a close asteroid
+     */
+
     public void AsteroidExploding(){
         ArrayList<Field> neighbours = asteroid.getNeighbours();
         Move(neighbours.get(new Random().nextInt(neighbours.size())));
     }
 
-    // robot ship dies
+    /**
+     * robot ship dies
+     */
     public void Die(){
         asteroid.Remove(this);
     }
@@ -34,11 +39,20 @@ public class RobotShip extends Ship {
         return "RobotShip";
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
     }
 
+    /**
+     * @param os the stream, where the class will be written
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("RobotShip{");

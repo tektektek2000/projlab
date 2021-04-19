@@ -15,7 +15,10 @@ public class Sun {
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
-    // static instance getter
+    /**
+     * tatic instance getter
+     * @return
+     */
     public static Sun GetInstance(){
         if(instance == null){
             instance = new Sun();

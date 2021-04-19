@@ -20,6 +20,11 @@ public class Sector extends Saveable{
         map = m;
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -35,6 +40,10 @@ public class Sector extends Saveable{
         }
     }
 
+    /**
+     * @param os the stream, where the class will be written
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Sector{");
