@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * It represents the Sun in the game.
+ * It controls the SunStorms
+ */
 public class Sun {
     private static Sun instance=null;
     private static boolean StormNow=false;
@@ -16,7 +20,7 @@ public class Sun {
     }
 
     /**
-     * tatic instance getter
+     * static instance getter
      * @return the instance from the Sun
      */
     public static Sun GetInstance(){
