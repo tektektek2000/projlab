@@ -9,6 +9,10 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * It represents the UFOs of the game.
+ * It controls by the AIController
+ */
 public class UFO extends Ship{
     ArrayList<Material> materials;
 
@@ -90,7 +94,9 @@ public class UFO extends Ship{
         }
     }
 
-    // mines asteroid's core material
+    /**
+     * mines asteroid's core material
+     */
     public void Mine(){
         // only mines if player ship has 9 material or less
         if(materials.size() < 10) {

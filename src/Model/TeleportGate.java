@@ -7,6 +7,10 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * It represents the teleport gates of the game
+ * Every teleport gate has a pair and it can be hit by the storm when it gets insane.
+ */
 public class TeleportGate extends Field{
     private TeleportGate pair;
     private boolean WashHitByStorm;
