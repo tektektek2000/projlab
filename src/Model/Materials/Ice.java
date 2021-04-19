@@ -1,14 +1,17 @@
 package Model.Materials;
+
 import Controllers.FileController;
 import Model.Asteroid;
 import Model.Map;
 import Utils.StringPair;
-
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.lang.String;
 import java.util.ArrayList;
 
+/**
+ * Represents the ice material in the game.
+ */
 public class Ice extends Material {
 
     Ice(Map m){super(m);}
@@ -16,17 +19,17 @@ public class Ice extends Material {
     public Ice(int uid) {super(uid);}
 
     /**
-     * gives back type in string
-     * @return with the type of the material, in this case "Ice"
+     * Gives back type in string.
+     * @return With the type of the material, in this case "Ice".
      */
     protected  String GetTypeUnique(){
         return "Ice";
     }
 
     /**
-     * special action if the sun is close and the asteroid's shell becomes 0
-     * in Ice case, it is evaporating
-     * @param asteroid the asteroid where the drilling happened
+     * Special action if the sun is close and the asteroid's shell becomes 0.
+     * In Ice case, it is evaporating.
+     * @param asteroid The asteroid where the drilling happened.
      */
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
@@ -44,8 +47,9 @@ public class Ice extends Material {
     }
 
     /**
-     * the save method for the Ice class
-     * @param os the stream, where the class will be written
+     * The save method for the Ice class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
      */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {

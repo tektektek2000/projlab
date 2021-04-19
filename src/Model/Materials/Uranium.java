@@ -79,8 +79,9 @@ public class Uranium extends Material{
     }
 
     /**
-     * the save method for the Uranium class
-     * @param os the stream, where the class will be written
+     * The save method for the Uranium class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
      */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {

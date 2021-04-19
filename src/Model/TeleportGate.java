@@ -8,11 +8,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * It represents the teleport gates of the game
- * Every teleport gate has a pair and it can be hit by the storm when it gets insane.
+ * represents the teleports in the game
  */
 public class TeleportGate extends Field{
+    /**
+     * the pair of the teleport
+     */
     private TeleportGate pair;
+    /**
+     * stores if the teleport is crazy or not
+     */
     private boolean WashHitByStorm;
 
 
@@ -28,7 +33,7 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * basically a setter for the teleport gate's sector
+     * basically the setter for the teleport gate's sector
      * @param s the sector, we want to set for the teleport gate
      */
     public void SetSector(Sector s){
@@ -66,7 +71,8 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * @param f 
+     * if the teleport gate was hit by a sun storm, it starts to move and this is it's method to do so
+     * @param f the field where the teleport gate tries to move
      */
     public void Move(Field f){
         Asteroid dest = f.MovedTo();
@@ -76,6 +82,9 @@ public class TeleportGate extends Field{
         dest.AddNeighbour(this);
     }
 
+    /**
+     * called every turn, if the teleport was hit by a sunstorm, it randomly moves (with some chance)
+     */
     public void TurnOver(){
         Random rand = new Random();
         if(WashHitByStorm && rand.nextInt(3)<2){
@@ -85,23 +94,29 @@ public class TeleportGate extends Field{
         }
     }
 
+    /**
+     * removes a neighbour
+     * @param f the field we want to be removed from neighbours
+     */
     @Override
     public void RemoveNeighbour(Field f){
         Neighbours.remove(f);
         sector.Remove(this);
     }
 
+    /**
+     * the teleport reacts to a sunstorm (the teleport goes crazy)
+     */
     @Override
     public void SunStorm() {
         WashHitByStorm = true;
     }
 
-    public void EndTurn(){
-        if(WashHitByStorm){
-
-        }
-    }
-
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
@@ -115,6 +130,10 @@ public class TeleportGate extends Field{
         }
     }
 
+    /**
+     * the save method for the TeleportGate class
+     * @param os the stream, where the class will be written
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("TeleportGate{");
