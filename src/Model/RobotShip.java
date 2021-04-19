@@ -8,6 +8,10 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * It represents the robots, the controller is the AIController
+ * It bases from the Ship class
+ */
 public class RobotShip extends Ship {
 
     RobotShip(Asteroid a){

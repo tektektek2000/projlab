@@ -8,6 +8,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * It represents the sectors of the game.
+ */
 public class Sector extends Saveable{
     private ArrayList<Field> fields;
     private boolean SunClose;
@@ -74,14 +77,23 @@ public class Sector extends Saveable{
         }
     }
 
+    /**
+     * @param f the field what we want to add to the sector
+     */
     public void Add(Field f){
         fields.add(f);
     }
 
+    /**
+     * @param f the field what we want to remove from the sector
+     */
     public void Remove(Field f){
         fields.remove(f);
     }
 
+    /**
+     * it calls the SunStorm function for all the sector's fields
+     */
     public void SunStorm(){
         for(Field it : fields){
             it.SunStorm();

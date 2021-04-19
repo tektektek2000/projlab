@@ -12,6 +12,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * It bases from the Ship class. The player controls the playership with it
+ */
 public class PlayerShip extends Ship {
     private ArrayList<Material> materials = new ArrayList<>();
     private ArrayList<TeleportGate> teleports = new ArrayList<>();

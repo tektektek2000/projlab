@@ -7,6 +7,9 @@ import Utils.StringPair;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/**
+ * It represents the ships of the game
+ */
 public abstract class Ship extends Saveable {
     protected Asteroid asteroid;
 
@@ -21,7 +24,7 @@ public abstract class Ship extends Saveable {
 
     /**
      * moves the ship to the given field
-     * @param f
+     * @param f the field where we want to move the ship
      */
     public void Move(Field f){
         asteroid.Remove(this);
@@ -72,19 +75,11 @@ public abstract class Ship extends Saveable {
         asteroid.GetDrilled();
     }
 
-    /**
-     * gives back asteroid
-     * @return
-     */
 
     public Asteroid getAsteroid(){
         return asteroid;
     }
 
-    /**
-     * sets asteroid
-     * @param a
-     */
     public void setAsteroid(Asteroid a){
         asteroid = a;
     }
