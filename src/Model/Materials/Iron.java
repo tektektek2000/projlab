@@ -14,21 +14,28 @@ public class Iron extends Material {
 
     public Iron(int uid) {super(uid);}
 
-    // gives back type in string
+    /**
+     * gives back type in string
+     * @return with the type of the material, in this case "Iron"
+     */
     protected  String GetTypeUnique(){
         return "Iron";
     }
 
-    @Override
-    public String toString(){
-        return "Iron";
-    }
-
+    /**
+     * @param args
+     * @param fc
+     * @throws RuntimeErrorException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         super.Link(args,fc);
     }
 
+    /**
+     * the save method for the Iron class
+     * @param os the stream, where the class will be written
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Iron{");

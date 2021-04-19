@@ -3,7 +3,6 @@ package Model;
 import Controllers.FileController;
 import Utils.LinkerException;
 import Utils.StringPair;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,15 +23,19 @@ public class TeleportGate extends Field{
         pair = null;
     }
 
-    public void SetWashHitByStorm(boolean washHitByStorm){
-        WashHitByStorm = washHitByStorm;
-    }
-
+    /**
+     * basically a setter for the teleport gate's sector
+     * @param s the sector, we want to set for the teleport gate
+     */
     public void SetSector(Sector s){
         sector = s;
     }
 
-    // ship moves to the asteroid
+    /**
+     * called when a ship moves to a teleport gate
+     * @return with the neighbour of the teleport gate's pair if it's possible(active)
+     * and with the teleport gate's neighbour if not
+     */
     public Asteroid MovedTo(){
         if(!isActive()) {
             return Neighbours.get(0).MovedTo();
@@ -41,17 +44,26 @@ public class TeleportGate extends Field{
         return ret;
     }
 
-    // check whether the teleport gate is active or not
+    /**
+     * check whether the teleport gate is active or not
+     * @return true if it's active (it's pair is placed and has a neighbour), false if not
+     */
     boolean isActive(){
         return pair != null && pair.Neighbours.size() != 0;
     }
 
-    // sets the pair of teleportgate
+    /**
+     * sets the pair of teleport gate
+     * @param t the teleport gate, which we want to pair the teleport
+     */
     void pair(TeleportGate t){
         pair = t;
         t.pair = this;
     }
 
+    /**
+     * @param f 
+     */
     public void Move(Field f){
         Asteroid dest = f.MovedTo();
         Neighbours.get(0).RemoveNeighbour(this);
@@ -67,11 +79,6 @@ public class TeleportGate extends Field{
             Field dest = possibilities.get(rand.nextInt(possibilities.size()));
             Move(dest);
         }
-    }
-
-    @Override
-    public  String toString(){
-        return "TeleportGate";
     }
 
     @Override
