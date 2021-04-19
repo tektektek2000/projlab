@@ -15,28 +15,38 @@ public class Ice extends Material {
 
     public Ice(int uid) {super(uid);}
 
-    // gives back type in string
+    /**
+     * gives back type in string
+     * @return with the type of the material, in this case "Ice"
+     */
     protected  String GetTypeUnique(){
         return "Ice";
     }
 
-    // special action if the sun is close
-    // in Ice case it is evaporating
+    /**
+     * special action if the sun is close and the asteroid's shell becomes 0
+     * in Ice case, it is evaporating
+     * @param asteroid the asteroid where the drilling happened
+     */
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
         asteroid.Evaporate();
     }
 
-    @Override
-    public String toString(){
-        return "Ice";
-    }
-
+    /**
+     * @param args
+     * @param fc
+     * @throws RuntimeErrorException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         super.Link(args,fc);
     }
 
+    /**
+     * the save method for the Ice class
+     * @param os the stream, where the class will be written
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Ice{");

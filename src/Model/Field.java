@@ -33,26 +33,46 @@ public abstract class Field extends Saveable {
         Neighbours = new ArrayList<>();
     }
 
-    // ship moves to the asteroid
+    /**
+     * called when a ship moves to a field
+     * @return with the destination asteroid
+     */
     public abstract Asteroid MovedTo();
 
-    // removes a neighbour
+    /**
+     * removes a neighbour
+     * @param f the field we want to be removed from neighbours
+     */
     public void RemoveNeighbour(Field f){
         Neighbours.remove(f);
     }
 
-    // adds a neighbour
+    /**
+     * adds a neighbour
+     * @param f the field we want to be added to the neighbour
+     */
     public void AddNeighbour(Field f){
         Neighbours.add(f);
     }
 
-    // getting neighbours list
+    /**
+     * basically a getter for the field's neighbours
+     * @return with the neighbours of the field
+     */
     public ArrayList<Field> getNeighbours() {
         return Neighbours;
     }
 
+    /**
+     * called when a SunStorm happened, the specific field react differently
+     */
     public abstract void SunStorm();
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -68,6 +88,10 @@ public abstract class Field extends Saveable {
         }
     }
 
+    /**
+     * the save method for the Field class
+     * @param os the stream, where the class will be written
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());

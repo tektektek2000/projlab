@@ -20,29 +20,37 @@ public class Uranium extends Material{
 
     public Uranium(int uid) {super(uid);}
 
-    // gives back type in string
+    /**
+     * gives back type in string
+     * @return with the type of the material, in this case "Uranium"
+     */
     protected String GetTypeUnique(){
         return "Uranium";
     }
 
-    // special action if the sun is close
-    // in Uranium case it is exploding
+    /**
+     * special action if the sun is close and the asteroid's shell becomes 0
+     * in Uranium case it is exploding
+     * @param asteroid the asteroid where the drilling happened
+     */
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
         LastAsteroid = asteroid;
         isExposed = true;
     }
-    @Override
-    public String toString(){
-        return "Uranium";
-    }
 
+    /**
+     * called when the Uranium has been picked up, and sets it's attributes accordingly
+     */
     @Override
     public void PickedUp(){
         isExposed = false;
         LastAsteroid = null;
     }
 
+    /**
+     * the Uranium's method which is called in each turn, it handles if the uranium is about to explode or not
+     */
     public void TurnOver(){
         if(isExposed){
             ExposedFor++;
@@ -52,6 +60,11 @@ public class Uranium extends Material{
         }
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws RuntimeErrorException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         super.Link(args,fc);
@@ -65,6 +78,10 @@ public class Uranium extends Material{
         }
     }
 
+    /**
+     * the save method for the Uranium class
+     * @param os the stream, where the class will be written
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Uranium{");

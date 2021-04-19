@@ -13,21 +13,29 @@ public  class Coal extends Material{
     Coal(Map m){super(m);}
 
     public Coal(int uid) {super(uid);}
-    // gives back type in string
+
+    /**
+     * gives back type in string
+     * @return with the type of the material, in this case "Coal"
+     */
     protected String GetTypeUnique(){
         return "Coal";
     }
 
-    @Override
-    public String toString(){
-        return "Coal";
-    }
-
+    /**
+     * @param args
+     * @param fc
+     * @throws RuntimeErrorException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws RuntimeErrorException {
         super.Link(args,fc);
     }
 
+    /**
+     * the save method for the Coal class
+     * @param os the stream, where the class will be written
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Coal{");

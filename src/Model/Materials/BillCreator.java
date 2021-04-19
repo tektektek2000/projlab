@@ -10,7 +10,9 @@ public class BillCreator {
 
     private BillCreator(){}
 
-    // Singleton class. Returns the only instance of BillCreator that exists
+    /**
+     * @return Singleton class. Returns the only instance of BillCreator that exists
+     */
     public static BillCreator GetInstance(){
         if(instance==null){
             instance = new BillCreator();
@@ -18,8 +20,15 @@ public class BillCreator {
         return instance;
     }
 
-    // Compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial
-    // Returns the number of materials added
+    /**
+     * compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial
+     * @param inventory the list of materials where we search for the needed material
+     * @param Comparator the material what we are looking for
+     * @param bill the BillOfMaterial, where we add the matching material if needed
+     * @param Needed how many materials we need for the bill
+     * @return true, if there was enough materials in the given inventory, and false if not
+     */
+
     public boolean CountAndAdd(ArrayList<Material> inventory,Material Comparator,BillOfMaterial bill,int Needed){
         int Count=0;
         for(Material it : inventory){
@@ -32,7 +41,11 @@ public class BillCreator {
         return Count>=Needed;
     }
 
-    // Prepares a BillOfMaterial for a pair of TeleportGate-s. If not enough resources are found in the inventory than it returns null.
+    /**
+     * prepares a BillOfMaterial for teleport gates
+     * @param inventory the list of materials where we search for the needed ones
+     * @return the bill, if possible, null if there is not enough materials in the inventory
+     */
     public BillOfMaterial CreateForTeleport(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
         if(!CountAndAdd(inventory,new Uranium(new Map()),bill,1) || !CountAndAdd(inventory,new Ice(new Map()),bill,1) || !CountAndAdd(inventory,new Iron(new Map()),bill,2)){
@@ -41,7 +54,11 @@ public class BillCreator {
         return bill;
     }
 
-    // Prepares a BillOfMaterial for a BaseFoundation. If not enough resources are found in the inventory than it returns null.
+    /**
+     * prepares a BillOfMaterial for a base foundation
+     * @param inventory the list of materials where we search for the needed ones
+     * @return the bill, if possible, null if there is not enough materials in the inventory
+     */
     public BillOfMaterial CreateForBaseFoundation(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
         if(!CountAndAdd(inventory,new Iron(new Map()),bill,3)){
@@ -50,7 +67,11 @@ public class BillCreator {
         return bill;
     }
 
-    // Prepares a BillOfMaterial for a Robot. If not enough resources are found in the inventory than it returns null.
+    /**
+     * prepares a BillOfMaterial for a robot
+     * @param inventory the list of materials where we search for the needed ones
+     * @return the bill, if possible, null if there is not enough materials in the inventory
+     */
     public BillOfMaterial CreateForRobot(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
         if(!CountAndAdd(inventory,new Uranium(new Map()),bill,1) || !CountAndAdd(inventory,new Coal(new Map()),bill,1)  || !CountAndAdd(inventory,new Iron(new Map()),bill,1)){
@@ -59,7 +80,11 @@ public class BillCreator {
         return bill;
     }
 
-    // Prepares a BillOfMaterial for a completed Base. If not enough resources are found in the inventory than it returns null.
+    /**
+     * prepares a BillOfMaterial for a completed base
+     * @param inventory the list of mterials where we search for the needed ones
+     * @return the bill, if possible, null if there is not enough materials in the inventory
+     */
     public BillOfMaterial CreateForBase(ArrayList<Material> inventory){
         BillOfMaterial bill = new BillOfMaterial();
         if(!CountAndAdd(inventory,new Uranium(new Map()),bill,3) || !CountAndAdd(inventory,new Coal(new Map()),bill,3) || !CountAndAdd(inventory,new Iron(new Map()),bill,3) || !CountAndAdd(inventory,new Ice(new Map()),bill,3)){
