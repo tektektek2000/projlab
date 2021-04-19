@@ -22,17 +22,28 @@ public class UFO extends Ship{
         materials = new ArrayList<>();
     }
 
+    /**
+     * UFO dies
+     */
     @Override
     public void Die() {
         asteroid.Remove(this);
         asteroid = null;
     }
 
+    /**
+     * special action if the asteroid explodes UFO dies
+     */
     @Override
     public void AsteroidExploding() {
         Die();
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
@@ -46,6 +57,10 @@ public class UFO extends Ship{
         }
     }
 
+    /**
+     * @param os the stream, where the class will be written
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UFO{");

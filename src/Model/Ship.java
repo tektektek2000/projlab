@@ -19,7 +19,10 @@ public abstract class Ship extends Saveable {
         super(uid);
     }
 
-    // moves the ship to the given field
+    /**
+     * moves the ship to the given field
+     * @param f
+     */
     public void Move(Field f){
         asteroid.Remove(this);
         Asteroid dest = f.MovedTo();
@@ -27,15 +30,21 @@ public abstract class Ship extends Saveable {
         setAsteroid(dest);
     }
 
-    // ship dies
+    /**
+     * ship dies
+     */
     public abstract void Die();
 
-    // hides ship
+    /**
+     * hides ship
+     */
     public void Hide(){
 
     }
 
-    // ship gets sun stormed
+    /**
+     *  ship gets sun stormed
+     */
     public void SunStormNow(){
         // whether ship can hide in empty asteroid or dies
         if(asteroid.GetShell() == 0){
@@ -51,24 +60,40 @@ public abstract class Ship extends Saveable {
         }
     }
 
-    // special action if the asteroid explodes
+    /**
+     *  special action if the asteroid explodes
+     */
     public abstract void AsteroidExploding();
 
-    // drills on the asteroid
+    /**
+     * drills on the asteroid
+     */
     public void Drill(){
         asteroid.GetDrilled();
     }
 
-    // gives back asteroid
+    /**
+     * gives back asteroid
+     * @return
+     */
+
     public Asteroid getAsteroid(){
         return asteroid;
     }
 
-    // sets asteroid
+    /**
+     * sets asteroid
+     * @param a
+     */
     public void setAsteroid(Asteroid a){
         asteroid = a;
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -78,6 +103,10 @@ public abstract class Ship extends Saveable {
         }
     }
 
+    /**
+     * @param os the stream, where the class will be written
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());
