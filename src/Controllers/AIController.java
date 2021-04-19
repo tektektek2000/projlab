@@ -12,6 +12,8 @@ public class AIController {
 
     private static final Random random = new Random();
 
+    // TODO: remove livelock, if no asteroid where ship can move
+
     /**
      * RobotShip takes turn, it drills if the shell is not destroyed
      * if shell is destroyed it moves to the neighbour which has the highest shell

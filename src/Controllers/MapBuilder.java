@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class MapBuilder {
 
+    // TODO: random numbers to asteroid gen
     final int asteroidNumber = 64;
     final int sectorNumber = 8;
     final int playerNumber = 4;
