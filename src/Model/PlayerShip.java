@@ -231,9 +231,9 @@ public class PlayerShip extends Ship {
      * @param os the stream, where the class will be written
      */
     @Override
-    public void Save(PrintStream os) {
+    public void Save(PrintStream os,boolean CallChildren) {
         os.println("PlayerShip{");
-        super.Save(os);
+        super.Save(os,CallChildren);
         if(materials.size()>0) {
             os.print("Materials: ");
             materials.sort(new Comparator<Material>() {
@@ -270,10 +270,10 @@ public class PlayerShip extends Ship {
         }
         os.println("}");
         for(TeleportGate s : teleports){
-            s.Save(os);
+            s.Save(os,CallChildren);
         }
         for(Material s : materials){
-            s.Save(os);
+            s.Save(os,CallChildren);
         }
     }
 
