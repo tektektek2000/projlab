@@ -24,7 +24,7 @@ public class RobotShip extends Ship {
     }
 
     /**
-     * I case of asteroid exploding robot ship flies over to a close asteroid.
+     * In case of asteroid exploding robot ship flies over to a close asteroid
      */
     public void AsteroidExploding(){
         ArrayList<Field> neighbours = asteroid.getNeighbours();
