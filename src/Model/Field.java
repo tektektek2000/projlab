@@ -3,13 +3,21 @@ package Model;
 import Controllers.FileController;
 import Utils.LinkerException;
 import Utils.StringPair;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Represents the fields in the game.
+ */
 public abstract class Field extends Saveable {
+    /**
+     * The neighbours (fields) of the field.
+     */
     ArrayList<Field> Neighbours = new ArrayList<>();
+    /**
+     * The sector where the field is.
+     */
     Sector sector;
 
     Field(Map m){
@@ -21,38 +29,53 @@ public abstract class Field extends Saveable {
         sector = s;
         Neighbours = new ArrayList<>();
     }
-
     public Field(int UID) {
         super(UID);
         Neighbours = new ArrayList<>();
     }
-
     public Field(int UID, Sector s) {
         super(UID);
         sector = s;
         Neighbours = new ArrayList<>();
     }
 
-    // ship moves to the asteroid
+    /**
+     * Called when a ship moves to a field.
+     * @return With the destination asteroid.
+     */
     public abstract Asteroid MovedTo();
 
-    // removes a neighbour
+    /**
+     * Removes a neighbour.
+     * @param f The field we want to be removed from neighbours.
+     */
     public void RemoveNeighbour(Field f){
         Neighbours.remove(f);
     }
 
-    // adds a neighbour
+    /**
+     * Adds a neighbour.
+     * @param f The field we want to be added to the neighbour.
+     */
     public void AddNeighbour(Field f){
         Neighbours.add(f);
     }
 
-    // getting neighbours list
+    // Getter for the neighbours
     public ArrayList<Field> getNeighbours() {
         return Neighbours;
     }
 
+    /**
+     * Called when a SunStorm happened, a specific field reacts differently.
+     */
     public abstract void SunStorm();
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -68,6 +91,10 @@ public abstract class Field extends Saveable {
         }
     }
 
+    /**
+     * The save method for the Field class.
+     * @param os The stream, where the class will be written.
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());

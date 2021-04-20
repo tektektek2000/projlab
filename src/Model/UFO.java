@@ -10,7 +10,14 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * It represents the UFOs of the game.
+ * It's controlled by the AIController.
+ */
 public class UFO extends Ship{
+    /**
+     * The UFO's materials.
+     */
     ArrayList<Material> materials;
 
     public UFO(Asteroid a){
@@ -23,6 +30,9 @@ public class UFO extends Ship{
         materials = new ArrayList<>();
     }
 
+    /**
+     * UFO dies.
+     */
     @Override
     public void Die() {
         asteroid.Remove(this);
@@ -30,11 +40,19 @@ public class UFO extends Ship{
         NotificationManager.AddMessage("UFO" + GetUID() + " died");
     }
 
+    /**
+     * Special action if the asteroid explodes the UFO dies.
+     */
     @Override
     public void AsteroidExploding() {
         Die();
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
@@ -48,6 +66,11 @@ public class UFO extends Ship{
         }
     }
 
+    /**
+     * The save method for the UFO class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UFO{");
@@ -77,7 +100,9 @@ public class UFO extends Ship{
         }
     }
 
-    // mines asteroid's core material
+    /**
+     * The UFO mines asteroid's core material.
+     */
     public void Mine(){
         // only mines if player ship has 9 material or less
         if(materials.size() < 10) {

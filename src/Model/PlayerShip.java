@@ -8,12 +8,22 @@ import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
+import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * It bases from the Ship class. Represents the player's ship in the game.
+ */
 public class PlayerShip extends Ship {
+    /**
+     * The player's materials.
+     */
     private ArrayList<Material> materials = new ArrayList<>();
+    /**
+     * The player's teleport gates.
+     */
     private ArrayList<TeleportGate> teleports = new ArrayList<>();
 
 
@@ -29,18 +39,28 @@ public class PlayerShip extends Ship {
         teleports = new ArrayList<>();
     }
 
+    /**
+     * The getter of the materials.
+     * @return With the player's materials.
+     */
     public ArrayList<Material> getMaterials(){return materials;}
 
+    /**
+     * The getter of the teleport gates.
+     * @return With the player's teleport gates.
+     */
     public ArrayList<TeleportGate> getTeleports(){return teleports;}
 
-    // mines asteroid's core material
+    /**
+     * Mines asteroid's core material.
+     */
     public void Mine(){
         NotificationManager.setLastCommandSuccess(true);
-        // only mines if player ship has 9 material or less
+        // Only mines if player ship has 9 material or less.
         if(materials.size() < 10) {
             Material core;
             core = asteroid.GetMined();
-            // only adds if asteroid is not empty
+            // Only adds if asteroid is not empty.
             if(core != null){
                 materials.add(core);
                 NotificationManager.AddMessage("Player" + GetUID() + " mined successfully");
@@ -52,7 +72,10 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // removes material from the inventory
+    /**
+     * Removes a bill of material from the inventory.
+     * @param b The materials we want to be removed from the player's inventory.
+     */
     public void Remove(BillOfMaterial b){
         ArrayList<Material> removable;
         removable = b.GetMaterials();
@@ -61,7 +84,9 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // crafts teleport gate pair
+    /**
+     * Crafts teleport gate pair.
+     */
     public void CraftTeleportGates(){
         NotificationManager.setLastCommandSuccess(true);
         if(teleports.size() <= 1) {
@@ -88,7 +113,9 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // crafts robot
+    /**
+     * Crafts a robot.
+     */
     public void CraftRobot(){
         NotificationManager.setLastCommandSuccess(true);
         BillCreator bc = BillCreator.GetInstance();
@@ -106,7 +133,9 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // crafts base
+    /**
+     * Crafts a base foundation.
+     */
     public void CraftBase(){
         NotificationManager.setLastCommandSuccess(true);
         if(asteroid.GetBase() == null){
@@ -132,7 +161,10 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // puts back material to the core
+    /**
+     * Puts back a material to the core.
+     * @param m The material we want to put back to the core.
+     */
     public void PutBack(Material m){
         NotificationManager.setLastCommandSuccess(true);
         if(asteroid.SetCore(m)){
@@ -152,7 +184,9 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // builds base
+    /**
+     * Builds the base.
+     */
     public void BuildBase(){
         // checks whether is a base already on the asteroid
         if(asteroid.GetBase() != null){
@@ -177,9 +211,12 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // puts down the teleport gate
+    /**
+     * Puts down the teleport gate.
+     * @param t The teleport gate we want to put down next to the current asteroid.
+     */
     public void PutDown(TeleportGate t){
-        // checks whether is player ship has teleport
+        // Checks whether is player ship has teleport.
         if(teleports.size()>0){
             Remove(t);
             t.AddNeighbour(asteroid);
@@ -190,13 +227,15 @@ public class PlayerShip extends Ship {
         }
     }
 
-    // player ship dies
+    /**
+     * Player ship dies.
+     */
     public void Die(){
-        // removes all materials
+        // Removes all materials.
         for(Material m : materials){
             materials.remove(m);
         }
-        // removes all teleports
+        // Removes all teleports.
         for(TeleportGate t : teleports){
             Remove(t);
         }
@@ -205,7 +244,9 @@ public class PlayerShip extends Ship {
         asteroid = null;
     }
 
-    // in case of asteroid exploding player ship dies
+    /**
+     * In case of asteroid exploding player ship dies.
+     */
     public void AsteroidExploding(){
         Die();
     }
@@ -223,6 +264,19 @@ public class PlayerShip extends Ship {
             NotificationManager.AddMessage("Player" + GetUID() + " successfully moved to Asteroid" + asteroid.GetUID());
         }
     }
+    
+    @Override
+    public void Hide(){
+        NotificationManager.AddMessage("Player" + GetUID() + " hid from SunStorm");
+    }
+
+    /**
+     * Removes a teleport gate.
+     * @param t The teleport gate which will be removed from the player ship's inventory.
+     */
+    public void Remove(TeleportGate t){
+        teleports.remove(t);
+    }
 
     // hides ship
     @Override
@@ -230,16 +284,16 @@ public class PlayerShip extends Ship {
         NotificationManager.AddMessage("Player" + GetUID() + " hid from SunStorm");
     }
 
-    // removes teleport gate
-    public void Remove(TeleportGate t){
-        teleports.remove(t);
-    }
-
     @Override
     public String toString(){
         return "PlayerShip";
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
@@ -259,10 +313,15 @@ public class PlayerShip extends Ship {
         }
     }
 
+    /**
+     * The save method for the PlayerShip class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
+     */
     @Override
-    public void Save(PrintStream os, boolean CallChildren) {
+    public void Save(PrintStream os,boolean CallChildren) {
         os.println("PlayerShip{");
-        super.Save(os, CallChildren);
+        super.Save(os,CallChildren);
         if(materials.size()>0) {
             os.print("Materials: ");
             materials.sort(new Comparator<Material>() {

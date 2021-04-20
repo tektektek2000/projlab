@@ -24,5 +24,61 @@ Current: 2
 }
 Sun{
 Target: 4
+Rounds: 5
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3
+}
+Coal{
+UID: 3
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 4
+Rounds: 6
+}
+Sector{
+UID: 4
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Shell: 0
+Ships: 2
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 3
+}
+Coal{
+UID: 3
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 4
 Rounds: 3
 }

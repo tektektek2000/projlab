@@ -8,9 +8,21 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * It represents the sectors of the game.
+ */
 public class Sector extends Saveable{
+    /**
+     * The fields of the sector.
+     */
     private ArrayList<Field> fields;
+    /**
+     * True, if the sector is close to the sun and false if not.
+     */
     private boolean SunClose;
+    /**
+     * The map where the sector is.
+     */
     Map map = null;
 
     public Sector(int UID,Map m) {
@@ -20,6 +32,11 @@ public class Sector extends Saveable{
         map = m;
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -35,6 +52,11 @@ public class Sector extends Saveable{
         }
     }
 
+    /**
+     * The save method for the Sector class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Sector{");
@@ -65,22 +87,41 @@ public class Sector extends Saveable{
         }
     }
 
+    /**
+     * Adds a field to the sector.
+     * @param f The field what we want to add to the sector.
+     */
     public void Add(Field f){
         fields.add(f);
     }
 
+    /**
+     * Removes a field from the sector.
+     * @param f The field what we want to remove from the sector.
+     */
     public void Remove(Field f){
         fields.remove(f);
     }
 
+    /**
+     * It calls the SunStorm function for all the sector's fields.
+     */
     public void SunStorm(){
         for(Field it : fields){
             it.SunStorm();
         }
     }
 
+    /**
+     * The getter of the sector's fields.
+     * @return With the fields of the sector.
+     */
     public ArrayList<Field> getFields(){return fields;}
 
+    /**
+     * The getter of the SunClose attribute.
+     * @return With the SunClose attribute's current value.
+     */
     public boolean getSunClose(){
         return SunClose;
     }

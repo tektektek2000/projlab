@@ -5,18 +5,39 @@ import Controllers.NotificationManager;
 import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+/**
+ * It bases from Field.
+ * Represents the asteroid in the game.
+ */
 public class Asteroid extends Field {
+    /**
+     * The ships on the asteroid.
+     */
     private ArrayList<Ship> ships;
+    /**
+     * A list of the removable ships for the iterations.
+     */
     private ArrayList<Ship> Removables;
+    /**
+     * The material in the asteroid.
+     */
     private Material core;
+    /**
+     * The base on the asteroid, if there is no base, it's null.
+     */
     private Base base;
+    /**
+     * The shell of the asteroid, ships can only mine if it's 0.
+     */
     private int shell;
+    /**
+     * True, if the asteroid was hit by a sun storm recently, false if not.
+     */
     private boolean SunStorm = false;
 
     public Asteroid(Sector s){
@@ -26,7 +47,6 @@ public class Asteroid extends Field {
         base=null;
         shell = new Random().nextInt(6);
     }
-
     public Asteroid(Sector s,int Shell){
         super(s);
         ships = new ArrayList<>();
@@ -34,7 +54,6 @@ public class Asteroid extends Field {
         base=null;
         shell = Shell;
     }
-
     public Asteroid(Sector s,Material Core,int Shell){
         super(s);
         ships = new ArrayList<>();
@@ -43,7 +62,6 @@ public class Asteroid extends Field {
         base=null;
         shell = Shell;
     }
-
     public Asteroid(int UID, Sector s, Material _core, int _shell) {
         super(UID, s);
         ships = new ArrayList<>();
@@ -52,7 +70,6 @@ public class Asteroid extends Field {
         base = null;
         shell = _shell;
     }
-
     public Asteroid(int UID) {
         super(UID);
         ships = new ArrayList<>();
@@ -61,23 +78,41 @@ public class Asteroid extends Field {
         shell = new Random().nextInt(6);
     }
 
+    /**
+     * The setter of the shell.
+     * @param Shell The value we want to set for the asteroid's shell.
+     */
     public void SetShell(int Shell){
         shell = Shell;
     }
 
+    /**
+     * The getter of the shell.
+     * @return With the value of the shell.
+     */
     public int GetShell(){
         return shell;
     }
 
-    // setter for base
+    /**
+     * The setter of the base.
+     * @param b The base we want to set for the asteroid's base.
+     */
     public void SetBase(Base b){
         base=b;
     }
 
-    // getter for base
+    /**
+     * The getter of the base.
+     * @return With the base on the asteroid.
+     */
     public Base GetBase(){return base;}
 
-    // setter for core
+    /**
+     * The setter of the core.
+     * @param m The material we want to set for the asteroid's core.
+     * @return True, if the set was successful and false if not.
+     */
     public boolean SetCore(Material m){
         if(shell != 0){
             NotificationManager.setLastCommandSuccess(false);
@@ -89,19 +124,26 @@ public class Asteroid extends Field {
         }
         if(shell == 0 && core == null){
             core = m;
-            if(sector.getSunClose())
+            if(sector.getSunClose()){
                 core.DrilledThroughSunClose(this);
+            }
             return true;
         }
         return false;
     }
 
-    // getter for core
+    /**
+     * The getter of the core.
+     * @return With the asteroid's core.
+     */
     public Material GetCore(){
         return core;
     }
 
-    // removes ship from the list
+    /**
+     * itt bizony feketemágia történik.
+     * @param s
+     */
     public void Remove(Ship s){
         if(!SunStorm)
             ships.remove(s);
@@ -109,12 +151,17 @@ public class Asteroid extends Field {
             Removables.add(s);
     }
 
-    // adds ship to the list
+    /**
+     * Adds a ship to the asteroid.
+     * @param s The ship we want to be added to the asteroid.
+     */
     public void Add(Ship s){
         ships.add(s);
     }
 
-    // getting drilled by a ship
+    /**
+     * The method which handles if a ship drills the asteroid.
+     */
     public boolean GetDrilled(){
         if(shell<=0){
             return false;
@@ -129,7 +176,10 @@ public class Asteroid extends Field {
         return true;
     }
 
-    // getting mined by a ship
+    /**
+     * The method which handles if a ship mines on the asteroid.
+     * @return With the core if the mining was successful and false if not.
+     */
     public Material GetMined(){
         // if shell size is not zero cannot get mined
         if(shell > 0){
@@ -148,11 +198,17 @@ public class Asteroid extends Field {
         return ret;
     }
 
-    // ship moves to the asteroid
+    /**
+     * Called when a ship moves to the asteroid.
+     * @return With the asteroid.
+     */
     public Asteroid MovedTo(){
         return this;
     }
 
+    /**
+     * The asteroid reacts to a sunstorm.
+     */
     @Override
     public void SunStorm() {
         SunStorm = true;
@@ -165,7 +221,9 @@ public class Asteroid extends Field {
         SunStorm = false;
     }
 
-    // asteroid explodes
+    /**
+     * The asteroid explodes.
+     */
     public void Explode(){
         NotificationManager.AddMessage("Asteroid" + GetUID() + " exploded.");
         // calls for each ship exploding action
@@ -175,7 +233,7 @@ public class Asteroid extends Field {
                 break;
             }
         }
-        // removes asteroid from all neighbours
+        // Removes asteroid from all neighbours.
         for(Field f : Neighbours){
             f.RemoveNeighbour(this);
         }
@@ -183,17 +241,18 @@ public class Asteroid extends Field {
         Neighbours.clear();
     }
 
-    // evaporates core material
+    /**
+     * Evaporates the core material.
+     */
     public void Evaporate(){
         core = null;
     }
 
-    @Override
-    public  String toString(){
-        return "Asteroid";
-    }
-
-
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         super.Link(args,fc);
@@ -216,6 +275,11 @@ public class Asteroid extends Field {
         }
     }
 
+    /**
+     * The save method for the Asteroid class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Asteroid{");

@@ -7,7 +7,13 @@ import Utils.StringPair;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/**
+ * It represents the ships of the game.
+ */
 public abstract class Ship extends Saveable {
+    /**
+     * The asteroid where the ship is.
+     */
     protected Asteroid asteroid;
 
     public Ship(Asteroid a){
@@ -20,7 +26,10 @@ public abstract class Ship extends Saveable {
         super(uid);
     }
 
-    // moves the ship to the given field
+    /**
+     * Moves the ship to the given field.
+     * @param f The field where we want to move the ship.
+     */
     public void Move(Field f){
         asteroid.Remove(this);
         Asteroid dest = f.MovedTo();
@@ -28,17 +37,23 @@ public abstract class Ship extends Saveable {
         setAsteroid(dest);
     }
 
-    // ship dies
+    /**
+     * Abstract method for the ships when they die.
+     */
     public abstract void Die();
 
-    // hides ship
+    /**
+     * Hides the ship. Not implemented yet.
+     */
     public void Hide(){
-
+        System.out.println("The ship survives.");
     }
 
-    // ship gets sun stormed
+    /**
+     *  The ship gets into a sun storm.
+     */
     public void SunStormNow(){
-        // whether ship can hide in empty asteroid or dies
+        // Whether ship can hide in empty asteroid or dies.
         if(asteroid.GetShell() == 0){
             if(asteroid.GetCore() == null){
                 Hide();
@@ -52,20 +67,33 @@ public abstract class Ship extends Saveable {
         }
     }
 
-    // special action if the asteroid explodes
+    /**
+     *  Special action if the asteroid explodes.
+     */
     public abstract void AsteroidExploding();
 
-    // gives back asteroid
+
+    /**
+     * The getter of the ship's asteroid.
+     * @return With the ship's current asteroid.
+     */
     public Asteroid getAsteroid(){
         return asteroid;
     }
 
-    // sets asteroid
+    /**
+     * The setter of the ship's asteroid.
+     * @param a The asteroid we want to set for the ship.
+     */
     public void setAsteroid(Asteroid a){
         asteroid = a;
     }
 
-
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -75,6 +103,11 @@ public abstract class Ship extends Saveable {
         }
     }
 
+    /**
+     * The save method for the Ship class.
+     * @param os the stream, where the class will be written.
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());

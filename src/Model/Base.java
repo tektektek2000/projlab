@@ -7,26 +7,36 @@ import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Represents the base in the game.
+ */
 public class Base extends Saveable{
+    /**
+     * The materials, that are in the base.
+     */
     ArrayList<Material> materials = new ArrayList<>();
 
     public Base(int uid) {
         super(uid);
     }
 
-    // Handles if the base will accept an offered material. Returns true if it added the material,false if not
+    /**
+     * Handles if the base will accept an offered material.
+     * Returns true if it added the material, false if not.
+     * @param m The material the base accepts or not.
+     * @return True if the base accepted the material and false if not.
+     */
     public boolean Accept(Material m){
-        int count=0; // Counts the number of materials that are the same type and are already stored
-        boolean added=false; // Stores whether or not the material was added
+        int count=0; // Counts the number of materials that are the same type and are already stored.
+        boolean added=false; // Stores whether or not the material was added.
 
         for(Material it : materials){
-            if(it.isSameType(m)) //Checking if they are the same type
-                count++; // Counting if yes
+            if(it.isSameType(m)) // Checking if they are the same type.
+                count++; // Counting if yes.
         }
         if(count<3){
             Add(m);
@@ -36,7 +46,9 @@ public class Base extends Saveable{
         return added;
     }
 
-    // Checks whether or not the base has enough resources to be considered complete
+    /**
+     * Checks whether or not the base has enough resources to be considered complete.
+     */
     public void CheckComplete() {
         BillCreator bc = BillCreator.GetInstance();
         BillOfMaterial Bill = bc.CreateForBase(materials); // Creating a bill to see if the base is complete
@@ -44,17 +56,20 @@ public class Base extends Saveable{
             NotificationManager.PlayersWon();
         }
     }
-    // Adds the argument material to the stored materials of the base
+
+    /**
+     * Adds the argument material to the stored materials of the base.
+     * @param material The material we want to add to the base.
+     */
     private void Add(Material material){
-        materials.add(material); // Adding material
+        materials.add(material); // Adding material.
     }
 
-    @Override
-    public int GetUID() {
-        return UID;
-    }
-
-
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
         for(StringPair it : args) {
@@ -67,6 +82,11 @@ public class Base extends Saveable{
         }
     }
 
+    /**
+     * The save method for the Base class.
+     * @param os the stream, where the class will be written .
+     * @param CallChildren
+     */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("Base{");
