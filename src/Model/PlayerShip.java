@@ -278,11 +278,6 @@ public class PlayerShip extends Ship {
         teleports.remove(t);
     }
 
-    // hides ship
-    @Override
-    public void Hide(){
-        NotificationManager.AddMessage("Player" + GetUID() + " hid from SunStorm");
-    }
 
     @Override
     public String toString(){
