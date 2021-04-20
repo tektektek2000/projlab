@@ -29,6 +29,7 @@ public class RobotShip extends Ship {
     public void Die(){
         asteroid.Remove(this);
         NotificationManager.AddMessage("Robot" + GetUID() + " died");
+        asteroid = null;
     }
 
     // drills on the asteroid

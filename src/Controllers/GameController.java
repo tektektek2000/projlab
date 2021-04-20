@@ -248,20 +248,26 @@ public class GameController {
         else{
             throw(new InvalidCommand("p "+ UID + " " + command, Args , "-> Unkown command"));
         }
-        if(NotificationManager.LastCommandSuccess){
-            for(int i=0;i<ps.size();i++){
-                if(ps.get(i) == CurrentPlayer){
-                    if(i == ps.size()-1){
-                        CurrentPlayer = ps.get(0);
-                        EndTurn();
+        if(controller) {
+            if(ps.size()==0){
+                NotificationManager.PlayersLost();
+            }
+            else if (NotificationManager.LastCommandSuccess) {
+                for (int i = 0; i < ps.size(); i++) {
+                    if (ps.get(i) == CurrentPlayer) {
+                        if (i == ps.size() - 1) {
+                            CurrentPlayer = ps.get(0);
+                            EndTurn();
+                        } else {
+                            CurrentPlayer = ps.get(i + 1);
+                        }
+                        break;
                     }
-                    else{
-                        CurrentPlayer = ps.get(i+1);
-                    }
-                    break;
                 }
             }
         }
+        if(current.getAsteroid()==null)
+            ps.remove(current);
     }
 
 
@@ -289,6 +295,8 @@ public class GameController {
         else if(command.equals("drill")){
             current.Drill();
         }
+        if(current.getAsteroid()==null)
+            rs.remove(current);
     }
 
     public void UFODoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
@@ -315,6 +323,8 @@ public class GameController {
         else if(command.equals("mine")){
             current.Mine();
         }
+        if(current.getAsteroid()==null)
+            ufos.remove(current);
     }
 
     public void TeleportDoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
@@ -371,13 +381,30 @@ public class GameController {
     }
 
     public void EndTurn(){
+        Sun.GetInstance().TurnOver();
+        AIController ai = new AIController();
+        for(RobotShip r : rs){
+            if(r.getAsteroid()==null)
+                rs.remove(r);
+            else
+                ai.TakeTurn(r);
+            if(r.getAsteroid()==null)
+                rs.remove(r);
+        }
+        for(UFO u : ufos){
+            if(u.getAsteroid()==null)
+                rs.remove(u);
+            else
+                ai.TakeTurn(u);
+            if(u.getAsteroid()==null)
+                rs.remove(u);
+        }
         for(Uranium uranium : urans){
             uranium.TurnOver();
         }
         for(TeleportGate t : tgs){
             t.TurnOver();
         }
-        Sun.GetInstance().TurnOver();
     }
 
     public void NewMap(){

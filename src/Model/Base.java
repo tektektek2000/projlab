@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
@@ -40,7 +41,7 @@ public class Base extends Saveable{
         BillCreator bc = BillCreator.GetInstance();
         BillOfMaterial Bill = bc.CreateForBase(materials); // Creating a bill to see if the base is complete
         if(Bill != null){ // If the bill is not null than the base has enough materials
-            //System.out.println("The base is completed, players won.");
+            NotificationManager.PlayersWon();
         }
     }
     // Adds the argument material to the stored materials of the base

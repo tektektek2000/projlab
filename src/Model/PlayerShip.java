@@ -202,6 +202,7 @@ public class PlayerShip extends Ship {
         }
         asteroid.Remove(this);
         NotificationManager.AddMessage("Player" + GetUID() + " died");
+        asteroid = null;
     }
 
     // in case of asteroid exploding player ship dies
