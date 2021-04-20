@@ -56,7 +56,8 @@ public class MapBuilder {
         // linking asteroids in outside sectors (only 1)
         for(Sector s : map.getSectors()){
             Field rndField = s.getFields().get(random.nextInt(s.getFields().size()));
-            Field rndFieldOuterSector = genRndSector(s).getFields().get(random.nextInt(s.getFields().size()));
+            Sector rndSector = genRndSector(s);
+            Field rndFieldOuterSector = rndSector.getFields().get(random.nextInt(rndSector.getFields().size()));
             rndField.AddNeighbour(rndFieldOuterSector);
             rndFieldOuterSector.AddNeighbour(rndField);
         }
