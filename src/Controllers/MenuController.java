@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Field;
 import Model.Materials.Material;
+import Model.PlayerShip;
 import Model.Sun;
 import Utils.BadFileFormat;
 import Utils.InvalidCommand;
@@ -74,14 +75,18 @@ public class MenuController {
         Scanner in = new Scanner(System.in);
         final String ANSI_RESET = "\u001B[0m";
         final String ANSI_RED = "\u001B[31m";
+        PlayerShip last = null;
         while (!exit){
             PrintStream out = new PrintStream(System.out);
-            System.out.println("Current Player:");
-            gc.getCurrentPlayer().Save(out,false);
-            System.out.println("Current Asteroid:");
-            gc.getCurrentPlayer().getAsteroid().Save(out,false);
-            System.out.println("With Material:");
-            gc.getCurrentPlayer().getAsteroid().GetCore().Save(out,false);
+            if(last != gc.getCurrentPlayer()) {
+                System.out.println("Current Player:");
+                gc.getCurrentPlayer().Save(out, false);
+                System.out.println("Current Asteroid:");
+                gc.getCurrentPlayer().getAsteroid().Save(out, false);
+                System.out.println("With Material:");
+                gc.getCurrentPlayer().getAsteroid().GetCore().Save(out, false);
+                last = gc.getCurrentPlayer();
+            }
             String line = in.nextLine();
             String[] parts = line.split(" ");
             if(parts[0].equals("exit")){
@@ -157,6 +162,8 @@ public class MenuController {
                     System.out.println(ANSI_RED + "Invalid command" + ANSI_RESET);
                 }
             }
+            if(NotificationManager.GameOver)
+                exit = true;
         }
     }
 }

@@ -40,11 +40,14 @@ public class RobotShip extends Ship {
         asteroid = null;
     }
 
-    // drills on the asteroid
+    /**
+     * Robot ship drills.
+     */
     public void Drill(){
         asteroid.GetDrilled();
         NotificationManager.AddMessage("Robot" + GetUID() + " drilled Asteroid" + asteroid.GetUID());
     }
+
 
     /**
      * @param args

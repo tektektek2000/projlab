@@ -212,6 +212,7 @@ public class FileController {
         GC.ufos = new ArrayList<>();
         GC.tgs = new ArrayList<>();
         GC.urans = new ArrayList<>();
+        GC.setCurrentPlayer(null);
         Linkeables = BuildLinkeables(file,GC,map);
         for(Pair<Saveable, ArrayList<StringPair>> it : Linkeables){
             try {

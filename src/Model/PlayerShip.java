@@ -264,11 +264,7 @@ public class PlayerShip extends Ship {
             NotificationManager.AddMessage("Player" + GetUID() + " successfully moved to Asteroid" + asteroid.GetUID());
         }
     }
-    
-    @Override
-    public void Hide(){
-        NotificationManager.AddMessage("Player" + GetUID() + " hid from SunStorm");
-    }
+
 
     /**
      * Removes a teleport gate.

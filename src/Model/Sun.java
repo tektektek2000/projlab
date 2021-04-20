@@ -1,5 +1,7 @@
 package Model;
 
+import Controllers.NotificationManager;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -59,6 +61,7 @@ public class Sun {
      * @param s The sector where the sun storm will happen.
      */
     public void SunStorm(Sector s){
+        NotificationManager.AddMessage("Sunstorm in Sector" + target.GetUID() + ".");
         s.SunStorm();
         RoundsUntillStorm = new Random().nextInt(6)+3;
     }
