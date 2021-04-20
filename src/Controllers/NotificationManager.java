@@ -8,6 +8,7 @@ public class NotificationManager {
     static ArrayList<String> messages = new ArrayList<>();
     static ArrayList<String> errors = new ArrayList<>();
     static boolean LastCommandSuccess = true;
+    static boolean GameOver = false;
 
     public static void setLastCommandSuccess(boolean val){
         LastCommandSuccess = val;
@@ -43,5 +44,15 @@ public class NotificationManager {
             errors.remove(ret);
         }
         return ret;
+    }
+
+    public static void PlayersWon(){
+        GameOver = true;
+        AddMessage("Players have successfully built the base and won.");
+    }
+
+    public static void PlayersLost(){
+        GameOver = true;
+        AddMessage("All players have died and so the game is lost.");
     }
 }

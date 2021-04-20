@@ -17,7 +17,7 @@ public class AIController {
      * if shell is destroyed it moves to the neighbour which has the highest shell
      * @param rs the RobotShip which takes the turn
      */
-    private void TakeTurn(RobotShip rs){
+    public void TakeTurn(RobotShip rs){
         ArrayList<Asteroid> asteroids = new ArrayList<>();
         int maxShell = 0;
         Asteroid maxShellAsteroid = null;
@@ -52,7 +52,7 @@ public class AIController {
      * it goes to a neighbour if shell is still up
      * @param u the UFO which takes the turn
      */
-    private void TakeTurn(UFO u){
+    public void TakeTurn(UFO u){
         ArrayList<Asteroid> asteroids = new ArrayList<>();
         Asteroid zeroShellAsteroid = null;
 
