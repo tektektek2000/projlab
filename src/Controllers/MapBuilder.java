@@ -7,15 +7,23 @@ import Utils.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A class for building a map.
+ */
 public class MapBuilder {
-
+    // Number of sectors
     final int sectorNumber = 8;
+    // Minimum number of asteroids
     final int asteroidNumberMin = 6;
+    // Maximum number of asteroids
     final int asteroidNumberMax = 12;
+    // Minimum number of ships
     final int shipNumberMin = 3;
+    // Maximum number of ships
     final int shipNumberMax = 8;
-
+    // A random number
     private static final Random random = new Random();
+    // The map
     Map map;
 
     /**

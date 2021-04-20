@@ -33,8 +33,9 @@ public class Sector extends Saveable{
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override

@@ -51,8 +51,9 @@ public abstract class Material extends Saveable {
     public void PickedUp(){}
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws RuntimeErrorException
      */
     @Override

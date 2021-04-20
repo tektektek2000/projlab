@@ -4,13 +4,15 @@ import Model.*;
 import Model.Materials.*;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import Utils.*;
 
+/**
+ * A class for file control. Save, load, etc..
+ */
 public class FileController {
     ArrayList<Pair<Saveable, ArrayList<StringPair>>> Linkeables = new ArrayList<>();;
 
@@ -19,6 +21,12 @@ public class FileController {
             throw new AssertException(Text);
     }
 
+    /**
+     * Returns an object, that has the given UID.
+     * @param UID The given UID.
+     * @return The matching object
+     * @throws LinkerException
+     */
     public Object GetWithUID(int UID) throws LinkerException {
         for(Pair<Saveable, ArrayList<StringPair>> it : Linkeables){
             if(it.first.GetUID() == UID){
@@ -28,6 +36,7 @@ public class FileController {
         throw new LinkerException(UID);
     }
 
+    // trim
     static String Trim(String s){
         s = s.replaceAll("\t","");
         return s.replaceAll(" ","");
@@ -48,6 +57,15 @@ public class FileController {
         throw(new BadFileFormat(data,"Invalid UID. First line of object definition should always be UID"));
     }
 
+    /**
+     * Build and links the objects,
+     * @param f The source file.
+     * @param GC The game controller.
+     * @param map The map we are building.
+     * @return With a list of objects and their arguments.
+     * @throws FileNotFoundException
+     * @throws BadFileFormat
+     */
     ArrayList<Pair<Saveable, ArrayList<StringPair>>> BuildLinkeables(File f,GameController GC,Map map) throws FileNotFoundException, BadFileFormat {
         map.SetMaxId(1);
         ArrayList<Pair<Saveable, ArrayList<StringPair>>> linkables = new ArrayList<>();
@@ -200,7 +218,14 @@ public class FileController {
         return linkables;
     }
 
-
+    /**
+     * Loads a map from file.
+     * @param file The source file, from we want to load the map
+     * @param GC The game controller.
+     * @return With the loaded map.
+     * @throws FileNotFoundException
+     * @throws BadFileFormat
+     */
     //To be vastly expanded
     public Map Load(File file, GameController GC) throws FileNotFoundException, BadFileFormat {
         Map map = new Map();
@@ -229,6 +254,13 @@ public class FileController {
         return map;
     }
 
+    /**
+     * Saving process.
+     * @param f The file where we want to save.
+     * @param map The map we want to save.
+     * @param gc The game controller.
+     * @throws FileNotFoundException
+     */
     public void Save(File f,Map map,GameController gc) throws FileNotFoundException {
         if(f.exists())
             f.delete();
@@ -259,6 +291,13 @@ public class FileController {
         os.close();
     }
 
+    /**
+     * Compares two files.
+     * @param a The first file.
+     * @param b The second file.
+     * @return True, if they have the same content, false if not.
+     * @throws Exception
+     */
     public boolean Compare(File a, File b) throws Exception {
         boolean success = false;
         Scanner FScanner = new Scanner(a);

@@ -6,14 +6,19 @@ import Model.PlayerShip;
 import Model.Sun;
 import Utils.BadFileFormat;
 import Utils.InvalidCommand;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * A menu controller class, it handle the incoming commands.
+ */
 public class MenuController {
     GameController gc = new GameController();
 
+    /**
+     * The pre-game menu handler.
+     */
     public void Start(){
         System.out.println("Asteroid Miner");
         Scanner in = new Scanner(System.in);
@@ -70,6 +75,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * The in-game menu handler.
+     */
     public void Game(){
         boolean exit = false;
         Scanner in = new Scanner(System.in);
