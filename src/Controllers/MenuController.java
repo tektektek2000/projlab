@@ -91,8 +91,10 @@ public class MenuController {
                 gc.getCurrentPlayer().Save(out, false);
                 System.out.println("Current Asteroid:");
                 gc.getCurrentPlayer().getAsteroid().Save(out, false);
-                System.out.println("With Material:");
-                gc.getCurrentPlayer().getAsteroid().GetCore().Save(out, false);
+                if(gc.getCurrentPlayer().getAsteroid().GetCore() != null) {
+                    System.out.println("With Material:");
+                    gc.getCurrentPlayer().getAsteroid().GetCore().Save(out, false);
+                }
                 last = gc.getCurrentPlayer();
             }
             String line = in.nextLine();
