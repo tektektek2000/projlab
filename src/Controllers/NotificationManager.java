@@ -22,7 +22,9 @@ public class NotificationManager {
     }
 
     public static String getMessage(){
-        String ret = messages.get(0);
+        String ret = null;
+        if(messages.size() != 0)
+            ret = messages.get(0);
         if(ret != null){
             messages.remove(ret);
         }
@@ -34,7 +36,9 @@ public class NotificationManager {
     }
 
     public static String getError(){
-        String ret = errors.get(0);
+        String ret = null;
+        if(errors.size() != 0)
+            ret = errors.get(0);
         if(ret != null){
             errors.remove(ret);
         }
