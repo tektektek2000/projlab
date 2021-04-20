@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
@@ -112,6 +113,14 @@ public class Asteroid extends Field {
      * @return True, if the set was successful and false if not.
      */
     public boolean SetCore(Material m){
+        if(shell != 0){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is not drilled through, can't put back material.");
+        }
+        else if(core != null){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is empty, can't put back material.");
+        }
         if(shell == 0 && core == null){
             core = m;
             if(sector.getSunClose()){
@@ -152,9 +161,9 @@ public class Asteroid extends Field {
     /**
      * The method which handles if a ship drills the asteroid.
      */
-    public void GetDrilled(){
+    public boolean GetDrilled(){
         if(shell<=0){
-            return;
+            return false;
         }
         shell--;
         // if shell size is zero then checks whether it is in sun close area
@@ -163,6 +172,7 @@ public class Asteroid extends Field {
                 core.DrilledThroughSunClose(this);
             }
         }
+        return true;
     }
 
     /**
@@ -171,7 +181,14 @@ public class Asteroid extends Field {
      */
     public Material GetMined(){
         // if shell size is not zero cannot get mined
-        if(shell>0 || core == null){
+        if(shell > 0){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid shell isn't drilled through, can't mine");
+            return null;
+        }
+        if(core == null){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is empty, can't mine");
             return null;
         }
         Material ret = core;
@@ -207,7 +224,8 @@ public class Asteroid extends Field {
      * The asteroid explodes.
      */
     public void Explode(){
-        // Calls for each ship exploding action.
+        NotificationManager.AddMessage("Asteroid" + GetUID() + " exploded.");
+        // calls for each ship exploding action
         for (int i=0;i<ships.size();i++) {
             for (Ship ship : ships) {
                 ship.AsteroidExploding();

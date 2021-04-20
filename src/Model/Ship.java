@@ -72,12 +72,6 @@ public abstract class Ship extends Saveable {
      */
     public abstract void AsteroidExploding();
 
-    /**
-     * Drills on the asteroid.
-     */
-    public void Drill(){
-        asteroid.GetDrilled();
-    }
 
     /**
      * The getter of the ship's asteroid.

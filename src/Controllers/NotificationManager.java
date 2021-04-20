@@ -9,11 +9,11 @@ public class NotificationManager {
     static ArrayList<String> errors = new ArrayList<>();
     static boolean LastCommandSuccess = true;
 
-    public void setLastCommandSuccess(boolean val){
+    public static void setLastCommandSuccess(boolean val){
         LastCommandSuccess = val;
     }
 
-    public boolean getLastCommandSuccess(){
+    public static boolean getLastCommandSuccess(){
         return LastCommandSuccess;
     }
 

@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Utils.LinkerException;
 import Utils.StringPair;
 
@@ -35,6 +36,13 @@ public class RobotShip extends Ship {
      */
     public void Die(){
         asteroid.Remove(this);
+        NotificationManager.AddMessage("Robot" + GetUID() + " died");
+    }
+
+    // drills on the asteroid
+    public void Drill(){
+        asteroid.GetDrilled();
+        NotificationManager.AddMessage("Robot" + GetUID() + " drilled Asteroid" + asteroid.GetUID());
     }
 
     /**

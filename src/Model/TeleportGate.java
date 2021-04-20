@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Utils.LinkerException;
 import Utils.StringPair;
 import java.io.PrintStream;
@@ -30,6 +31,10 @@ public class TeleportGate extends Field{
     public TeleportGate(int UID){
         super(UID);
         pair = null;
+    }
+
+    public void SetWashHitByStorm(boolean washHitByStorm){
+        WashHitByStorm = washHitByStorm;
     }
 
     /**
@@ -80,6 +85,7 @@ public class TeleportGate extends Field{
         Neighbours.remove(Neighbours.get(0));
         Neighbours.add(dest);
         dest.AddNeighbour(this);
+        NotificationManager.AddMessage("Teleport" + GetUID() + " moved to Asteroid" + f.GetUID() + ".");
     }
 
     /**
@@ -89,8 +95,12 @@ public class TeleportGate extends Field{
         Random rand = new Random();
         if(WashHitByStorm && rand.nextInt(3)<2){
             ArrayList<Field> possibilities = Neighbours.get(0).getNeighbours();
-            Field dest = possibilities.get(rand.nextInt(possibilities.size()));
-            Move(dest);
+            if(possibilities.size()>1) {
+                Field dest = null;
+                while (dest == this || dest == null)
+                    dest = possibilities.get(rand.nextInt(possibilities.size()));
+                Move(dest);
+            }
         }
     }
 
@@ -110,6 +120,7 @@ public class TeleportGate extends Field{
     @Override
     public void SunStorm() {
         WashHitByStorm = true;
+        NotificationManager.AddMessage("Teleport" + GetUID() + " was hit by sunstorm.");
     }
 
     /**

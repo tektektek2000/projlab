@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
@@ -36,6 +37,7 @@ public class UFO extends Ship{
     public void Die() {
         asteroid.Remove(this);
         asteroid = null;
+        NotificationManager.AddMessage("UFO" + GetUID() + " died");
     }
 
     /**
@@ -102,11 +104,15 @@ public class UFO extends Ship{
      * The UFO mines asteroid's core material.
      */
     public void Mine(){
-        Material core;
-        core = asteroid.GetMined();
-        // only adds if asteroid is not empty
-        if(core != null){
-            materials.add(core);
+        // only mines if player ship has 9 material or less
+        if(materials.size() < 10) {
+            Material core;
+            core = asteroid.GetMined();
+            // only adds if asteroid is not empty
+            if(core != null){
+                materials.add(core);
+                NotificationManager.AddMessage("UFO" + GetUID() + " mined Asteroid" + asteroid.GetUID());
+            }
         }
     }
 }
