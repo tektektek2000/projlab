@@ -22,6 +22,9 @@ public class AIController {
         int maxShell = 0;
         Asteroid maxShellAsteroid = null;
 
+        // kills itself if it is on a isolated asteroid
+        if(rs.getAsteroid().getNeighbours().size() == 0)
+            rs.Die();
         // drills if the shell is not destroyed
         if (rs.getAsteroid().GetShell() > 0)
             rs.Drill();
@@ -35,7 +38,8 @@ public class AIController {
                     maxShell = a.GetShell();
                     maxShellAsteroid = a;
                 }
-            // whether the neighbours shells are all destroyed it goes to a random asteroid or it chooses the highest shell owner
+            // whether the neighbours shells are all destroyed
+            // it goes to a random asteroid or it chooses the highest shell owner
             if(maxShellAsteroid == null)
                 rs.Move(rs.getAsteroid().getNeighbours().get(random.nextInt(rs.getAsteroid().getNeighbours().size())));
             else
@@ -52,6 +56,10 @@ public class AIController {
         ArrayList<Asteroid> asteroids = new ArrayList<>();
         Asteroid zeroShellAsteroid = null;
 
+        // kills itself if it is on a isolated asteroid
+        if(u.getAsteroid().getNeighbours().size() == 0)
+            u.Die();
+        // mines if the shell is destroyed and there is a core
         if(u.getAsteroid().GetShell() == 0 && u.getAsteroid().GetCore() != null)
             u.Mine();
         else{
@@ -69,7 +77,6 @@ public class AIController {
                 u.Move(u.getAsteroid().getNeighbours().get(random.nextInt(u.getAsteroid().getNeighbours().size())));
             else
                 u.Move(zeroShellAsteroid);
-
         }
     }
 }

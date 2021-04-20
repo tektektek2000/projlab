@@ -9,9 +9,11 @@ import java.util.Random;
 
 public class MapBuilder {
 
-    final int asteroidNumber = 64;
     final int sectorNumber = 8;
-    final int playerNumber = 4;
+    final int asteroidNumberMin = 6;
+    final int asteroidNumberMax = 12;
+    final int shipNumberMin = 3;
+    final int shipNumberMax = 8;
 
     private static final Random random = new Random();
     Map map;
@@ -21,30 +23,19 @@ public class MapBuilder {
      * @return the map that was built up
      */
     public Map BuildMap() {
-
-        // TODO: generating asteroid via coordinates
         map = new Map();
-
         ArrayList<Asteroid> asteroids = new ArrayList<>();
 
         // creating sectors
         for (int i = 0; i < sectorNumber; i++)
             map.AddSector(new Sector(map.GetNewUID(),map));
 
-        /*
-        ArrayList<Point> coords = new ArrayList<>();
-        while(coords.size() < asteroidNumber){
-            Point p = genRndPoint(-1.0,1.0);
-
-            // TODO: distance check
-            coords.add(p);
-        }
-        */
+        // TODO: generating asteroids with coordinates (for the UI)
 
         // creating asteroids and adding to sectors
         for(Sector s : map.getSectors())
-            for (int i = 0; i < asteroidNumber/sectorNumber; i++){
-                Asteroid a = new Asteroid(map.GetNewUID(), s, genRndMaterial() , new Random().nextInt(6));
+            for (int i = 0; i < asteroidNumberMin+random.nextInt(asteroidNumberMax); i++){
+                Asteroid a = new Asteroid(map.GetNewUID(), s, genRndMaterial() , random.nextInt(6));
                 asteroids.add(a);
                 s.Add(a);
             }
@@ -66,12 +57,12 @@ public class MapBuilder {
         }
 
         // creating players on random asteroid
-        for (int i = 0; i < playerNumber; i++) {
+        for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
             asteroids.get(random.nextInt(asteroids.size())).Add(new PlayerShip(map.GetNewUID()));
         }
 
         // creating UFOs on random asteroid
-        for (int i = 0; i < playerNumber; i++) {
+        for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
             asteroids.get(random.nextInt(asteroids.size())).Add(new UFO(map.GetNewUID()));
         }
 
