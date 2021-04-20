@@ -1,238 +1,361 @@
 package Model;
 
+import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
+import Utils.LinkerException;
+import Utils.StringPair;
 
-import java.lang.reflect.AccessibleObject;
+import javax.management.RuntimeErrorException;
+import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.StringJoiner;
+import java.util.Comparator;
 
+/**
+ * It bases from the Ship class. Represents the player's ship in the game.
+ */
 public class PlayerShip extends Ship {
-
+    /**
+     * The player's materials.
+     */
     private ArrayList<Material> materials = new ArrayList<>();
+    /**
+     * The player's teleport gates.
+     */
     private ArrayList<TeleportGate> teleports = new ArrayList<>();
 
 
-    PlayerShip(Asteroid start){
+    public PlayerShip(int uid){
+        super(uid);
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
-        asteroid = start;
-        start.Add(this);
     }
 
-    // mines asteroid's core material
+    public PlayerShip(Asteroid start){
+        super(start);
+        materials = new ArrayList<>();
+        teleports = new ArrayList<>();
+    }
+
+    /**
+     * The getter of the materials.
+     * @return With the player's materials.
+     */
+    public ArrayList<Material> getMaterials(){return materials;}
+
+    /**
+     * The getter of the teleport gates.
+     * @return With the player's teleport gates.
+     */
+    public ArrayList<TeleportGate> getTeleports(){return teleports;}
+
+    /**
+     * Mines asteroid's core material.
+     */
     public void Mine(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.Mine()");
-        int ans;
-        ans = Skeleton.AskPlayerForInt("How many materials do you have? [num]");
-        // only mines if player ship has 9 material or less
-        if(ans < 10) {
+        NotificationManager.setLastCommandSuccess(true);
+        // Only mines if player ship has 9 material or less.
+        if(materials.size() < 10) {
             Material core;
-            System.out.println("asteroid.GetMined()");
             core = asteroid.GetMined();
-            // only adds if asteroid is not empty
+            // Only adds if asteroid is not empty.
             if(core != null){
-                Add(core);
+                materials.add(core);
+                NotificationManager.AddMessage("Player" + GetUID() + " mined successfully");
             }
-        } else System.out.println("You have too many materials.");
-        Skeleton.RemoveFromCallStack("PlayerShip.Mine()");
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Player inventory full, can't mine");
+        }
     }
 
-    // removes material from the inventory
+    /**
+     * Removes a bill of material from the inventory.
+     * @param b The materials we want to be removed from the player's inventory.
+     */
     public void Remove(BillOfMaterial b){
-        Skeleton.AddAndPrintCallStack("PlayerShip.RemoveBill()");
         ArrayList<Material> removable;
         removable = b.GetMaterials();
         for(Material m : removable){
-            Remove(m);
+            materials.remove(m);
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.RemoveBill()");
     }
 
-    // crafts teleport gate pair
+    /**
+     * Crafts teleport gate pair.
+     */
     public void CraftTeleportGates(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.CraftTeleportGates()");
-        int ans;
-        ans = Skeleton.AskPlayerForInt("How many teleports do you have? [num]");
-        if(ans > 0){
-            System.out.println("You have too many teleports.");
-        }
-        else {
+        NotificationManager.setLastCommandSuccess(true);
+        if(teleports.size() <= 1) {
             BillCreator bc = BillCreator.GetInstance();
             BillOfMaterial bill = bc.CreateForTeleport(materials);
             // checks whether player ship has enough material to craft
-            if(bill == null) {
-                System.out.println("You don't have enough materials.");
-            }
-            else {
-                System.out.println("\tTeleports created and added.");
+            if(bill != null)  {
                 Remove(bill);
-                TeleportGate t1 = new TeleportGate();
-                TeleportGate t2 = new TeleportGate();
+                TeleportGate t1 = new TeleportGate(asteroid.sector.map.GetNewUID());
+                TeleportGate t2 = new TeleportGate(asteroid.sector.map.GetNewUID());
                 t1.pair(t2);
-                Add(t1);
-                Add(t2);
+                teleports.add(t1);
+                teleports.add(t2);
+                NotificationManager.AddMessage("Player" + GetUID() + " built 2 teleports.");
+            }
+            else{
+                NotificationManager.setLastCommandSuccess(false);
+                NotificationManager.AddError("Player doesn't have enough materials, can't craft");
             }
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.CraftTeleportGates()");
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Player inventory full, can't craft");
+        }
     }
 
-    // crafts robot
+    /**
+     * Crafts a robot.
+     */
     public void CraftRobot(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.CraftRobot()");
+        NotificationManager.setLastCommandSuccess(true);
         BillCreator bc = BillCreator.GetInstance();
         BillOfMaterial bill = bc.CreateForRobot(materials);
         // checks whether player ship has enough material to craft
-        if(bill == null) {
-            System.out.println("You don't have enough materials.");
+        if(bill != null) {
+            Remove(bill);
+            RobotShip rs = new RobotShip(asteroid);
+            asteroid.Add(rs);
+            NotificationManager.AddMessage("Player" + GetUID() + " built a robot.");
         }
         else{
-            System.out.println("Robot crafted and placed.");
-            Remove(bill);
-            RobotShip rs = new RobotShip();
-            asteroid.Add(rs);
-            Sun.GetInstance().AddAffected(rs);
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Player doesn't have enough materials, can't craft");
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.CraftRobot()");
     }
 
-    // crafts base
+    /**
+     * Crafts a base foundation.
+     */
     public void CraftBase(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.CraftBase()");
-        boolean yes;
-        yes = Skeleton.AskPlayer("Is there a base on your current asteroid? [Y/N]");
-        // checks whether player ship has enough material to craft
-        if(yes){
-            System.out.println("You can't build a base here!");
-        }
-        else{
+        NotificationManager.setLastCommandSuccess(true);
+        if(asteroid.GetBase() == null){
             BillCreator bc = BillCreator.GetInstance();
             BillOfMaterial bill = bc.CreateForBaseFoundation(materials);
-            if(bill == null) {
-                System.out.println("You don't have enough materials.");
-            }
-            else{
-                System.out.println("Base foundation crafted and placed.");
+            if(bill != null) {
                 Remove(bill);
-                Base newbase = new Base();
+                Base newbase = new Base(asteroid.sector.map.GetNewUID());
                 for(Material m : bill.GetMaterials()){
                     newbase.Accept(m);
                 }
                 asteroid.SetBase(newbase);
+                NotificationManager.AddMessage("Player" + GetUID() + " built a base.");
+            }
+            else{
+                NotificationManager.setLastCommandSuccess(false);
+                NotificationManager.AddError("Player doesn't have enough materials, can't craft");
             }
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.CraftBase()");
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Base is already placed on asteroid, can't craft");
+        }
     }
 
-    // puts back material to the core
+    /**
+     * Puts back a material to the core.
+     * @param m The material we want to put back to the core.
+     */
     public void PutBack(Material m){
-        Skeleton.AddAndPrintCallStack("PlayerShip.PutBack()");
+        NotificationManager.setLastCommandSuccess(true);
         if(asteroid.SetCore(m)){
-            Remove(m);
+            materials.remove(m);
+            NotificationManager.AddMessage("Player" + GetUID() + " successfully put: Material" + m.GetUID() + " back.");
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.PutBack()");
     }
 
-    // builds base
+    public void Drill(){
+        NotificationManager.setLastCommandSuccess(true);
+        if(asteroid.GetDrilled()){
+            NotificationManager.AddMessage("Player" + GetUID() + " drilled Asteroid" + asteroid.GetUID());
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is already drilled through, can't drill");
+        }
+    }
+
+    /**
+     * Builds the base.
+     */
     public void BuildBase(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.BuildBase()");
-        boolean yes;
-        yes = Skeleton.AskPlayer("Is there a base on your current asteroid?");
         // checks whether is a base already on the asteroid
-        if(yes){
-            if(asteroid.GetBase() == null){
-                Base base = new Base();
-                asteroid.SetBase(base);
+        if(asteroid.GetBase() != null){
+            ArrayList<Material> removables = new ArrayList<>();
+            for(Material it : materials) {
+                if (asteroid.GetBase().Accept(it))
+                    removables.add(it);
             }
-            int InventoryNum=-1;
-            while(InventoryNum < 0 || InventoryNum>10){
-                InventoryNum = Skeleton.AskPlayerForInt("How many materials does the player have?");
-                if(InventoryNum < 0 || InventoryNum>10){
-                    System.out.println("Invalid number");
-                }
+            if(removables.size() != 0)
+                NotificationManager.AddMessage("Player" + GetUID() + " successfully built " + removables.size() + " into the base.");
+            else{
+                NotificationManager.setLastCommandSuccess(false);
+                NotificationManager.AddError("Player doesn't have any materials the base needs, can't build");
             }
-            for(int i = 0; i < InventoryNum; i++){
-                asteroid.GetBase().Accept(Skeleton.AskPlayerForMaterial("What type is the " + (i+1) + ". material?"));
-            }
+            for(Material it : removables)
+                materials.remove(it);
             asteroid.GetBase().CheckComplete();
         }
         else{
-            System.out.println("You can't build a non-existing base.");
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("No base on asteroid, can't build");
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.BuildBase()");
     }
 
-    // puts down the teleport gate
+    /**
+     * Puts down the teleport gate.
+     * @param t The teleport gate we want to put down next to the current asteroid.
+     */
     public void PutDown(TeleportGate t){
-        Skeleton.AddAndPrintCallStack("PlayerShip.PutDown()");
-        boolean yes;
-        yes = Skeleton.AskPlayer("Do you have any teleports? ");
-        // checks whether is player ship has teleport
-        if(yes){
+        // Checks whether is player ship has teleport.
+        if(teleports.size()>0){
             Remove(t);
             t.AddNeighbour(asteroid);
+            t.SetSector(asteroid.sector);
+            asteroid.sector.Add(t);
             asteroid.AddNeighbour(t);
-            System.out.println("Teleport placed successfully.");
+            NotificationManager.AddMessage("Player" + GetUID() + " successfully put Teleport" + t.GetUID() + " down.");
         }
-        Skeleton.RemoveFromCallStack("PlayerShip.PutDown()");
     }
 
-    // player ship dies
+    /**
+     * Player ship dies.
+     */
     public void Die(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.Die()");
-        // removes all materials
+        // Removes all materials.
         for(Material m : materials){
-            Remove(m);
+            materials.remove(m);
         }
-        // removes all teleports
+        // Removes all teleports.
         for(TeleportGate t : teleports){
             Remove(t);
         }
         asteroid.Remove(this);
-        Sun.GetInstance().RemoveAffected(this);
-        System.out.println("Player died.");
-        Skeleton.RemoveFromCallStack("PlayerShip.Die()");
+        NotificationManager.AddMessage("Player" + GetUID() + " died");
+        asteroid = null;
     }
 
-    // in case of asteroid exploding player ship dies
+    /**
+     * In case of asteroid exploding player ship dies.
+     */
     public void AsteroidExploding(){
-        Skeleton.AddAndPrintCallStack("PlayerShip.AsteroidExploding()");
         Die();
-        Skeleton.RemoveFromCallStack("PlayerShip.AsteroidExploding()");
     }
 
-    // adds material
-    public void Add(Material m){
-        Skeleton.AddAndPrintCallStack("PlayerShip.Add()");
-        materials.add(m);
-        System.out.println("Added " + m + " to the players inventory.");
-        Skeleton.RemoveFromCallStack("PlayerShip.Add()");
+    @Override
+    public void Move(Field f){
+        NotificationManager.setLastCommandSuccess(true);
+        Asteroid a = asteroid;
+        super.Move(f);
+        if(a == asteroid){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Teleport is not active, couldn't move.");
+        }
+        else{
+            NotificationManager.AddMessage("Player" + GetUID() + " successfully moved to Asteroid" + asteroid.GetUID());
+        }
     }
 
-    // removes material
-    public void Remove(Material m){
-        Skeleton.AddAndPrintCallStack("PlayerShip.Remove()");
-        materials.remove(m);
-        Skeleton.RemoveFromCallStack("PlayerShip.Remove()");
-    }
 
-    // adds teleport gate
-    public void Add(TeleportGate t){
-        Skeleton.AddAndPrintCallStack("PlayerShip.Add()");
-        teleports.add(t);
-        Skeleton.RemoveFromCallStack("PlayerShip.Add()");
-    }
-
-    // removes teleport gate
+    /**
+     * Removes a teleport gate.
+     * @param t The teleport gate which will be removed from the player ship's inventory.
+     */
     public void Remove(TeleportGate t){
-        Skeleton.AddAndPrintCallStack("PlayerShip.Remove()");
         teleports.remove(t);
-        Skeleton.RemoveFromCallStack("PlayerShip.Remove()");
     }
+
 
     @Override
     public String toString(){
         return "PlayerShip";
     }
+
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
+        super.Link(args,fc);
+        for(StringPair it : args) {
+            if(it.first.equals("Materials")){
+                String[] ids = it.second.split(",");
+                for (String idIt : ids) {
+                    materials.add((Material) fc.GetWithUID(Integer.parseInt(idIt)));
+                }
+            }
+            else if(it.first.equals("Teleports")){
+                String[] ids = it.second.split(",");
+                for (String idIt : ids) {
+                    teleports.add((TeleportGate) fc.GetWithUID(Integer.parseInt(idIt)));
+                }
+            }
+        }
+    }
+
+    /**
+     * The save method for the PlayerShip class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
+     */
+    @Override
+    public void Save(PrintStream os,boolean CallChildren) {
+        os.println("PlayerShip{");
+        super.Save(os,CallChildren);
+        if(materials.size()>0) {
+            os.print("Materials: ");
+            materials.sort(new Comparator<Material>() {
+                @Override
+                public int compare(Material o1, Material o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
+            for (Material it : materials) {
+                os.print(it.GetUID());
+                if (it != materials.get(materials.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+        if(teleports.size()>0) {
+            os.print("Teleports: ");
+            teleports.sort(new Comparator<TeleportGate>() {
+                @Override
+                public int compare(TeleportGate o1, TeleportGate o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
+            for (TeleportGate it : teleports) {
+                os.print(it.GetUID());
+                if (it != teleports.get(teleports.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+        os.println("}");
+        if(CallChildren) {
+            for (TeleportGate s : teleports) {
+                s.Save(os, CallChildren);
+            }
+            for (Material s : materials) {
+                s.Save(os, CallChildren);
+            }
+        }
+    }
+
 }

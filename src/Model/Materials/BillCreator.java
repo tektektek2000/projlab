@@ -1,17 +1,22 @@
 package Model.Materials;
 
-import Model.Skeleton;
-
-import java.io.IOException;
+import Model.Map;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+/**
+ * Creates bills for the crafting and building.
+ */
 public class BillCreator {
+    /**
+     * The instance of the singleton BillCreator class.
+     */
     private static BillCreator instance=null;
 
     private BillCreator(){}
 
-    // Singleton class. Returns the only instance of BillCreator that exists
+    /**
+     * @return Singleton class. Returns the only instance of BillCreator that exists.
+     */
     public static BillCreator GetInstance(){
         if(instance==null){
             instance = new BillCreator();
@@ -19,72 +24,73 @@ public class BillCreator {
         return instance;
     }
 
-    // Compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial
-    // Returns the number of materials added
-    public int CountAndAdd(ArrayList<Material> inventory,Material Comparator,BillOfMaterial bill){
-        Skeleton.AddAndPrintCallStack("BillCreator.CountAndAdd()");
-        System.out.println("How many " + Comparator.GetTypeUnique() + " does the current entity have?");
-        int Count;
-        Scanner in = new Scanner(System.in);
-        Count = in.nextInt();
-        Skeleton.RemoveFromCallStack("BillCreator.CountAndAdd()");
-        return Count;
+    /**
+     * Compares all materials in an inventory to a given reference material, and if they are of the same type adds them to the given BillOfMaterial.
+     * @param inventory The list of materials where we search for the needed material.
+     * @param Comparator The material what we are looking for.
+     * @param bill The BillOfMaterial, where we add the matching material if needed.
+     * @param Needed How many materials we need for the bill.
+     * @return True, if there was enough materials in the given inventory, and false if not.
+     */
+    public boolean CountAndAdd(ArrayList<Material> inventory,Material Comparator,BillOfMaterial bill,int Needed){
+        int Count=0;
+        for(Material it : inventory){
+            if(Comparator.isSameType(it)){
+                if(Count < Needed)
+                    bill.Add(it);
+                Count++;
+            }
+        }
+        return Count>=Needed;
     }
 
-    // Prepares a BillOfMaterial for a pair of TeleportGate-s. If not enough resources are found in the inventory than it returns null.
+    /**
+     * Prepares a BillOfMaterial for teleport gates.
+     * @param inventory The list of materials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
+     */
     public BillOfMaterial CreateForTeleport(ArrayList<Material> inventory){
-        Skeleton.AddAndPrintCallStack("BillCreator.CreateForTeleport()");
         BillOfMaterial bill = new BillOfMaterial();
-        int UraniumNum = CountAndAdd(inventory,new Uranium(),bill);
-        int CoalNum = CountAndAdd(inventory,new Coal(),bill);
-        int IronNum = CountAndAdd(inventory,new Iron(),bill);
-
-        Skeleton.RemoveFromCallStack("BillCreator.CreateForTeleport()");
-        if(UraniumNum<1 || CoalNum < 1 || IronNum < 2){
+        if(!CountAndAdd(inventory,new Uranium(new Map()),bill,1) || !CountAndAdd(inventory,new Ice(new Map()),bill,1) || !CountAndAdd(inventory,new Iron(new Map()),bill,2)){
             return null;
         }
         return bill;
     }
 
-    // Prepares a BillOfMaterial for a BaseFoundation. If not enough resources are found in the inventory than it returns null.
+    /**
+     * Prepares a BillOfMaterial for a base foundation.
+     * @param inventory The list of materials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
+     */
     public BillOfMaterial CreateForBaseFoundation(ArrayList<Material> inventory){
-        Skeleton.AddAndPrintCallStack("BillCreator.CreateForBaseFoundation()");
         BillOfMaterial bill = new BillOfMaterial();
-        int IronNum = CountAndAdd(inventory,new Iron(),bill);
-
-        Skeleton.RemoveFromCallStack("BillCreator.CreateForBaseFoundation()");
-        if(IronNum < 3){
+        if(!CountAndAdd(inventory,new Iron(new Map()),bill,3)){
             return null;
         }
         return bill;
     }
 
-    // Prepares a BillOfMaterial for a Robot. If not enough resources are found in the inventory than it returns null.
+    /**
+     * Prepares a BillOfMaterial for a robot.
+     * @param inventory The list of materials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
+     */
     public BillOfMaterial CreateForRobot(ArrayList<Material> inventory){
-        Skeleton.AddAndPrintCallStack("BillCreator.CreateForRobot()");
         BillOfMaterial bill = new BillOfMaterial();
-        int UraniumNum = CountAndAdd(inventory,new Uranium(),bill);
-        int CoalNum = CountAndAdd(inventory,new Coal(),bill);
-        int IronNum = CountAndAdd(inventory,new Iron(),bill);
-
-        Skeleton.RemoveFromCallStack("BillCreator.CreateForRobot()");
-        if(UraniumNum<1 || CoalNum < 1 || IronNum < 1){
+        if(!CountAndAdd(inventory,new Uranium(new Map()),bill,1) || !CountAndAdd(inventory,new Coal(new Map()),bill,1)  || !CountAndAdd(inventory,new Iron(new Map()),bill,1)){
             return null;
         }
         return bill;
     }
 
-    // Prepares a BillOfMaterial for a completed Base. If not enough resources are found in the inventory than it returns null.
+    /**
+     * Prepares a BillOfMaterial for a completed base.
+     * @param inventory The list of mterials where we search for the needed ones.
+     * @return The bill, if possible, null if there is not enough materials in the inventory.
+     */
     public BillOfMaterial CreateForBase(ArrayList<Material> inventory){
-        Skeleton.AddAndPrintCallStack("BillCreator.CreateForBase()");
         BillOfMaterial bill = new BillOfMaterial();
-        int UraniumNum = CountAndAdd(inventory,new Uranium(),bill);
-        int CoalNum = CountAndAdd(inventory,new Coal(),bill);
-        int IronNum = CountAndAdd(inventory,new Iron(),bill);
-        int IceNum = CountAndAdd(inventory,new Ice(),bill);
-
-        Skeleton.RemoveFromCallStack("BillCreator.CreateForBase()");
-        if(UraniumNum<3 || CoalNum < 3 || IronNum < 3 || IceNum <3){
+        if(!CountAndAdd(inventory,new Uranium(new Map()),bill,3) || !CountAndAdd(inventory,new Coal(new Map()),bill,3) || !CountAndAdd(inventory,new Iron(new Map()),bill,3) || !CountAndAdd(inventory,new Ice(new Map()),bill,3)){
             return null;
         }
         return bill;

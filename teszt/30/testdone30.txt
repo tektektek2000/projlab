@@ -1,0 +1,22 @@
+Sector{
+UID: 3
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 3
+Shell: 0
+Ships: 2
+}
+RobotShip{
+UID: 2
+Asteroid: 1
+}
+Controller{
+controller: false
+}
+Sun{
+Target: 3
+Rounds: 4
+}

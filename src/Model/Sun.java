@@ -1,17 +1,44 @@
 package Model;
 
+import Controllers.NotificationManager;
+
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * It represents the Sun in the game.
+ * It controls the SunStorms.
+ */
 public class Sun {
+    /**
+     * The instance of the singleton Sun class.
+     */
     private static Sun instance=null;
-    private ArrayList<Ship> affecteds = new ArrayList<>();
+    /**
+     * True, if there is a sun storm right now, false if not.
+     */
     private static boolean StormNow=false;
-    private ArrayList<Ship> ToBeDeleted = new ArrayList<>();
+    /**
+     * The map where the sun is.
+     */
+    private Map map;
+    /**
+     * Round until the next sun storm-
+     */
+    private int RoundsUntillStorm;
+    /**
+     * The sector where the sun storm will happpen.
+     */
+    private Sector target;
 
-    private Sun(){}
+    private Sun(){
+        RoundsUntillStorm = new Random().nextInt(6)+3;
+    }
 
-    // static instance getter
+    /**
+     * @return Singleton class. Returns the only instance of Sun that exists.
+     */
     public static Sun GetInstance(){
         if(instance == null){
             instance = new Sun();
@@ -19,49 +46,83 @@ public class Sun {
         return instance;
     }
 
-    // adds ship to the affected list
-    public void AddAffected(Ship s){
-        Skeleton.AddAndPrintCallStack("Sun.AddAffected()");
-        affecteds.add(s);
-        Skeleton.RemoveFromCallStack("Sun.AddAffected()");
+    /**
+     * Setter for the map, the targeted sector and the rounds until the next sun storm.
+     * @param m The map we want to set for the sun.
+     */
+    public void SetMap(Map m){
+        map = m;
+        target = m.getSectors().get(new Random().nextInt(m.getSectors().size()));
+        RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
-    // removes ship from the affected list
-    public void RemoveAffected(Ship s){
-        Skeleton.AddAndPrintCallStack("Sun.RemoveAffected()");
-        if(StormNow)
-            ToBeDeleted.add(s);
-        else
-            affecteds.remove(s);
-        Skeleton.RemoveFromCallStack("Sun.RemoveAffected()");
+    /**
+     * Cause a sun storm in a specific sector.
+     * @param s The sector where the sun storm will happen.
+     */
+    public void SunStorm(Sector s){
+        NotificationManager.AddMessage("Sunstorm in Sector" + target.GetUID() + ".");
+        s.SunStorm();
+        RoundsUntillStorm = new Random().nextInt(6)+3;
     }
 
-    // calls sun storm if zero turns left until sun storm
+    /**
+     * Calls sun storm if zero turns left until sun storm.
+     */
     public void TurnOver(){
-        Skeleton.AddAndPrintCallStack("Sun.TurnOver()");
-        Scanner in = new Scanner(System.in);
-        System.out.println("How many turns until a storm happens? [num]");
-        if(in.nextInt() == 0){
-            StormNow = true;
-            for(Ship s : affecteds){
-                s.SunStormNow();
-            }
-            for(Ship s : ToBeDeleted){
-                affecteds.remove(s);
-            }
-            affecteds.clear();
-            StormNow=false;
+        RoundsUntillStorm--;
+        if(RoundsUntillStorm==0){
+            SunStorm(target);
+            ArrayList<Sector> sectors = map.getSectors();
+            Random rand = new Random();
+            target = sectors.get(rand.nextInt(sectors.size()));
         }
-        Skeleton.RemoveFromCallStack("Sun.TurnOver()");
     }
 
-    // checks if the given asteroid is in sun close area
-    public boolean isClose(Asteroid a){
-        Scanner in = new Scanner(System.in);
-        boolean yes;
-        yes = Skeleton.AskPlayer("Is the given asteroid near to your current one?");
-        return yes;
+    /**
+     * The getter of the sun storm's target.
+     * @return With the current targeted sector.
+     */
+    public Sector getTarget(){
+        return target;
     }
+
+    /**
+     * The setter of the sun storm's target.
+     * @param sector With the sector we want to target for the next sun storm.
+     */
+    public void setTarget(Sector sector){
+        target = sector;
+    }
+
+    /**
+     * The setter of the rounds until the next sun storm occurs.
+     * @param val The round we want to set.
+     */
+    public void setRoundsUntillStorm(int val){
+        RoundsUntillStorm = val;
+    }
+
+    /**
+     * The getter of the rounds until the next sun storm occurs.
+     * @return With the current "time" until the next sun storm.
+     */
+    public int getRoundsUntillStorm(){
+        return RoundsUntillStorm;
+    }
+
+    /**
+     * Checks if the given asteroid is in sun close area.
+     * @param a The asteroid which can be close or not close to the sun.
+     * @return True, if it's close and false if not.
+     */
+    public boolean isClose(Asteroid a){
+        return false;
+    }
+
+    /**
+     * Resets the instance of the Sun.
+     */
     public static void Reset(){
         instance = null;
     }

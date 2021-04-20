@@ -1,125 +1,231 @@
 package Model;
 
+import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.Material;
+import Utils.LinkerException;
+import Utils.StringPair;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Random;
 
+/**
+ * It bases from Field.
+ * Represents the asteroid in the game.
+ */
 public class Asteroid extends Field {
-    ArrayList<Ship> ships;
-    Material core;
-    Base base;
+    /**
+     * The ships on the asteroid.
+     */
+    private ArrayList<Ship> ships;
+    /**
+     * A list of the removable ships for the iterations.
+     */
+    private ArrayList<Ship> Removables;
+    /**
+     * The material in the asteroid.
+     */
+    private Material core;
+    /**
+     * The base on the asteroid, if there is no base, it's null.
+     */
+    private Base base;
+    /**
+     * The shell of the asteroid, ships can only mine if it's 0.
+     */
+    private int shell;
+    /**
+     * True, if the asteroid was hit by a sun storm recently, false if not.
+     */
+    private boolean SunStorm = false;
 
-    public Asteroid(){
+    public Asteroid(Sector s){
+        super(s);
         ships = new ArrayList<>();
+        Removables = new ArrayList<>();
         base=null;
+        shell = new Random().nextInt(6);
     }
-
-    public Asteroid(Material Core){
+    public Asteroid(Sector s,int Shell){
+        super(s);
         ships = new ArrayList<>();
+        Removables = new ArrayList<>();
+        base=null;
+        shell = Shell;
+    }
+    public Asteroid(Sector s,Material Core,int Shell){
+        super(s);
+        ships = new ArrayList<>();
+        Removables = new ArrayList<>();
         core = Core;
         base=null;
+        shell = Shell;
+    }
+    public Asteroid(int UID, Sector s, Material _core, int _shell) {
+        super(UID, s);
+        ships = new ArrayList<>();
+        Removables = new ArrayList<>();
+        core = _core;
+        base = null;
+        shell = _shell;
+    }
+    public Asteroid(int UID) {
+        super(UID);
+        ships = new ArrayList<>();
+        Removables = new ArrayList<>();
+        base=null;
+        shell = new Random().nextInt(6);
     }
 
-    // setter for base
+    /**
+     * The setter of the shell.
+     * @param Shell The value we want to set for the asteroid's shell.
+     */
+    public void SetShell(int Shell){
+        shell = Shell;
+    }
+
+    /**
+     * The getter of the shell.
+     * @return With the value of the shell.
+     */
+    public int GetShell(){
+        return shell;
+    }
+
+    /**
+     * The setter of the base.
+     * @param b The base we want to set for the asteroid's base.
+     */
     public void SetBase(Base b){
-        Skeleton.AddAndPrintCallStack("Asteroid.SetBase()");
         base=b;
-        Skeleton.RemoveFromCallStack("Asteroid.SetBase()");
     }
 
-    // getter for base
+    /**
+     * The getter of the base.
+     * @return With the base on the asteroid.
+     */
     public Base GetBase(){return base;}
 
-    // setter for core
+    /**
+     * The setter of the core.
+     * @param m The material we want to set for the asteroid's core.
+     * @return True, if the set was successful and false if not.
+     */
     public boolean SetCore(Material m){
-        Skeleton.AddAndPrintCallStack("Asteroid.SetCore()");
-        // asking for shell size
-        if(Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?")>0){
-            System.out.println("You can't put the material back, because the asteroid is not drilled through.");
+        if(shell != 0){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is not drilled through, can't put back material.");
         }
-        else{
-            // asking if the asteroid is empty
-            if(Skeleton.AskPlayer("Is the asteroid empty? [Y/N]")){
-                System.out.println("You put the material back successfully.");
-                core = m;
-                return true;
-            }
-            else{
-                System.out.println("You can't put the material back, because the asteroid is not empty.");
-            }
+        else if(core != null){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is empty, can't put back material.");
         }
-        Skeleton.RemoveFromCallStack("Asteroid.SetCore()");
+        if(shell == 0 && core == null){
+            core = m;
+            if(sector.getSunClose()){
+                core.DrilledThroughSunClose(this);
+            }
+            return true;
+        }
         return false;
     }
 
-    // removes ship from the list
+    /**
+     * The getter of the core.
+     * @return With the asteroid's core.
+     */
+    public Material GetCore(){
+        return core;
+    }
+
+    /**
+     * itt bizony feketemágia történik.
+     * @param s
+     */
     public void Remove(Ship s){
-        Skeleton.AddAndPrintCallStack("Asteroid.Remove()");
-        ships.remove(s);
-        Skeleton.RemoveFromCallStack("Asteroid.Remove()");
+        if(!SunStorm)
+            ships.remove(s);
+        else
+            Removables.add(s);
     }
 
-    // adds ship to the list
+    /**
+     * Adds a ship to the asteroid.
+     * @param s The ship we want to be added to the asteroid.
+     */
     public void Add(Ship s){
-        Skeleton.AddAndPrintCallStack("Asteroid.Add()");
         ships.add(s);
-        Skeleton.RemoveFromCallStack("Asteroid.Add()");
     }
 
-    // getting drilled by a ship
-    public void GetDrilled(){
-        Skeleton.AddAndPrintCallStack("Asteroid.GetDrilled()");
-
-        // asking for shell size
-        int shell = Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?");
+    /**
+     * The method which handles if a ship drills the asteroid.
+     */
+    public boolean GetDrilled(){
         if(shell<=0){
-            System.out.println("Drilling unsuccessful, the asteroid is already drilled through.");
-            return;
+            return false;
         }
         shell--;
         // if shell size is zero then checks whether it is in sun close area
         if(shell==0){
-            System.out.println("Asteroid is drilled through.");
-            if (Skeleton.AskPlayer("Is the asteroid close to the sun?")) {
+            if (sector.getSunClose()) {
                 core.DrilledThroughSunClose(this);
             }
         }
-        else{
-            System.out.println("Drilling successful, the asteroid shell is reduced.");
-        }
-        Skeleton.RemoveFromCallStack("Asteroid.GetDrilled()");
+        return true;
     }
 
-    // getting mined by a ship
+    /**
+     * The method which handles if a ship mines on the asteroid.
+     * @return With the core if the mining was successful and false if not.
+     */
     public Material GetMined(){
-        Skeleton.AddAndPrintCallStack("Asteroid.GetMined()");
-
-        // asking for shell size
-        int shell = Skeleton.AskPlayerForInt("How thick is the shell of the Asteroid?");
         // if shell size is not zero cannot get mined
-        if(shell>0){
-            System.out.println("Can't mine asteroid, because it is not drilled through.");
+        if(shell > 0){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid shell isn't drilled through, can't mine");
             return null;
         }
-        // if core is null then asteroid has note material
         if(core == null){
-            System.out.println("Asteroid is empty.");
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is empty, can't mine");
+            return null;
         }
-        Skeleton.RemoveFromCallStack("Asteroid.GetMined()");
-        return core;
+        Material ret = core;
+        core = null;
+        ret.PickedUp();
+        return ret;
     }
 
-    // ship moves to the asteroid
-    public Asteroid MovedTo(Ship s){
-        Skeleton.AddAndPrintCallStack("Asteroid.MovedTo()");
-        Add(s);
-        Skeleton.RemoveFromCallStack("Asteroid.MovedTo()");
+    /**
+     * Called when a ship moves to the asteroid.
+     * @return With the asteroid.
+     */
+    public Asteroid MovedTo(){
         return this;
     }
 
-    // asteroid explodes
-    public void Explode(){
-        Skeleton.AddAndPrintCallStack("Asteroid.Explode()");
+    /**
+     * The asteroid reacts to a sunstorm.
+     */
+    @Override
+    public void SunStorm() {
+        SunStorm = true;
+        for(Ship it : ships){
+            it.SunStormNow();
+        }
+        for(Ship it : Removables){
+            ships.remove(it);
+        }
+        SunStorm = false;
+    }
 
+    /**
+     * The asteroid explodes.
+     */
+    public void Explode(){
+        NotificationManager.AddMessage("Asteroid" + GetUID() + " exploded.");
         // calls for each ship exploding action
         for (int i=0;i<ships.size();i++) {
             for (Ship ship : ships) {
@@ -127,22 +233,88 @@ public class Asteroid extends Field {
                 break;
             }
         }
-        // removes asteroid from all neighbours
+        // Removes asteroid from all neighbours.
         for(Field f : Neighbours){
             f.RemoveNeighbour(this);
         }
-        Skeleton.RemoveFromCallStack("Asteroid.Explode()");
+        sector.Remove(this);
+        Neighbours.clear();
     }
 
-    // evaporates core material
+    /**
+     * Evaporates the core material.
+     */
     public void Evaporate(){
-        Skeleton.AddAndPrintCallStack("Asteroid.Evaporate()");
         core = null;
-        Skeleton.RemoveFromCallStack("Asteroid.Evaporate()");
     }
 
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
     @Override
-    public  String toString(){
-        return "Asteroid";
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
+        super.Link(args,fc);
+        for(StringPair it : args) {
+            if(it.first.equals("Ships")){
+                String[] ids = it.second.split(",");
+                for(String idIt : ids){
+                    ships.add((Ship) fc.GetWithUID(Integer.parseInt(idIt)));
+                }
+            }
+            else if(it.first.equals("Core")){
+                core = (Material) fc.GetWithUID(Integer.parseInt(it.second));
+            }
+            else if(it.first.equals("Shell")){
+                shell = Integer.parseInt(it.second);
+            }
+            else if(it.first.equals("Base")){
+                base = (Base) fc.GetWithUID(Integer.parseInt(it.second));
+            }
+        }
+    }
+
+    /**
+     * The save method for the Asteroid class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
+     */
+    @Override
+    public void Save(PrintStream os, boolean CallChildren) {
+        os.println("Asteroid{");
+        super.Save(os, CallChildren);
+        os.println("Shell: " + shell);
+        if(ships.size()>0) {
+            ships.sort(new Comparator<Ship>() {
+                @Override
+                public int compare(Ship o1, Ship o2) {
+                    return o1.GetUID()-o2.GetUID();
+                }
+            });
+            os.print("Ships: ");
+            for (Ship it : ships) {
+                os.print(it.GetUID());
+                if (it != ships.get(ships.size() - 1)) {
+                    os.print(",");
+                } else {
+                    os.println();
+                }
+            }
+        }
+        if(base!=null)
+            os.println("Base:" + base.GetUID());
+        if(core!=null)
+            os.println("Core:" + core.GetUID());
+        os.println("}");
+        if(CallChildren) {
+            if (core != null)
+                core.Save(os, CallChildren);
+            if (base != null)
+                base.Save(os, CallChildren);
+            for (Ship s : ships) {
+                s.Save(os, CallChildren);
+            }
+        }
     }
 }

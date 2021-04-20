@@ -1,0 +1,30 @@
+Sector{
+UID: 4
+Fields: 1,2,3
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 4
+Neighbours: 2,3
+Shell: 10
+}
+TeleportGate{
+UID: 2
+Sector: 4
+Neighbours: 1
+WasHitBySunStorm: false
+}
+TeleportGate{
+UID: 3
+Sector: 4
+Neighbours: 1
+WasHitBySunStorm: true
+}
+Controller{
+controller: false
+}
+Sun{
+Target: 4
+Rounds: 4
+}

@@ -1,42 +1,61 @@
 package Model;
 
-import java.util.Scanner;
+import Controllers.FileController;
+import Utils.LinkerException;
+import Utils.StringPair;
 
-public abstract class Ship {
+import java.io.PrintStream;
+import java.util.ArrayList;
 
+/**
+ * It represents the ships of the game.
+ */
+public abstract class Ship extends Saveable {
+    /**
+     * The asteroid where the ship is.
+     */
     protected Asteroid asteroid;
 
-    // moves the ship to the given field
-    public void Move(Field f){
-        Skeleton.AddAndPrintCallStack(this + ".Move()");
-        asteroid.Remove(this);
-        Asteroid dest = f.MovedTo(this);
-        setAsteroid(dest);
-        Skeleton.RemoveFromCallStack(this + ".Move()");
+    public Ship(Asteroid a){
+        super(a.sector.map);
+        asteroid = a;
+        asteroid.Add(this);
     }
 
-    // ship dies
+    public Ship(int uid) {
+        super(uid);
+    }
+
+    /**
+     * Moves the ship to the given field.
+     * @param f The field where we want to move the ship.
+     */
+    public void Move(Field f){
+        asteroid.Remove(this);
+        Asteroid dest = f.MovedTo();
+        dest.Add(this);
+        setAsteroid(dest);
+    }
+
+    /**
+     * Abstract method for the ships when they die.
+     */
     public abstract void Die();
 
-    // hides ship
+    /**
+     * Hides the ship. Not implemented yet.
+     */
     public void Hide(){
-        Skeleton.AddAndPrintCallStack("Ship.Hide()");
-        System.out.println("You hid successfully.");
-        Skeleton.RemoveFromCallStack("Ship.Hide()");
+        System.out.println("The ship survives.");
     }
 
-    // ship gets sun stormed
+    /**
+     *  The ship gets into a sun storm.
+     */
     public void SunStormNow(){
-        Skeleton.AddAndPrintCallStack("Ship.SunStormNow()");
-        Scanner in = new Scanner(System.in);
-        boolean yes;
-        yes = Skeleton.AskPlayer("Is there any layers on the asteroid?");
-
-        // whether ship can hide in empty asteroid or dies
-        if(!yes){
-
-            yes = Skeleton.AskPlayer("Is the asteroid empty?");
-            if(yes){
+        // Whether ship can hide in empty asteroid or dies.
+        if(asteroid.GetShell() == 0){
+            if(asteroid.GetCore() == null){
                 Hide();
             }
             else{
@@ -46,26 +65,54 @@ public abstract class Ship {
         else{
             Die();
         }
-        Skeleton.RemoveFromCallStack("Ship.SunStormNow()");
     }
 
-    // special action if the asteroid explodes
+    /**
+     *  Special action if the asteroid explodes.
+     */
     public abstract void AsteroidExploding();
 
-    // drills on the asteroid
-    public void Drill(){
-        Skeleton.AddAndPrintCallStack("Ship.Drill()");
-        asteroid.GetDrilled();
-        Skeleton.RemoveFromCallStack("Ship.Drill()");
-    }
 
-    // gives back asteroid
+    /**
+     * The getter of the ship's asteroid.
+     * @return With the ship's current asteroid.
+     */
     public Asteroid getAsteroid(){
         return asteroid;
     }
 
-    // sets asteroid
+    /**
+     * The setter of the ship's asteroid.
+     * @param a The asteroid we want to set for the ship.
+     */
     public void setAsteroid(Asteroid a){
         asteroid = a;
+    }
+
+    /**
+     * @param args
+     * @param fc
+     * @throws LinkerException
+     */
+    @Override
+    public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {
+        for(StringPair it : args) {
+            if(it.first.equals("Asteroid")){
+                asteroid = (Asteroid) fc.GetWithUID(Integer.parseInt(it.second));
+            }
+        }
+    }
+
+    /**
+     * The save method for the Ship class.
+     * @param os the stream, where the class will be written.
+     * @param CallChildren
+     */
+    @Override
+    public void Save(PrintStream os, boolean CallChildren) {
+        os.println("UID: " + GetUID());
+        if(asteroid!=null) {
+            os.println("Asteroid: " + asteroid.GetUID());
+        }
     }
 }

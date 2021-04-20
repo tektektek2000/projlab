@@ -1,0 +1,128 @@
+Sector{
+UID: 5
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 5
+Shell: 5
+Ships: 2
+Core:3
+}
+Iron{
+UID: 3
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 4
+}
+Iron{
+UID: 4
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 3
+}
+Sector{
+UID: 5
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 5
+Shell: 5
+Ships: 2
+Core:3
+}
+Iron{
+UID: 3
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 4
+}
+Iron{
+UID: 4
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 6
+}
+Sector{
+UID: 5
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 5
+Shell: 5
+Ships: 2
+Core:3
+}
+Iron{
+UID: 3
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 4
+}
+Iron{
+UID: 4
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 3
+}
+Sector{
+UID: 5
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 5
+Shell: 5
+Ships: 2
+Core:3
+}
+Iron{
+UID: 3
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 4
+}
+Iron{
+UID: 4
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 5
+}
