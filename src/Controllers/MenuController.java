@@ -28,8 +28,12 @@ public class MenuController {
                 tc.RunAllTests(gc);
             }
             else if(parts[0].equals("start")){
-                gc.NewMap();
-                Game();
+                try {
+                    gc.NewMap();
+                    Game();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             else if(parts[0].equals("load")){
                 try {
@@ -113,10 +117,10 @@ public class MenuController {
                     gc.InterpretCommand("p " + gc.getCurrentPlayer().GetUID() + " " +line);
                 }
                 catch (InvalidCommand e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
                 }
                 catch (Exception e) {
-                    System.out.println("Invalid command");
+                    System.out.println(ANSI_RED + "Invalid command" + ANSI_RESET);
                 }
                 if(NotificationManager.LastCommandSuccess){
                     String l = NotificationManager.getError();
