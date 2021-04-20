@@ -33,7 +33,7 @@ public class Sun {
     private Sector target;
 
     private Sun(){
-        RoundsUntillStorm = new Random().nextInt(6)+3;
+        RoundsUntillStorm = new Random().nextInt(6)+4;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Sun {
     public void SetMap(Map m){
         map = m;
         target = m.getSectors().get(new Random().nextInt(m.getSectors().size()));
-        RoundsUntillStorm = new Random().nextInt(6)+3;
+        RoundsUntillStorm = new Random().nextInt(6)+4;
     }
 
     /**
@@ -61,9 +61,10 @@ public class Sun {
      * @param s The sector where the sun storm will happen.
      */
     public void SunStorm(Sector s){
+        System.out.println("ss");
         NotificationManager.AddMessage("Sunstorm in Sector" + target.GetUID() + ".");
         s.SunStorm();
-        RoundsUntillStorm = new Random().nextInt(6)+3;
+        RoundsUntillStorm = new Random().nextInt(6)+4;
     }
 
     /**

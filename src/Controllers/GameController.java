@@ -383,27 +383,29 @@ public class GameController {
     public void EndTurn(){
         Sun.GetInstance().TurnOver();
         AIController ai = new AIController();
-        for(RobotShip r : rs){
-            if(r.getAsteroid()==null)
-                rs.remove(r);
-            else
-                ai.TakeTurn(r);
-            if(r.getAsteroid()==null)
-                rs.remove(r);
-        }
-        for(UFO u : ufos){
-            if(u.getAsteroid()==null)
-                rs.remove(u);
-            else
-                ai.TakeTurn(u);
-            if(u.getAsteroid()==null)
-                rs.remove(u);
+        if(controller) {
+            for (RobotShip r : rs) {
+                if (r.getAsteroid() == null)
+                    rs.remove(r);
+                else
+                    ai.TakeTurn(r);
+                if (r.getAsteroid() == null)
+                    rs.remove(r);
+            }
+            for (UFO u : ufos) {
+                if (u.getAsteroid() == null)
+                    rs.remove(u);
+                else
+                    ai.TakeTurn(u);
+                if (u.getAsteroid() == null)
+                    rs.remove(u);
+            }
+            for (TeleportGate t : tgs) {
+                t.TurnOver();
+            }
         }
         for(Uranium uranium : urans){
             uranium.TurnOver();
-        }
-        for(TeleportGate t : tgs){
-            t.TurnOver();
         }
     }
 

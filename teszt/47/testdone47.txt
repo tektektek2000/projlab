@@ -23,7 +23,7 @@ WasHitBySunStorm: false
 Controller{
 controller: false
 Order: 3
-Current: 2
+Current: 3
 }
 Sun{
 Target: 4

@@ -23,9 +23,9 @@ Asteroid: 2
 Controller{
 controller: false
 Order: 3
-Current: 2
+Current: 3
 }
 Sun{
 Target: 4
-Rounds: 5
+Rounds: 8
 }

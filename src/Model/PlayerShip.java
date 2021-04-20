@@ -124,7 +124,6 @@ public class PlayerShip extends Ship {
         if(bill != null) {
             Remove(bill);
             RobotShip rs = new RobotShip(asteroid);
-            asteroid.Add(rs);
             NotificationManager.AddMessage("Player" + GetUID() + " built a robot.");
         }
         else{
