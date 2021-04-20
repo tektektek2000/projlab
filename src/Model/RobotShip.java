@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  * It represents the robots, the controller is the AIController
- * It bases from the Ship class
+ * It bases from the Ship class.
  */
 public class RobotShip extends Ship {
 
@@ -23,24 +23,18 @@ public class RobotShip extends Ship {
     }
 
     /**
-     * in case of asteroid exploding robot ship flies over to a close asteroid
+     * I case of asteroid exploding robot ship flies over to a close asteroid.
      */
-
     public void AsteroidExploding(){
         ArrayList<Field> neighbours = asteroid.getNeighbours();
         Move(neighbours.get(new Random().nextInt(neighbours.size())));
     }
 
     /**
-     * robot ship dies
+     * Robot ship dies.
      */
     public void Die(){
         asteroid.Remove(this);
-    }
-
-    @Override
-    public String toString(){
-        return "RobotShip";
     }
 
     /**
@@ -54,7 +48,8 @@ public class RobotShip extends Ship {
     }
 
     /**
-     * @param os the stream, where the class will be written
+     * The save method for the RobotShip class.
+     * @param os The stream, where the class will be written.
      * @param CallChildren
      */
     @Override

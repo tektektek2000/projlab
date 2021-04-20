@@ -8,9 +8,12 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 /**
- * It represents the ships of the game
+ * It represents the ships of the game.
  */
 public abstract class Ship extends Saveable {
+    /**
+     * The asteroid where the ship is.
+     */
     protected Asteroid asteroid;
 
     public Ship(Asteroid a){
@@ -23,8 +26,8 @@ public abstract class Ship extends Saveable {
     }
 
     /**
-     * moves the ship to the given field
-     * @param f the field where we want to move the ship
+     * Moves the ship to the given field.
+     * @param f The field where we want to move the ship.
      */
     public void Move(Field f){
         asteroid.Remove(this);
@@ -34,22 +37,22 @@ public abstract class Ship extends Saveable {
     }
 
     /**
-     * ship dies
+     * Abstract method for the ships when they die.
      */
     public abstract void Die();
 
     /**
-     * hides ship
+     * Hides the ship. Not implemented yet.
      */
     public void Hide(){
-
+        System.out.println("The ship survives.");
     }
 
     /**
-     *  ship gets sun stormed
+     *  The ship gets into a sun storm.
      */
     public void SunStormNow(){
-        // whether ship can hide in empty asteroid or dies
+        // Whether ship can hide in empty asteroid or dies.
         if(asteroid.GetShell() == 0){
             if(asteroid.GetCore() == null){
                 Hide();
@@ -64,22 +67,29 @@ public abstract class Ship extends Saveable {
     }
 
     /**
-     *  special action if the asteroid explodes
+     *  Special action if the asteroid explodes.
      */
     public abstract void AsteroidExploding();
 
     /**
-     * drills on the asteroid
+     * Drills on the asteroid.
      */
     public void Drill(){
         asteroid.GetDrilled();
     }
 
-
+    /**
+     * The getter of the ship's asteroid.
+     * @return With the ship's current asteroid.
+     */
     public Asteroid getAsteroid(){
         return asteroid;
     }
 
+    /**
+     * The setter of the ship's asteroid.
+     * @param a The asteroid we want to set for the ship.
+     */
     public void setAsteroid(Asteroid a){
         asteroid = a;
     }
@@ -99,7 +109,8 @@ public abstract class Ship extends Saveable {
     }
 
     /**
-     * @param os the stream, where the class will be written
+     * The save method for the Ship class.
+     * @param os the stream, where the class will be written.
      * @param CallChildren
      */
     @Override

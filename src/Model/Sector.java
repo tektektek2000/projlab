@@ -12,8 +12,17 @@ import java.util.Comparator;
  * It represents the sectors of the game.
  */
 public class Sector extends Saveable{
+    /**
+     * The fields of the sector.
+     */
     private ArrayList<Field> fields;
+    /**
+     * True, if the sector is close to the sun and false if not.
+     */
     private boolean SunClose;
+    /**
+     * The map where the sector is.
+     */
     Map map = null;
 
     public Sector(int UID,Map m) {
@@ -44,7 +53,8 @@ public class Sector extends Saveable{
     }
 
     /**
-     * @param os the stream, where the class will be written
+     * The save method for the Sector class.
+     * @param os The stream, where the class will be written.
      * @param CallChildren
      */
     @Override
@@ -78,21 +88,23 @@ public class Sector extends Saveable{
     }
 
     /**
-     * @param f the field what we want to add to the sector
+     * Adds a field to the sector.
+     * @param f The field what we want to add to the sector.
      */
     public void Add(Field f){
         fields.add(f);
     }
 
     /**
-     * @param f the field what we want to remove from the sector
+     * Removes a field from the sector.
+     * @param f The field what we want to remove from the sector.
      */
     public void Remove(Field f){
         fields.remove(f);
     }
 
     /**
-     * it calls the SunStorm function for all the sector's fields
+     * It calls the SunStorm function for all the sector's fields.
      */
     public void SunStorm(){
         for(Field it : fields){
@@ -100,8 +112,16 @@ public class Sector extends Saveable{
         }
     }
 
+    /**
+     * The getter of the sector's fields.
+     * @return With the fields of the sector.
+     */
     public ArrayList<Field> getFields(){return fields;}
 
+    /**
+     * The getter of the SunClose attribute.
+     * @return With the SunClose attribute's current value.
+     */
     public boolean getSunClose(){
         return SunClose;
     }

@@ -13,10 +13,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * It bases from the Ship class. The player controls the playership with it
+ * It bases from the Ship class. Represents the player's ship in the game.
  */
 public class PlayerShip extends Ship {
+    /**
+     * The player's materials.
+     */
     private ArrayList<Material> materials = new ArrayList<>();
+    /**
+     * The player's teleport gates.
+     */
     private ArrayList<TeleportGate> teleports = new ArrayList<>();
 
 
@@ -25,7 +31,6 @@ public class PlayerShip extends Ship {
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
     }
-
     PlayerShip(Asteroid start){
         super(start);
         materials = new ArrayList<>();
@@ -34,19 +39,27 @@ public class PlayerShip extends Ship {
         start.Add(this);
     }
 
+    /**
+     * The getter of the materials.
+     * @return With the player's materials.
+     */
     public ArrayList<Material> getMaterials(){return materials;}
 
+    /**
+     * The getter of the teleport gates.
+     * @return With the player's teleport gates.
+     */
     public ArrayList<TeleportGate> getTeleports(){return teleports;}
 
     /**
-     * mines asteroid's core material
+     * Mines asteroid's core material.
      */
     public void Mine(){
-        // only mines if player ship has 9 material or less
+        // Only mines if player ship has 9 material or less.
         if(materials.size() < 10) {
             Material core;
             core = asteroid.GetMined();
-            // only adds if asteroid is not empty
+            // Only adds if asteroid is not empty.
             if(core != null){
                 materials.add(core);
             }
@@ -54,8 +67,8 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * removes material from the inventory
-     * @param b the material we want to be removed from playership's inventory
+     * Removes a bill of material from the inventory.
+     * @param b The materials we want to be removed from the player's inventory.
      */
     public void Remove(BillOfMaterial b){
         ArrayList<Material> removable;
@@ -66,7 +79,7 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * crafts teleport gate pair
+     * Crafts teleport gate pair.
      */
     public void CraftTeleportGates(){
         if(teleports.size() <= 1) {
@@ -85,7 +98,7 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * crafts robot
+     * Crafts a robot.
      */
     public void CraftRobot(){
         BillCreator bc = BillCreator.GetInstance();
@@ -99,7 +112,7 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * crafts base
+     * Crafts a base foundation.
      */
     public void CraftBase(){
         if(asteroid.GetBase() == null){
@@ -117,8 +130,8 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     *  puts back material to the core
-     * @param m the material we want to put back to the core
+     * Puts back a material to the core.
+     * @param m The material we want to put back to the core.
      */
     public void PutBack(Material m){
         if(asteroid.SetCore(m)){
@@ -127,7 +140,7 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * builds base
+     * Builds the base.
      */
     public void BuildBase(){
         // checks whether is a base already on the asteroid
@@ -147,11 +160,11 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * puts down the teleport gate
-     * @param t the teleport gate we want to put down next to the current asteroid
+     * Puts down the teleport gate.
+     * @param t The teleport gate we want to put down next to the current asteroid.
      */
     public void PutDown(TeleportGate t){
-        // checks whether is player ship has teleport
+        // Checks whether is player ship has teleport.
         if(teleports.size()>0){
             Remove(t);
             t.AddNeighbour(asteroid);
@@ -162,14 +175,14 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * player ship dies
+     * Player ship dies.
      */
     public void Die(){
-        // removes all materials
+        // Removes all materials.
         for(Material m : materials){
             materials.remove(m);
         }
-        // removes all teleports
+        // Removes all teleports.
         for(TeleportGate t : teleports){
             Remove(t);
         }
@@ -177,33 +190,26 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * in case of asteroid exploding player ship dies
+     * In case of asteroid exploding player ship dies.
      */
     public void AsteroidExploding(){
         Die();
     }
 
     /**
-     *  adds material
-     * @param m the material which will be added to the player ship's inventory
+     * Adds a material to the player.
+     * @param m The material which will be added to the player ship's inventory.
      */
     public void Add(Material m){
         materials.add(m);
     }
 
     /**
-     * removes teleport gate
-     * @param t the teleport gate which will be removed from the player ship's inventory
+     * Removes a teleport gate.
+     * @param t The teleport gate which will be removed from the player ship's inventory.
      */
-
     public void Remove(TeleportGate t){
         teleports.remove(t);
-    }
-
-
-    @Override
-    public String toString(){
-        return "PlayerShip";
     }
 
     /**
@@ -231,7 +237,9 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * @param os the stream, where the class will be written
+     * The save method for the PlayerShip class.
+     * @param os The stream, where the class will be written.
+     * @param CallChildren
      */
     @Override
     public void Save(PrintStream os,boolean CallChildren) {

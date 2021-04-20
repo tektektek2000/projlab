@@ -11,9 +11,12 @@ import java.util.Comparator;
 
 /**
  * It represents the UFOs of the game.
- * It controls by the AIController
+ * It's controlled by the AIController.
  */
 public class UFO extends Ship{
+    /**
+     * The UFO's materials.
+     */
     ArrayList<Material> materials;
 
     UFO(Asteroid a){
@@ -27,7 +30,7 @@ public class UFO extends Ship{
     }
 
     /**
-     * UFO dies
+     * UFO dies.
      */
     @Override
     public void Die() {
@@ -36,7 +39,7 @@ public class UFO extends Ship{
     }
 
     /**
-     * special action if the asteroid explodes UFO dies
+     * Special action if the asteroid explodes the UFO dies.
      */
     @Override
     public void AsteroidExploding() {
@@ -62,7 +65,8 @@ public class UFO extends Ship{
     }
 
     /**
-     * @param os the stream, where the class will be written
+     * The save method for the UFO class.
+     * @param os The stream, where the class will be written.
      * @param CallChildren
      */
     @Override
@@ -95,17 +99,14 @@ public class UFO extends Ship{
     }
 
     /**
-     * mines asteroid's core material
+     * The UFO mines asteroid's core material.
      */
     public void Mine(){
-        // only mines if player ship has 9 material or less
-        if(materials.size() < 10) {
-            Material core;
-            core = asteroid.GetMined();
-            // only adds if asteroid is not empty
-            if(core != null){
-                materials.add(core);
-            }
+        Material core;
+        core = asteroid.GetMined();
+        // only adds if asteroid is not empty
+        if(core != null){
+            materials.add(core);
         }
     }
 }

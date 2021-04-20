@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * represents the teleports in the game
+ * Represents the teleports in the game.
  */
 public class TeleportGate extends Field{
     /**
-     * the pair of the teleport
+     * The pair of the teleport.
      */
     private TeleportGate pair;
     /**
-     * stores if the teleport is crazy or not
+     * Stores if the teleport is crazy or not.
      */
     private boolean WashHitByStorm;
 
@@ -33,17 +33,17 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * basically the setter for the teleport gate's sector
-     * @param s the sector, we want to set for the teleport gate
+     * The setter for the teleport gate's sector.
+     * @param s The sector, we want to set for the teleport gate.
      */
     public void SetSector(Sector s){
         sector = s;
     }
 
     /**
-     * called when a ship moves to a teleport gate
-     * @return with the neighbour of the teleport gate's pair if it's possible(active)
-     * and with the teleport gate's neighbour if not
+     * Called when a ship moves to a teleport gate.
+     * @return With the neighbour of the teleport gate's pair if it's possible(active)
+     * and with the teleport gate's neighbour if not.
      */
     public Asteroid MovedTo(){
         if(!isActive()) {
@@ -54,16 +54,16 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * check whether the teleport gate is active or not
-     * @return true if it's active (it's pair is placed and has a neighbour), false if not
+     * Check whether the teleport gate is active or not.
+     * @return True if it's active (it's pair is placed and has a neighbour), false if not.
      */
     boolean isActive(){
         return pair != null && pair.Neighbours.size() != 0;
     }
 
     /**
-     * sets the pair of teleport gate
-     * @param t the teleport gate, which we want to pair the teleport
+     * Sets the pair of teleport gate.
+     * @param t The teleport gate, which we want to pair the teleport.
      */
     void pair(TeleportGate t){
         pair = t;
@@ -71,8 +71,8 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * if the teleport gate was hit by a sun storm, it starts to move and this is it's method to do so
-     * @param f the field where the teleport gate tries to move
+     * If the teleport gate was hit by a sun storm, it starts to move and this is it's method to do so.
+     * @param f The field where the teleport gate tries to move.
      */
     public void Move(Field f){
         Asteroid dest = f.MovedTo();
@@ -83,7 +83,7 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * called every turn, if the teleport was hit by a sunstorm, it randomly moves (with some chance)
+     * Called every turn, if the teleport was hit by a sunstorm, it randomly moves (with some chance).
      */
     public void TurnOver(){
         Random rand = new Random();
@@ -95,8 +95,8 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * removes a neighbour
-     * @param f the field we want to be removed from neighbours
+     * Removes a neighbour.
+     * @param f The field we want to be removed from neighbours.
      */
     @Override
     public void RemoveNeighbour(Field f){
@@ -105,7 +105,7 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * the teleport reacts to a sunstorm (the teleport goes crazy)
+     * The teleport reacts to a sunstorm (the teleport goes crazy).
      */
     @Override
     public void SunStorm() {
@@ -131,8 +131,8 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * the save method for the TeleportGate class
-     * @param os the stream, where the class will be written
+     * The save method for the TeleportGate class.
+     * @param os The stream, where the class will be written.
      */
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
