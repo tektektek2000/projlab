@@ -8,9 +8,47 @@ UID: 1
 Sector: 6
 Shell: 5
 Ships: 2,7
+7
 }
 PlayerShip{
 UID: 2
+Asteroid: 1
+}
+RobotShip{
+UID: 7
+Asteroid: 1
+}
+RobotShip{
+UID: 7
+Asteroid: 1
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 6
+Rounds: 5
+}
+Sector{
+UID: 6
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Shell: 5
+Ships: 2,7
+7
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+}
+RobotShip{
+UID: 7
 Asteroid: 1
 }
 RobotShip{
@@ -25,4 +63,37 @@ Current: 2
 Sun{
 Target: 6
 Rounds: 8
+}
+Sector{
+UID: 6
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 6
+Shell: 5
+Ships: 2,7
+7
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+}
+RobotShip{
+UID: 7
+Asteroid: 1
+}
+RobotShip{
+UID: 7
+Asteroid: 1
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 6
+Rounds: 7
 }

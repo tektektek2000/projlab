@@ -21,17 +21,17 @@ public class Uranium extends Material{
     public Uranium(int uid) {super(uid);}
 
     /**
-     * gives back type in string
-     * @return with the type of the material, in this case "Uranium"
+     * Gives back type in string.
+     * @return With the type of the material, in this case "Uranium".
      */
     protected String GetTypeUnique(){
         return "Uranium";
     }
 
     /**
-     * special action if the sun is close and the asteroid's shell becomes 0
-     * in Uranium case it is exploding
-     * @param asteroid the asteroid where the drilling happened
+     * Special action if the sun is close and the asteroid's shell becomes 0.
+     * In Uranium case it is exploding.
+     * @param asteroid The asteroid where the drilling happened.
      */
     @Override
     public void DrilledThroughSunClose(Asteroid asteroid){
@@ -44,7 +44,7 @@ public class Uranium extends Material{
     }
 
     /**
-     * called when the Uranium has been picked up, and sets it's attributes accordingly
+     * Called when the Uranium has been picked up, and sets it's attributes accordingly.
      */
     @Override
     public void PickedUp(){
@@ -53,7 +53,7 @@ public class Uranium extends Material{
     }
 
     /**
-     * the Uranium's method which is called in each turn, it handles if the uranium is about to explode or not
+     * The Uranium's method which is called in each turn, it handles if the uranium is about to explode or not.
      */
     public void TurnOver(){
         if(isExposed){

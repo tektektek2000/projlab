@@ -61,10 +61,7 @@ public abstract class Field extends Saveable {
         Neighbours.add(f);
     }
 
-    /**
-     * The getter of the neighbours.
-     * @return With the neighbours of the field.
-     */
+    // Getter for the neighbours
     public ArrayList<Field> getNeighbours() {
         return Neighbours;
     }

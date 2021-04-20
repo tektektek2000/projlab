@@ -44,5 +44,101 @@ Current: 2
 }
 Sun{
 Target: 9
-Rounds: 3
+Rounds: 5
+}
+Sector{
+UID: 9
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 9
+Shell: 5
+Ships: 2
+Base:10
+}
+Base{
+UID: 10
+	Materials: 3,4,5
+}
+Iron{
+UID: 3
+}
+Iron{
+UID: 4
+}
+Iron{
+UID: 5
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 6,7,8
+}
+Iron{
+UID: 6
+}
+Iron{
+UID: 7
+}
+Iron{
+UID: 8
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 9
+Rounds: 7
+}
+Sector{
+UID: 9
+Fields: 1
+isClose: false
+}
+Asteroid{
+UID: 1
+Sector: 9
+Shell: 5
+Ships: 2
+Base:10
+}
+Base{
+UID: 10
+	Materials: 3,4,5
+}
+Iron{
+UID: 3
+}
+Iron{
+UID: 4
+}
+Iron{
+UID: 5
+}
+PlayerShip{
+UID: 2
+Asteroid: 1
+Materials: 6,7,8
+}
+Iron{
+UID: 6
+}
+Iron{
+UID: 7
+}
+Iron{
+UID: 8
+}
+Controller{
+controller: false
+Order: 2
+Current: 2
+}
+Sun{
+Target: 9
+Rounds: 4
 }

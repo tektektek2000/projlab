@@ -15,5 +15,62 @@ Current: 2
 }
 Sun{
 Target: 5
-Rounds: 2
+Rounds: 3
+}
+Sector{
+UID: 5
+Fields: 2
+isClose: true
+}
+Asteroid{
+UID: 2
+Sector: 5
+Shell: 3
+}
+Controller{
+controller: false
+Order: 3
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 3
+}
+Sector{
+UID: 5
+Fields: 2
+isClose: true
+}
+Asteroid{
+UID: 2
+Sector: 5
+Shell: 3
+}
+Controller{
+controller: false
+Order: 3
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 6
+}
+Sector{
+UID: 5
+Fields: 2
+isClose: true
+}
+Asteroid{
+UID: 2
+Sector: 5
+Shell: 3
+}
+Controller{
+controller: false
+Order: 3
+Current: 2
+}
+Sun{
+Target: 5
+Rounds: 6
 }

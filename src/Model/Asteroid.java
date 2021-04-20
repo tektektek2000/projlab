@@ -11,7 +11,8 @@ import java.util.Comparator;
 import java.util.Random;
 
 /**
- * Represents the asteroid in the game, the main field.
+ * It bases from Field.
+ * Represents the asteroid in the game.
  */
 public class Asteroid extends Field {
     /**
@@ -19,7 +20,7 @@ public class Asteroid extends Field {
      */
     private ArrayList<Ship> ships;
     /**
-     * itt bizony feketemágia történik
+     * A list of the removable ships for the iterations.
      */
     private ArrayList<Ship> Removables;
     /**
@@ -35,7 +36,7 @@ public class Asteroid extends Field {
      */
     private int shell;
     /**
-     * itt bizony feketemágia történik.
+     * True, if the asteroid was hit by a sun storm recently, false if not.
      */
     private boolean SunStorm = false;
 

@@ -39,5 +39,5 @@ controller: false
 }
 Sun{
 Target: 6
-Rounds: 7
+Rounds: 5
 }

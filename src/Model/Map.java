@@ -24,10 +24,7 @@ public class Map {
         sectors.add(s);
     }
 
-    /**
-     * The getter of the sectors.
-     * @return With the sectors of the map.
-     */
+    // Getter for sectors.
     public ArrayList<Sector> getSectors(){return sectors;}
 
     /**
@@ -38,16 +35,9 @@ public class Map {
         return UIDMax++;
     }
 
-    /**
-     * The getter of the UIDMax.
-     * @return With the current value of the UIDMax.
-     */
+    // Getter for UIDMax.
     public int GetUIDMax() {return  UIDMax; }
-
-    /**
-     * The setter of the UIDMax.
-     * @param newmax The new value we want to set for the UIDMax.
-     */
+    // Setter for UIDMax.
     public void SetMaxId(int newmax) {UIDMax = newmax;}
 
     /**

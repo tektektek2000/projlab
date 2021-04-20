@@ -32,7 +32,6 @@ public class PlayerShip extends Ship {
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
     }
-
     public PlayerShip(Asteroid start){
         super(start);
         materials = new ArrayList<>();
