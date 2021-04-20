@@ -32,6 +32,7 @@ public class PlayerShip extends Ship {
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
     }
+
     public PlayerShip(Asteroid start){
         super(start);
         materials = new ArrayList<>();
@@ -262,6 +263,11 @@ public class PlayerShip extends Ship {
         else{
             NotificationManager.AddMessage("Player" + GetUID() + " successfully moved to Asteroid" + asteroid.GetUID());
         }
+    }
+    
+    @Override
+    public void Hide(){
+        NotificationManager.AddMessage("Player" + GetUID() + " hid from SunStorm");
     }
 
     /**

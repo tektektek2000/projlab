@@ -46,6 +46,12 @@ public class RobotShip extends Ship {
         NotificationManager.AddMessage("Robot" + GetUID() + " drilled Asteroid" + asteroid.GetUID());
     }
 
+    // drills on the asteroid
+    public void Drill(){
+        asteroid.GetDrilled();
+        NotificationManager.AddMessage("Robot" + GetUID() + " drilled Asteroid" + asteroid.GetUID());
+    }
+
     /**
      * @param args
      * @param fc
