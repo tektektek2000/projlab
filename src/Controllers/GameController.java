@@ -151,9 +151,6 @@ public class GameController {
             }
             char TypeFlag = parts[0].charAt(0);
             int UID = Integer.parseInt(parts[1]);
-            if(controller && UID != getCurrentPlayer().GetUID()){
-                throw (new InvalidCommand(CommandLine + " -> " + "The object with this identifier is not the one taking its turn."));
-            }
             ArrayList<String> Args = new ArrayList<>();
             for(int i=3;i< parts.length;i++){
                 Args.add(parts[i]);
@@ -184,6 +181,9 @@ public class GameController {
             if(it.GetUID() == UID){
                 current = it;
             }
+        }
+        if(controller && UID != getCurrentPlayer().GetUID()){
+            throw (new InvalidCommand("p " + UID + " " + command + " -> " + "The object with this identifier is not the one taking its turn."));
         }
         if(current == null)
             throw(new InvalidCommand( "p "+ UID + " " + command, Args ,"-> player UID not found"));
@@ -247,6 +247,19 @@ public class GameController {
         }
         else{
             throw(new InvalidCommand("p "+ UID + " " + command, Args , "-> Unkown command"));
+        }
+        if(NotificationManager.LastCommandSuccess){
+            for(int i=0;i<ps.size();i++){
+                if(ps.get(i) == CurrentPlayer){
+                    if(i == ps.size()-1){
+                        CurrentPlayer = ps.get(0);
+                    }
+                    else{
+                        CurrentPlayer = ps.get(i+1);
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -364,5 +377,10 @@ public class GameController {
             t.TurnOver();
         }
         Sun.GetInstance().TurnOver();
+    }
+
+    public void NewMap(){
+        MapBuilder mb = new MapBuilder();
+        map = mb.BuildMap();
     }
 }
