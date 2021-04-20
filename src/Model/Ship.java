@@ -55,11 +55,6 @@ public abstract class Ship extends Saveable {
     // special action if the asteroid explodes
     public abstract void AsteroidExploding();
 
-    // drills on the asteroid
-    public void Drill(){
-        asteroid.GetDrilled();
-    }
-
     // gives back asteroid
     public Asteroid getAsteroid(){
         return asteroid;
@@ -69,6 +64,7 @@ public abstract class Ship extends Saveable {
     public void setAsteroid(Asteroid a){
         asteroid = a;
     }
+
 
     @Override
     public void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException {

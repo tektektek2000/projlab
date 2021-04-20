@@ -1,6 +1,8 @@
 package Controllers;
 
 import Model.Field;
+import Model.Materials.Material;
+import Model.Sun;
 import Utils.BadFileFormat;
 import Utils.InvalidCommand;
 
@@ -74,9 +76,12 @@ public class MenuController {
         final String ANSI_RED = "\u001B[31m";
         while (!exit){
             PrintStream out = new PrintStream(System.out);
+            System.out.println("Current Player:");
             gc.getCurrentPlayer().Save(out,false);
             System.out.println("Current Asteroid:");
             gc.getCurrentPlayer().getAsteroid().Save(out,false);
+            System.out.println("With Material:");
+            gc.getCurrentPlayer().getAsteroid().GetCore().Save(out,false);
             String line = in.nextLine();
             String[] parts = line.split(" ");
             if(parts[0].equals("exit")){
@@ -91,6 +96,16 @@ public class MenuController {
                     f.Save(out,false);
                 }
             }
+            else if(parts[0].equals("inventory")){
+                System.out.println("Player Inventory:");
+                for(Material f : gc.getCurrentPlayer().getMaterials()){
+                    f.Save(out,false);
+                }
+            }
+            else if(parts[0].equals("sun")){
+                Sun s = Sun.GetInstance();
+                System.out.println("Next sunstorm will hit Sector" + s.getTarget().GetUID() + " in " + s.getRoundsUntillStorm() + "turns.");
+            }
             else if(parts[0].equals("help")){
                 System.out.println("Usable commands:");
                 System.out.println("move FieldID -> Moves current player to given asteroid");
@@ -98,6 +113,10 @@ public class MenuController {
                 System.out.println("mine -> Current player mines");
                 System.out.println("craft robot/teleports/base -> Current player crafts the specified item/s");
                 System.out.println("build -> Current player uses resources to build on the base that is on the same field.");
+                System.out.println("put_back MaterialID -> Attempts to put back the given material inside the asteroid the player is on.");
+                System.out.println("neighbours -> List every neighbouring field of the asteroid the player currently is on.");
+                System.out.println("inventory -> List every material of the player.");
+                System.out.println("sun -> List the details of the next sun storm.");
                 System.out.println("save filename -> saves map to the given file");
                 System.out.println("exit -> Exits from game");
             }
@@ -115,27 +134,27 @@ public class MenuController {
             else{
                 try {
                     gc.InterpretCommand("p " + gc.getCurrentPlayer().GetUID() + " " +line);
+                    if(!NotificationManager.LastCommandSuccess){
+                        String l = NotificationManager.getError();
+                        while(l != null){
+                            System.out.println(ANSI_RED + l + ANSI_RESET);
+                            l = NotificationManager.getError();
+                        }
+                        System.out.println("Command failed");
+                    }
+                    else{
+                        String l = NotificationManager.getMessage();
+                        while(l != null){
+                            System.out.println(l);
+                            l = NotificationManager.getMessage();
+                        }
+                    }
                 }
                 catch (InvalidCommand e) {
                     System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
                 }
                 catch (Exception e) {
                     System.out.println(ANSI_RED + "Invalid command" + ANSI_RESET);
-                }
-                if(NotificationManager.LastCommandSuccess){
-                    String l = NotificationManager.getError();
-                    while(l != null){
-                        System.out.println(ANSI_RED + l + ANSI_RESET);
-                        l = NotificationManager.getError();
-                    }
-                    System.out.println("Command failed");
-                }
-                else{
-                    String l = NotificationManager.getMessage();
-                    while(l != null){
-                        System.out.println(l);
-                        l = NotificationManager.getMessage();
-                    }
                 }
             }
         }

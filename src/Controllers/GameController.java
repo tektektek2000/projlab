@@ -253,6 +253,7 @@ public class GameController {
                 if(ps.get(i) == CurrentPlayer){
                     if(i == ps.size()-1){
                         CurrentPlayer = ps.get(0);
+                        EndTurn();
                     }
                     else{
                         CurrentPlayer = ps.get(i+1);

@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
@@ -26,6 +27,7 @@ public class UFO extends Ship{
     public void Die() {
         asteroid.Remove(this);
         asteroid = null;
+        NotificationManager.AddMessage("UFO" + GetUID() + " died");
     }
 
     @Override
@@ -84,6 +86,7 @@ public class UFO extends Ship{
             // only adds if asteroid is not empty
             if(core != null){
                 materials.add(core);
+                NotificationManager.AddMessage("UFO" + GetUID() + " mined Asteroid" + asteroid.GetUID());
             }
         }
     }

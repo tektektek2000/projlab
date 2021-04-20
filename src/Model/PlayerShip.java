@@ -1,6 +1,7 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.NotificationManager;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
@@ -34,6 +35,7 @@ public class PlayerShip extends Ship {
 
     // mines asteroid's core material
     public void Mine(){
+        NotificationManager.setLastCommandSuccess(true);
         // only mines if player ship has 9 material or less
         if(materials.size() < 10) {
             Material core;
@@ -41,7 +43,12 @@ public class PlayerShip extends Ship {
             // only adds if asteroid is not empty
             if(core != null){
                 materials.add(core);
+                NotificationManager.AddMessage("Player" + GetUID() + " mined successfully");
             }
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Player inventory full, can't mine");
         }
     }
 
@@ -56,6 +63,7 @@ public class PlayerShip extends Ship {
 
     // crafts teleport gate pair
     public void CraftTeleportGates(){
+        NotificationManager.setLastCommandSuccess(true);
         if(teleports.size() <= 1) {
             BillCreator bc = BillCreator.GetInstance();
             BillOfMaterial bill = bc.CreateForTeleport(materials);
@@ -67,24 +75,40 @@ public class PlayerShip extends Ship {
                 t1.pair(t2);
                 teleports.add(t1);
                 teleports.add(t2);
+                NotificationManager.AddMessage("Player" + GetUID() + " built 2 teleports.");
             }
+            else{
+                NotificationManager.setLastCommandSuccess(false);
+                NotificationManager.AddError("Player doesn't have enough materials, can't craft");
+            }
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Player inventory full, can't craft");
         }
     }
 
     // crafts robot
     public void CraftRobot(){
+        NotificationManager.setLastCommandSuccess(true);
         BillCreator bc = BillCreator.GetInstance();
         BillOfMaterial bill = bc.CreateForRobot(materials);
         // checks whether player ship has enough material to craft
-        if(bill != null){
+        if(bill != null) {
             Remove(bill);
             RobotShip rs = new RobotShip(asteroid);
             asteroid.Add(rs);
+            NotificationManager.AddMessage("Player" + GetUID() + " built a robot.");
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Player doesn't have enough materials, can't craft");
         }
     }
 
     // crafts base
     public void CraftBase(){
+        NotificationManager.setLastCommandSuccess(true);
         if(asteroid.GetBase() == null){
             BillCreator bc = BillCreator.GetInstance();
             BillOfMaterial bill = bc.CreateForBaseFoundation(materials);
@@ -95,14 +119,36 @@ public class PlayerShip extends Ship {
                     newbase.Accept(m);
                 }
                 asteroid.SetBase(newbase);
+                NotificationManager.AddMessage("Player" + GetUID() + " built a base.");
             }
+            else{
+                NotificationManager.setLastCommandSuccess(false);
+                NotificationManager.AddError("Player doesn't have enough materials, can't craft");
+            }
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Base is already placed on asteroid, can't craft");
         }
     }
 
     // puts back material to the core
     public void PutBack(Material m){
+        NotificationManager.setLastCommandSuccess(true);
         if(asteroid.SetCore(m)){
             materials.remove(m);
+            NotificationManager.AddMessage("Player" + GetUID() + " successfully put: Material" + m.GetUID() + " back.");
+        }
+    }
+
+    public void Drill(){
+        NotificationManager.setLastCommandSuccess(true);
+        if(asteroid.GetDrilled()){
+            NotificationManager.AddMessage("Player" + GetUID() + " drilled Asteroid" + asteroid.GetUID());
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Asteroid is already drilled through, can't drill");
         }
     }
 
@@ -111,16 +157,23 @@ public class PlayerShip extends Ship {
         // checks whether is a base already on the asteroid
         if(asteroid.GetBase() != null){
             ArrayList<Material> removables = new ArrayList<>();
-            if(asteroid.GetBase() == null){
-                Base base = new Base(asteroid.sector.map.GetNewUID());
-                asteroid.SetBase(base);
-            }
-            for(Material it : materials)
-                if(asteroid.GetBase().Accept(it))
+            for(Material it : materials) {
+                if (asteroid.GetBase().Accept(it))
                     removables.add(it);
+            }
+            if(removables.size() != 0)
+                NotificationManager.AddMessage("Player" + GetUID() + " successfully built " + removables.size() + " into the base.");
+            else{
+                NotificationManager.setLastCommandSuccess(false);
+                NotificationManager.AddError("Player doesn't have any materials the base needs, can't build");
+            }
             for(Material it : removables)
                 materials.remove(it);
             asteroid.GetBase().CheckComplete();
+        }
+        else{
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("No base on asteroid, can't build");
         }
     }
 
@@ -133,6 +186,7 @@ public class PlayerShip extends Ship {
             t.SetSector(asteroid.sector);
             asteroid.sector.Add(t);
             asteroid.AddNeighbour(t);
+            NotificationManager.AddMessage("Player" + GetUID() + " successfully put Teleport" + t.GetUID() + " down.");
         }
     }
 
@@ -147,6 +201,7 @@ public class PlayerShip extends Ship {
             Remove(t);
         }
         asteroid.Remove(this);
+        NotificationManager.AddMessage("Player" + GetUID() + " died");
     }
 
     // in case of asteroid exploding player ship dies
@@ -154,12 +209,25 @@ public class PlayerShip extends Ship {
         Die();
     }
 
-    // adds material
-    public void Add(Material m){
-        materials.add(m);
+    @Override
+    public void Move(Field f){
+        NotificationManager.setLastCommandSuccess(true);
+        Asteroid a = asteroid;
+        super.Move(f);
+        if(a == asteroid){
+            NotificationManager.setLastCommandSuccess(false);
+            NotificationManager.AddError("Teleport is not active, couldn't move.");
+        }
+        else{
+            NotificationManager.AddMessage("Player" + GetUID() + " successfully moved to Asteroid" + asteroid.GetUID());
+        }
     }
 
-    // removes material
+    // hides ship
+    @Override
+    public void Hide(){
+        NotificationManager.AddMessage("Player" + GetUID() + " hid from SunStorm");
+    }
 
     // removes teleport gate
     public void Remove(TeleportGate t){
