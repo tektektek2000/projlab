@@ -381,6 +381,6 @@ public class GameController {
 
     public void NewMap(){
         MapBuilder mb = new MapBuilder();
-        map = mb.BuildMap();
+        map = mb.BuildMap(this);
     }
 }

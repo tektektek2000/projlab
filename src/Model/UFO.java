@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class UFO extends Ship{
     ArrayList<Material> materials;
 
-    UFO(Asteroid a){
+    public UFO(Asteroid a){
         super(a);
         materials = new ArrayList<>();
     }

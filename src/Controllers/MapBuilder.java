@@ -22,7 +22,12 @@ public class MapBuilder {
      * This method's objective is to build up a simple random generated starter map.
      * @return the map that was built up
      */
-    public Map BuildMap() {
+    public Map BuildMap(GameController GC) {
+        GC.ps = new ArrayList<>();
+        GC.rs = new ArrayList<>();
+        GC.ufos = new ArrayList<>();
+        GC.tgs = new ArrayList<>();
+        GC.urans = new ArrayList<>();
         map = new Map();
         ArrayList<Asteroid> asteroids = new ArrayList<>();
 
@@ -35,7 +40,7 @@ public class MapBuilder {
         // creating asteroids and adding to sectors
         for(Sector s : map.getSectors())
             for (int i = 0; i < asteroidNumberMin+random.nextInt(asteroidNumberMax); i++){
-                Asteroid a = new Asteroid(map.GetNewUID(), s, genRndMaterial() , random.nextInt(6));
+                Asteroid a = new Asteroid(map.GetNewUID(), s, genRndMaterial(GC) , random.nextInt(6));
                 asteroids.add(a);
                 s.Add(a);
             }
@@ -58,12 +63,14 @@ public class MapBuilder {
 
         // creating players on random asteroid
         for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
-            asteroids.get(random.nextInt(asteroids.size())).Add(new PlayerShip(map.GetNewUID()));
+            PlayerShip p = new PlayerShip(asteroids.get(random.nextInt(asteroids.size())));
+            GC.ps.add(p);
         }
 
         // creating UFOs on random asteroid
         for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
-            asteroids.get(random.nextInt(asteroids.size())).Add(new UFO(map.GetNewUID()));
+            UFO p = new UFO(asteroids.get(random.nextInt(asteroids.size())));
+            GC.ufos.add(p);
         }
 
         return map;
@@ -86,7 +93,7 @@ public class MapBuilder {
      * Generating random Material and setting new UID for that.
      * @return random Material instance
      */
-    private Material genRndMaterial(){
+    private Material genRndMaterial(GameController gc){
         int rnd = random.nextInt(4);
         switch (rnd){
             case 0:
@@ -96,7 +103,9 @@ public class MapBuilder {
             case 2:
                 return new Iron(map.GetNewUID());
             case 3:
-                return new Uranium(map.GetNewUID());
+                Uranium u = new Uranium(map.GetNewUID());
+                gc.urans.add(u);
+                return u;
             default:
                 return null;
         }

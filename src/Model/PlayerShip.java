@@ -22,12 +22,10 @@ public class PlayerShip extends Ship {
         teleports = new ArrayList<>();
     }
 
-    PlayerShip(Asteroid start){
+    public PlayerShip(Asteroid start){
         super(start);
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
-        asteroid = start;
-        start.Add(this);
     }
 
     public ArrayList<Material> getMaterials(){return materials;}

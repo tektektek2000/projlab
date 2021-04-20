@@ -13,6 +13,7 @@ public abstract class Ship extends Saveable {
     public Ship(Asteroid a){
         super(a.sector.map);
         asteroid = a;
+        asteroid.Add(this);
     }
 
     public Ship(int uid) {
