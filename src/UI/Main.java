@@ -1,5 +1,6 @@
 package UI;
 
+import UI.Layout.Game.GameUIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,9 +11,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));
+        GameUIController gameUIController = new GameUIController();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(gameUIController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));
+        Parent root = null;
+        root = fxmlLoader.load();
         primaryStage.setTitle("Projlab");
-        primaryStage.setScene(new Scene(root, 800, 300));
+        Scene scene = new Scene(root, 1600, 800);
+        primaryStage.setScene(scene);
+        gameUIController.Init();
+        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 

@@ -1,0 +1,13 @@
+.transparent{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.selected{
+    -fx-border-color: red;
+    -fx-border-width: 3;
+    -fx-background-radius: 3;
+    -fx-background-color: red;
+}
