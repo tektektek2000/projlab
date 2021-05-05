@@ -11,3 +11,10 @@
     -fx-background-radius: 3;
     -fx-background-color: red;
 }
+
+.pressed{
+    -fx-border-color: blue;
+    -fx-border-width: 3;
+    -fx-background-radius: 3;
+    -fx-background-color: blue;
+}
