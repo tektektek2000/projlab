@@ -35,44 +35,5 @@ Current: 2
 }
 Sun{
 Target: 8
-Rounds: 5
-}
-Sector{
-UID: 8
-Fields: 1
-isClose: false
-}
-Asteroid{
-UID: 1
-Sector: 8
-Shell: 5
-Ships: 2
-}
-PlayerShip{
-UID: 2
-Asteroid: 1
-Materials: 4
-Teleports: 9,10
-}
-TeleportGate{
-UID: 9
-WasHitBySunStorm: false
-Pair:10
-}
-TeleportGate{
-UID: 10
-WasHitBySunStorm: false
-Pair:9
-}
-Coal{
-UID: 4
-}
-Controller{
-controller: false
-Order: 2
-Current: 2
-}
-Sun{
-Target: 8
-Rounds: 7
+Rounds: 8
 }

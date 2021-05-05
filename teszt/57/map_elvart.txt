@@ -74,6 +74,6 @@ Order: 4
 Current: 4
 }
 Sun{
-Target: 12
-Rounds: 7
+Target: 11
+Rounds: 4
 }
