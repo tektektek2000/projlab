@@ -25,24 +25,24 @@ public class SelectHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_ENTERED){
-            cs.getStyleClass().remove("transparent");
-            cs.getStyleClass().remove("pressed");
+            cs.getStyleClass().removeAll("transparent");
+            cs.getStyleClass().removeAll("pressed");
             cs.getStyleClass().add("selected");
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_EXITED){
-            cs.getStyleClass().remove("selected");
-            cs.getStyleClass().remove("pressed");
+            cs.getStyleClass().removeAll("selected");
+            cs.getStyleClass().removeAll("pressed");
             cs.getStyleClass().add("transparent");
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED){
-            cs.getStyleClass().remove("selected");
-            cs.getStyleClass().remove("transparent");
+            cs.getStyleClass().removeAll("selected");
+            cs.getStyleClass().removeAll("transparent");
             cs.getStyleClass().add("pressed");
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED){
-            cs.getStyleClass().remove("transparent");
-            cs.getStyleClass().remove("pressed");
-            cs.getStyleClass().add("selected");
+            cs.getStyleClass().removeAll("pressed");
+            if(!cs.getStyleClass().contains("transparent"))
+                cs.getStyleClass().add("selected");
         }
     }
 

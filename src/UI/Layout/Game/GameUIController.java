@@ -27,16 +27,28 @@ public class GameUIController {
         new SelectHandler(PutDownButton);
     }
 
-    public void Craft(){
-        ObservableList<String> strs = CraftButton.getStylesheets();
-        for(String s : strs){
-            System.out.println(s);
-        }
-    }
-
-
+    @FXML
     public void Drill(){
-
+        System.out.println("Drill");
     }
-
+    @FXML
+    public void Mine(){
+        System.out.println("Mine");
+    }
+    @FXML
+    public void Build(){
+        System.out.println("Build");
+    }
+    @FXML
+    public void Craft(){
+        System.out.println("Craft");
+    }
+    @FXML
+    public void PutBack(){
+        System.out.println("PutBack");
+    }
+    @FXML
+    public void PutDown(){
+        System.out.println("PutDown");
+    }
 }

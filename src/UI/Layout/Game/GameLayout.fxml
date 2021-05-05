@@ -17,15 +17,15 @@
             <VBox alignment="CENTER_RIGHT" prefHeight="400.0" prefWidth="192.0">
                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="339.0" spacing="15.0" styleClass="actionpanel" stylesheets="@game.css" HBox.hgrow="ALWAYS">
                   <children>
-                     <Button fx:id="DrillButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="drillbutton" stylesheets="@game.css">
+                     <Button fx:id="DrillButton" mnemonicParsing="false" onAction="#Drill" prefHeight="60.0" prefWidth="218.0" styleClass="drillbutton" stylesheets="@game.css">
                         <VBox.margin>
                            <Insets top="50.0" />
                         </VBox.margin></Button>
-                     <Button fx:id="MineButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="minebutton" stylesheets="@game.css" />
-                     <Button fx:id="BuildButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="buildbutton" stylesheets="@game.css" />
-                     <Button fx:id="CraftButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="craftbutton" stylesheets="@game.css" />
-                     <Button fx:id="PutBackButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="putbackbutton" stylesheets="@game.css" />
-                     <Button fx:id="PutDownButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="putdownbutton" stylesheets="@game.css" />
+                     <Button fx:id="MineButton" mnemonicParsing="false" onAction="#Mine" prefHeight="60.0" prefWidth="218.0" styleClass="minebutton" stylesheets="@game.css" />
+                     <Button fx:id="BuildButton" mnemonicParsing="false" onAction="#Build" prefHeight="60.0" prefWidth="218.0" styleClass="buildbutton" stylesheets="@game.css" />
+                     <Button fx:id="CraftButton" mnemonicParsing="false" onAction="#Craft" prefHeight="60.0" prefWidth="218.0" styleClass="craftbutton" stylesheets="@game.css" />
+                     <Button fx:id="PutBackButton" mnemonicParsing="false" onAction="#PutBack" prefHeight="60.0" prefWidth="218.0" styleClass="putbackbutton" stylesheets="@game.css" />
+                     <Button fx:id="PutDownButton" mnemonicParsing="false" onAction="#PutDown" prefHeight="60.0" prefWidth="218.0" styleClass="putdownbutton" stylesheets="@game.css" />
                   </children>
                   <VBox.margin>
                      <Insets right="20.0" top="20.0" />
