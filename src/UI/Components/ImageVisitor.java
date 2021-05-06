@@ -91,9 +91,6 @@ public class ImageVisitor implements IVisitor {
                 break;
         }
         image = PlayerImage;
-        else{
-
-        }
     }
 
     @Override
