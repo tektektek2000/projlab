@@ -2,7 +2,13 @@ package UI.Layout.Game;
 import Controllers.GameController;
 import UI.Components.SelectHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class GameUIController {
     GameController gameController;
@@ -18,8 +24,19 @@ public class GameUIController {
     Button PutBackButton;
     @FXML
     Button PutDownButton;
+    @FXML
+    Pane SidePanelWrapper;
 
     public void Init(){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(this);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/ActionSidePanel.fxml"));
+        try {
+            VBox actionPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(actionPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         new SelectHandler(DrillButton);
         new SelectHandler(MineButton);
         new SelectHandler(BuildButton);
