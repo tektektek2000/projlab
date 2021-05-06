@@ -1,22 +1,15 @@
 package UI.Components;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
-import java.net.URL;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
-
 
 public class SelectHandler implements EventHandler<MouseEvent> {
-    Button cs;
+    Button button;
 
     public SelectHandler(Button b){
-        cs = b;
+        button = b;
         b.getStylesheets().add(this.getClass().getResource("CustomButton.css").toExternalForm());
         b.addEventHandler(MouseEvent.ANY,this);
         b.getStyleClass().add("transparent");
@@ -25,24 +18,24 @@ public class SelectHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_ENTERED){
-            cs.getStyleClass().removeAll("transparent");
-            cs.getStyleClass().removeAll("pressed");
-            cs.getStyleClass().add("selected");
+            button.getStyleClass().removeAll("transparent");
+            button.getStyleClass().removeAll("pressed");
+            button.getStyleClass().add("selected");
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_EXITED){
-            cs.getStyleClass().removeAll("selected");
-            cs.getStyleClass().removeAll("pressed");
-            cs.getStyleClass().add("transparent");
+            button.getStyleClass().removeAll("selected");
+            button.getStyleClass().removeAll("pressed");
+            button.getStyleClass().add("transparent");
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED){
-            cs.getStyleClass().removeAll("selected");
-            cs.getStyleClass().removeAll("transparent");
-            cs.getStyleClass().add("pressed");
+            button.getStyleClass().removeAll("selected");
+            button.getStyleClass().removeAll("transparent");
+            button.getStyleClass().add("pressed");
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED){
-            cs.getStyleClass().removeAll("pressed");
-            if(!cs.getStyleClass().contains("transparent"))
-                cs.getStyleClass().add("selected");
+            button.getStyleClass().removeAll("pressed");
+            if(!button.getStyleClass().contains("transparent"))
+                button.getStyleClass().add("selected");
         }
     }
 

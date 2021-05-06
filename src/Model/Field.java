@@ -29,7 +29,7 @@ public abstract class Field extends Saveable implements IVisitable{
     }
 
     public double getY(){
-        return x;
+        return y;
     }
 
     public void setX(double X){

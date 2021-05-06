@@ -46,12 +46,12 @@ public class MapBuilder {
         // TODO: generating asteroids with coordinates (for the UI)
 
         // creating asteroids and adding to sectors
+        Random r = new Random();
         for(Sector s : map.getSectors()){
-            Random r = new Random();
             for (int i = 0; i < asteroidNumberMin+random.nextInt(asteroidNumberMax); i++){
                 Asteroid a = new Asteroid(map.GetNewUID(), s, genRndMaterial(GC) , random.nextInt(6));
-                a.setX(r.nextDouble());
-                a.setY(r.nextDouble());
+                a.setX(r.nextDouble()*2-1.0);
+                a.setY(r.nextDouble()*2-1.0);
                 System.out.println(a.getX()+" "+a.getY());
                 asteroids.add(a);
                 s.Add(a);
