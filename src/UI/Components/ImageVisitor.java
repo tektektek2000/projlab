@@ -19,7 +19,7 @@ public class ImageVisitor implements IVisitor {
     ArrayList<Ship> ships = null;
     static Image AsteroidImage = null;
     static Image ActiveTeleportImage = null;
-    static Image CrazyTeleportImage = null;
+    static Image InsaneTeleportImage = null;
     static Image InactiveTeleportImage = null;
     static Image Player1 = null;
     static Image Player2 = null;
@@ -45,13 +45,44 @@ public class ImageVisitor implements IVisitor {
     public ArrayList<Ship> getShips(){return ships;}
 
     @Override
-    public void visit(TeleportGate tg) {
-        if(tg.getWasHitByStorm())
-            filePath += "Insane_teleportgate.png";
-        else if(tg.isActive())
-            filePath += "Active_teleportgate.png";
-        else
-            filePath += "Not_active_teleportgate.png";
+    public void visit(TeleportGate tg){
+        if(tg.getWasHitByStorm()){
+            if(InsaneTeleportImage == null)
+            {
+                try {
+                    filePath += "Insane_teleportgate.png";
+                    InsaneTeleportImage = new Image(new FileInputStream(filePath));
+                } catch (FileNotFoundException e){
+                    System.out.println(filePath);
+                    e.printStackTrace();
+                }
+            }
+            image = InsaneTeleportImage;
+        }
+        else if(tg.isActive()){
+            if(ActiveTeleportImage == null){
+                try{
+                    filePath += "Active_teleportgate.png";
+                    ActiveTeleportImage = new Image(new FileInputStream(filePath));
+                } catch (FileNotFoundException e){
+                    System.out.println(filePath);
+                    e.printStackTrace();
+                }
+            }
+            image = ActiveTeleportImage;
+        }
+        else{
+            if(InactiveTeleportImage == null){
+                try{
+                    filePath += "Not_active_teleportgate.png";
+                    InactiveTeleportImage = new Image(new FileInputStream(filePath));
+                } catch (FileNotFoundException e){
+                    System.out.println(filePath);
+                    e.printStackTrace();
+                }
+            }
+            image = InsaneTeleportImage;
+        }
     }
 
     @Override
@@ -136,31 +167,85 @@ public class ImageVisitor implements IVisitor {
 
     @Override
     public void visit(RobotShip r) {
-        filePath += "Robot.png";
+        if(Robot == null){
+            try{
+                filePath += "Robot.png";
+                Robot = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e){
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = Robot;
     }
 
     @Override
     public void visit(UFO u) {
-        filePath += "UFO.png";
+        if(UFO == null){
+            try{
+                filePath += "UFO.png";
+                UFO = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e){
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = UFO;
     }
 
     @Override
     public void visit(Uranium u) {
-        filePath += "Uranium.png";
+        if(Uranium == null){
+            try{
+                filePath += "Uranium.png";
+                Uranium = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e){
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = Uranium;
     }
 
     @Override
     public void visit(Iron i) {
-        filePath += "Iron.png";
+        if(Iron == null){
+            try{
+                filePath += "Iron.png";
+                Iron = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e){
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = Iron;
     }
 
     @Override
     public void visit(Ice i) {
-        filePath += "Ice.png";
+        if(Ice == null){
+            try{
+                filePath += "Ice.png";
+                Ice = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e){
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = Ice;
     }
 
     @Override
     public void visit(Coal tg) {
-        filePath += "Coal.png";
+        if(Coal == null){
+            try{
+                filePath += "Coal.png";
+                Coal = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e){
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = Coal;
     }
 }

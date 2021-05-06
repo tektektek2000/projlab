@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -30,6 +31,10 @@ import java.util.*;
 public class GameUIController {
     GameController gameController;
     Pair<Double,Double> Camera = new Pair<Double,Double>(0.0,0.0);
+    @FXML
+    AnchorPane Anchor;
+    @FXML
+    Button SaveButton;
     @FXML
     Button DrillButton;
     @FXML
@@ -61,12 +66,20 @@ public class GameUIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        new SelectHandler(SaveButton);
         new SelectHandler(DrillButton);
         new SelectHandler(MineButton);
         new SelectHandler(BuildButton);
         new SelectHandler(CraftButton);
         new SelectHandler(PutBackButton);
         new SelectHandler(PutDownButton);
+    }
+
+    public void setAnchor(AnchorPane a){
+        Anchor = a;
+        Anchor.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
+        Anchor.getStyleClass().clear();
+        Anchor.getStyleClass().add("anchor");
     }
 
     public void Init(){
@@ -90,6 +103,10 @@ public class GameUIController {
         GameContent.getChildren().add(image);
     }
 
+    @FXML
+    public void Save(){
+        System.out.println("Nem működik a mentés még tesókám, erre bizony alaposan rábasztál!");
+    }
     @FXML
     public void Drill(){
         PlaceImage( new FieldImage(new Asteroid(gameController.getMap().getSectors().get(0))));

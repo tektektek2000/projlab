@@ -6,15 +6,15 @@
 }
 
 .selected{
-    -fx-border-color: red;
+    -fx-border-color: orange;
     -fx-border-width: 3;
     -fx-background-radius: 3;
-    -fx-background-color: red;
+    -fx-background-color: orange;
 }
 
 .pressed{
-    -fx-border-color: blue;
+    -fx-border-color: white;
     -fx-border-width: 3;
     -fx-background-radius: 3;
-    -fx-background-color: blue;
+    -fx-background-color: white;
 }

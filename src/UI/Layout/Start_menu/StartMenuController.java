@@ -1,7 +1,9 @@
 package UI.Layout.Start_menu;
 
+import Controllers.GameController;
 import Model.PlayerShip;
 import UI.Components.SelectHandler;
+import UI.Layout.Game.GameUIController;
 import UI.Layout.Load_menu.LoadMenuController;
 import UI.Layout.Main_menu.MainMenuController;
 import javafx.fxml.FXML;
@@ -72,7 +74,24 @@ public class StartMenuController {
     }
     @FXML
     public void Start(){
-        System.out.println("Start");
+        GameController gc = new GameController();
+        gc.NewMap();
+        GameUIController gameUIController = new GameUIController(gc);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(gameUIController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));
+        AnchorPane root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Anchor.getChildren().clear();
+        Anchor.getChildren().addAll(root.getChildren());
+        gameUIController.setAnchor(Anchor);
+        stage.setFullScreen(true);
+        gameUIController.Init();
+
     }
     @FXML
     public void Back(){
