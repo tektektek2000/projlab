@@ -1,10 +1,11 @@
 package UI.Layout.Game;
-import UI.SelectHandler;
-import javafx.collections.ObservableList;
+import Controllers.GameController;
+import UI.Components.SelectHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class GameUIController {
+    GameController gameController;
     @FXML
     Button DrillButton;
     @FXML

@@ -71,4 +71,9 @@ public class RobotShip extends Ship {
         super.Save(os, CallChildren);
         os.println("}");
     }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
+    }
 }

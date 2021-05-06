@@ -10,7 +10,7 @@ import java.util.Comparator;
 /**
  * Represents the fields in the game.
  */
-public abstract class Field extends Saveable {
+public abstract class Field extends Saveable implements IVisitable{
     /**
      * The neighbours (fields) of the field.
      */

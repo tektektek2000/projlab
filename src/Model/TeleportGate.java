@@ -37,6 +37,8 @@ public class TeleportGate extends Field{
         WashHitByStorm = washHitByStorm;
     }
 
+    public boolean getWasHitByStorm(){return WashHitByStorm;}
+
     /**
      * The setter for the teleport gate's sector.
      * @param s The sector, we want to set for the teleport gate.
@@ -62,7 +64,7 @@ public class TeleportGate extends Field{
      * Check whether the teleport gate is active or not.
      * @return True if it's active (it's pair is placed and has a neighbour), false if not.
      */
-    boolean isActive(){
+    public boolean isActive(){
         return pair != null && pair.Neighbours.size() != 0;
     }
 
@@ -159,5 +161,10 @@ public class TeleportGate extends Field{
         if(pair!=null)
             os.println("Pair:" + pair.GetUID());
         os.println("}");
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

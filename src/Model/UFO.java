@@ -116,4 +116,9 @@ public class UFO extends Ship{
             }
         }
     }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
+    }
 }

@@ -2,6 +2,7 @@ package Model.Materials;
 
 import Controllers.FileController;
 import Model.Map;
+import Model.IVisitor;
 import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
@@ -50,5 +51,10 @@ public class Iron extends Material {
         os.println("Iron{");
         super.Save(os, CallChildren);
         os.println("}");
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

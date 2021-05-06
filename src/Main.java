@@ -1,5 +1,3 @@
-package UI;
-
 import UI.Layout.Game.GameUIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

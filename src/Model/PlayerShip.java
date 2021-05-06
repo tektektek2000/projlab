@@ -8,7 +8,6 @@ import Model.Materials.Material;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -358,4 +357,8 @@ public class PlayerShip extends Ship {
         }
     }
 
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
+    }
 }

@@ -40,12 +40,18 @@ public class Asteroid extends Field {
      */
     private boolean SunStorm = false;
 
+    private double x;
+
+    private double y;
+
     public Asteroid(Sector s){
         super(s);
         ships = new ArrayList<>();
         Removables = new ArrayList<>();
         base=null;
         shell = new Random().nextInt(6);
+        x=0;
+        y=0;
     }
     public Asteroid(Sector s,int Shell){
         super(s);
@@ -53,6 +59,8 @@ public class Asteroid extends Field {
         Removables = new ArrayList<>();
         base=null;
         shell = Shell;
+        x=0;
+        y=0;
     }
     public Asteroid(Sector s,Material Core,int Shell){
         super(s);
@@ -61,6 +69,8 @@ public class Asteroid extends Field {
         core = Core;
         base=null;
         shell = Shell;
+        x=0;
+        y=0;
     }
     public Asteroid(int UID, Sector s, Material _core, int _shell) {
         super(UID, s);
@@ -69,6 +79,8 @@ public class Asteroid extends Field {
         core = _core;
         base = null;
         shell = _shell;
+        x=0;
+        y=0;
     }
     public Asteroid(int UID) {
         super(UID);
@@ -76,6 +88,8 @@ public class Asteroid extends Field {
         Removables = new ArrayList<>();
         base=null;
         shell = new Random().nextInt(6);
+        x=0;
+        y=0;
     }
 
     /**
@@ -273,6 +287,12 @@ public class Asteroid extends Field {
             else if(it.first.equals("Base")){
                 base = (Base) fc.GetWithUID(Integer.parseInt(it.second));
             }
+            else if(it.first.equals("X")){
+                x = Integer.parseInt(it.second);
+            }
+            else if(it.first.equals("Y")){
+                y = Integer.parseInt(it.second);
+            }
         }
     }
 
@@ -286,6 +306,8 @@ public class Asteroid extends Field {
         os.println("Asteroid{");
         super.Save(os, CallChildren);
         os.println("Shell: " + shell);
+        os.println("X: " + x);
+        os.println("Y: " + y);
         if(ships.size()>0) {
             ships.sort(new Comparator<Ship>() {
                 @Override
@@ -317,5 +339,10 @@ public class Asteroid extends Field {
                 s.Save(os, CallChildren);
             }
         }
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

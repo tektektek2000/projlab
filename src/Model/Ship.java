@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * It represents the ships of the game.
  */
-public abstract class Ship extends Saveable {
+public abstract class Ship extends Saveable implements IVisitable {
     /**
      * The asteroid where the ship is.
      */

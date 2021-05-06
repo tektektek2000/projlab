@@ -3,6 +3,7 @@ package Model.Materials;
 import Controllers.FileController;
 import Model.Asteroid;
 import Model.Map;
+import Model.IVisitor;
 import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
@@ -57,5 +58,10 @@ public class Ice extends Material {
         os.println("Ice{");
         super.Save(os, CallChildren);
         os.println("}");
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

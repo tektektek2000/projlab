@@ -2,6 +2,7 @@ package Model.Materials;
 import Controllers.FileController;
 import Model.Asteroid;
 import Model.Map;
+import Model.IVisitor;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -95,5 +96,10 @@ public class Uranium extends Material{
         os.println("ExposedFor: " + ExposedFor);
         os.println("isExposed: " + isExposed);
         os.println("}");
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }
