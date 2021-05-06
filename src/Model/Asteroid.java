@@ -40,9 +40,7 @@ public class Asteroid extends Field {
      */
     private boolean SunStorm = false;
 
-    private double x;
 
-    private double y;
 
     public Asteroid(Sector s){
         super(s);
@@ -212,6 +210,10 @@ public class Asteroid extends Field {
         return ret;
     }
 
+    public ArrayList<Ship> getShips(){
+        return ships;
+    }
+
     /**
      * Called when a ship moves to the asteroid.
      * @return With the asteroid.
@@ -287,12 +289,6 @@ public class Asteroid extends Field {
             else if(it.first.equals("Base")){
                 base = (Base) fc.GetWithUID(Integer.parseInt(it.second));
             }
-            else if(it.first.equals("X")){
-                x = Integer.parseInt(it.second);
-            }
-            else if(it.first.equals("Y")){
-                y = Integer.parseInt(it.second);
-            }
         }
     }
 
@@ -306,8 +302,6 @@ public class Asteroid extends Field {
         os.println("Asteroid{");
         super.Save(os, CallChildren);
         os.println("Shell: " + shell);
-        os.println("X: " + x);
-        os.println("Y: " + y);
         if(ships.size()>0) {
             ships.sort(new Comparator<Ship>() {
                 @Override

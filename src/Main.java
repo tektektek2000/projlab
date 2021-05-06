@@ -1,15 +1,18 @@
-import UI.Layout.Game.GameUIController;
+import Controllers.GameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import UI.Layout.Game.GameUIController;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        GameUIController gameUIController = new GameUIController();
+        GameController gc = new GameController();
+        gc.NewMap();
+        GameUIController gameUIController = new GameUIController(gc);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(gameUIController);
         fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));

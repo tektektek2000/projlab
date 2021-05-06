@@ -19,6 +19,26 @@ public abstract class Field extends Saveable implements IVisitable{
      * The sector where the field is.
      */
     Sector sector;
+    double x;
+
+    double y;
+
+
+    public double getX(){
+        return x;
+    }
+
+    public double getY(){
+        return x;
+    }
+
+    public void setX(double X){
+        x=X;
+    }
+
+    public void setY(double Y){
+        y=Y;
+    }
 
     Field(Map m){
         super(m);
@@ -89,6 +109,12 @@ public abstract class Field extends Saveable implements IVisitable{
             else if(it.first.equals("Sector")){
                 sector = (Sector) fc.GetWithUID(Integer.parseInt(it.second));
             }
+            else if(it.first.equals("X")){
+                x = Integer.parseInt(it.second);
+            }
+            else if(it.first.equals("Y")){
+                y = Integer.parseInt(it.second);
+            }
         }
     }
 
@@ -99,6 +125,8 @@ public abstract class Field extends Saveable implements IVisitable{
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());
+        os.println("X: " + x);
+        os.println("Y: " + y);
         if(sector!=null) {
             os.println("Sector: " + sector.GetUID());
         }

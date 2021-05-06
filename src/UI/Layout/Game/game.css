@@ -37,3 +37,10 @@
     -fx-background-image:url('Resources/Buttons/put_back.png');
     -fx-background-size: 100% 100%
 }
+
+.panetest{
+    -fx-border-color: red;
+    -fx-border-width: 3;
+    -fx-background-radius: 3;
+    -fx-background-color: red;
+}

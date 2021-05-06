@@ -7,12 +7,13 @@ import javafx.scene.image.ImageView;
 public class ShipImage extends ImageView {
     Ship ship;
 
-    ShipImage(Ship s,double ratio){
+    ShipImage(Ship s){
         ImageVisitor IV= new ImageVisitor(s);
         Image im = IV.getImage();
         setImage(im);
-        this.setFitHeight(im.getHeight()*ratio);
-        this.setFitHeight(im.getHeight()*ratio);
+        this.setFitWidth(MagicConstants.Selected);
+        this.setFitHeight(MagicConstants.Selected);
+        this.setPreserveRatio(true);
 
         //TODO
     }

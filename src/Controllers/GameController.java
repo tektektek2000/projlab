@@ -48,12 +48,14 @@ public class GameController {
         controller = val;
     }
 
+    public Map getMap(){return map;}
+
     /**
      * It handles the in-game command.
      * @param CommandLine the given command line
      * @throws Exception
      */
-    void InterpretCommand(String CommandLine) throws Exception {
+    public void InterpretCommand(String CommandLine) throws Exception {
         String[] parts = CommandLine.split(" ");
 
         if (parts[0].equals("@Fail")){
