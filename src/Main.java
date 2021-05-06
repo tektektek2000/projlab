@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*GameController gc = new GameController();
+        GameController gc = new GameController();
         gc.NewMap();
         GameUIController gameUIController = new GameUIController(gc);
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -26,8 +26,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         gameUIController.Init();
         //primaryStage.setFullScreen(true);
-        primaryStage.show();*/
-
+        primaryStage.show();
+        /*
         MainMenuController mainMenuController = new MainMenuController(primaryStage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(mainMenuController);
@@ -41,6 +41,7 @@ public class Main extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         primaryStage.show();
+        */
     }
 
 

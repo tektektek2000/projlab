@@ -24,7 +24,7 @@ public class FieldImage extends ImageView {
         y=f.getY();
         this.setPreserveRatio(true);
         ArrayList<Ship> Ships = IV.getShips();
-        if(ships != null){
+        if(Ships != null){
             for(Ship s : Ships){
                 ships.add(new ShipImage(s));
             }

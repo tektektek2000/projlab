@@ -56,41 +56,82 @@ public class ImageVisitor implements IVisitor {
 
     @Override
     public void visit(Asteroid a) {
-        filePath += "Asteroid.png";
-        ships = a.getShips();
+        if(AsteroidImage == null) {
+            try {
+                filePath += "Asteroid.png";
+                AsteroidImage = new Image(new FileInputStream(filePath));
+            } catch (FileNotFoundException e) {
+                System.out.println(filePath);
+                e.printStackTrace();
+            }
+        }
+        image = AsteroidImage;
     }
 
     @Override
     public void visit(PlayerShip p) {
-        Image PlayerImage = null;
         switch (p.GetUID() % 5 + 1){
             case 1:
-                if(PlayerImage == null) {
+                if(Player1 == null) {
                     try {
                         filePath += "PlayerShip1.png";
-                        Uranium = new Image(new FileInputStream(filePath));
-                        image = Uranium;
+                        Player1 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
                         System.out.println(filePath);
                         e.printStackTrace();
                     }
                 }
-                PlayerImage = Player1;
+                image = Player1;
                 break;
             case 2:
-                PlayerImage = Player2;
+                if(Player2 == null) {
+                    try {
+                        filePath += "PlayerShip1.png";
+                        Player2 = new Image(new FileInputStream(filePath));
+                    } catch (FileNotFoundException e) {
+                        System.out.println(filePath);
+                        e.printStackTrace();
+                    }
+                }
+                image = Player2;
                 break;
             case 3:
-                PlayerImage = Player3;
+                if(Player3 == null) {
+                    try {
+                        filePath += "PlayerShip1.png";
+                        Player3 = new Image(new FileInputStream(filePath));
+                    } catch (FileNotFoundException e) {
+                        System.out.println(filePath);
+                        e.printStackTrace();
+                    }
+                }
+                image = Player3;
                 break;
             case 4:
-                PlayerImage = Player4;
+                if(Player4 == null) {
+                    try {
+                        filePath += "PlayerShip1.png";
+                        Player4 = new Image(new FileInputStream(filePath));
+                    } catch (FileNotFoundException e) {
+                        System.out.println(filePath);
+                        e.printStackTrace();
+                    }
+                }
+                image = Player4;
                 break;
             case 5:
-                PlayerImage = Player5;
+                if(Player5 == null) {
+                    try {
+                        filePath += "PlayerShip1.png";
+                        Player5 = new Image(new FileInputStream(filePath));
+                    } catch (FileNotFoundException e) {
+                        System.out.println(filePath);
+                        e.printStackTrace();
+                    }
+                }
+                image = Player5;
                 break;
         }
-        image = PlayerImage;
     }
 
     @Override
