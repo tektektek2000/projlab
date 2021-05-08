@@ -56,7 +56,7 @@ public class MapBuilder {
             asteroids.add(a);
         }
 
-
+        // linking asteroids in max distance
         for(Asteroid a1 : asteroids){
             for(Asteroid a2 : asteroids){
                 if(closeEnough(a1,a2, neighbourMaxDistance)){
@@ -65,6 +65,25 @@ public class MapBuilder {
                 }
             }
         }
+
+        // linking asteroids which has 0 neighbours
+        for(Asteroid a1 : asteroids){
+            if(a1.getNeighbours().size()==0){
+                System.out.println("NO NE");
+                double minDistance = 2.0;
+                Asteroid minAsteroid = null;
+                for(Asteroid a2 : asteroids){
+                    if(a1 != a2) {
+                        if (distance(a1, a2) < minDistance) {
+                            minDistance = distance(a1, a2);
+                            minAsteroid = a2;
+                        }
+                    }
+                }
+                a1.AddNeighbour(minAsteroid);
+            }
+        }
+
 
         for(Asteroid a : asteroids) {
             Sector s = map.getSectors().get(random.nextInt(map.getSectors().size()));
@@ -194,7 +213,7 @@ public class MapBuilder {
 
 
         double d = distance(a1, a2);
-        System.out.println(d);
+        //System.out.println(d);
         return d <= maxDistance;
     }
 
