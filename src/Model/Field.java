@@ -15,6 +15,11 @@ public abstract class Field extends Saveable implements IVisitable{
      * The neighbours (fields) of the field.
      */
     ArrayList<Field> Neighbours = new ArrayList<>();
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
+    }
+
     /**
      * The sector where the field is.
      */

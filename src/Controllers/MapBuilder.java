@@ -21,7 +21,11 @@ public class MapBuilder {
     final int shipNumberMin = 3;
     // Maximum number of ships
     final int shipNumberMax = 8;
-    // A random number
+    // the distance where asteroids doesnt overlap each other
+    final double asteroidTooClose = 0.1;
+    // max distance when asteroids are linked
+    final double neighbourMaxDistance = 0.23;
+    // A random generator
     private static final Random random = new Random();
     // The map
     Map map;
@@ -43,21 +47,41 @@ public class MapBuilder {
         for (int i = 0; i < sectorNumber; i++)
             map.AddSector(new Sector(map.GetNewUID(),map));
 
-        // TODO: generating asteroids with coordinates (for the UI)
-
         // creating asteroids and adding to sectors
         Random r = new Random();
-        for(Sector s : map.getSectors()){
-            for (int i = 0; i < asteroidNumberMin+random.nextInt(asteroidNumberMax); i++){
-                Asteroid a = new Asteroid(map.GetNewUID(), s, genRndMaterial(GC) , random.nextInt(6));
-                a.setX(r.nextDouble()*2-1.0);
-                a.setY(r.nextDouble()*2-1.0);
-                System.out.println(a.getX()+" "+a.getY());
-                asteroids.add(a);
-                s.Add(a);
+        for (int i = 0; i < 80; i++){
+
+            Asteroid a = genRndAsteroid(GC, asteroids, r);
+            System.out.println(a.getX()+" "+a.getY());
+            asteroids.add(a);
+        }
+
+
+        for(Asteroid a1 : asteroids){
+            for(Asteroid a2 : asteroids){
+                if(closeEnough(a1,a2, neighbourMaxDistance)){
+                    a1.AddNeighbour(a2);
+                    a2.AddNeighbour(a1);
+                }
             }
         }
 
+        for(Asteroid a : asteroids) {
+            Sector s = map.getSectors().get(random.nextInt(map.getSectors().size()));
+            a.setSector(s);
+            s.Add(a);
+        }
+
+        /*for(Sector s : map.getSectors()) {
+            for (Field f : s.getFields()) {
+                Field rndField = s.getFields().get(random.nextInt(s.getFields().size()));
+                f.AddNeighbour(rndField);
+                rndField.AddNeighbour(f);
+            }
+        }*/
+
+
+        /*
         // linking asteroids in sectors (only 1)
         for(Sector s : map.getSectors())
             for (Field f : s.getFields()){
@@ -74,6 +98,7 @@ public class MapBuilder {
             rndField.AddNeighbour(rndFieldOuterSector);
             rndFieldOuterSector.AddNeighbour(rndField);
         }
+        */
 
         // creating players on random asteroid
         for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
@@ -88,6 +113,26 @@ public class MapBuilder {
         }
 
         return map;
+    }
+
+    boolean tooClose(ArrayList<Asteroid> asteroids, Asteroid a){
+        for(Asteroid a2: asteroids)
+            if(closeEnough(a,a2,asteroidTooClose))
+                return true;
+
+        return false;
+    }
+
+    private Asteroid genRndAsteroid(GameController GC, ArrayList<Asteroid> asteroids, Random r) {
+        Asteroid a = new Asteroid(map.GetNewUID(), null, genRndMaterial(GC) , random.nextInt(6));
+        a.setX(r.nextDouble()*2-1.0);
+        a.setY(r.nextDouble()*2-1.0);
+
+        while(tooClose(asteroids,a)){
+            a.setX(r.nextDouble()*2-1.0);
+            a.setY(r.nextDouble()*2-1.0);
+        }
+        return a;
     }
 
     /**
@@ -136,6 +181,21 @@ public class MapBuilder {
         double y = min + random.nextDouble() * (max - min);
 
         return new Point(x,y);
+    }
+
+    public double distance(Asteroid a1, Asteroid a2){
+        return Math.sqrt(Math.pow(a1.getX()-a2.getX(),2) + Math.pow(a1.getY()-a2.getY(),2));
+    }
+
+    private boolean closeEnough(Asteroid a1, Asteroid a2, double maxDistance){
+        if(a1 == a2){
+            return false;
+        }
+
+
+        double d = distance(a1, a2);
+        System.out.println(d);
+        return d <= maxDistance;
     }
 
 }
