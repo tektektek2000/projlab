@@ -180,7 +180,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-        System.out.println("Key event");
         if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
             switch ((keyEvent.getCode())){
                 case A:

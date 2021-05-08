@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.*;
 import Model.Materials.*;
+import Utils.Pair;
 import Utils.Point;
 
 import java.util.ArrayList;
@@ -29,6 +30,68 @@ public class MapBuilder {
     private static final Random random = new Random();
     // The map
     Map map;
+
+    private void DiscoverGraphHelper(Asteroid a,ArrayList<Asteroid> graph){
+        graph.add(a);
+        for(Field it :a.getNeighbours()){
+            Asteroid neighbour = (Asteroid) it; //This can only be done because no other type of field exists in generation
+            if(!graph.contains(neighbour))
+                DiscoverGraphHelper(neighbour,graph);
+        }
+    }
+
+    private ArrayList<Asteroid> DiscoverGraph(Asteroid a){
+        ArrayList<Asteroid> Graph = new ArrayList<>();
+        DiscoverGraphHelper(a,Graph);
+        return Graph;
+    }
+
+    private Pair<Pair<Asteroid,Asteroid>,Double> FindBestLink(ArrayList<Asteroid> graph1, ArrayList<Asteroid> graph2){
+        Pair<Pair<Asteroid,Asteroid>,Double> BestLink = new Pair<Pair<Asteroid,Asteroid>,Double>(new Pair<Asteroid,Asteroid>(graph1.get(0),graph2.get(0)),distance(graph1.get(0),graph2.get(0)));
+        for(Asteroid a : graph1) {
+            for (Asteroid b : graph2) {
+                if (distance(a, b) < BestLink.second) {
+                    BestLink = new Pair<Pair<Asteroid, Asteroid>, Double>(new Pair<Asteroid, Asteroid>(a, b), distance(a, b));
+                }
+            }
+        }
+        return BestLink;
+    }
+
+    private void MakeGraphTraversable(ArrayList<Asteroid> asteroids){
+        boolean AllAsteroidsAreMapped = false;
+        ArrayList<ArrayList<Asteroid>> Graphs = new ArrayList<>();
+        do {
+            Graphs = new ArrayList<>();
+            for (Asteroid a : asteroids) {
+                boolean found = false;
+                for (ArrayList<Asteroid> graph : Graphs) {
+                    if (graph.contains(a)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    Graphs.add(DiscoverGraph(a));
+                }
+            }
+            if(Graphs.size() > 1){
+                Pair<Pair<Asteroid, Asteroid>, Double> BestLink = null;
+                for(ArrayList<Asteroid> graph1 : Graphs){
+                    for(ArrayList<Asteroid> graph2 : Graphs){
+                        if(graph1 != graph2) {
+                            Pair<Pair<Asteroid, Asteroid>, Double> Link = FindBestLink(graph1,graph2);
+                            if(BestLink == null || BestLink.second > Link.second){
+                                BestLink = Link;
+                            }
+                        }
+                    }
+                }
+                BestLink.first.first.AddNeighbour(BestLink.first.second);
+                BestLink.first.second.AddNeighbour(BestLink.first.first);
+            }
+        }while (Graphs.size() > 1);
+    }
 
     /**
      * This method's objective is to build up a simple random generated starter map.
@@ -64,7 +127,6 @@ public class MapBuilder {
                 }
             }
         }
-
         // linking asteroids which has 0 neighbours
         for(Asteroid a1 : asteroids){
             if(a1.getNeighbours().size()==0){
@@ -80,9 +142,10 @@ public class MapBuilder {
                     }
                 }
                 a1.AddNeighbour(minAsteroid);
+                minAsteroid.AddNeighbour(a1);
             }
         }
-
+        MakeGraphTraversable(asteroids);
         // linking asteroids with sectors based on angles
         for(Asteroid a : asteroids) {
 
