@@ -1,12 +1,12 @@
 package UI.Layout.Game;
 import Controllers.GameController;
-import Model.Field;
+import Model.*;
 import Model.Map;
-import Model.PlayerShip;
-import Model.Sector;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
 import UI.Layout.Game.CraftSidePanel.CraftSidePanelController;
+import UI.Layout.Game.CurrentAsteroidSidePanel.CurrentAsteroidSidePanelController;
+import UI.Layout.Game.InventorySidePanel.InventorySidePanelController;
 import Utils.Pair;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -22,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -89,6 +90,35 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         craftSidePanelController.Init();
+        new SelectHandler(SaveButton);
+    }
+
+    private void SwitchToCurrentAsteroidSidePanel(){
+        CurrentAsteroidSidePanelController currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentAsteroidSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
+        try {
+            VBox CurrentAsteroidPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(CurrentAsteroidPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        currentAsteroidSidePanelController.Init();
+        new SelectHandler(SaveButton);
+    }
+    private void SwitchToInventorySidePanel(){
+        InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(inventorySidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/InventorySidePanel/InventorySidePanel.fxml"));
+        try {
+            GridPane InventorySidePanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(InventorySidePanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        inventorySidePanelController.Init();
         new SelectHandler(SaveButton);
     }
 
