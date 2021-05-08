@@ -6,6 +6,7 @@ import javafx.scene.shape.Line;
 public class Connection {
     Field f1;
     Field f2;
+    public Line line = null;
 
     public Connection(Field F1,Field F2){
         f1 = F1;

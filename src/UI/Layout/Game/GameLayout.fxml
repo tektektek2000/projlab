@@ -7,23 +7,14 @@
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="anchor" stylesheets="@game.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="GameContent" prefHeight="200.0" prefWidth="200.0" stylesheets="@game.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <HBox layoutX="6.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <children>
-            <VBox prefHeight="400.0" prefWidth="151.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-               </children></VBox>
-            <Pane prefHeight="400.0" prefWidth="272.0" HBox.hgrow="ALWAYS" />
-            <VBox alignment="CENTER_RIGHT" prefHeight="400.0" prefWidth="192.0">
-               <Pane fx:id="SidePanelWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="339.0" HBox.hgrow="ALWAYS" />
-               <Pane prefHeight="370.0" prefWidth="185.0" VBox.vgrow="ALWAYS" />
-               <Button fx:id="SaveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Save" prefHeight="61.0" prefWidth="113.0" styleClass="savebutton" stylesheets="@game.css" textFill="TRANSPARENT">
-                  <VBox.margin>
-                     <Insets bottom="20.0" />
-                  </VBox.margin></Button>
-            </VBox>
-         </children>
-      </HBox>
+      <VBox alignment="CENTER_RIGHT" prefHeight="400.0" prefWidth="192.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <Pane fx:id="SidePanelWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="339.0" HBox.hgrow="ALWAYS" />
+         <Pane prefHeight="370.0" prefWidth="185.0" VBox.vgrow="ALWAYS" />
+         <Button fx:id="SaveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Save" prefHeight="61.0" prefWidth="113.0" styleClass="savebutton" stylesheets="@game.css" textFill="TRANSPARENT">
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin>
+         </Button>
+      </VBox>
    </children>
 </AnchorPane>

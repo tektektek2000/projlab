@@ -97,6 +97,7 @@ public class ImageVisitor implements IVisitor {
             }
         }
         image = AsteroidImage;
+        ships = a.getShips();
     }
 
     @Override

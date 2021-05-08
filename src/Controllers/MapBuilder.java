@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.*;
 import Model.Materials.*;
+import UI.Components.MagicConstants;
 import Utils.Pair;
 import Utils.Point;
 
@@ -12,20 +13,6 @@ import java.util.Random;
  * A class for building a map.
  */
 public class MapBuilder {
-    // Number of sectors
-    final int sectorNumber = 8;
-    // Minimum number of asteroids
-    final int asteroidNumberMin = 6;
-    // Maximum number of asteroids
-    final int asteroidNumberMax = 12;
-    // Minimum number of ships
-    final int shipNumberMin = 3;
-    // Maximum number of ships
-    final int shipNumberMax = 8;
-    // the distance where asteroids doesnt overlap each other
-    final double asteroidTooClose = 0.1;
-    // max distance when asteroids are linked
-    final double neighbourMaxDistance = 0.23;
     // A random generator
     private static final Random random = new Random();
     // The map
@@ -59,7 +46,6 @@ public class MapBuilder {
     }
 
     private void MakeGraphTraversable(ArrayList<Asteroid> asteroids){
-        boolean AllAsteroidsAreMapped = false;
         ArrayList<ArrayList<Asteroid>> Graphs = new ArrayList<>();
         do {
             Graphs = new ArrayList<>();
@@ -107,7 +93,7 @@ public class MapBuilder {
         ArrayList<Asteroid> asteroids = new ArrayList<>();
 
         // creating sectors
-        for (int i = 0; i < sectorNumber; i++)
+        for (int i = 0; i < MagicConstants.sectorNumber; i++)
             map.AddSector(new Sector(map.GetNewUID(),map));
 
         // creating asteroids and adding to sectors
@@ -121,7 +107,7 @@ public class MapBuilder {
         // linking asteroids in max distance
         for(Asteroid a1 : asteroids){
             for(Asteroid a2 : asteroids){
-                if(closeEnough(a1,a2, neighbourMaxDistance)){
+                if(closeEnough(a1,a2, MagicConstants.neighbourMaxDistance)){
                     a1.AddNeighbour(a2);
                     a2.AddNeighbour(a1);
                 }
@@ -184,13 +170,13 @@ public class MapBuilder {
         */
 
         // creating players on random asteroid
-        for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
+        for (int i = 0; i < MagicConstants.shipNumberMin+random.nextInt(MagicConstants.shipNumberMax); i++) {
             PlayerShip p = new PlayerShip(asteroids.get(random.nextInt(asteroids.size())));
             GC.ps.add(p);
         }
 
         // creating UFOs on random asteroid
-        for (int i = 0; i < shipNumberMin+random.nextInt(shipNumberMax); i++) {
+        for (int i = 0; i < MagicConstants.shipNumberMin+random.nextInt(MagicConstants.shipNumberMax); i++) {
             UFO p = new UFO(asteroids.get(random.nextInt(asteroids.size())));
             GC.ufos.add(p);
         }
@@ -214,32 +200,26 @@ public class MapBuilder {
 
     boolean tooClose(ArrayList<Asteroid> asteroids, Asteroid a){
         for(Asteroid a2: asteroids)
-            if(closeEnough(a,a2,asteroidTooClose))
+            if(closeEnough(a,a2,MagicConstants.asteroidTooClose))
                 return true;
 
         return false;
     }
 
     boolean tooCloseToSun(Asteroid a){
-        if(closeEnough(a,0,0,asteroidTooClose))
+        if(closeEnough(a,0,0,MagicConstants.sunTooClose))
             return true;
         return false;
     }
 
     private Asteroid genRndAsteroid(GameController GC, ArrayList<Asteroid> asteroids, Random r) {
         Asteroid a = new Asteroid(map.GetNewUID(), null, genRndMaterial(GC) , random.nextInt(6));
-        a.setX(r.nextDouble()*2-1.0);
-        a.setY(r.nextDouble()*2-1.0);
-
-        while(tooClose(asteroids,a)){
-            a.setX(r.nextDouble()*2-1.0);
-            a.setY(r.nextDouble()*2-1.0);
-        }
-
-        while(tooCloseToSun(a)){
-            a.setX(r.nextDouble()*2-1.0);
-            a.setY(r.nextDouble()*2-1.0);
-        }
+        do{
+            double alfa = r.nextDouble() * 2.0 * Math.PI;
+            double dist = r.nextDouble() * MagicConstants.MaxGeneratedDistance;
+            a.setX(Math.cos(alfa)*dist);
+            a.setY(Math.sin(alfa)*dist);
+        }while(tooClose(asteroids,a) || tooCloseToSun(a));
 
         return a;
     }
