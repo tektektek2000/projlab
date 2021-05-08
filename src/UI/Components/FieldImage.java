@@ -36,8 +36,9 @@ public class FieldImage extends ImageView {
         // !!!!!!!!!!!!!!!!!!!!
         // BASED ON THE KNOWING OF SECTOR COUNT
         ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setHue(f.getSector().GetUID()*0.1);
+        colorAdjust.setHue(f.getSector().GetUID()*0.12-0.12);
         colorAdjust.setSaturation(1.0);
+        colorAdjust.setBrightness(f.getSector().GetUID()*0.12-0.12);
         this.setEffect(colorAdjust);
 
     }
