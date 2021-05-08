@@ -1,5 +1,6 @@
 package UI.Layout.MainMenu;
 
+import UI.Components.MagicConstants;
 import UI.Layout.LoadMenu.LoadMenuController;
 import UI.Layout.StartMenu.StartMenuController;
 import UI.Components.SelectHandler;
@@ -50,7 +51,7 @@ public class MainMenuController {
         Anchor.getChildren().clear();
         Anchor.getChildren().addAll(root.getChildren());
         startMenuController.setAnchor(Anchor);
-        stage.setFullScreen(true);
+        stage.setFullScreen(MagicConstants.FullScreen);
         startMenuController.Init();
     }
     @FXML
@@ -68,7 +69,7 @@ public class MainMenuController {
         Anchor.getChildren().clear();
         Anchor.getChildren().addAll(root.getChildren());
         loadMenuController.setAnchor(Anchor);
-        stage.setFullScreen(true);
+        stage.setFullScreen(MagicConstants.FullScreen);
         loadMenuController.Init();
     }
     @FXML

@@ -1,6 +1,7 @@
 package UI.Layout.StartMenu;
 
 import Controllers.GameController;
+import UI.Components.MagicConstants;
 import UI.Components.SelectHandler;
 import UI.Layout.Game.GameUIController;
 import UI.Layout.MainMenu.MainMenuController;
@@ -87,7 +88,7 @@ public class StartMenuController {
         Anchor.getChildren().clear();
         Anchor.getChildren().addAll(root.getChildren());
         gameUIController.setAnchor(Anchor);
-        stage.setFullScreen(true);
+        stage.setFullScreen(MagicConstants.FullScreen);
         gameUIController.Init();
 
     }
@@ -106,7 +107,7 @@ public class StartMenuController {
         Anchor.getChildren().clear();
         Anchor.getChildren().addAll(root.getChildren());
         mainMenuController.setAnchor(Anchor);
-        stage.setFullScreen(true);
+        stage.setFullScreen(MagicConstants.FullScreen);
         mainMenuController.Init();
     }
     @FXML

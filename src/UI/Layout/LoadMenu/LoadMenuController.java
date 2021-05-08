@@ -1,5 +1,6 @@
 package UI.Layout.LoadMenu;
 
+import UI.Components.MagicConstants;
 import UI.Components.SelectHandler;
 import UI.Layout.MainMenu.MainMenuController;
 import javafx.fxml.FXML;
@@ -52,7 +53,7 @@ public class LoadMenuController {
         Anchor.getChildren().clear();
         Anchor.getChildren().addAll(root.getChildren());
         mainMenuController.setAnchor(Anchor);
-        stage.setFullScreen(true);
+        stage.setFullScreen(MagicConstants.FullScreen);
         mainMenuController.Init();
     }
     @FXML

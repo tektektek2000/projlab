@@ -1,5 +1,6 @@
 package UI.Layout.WonMenu;
 
+import UI.Components.MagicConstants;
 import UI.Components.SelectHandler;
 import UI.Layout.LoadMenu.LoadMenuController;
 import UI.Layout.MainMenu.MainMenuController;
@@ -49,7 +50,7 @@ public class WonMenuController {
         Anchor.getChildren().clear();
         Anchor.getChildren().addAll(root.getChildren());
         mainMenuController.setAnchor(Anchor);
-        stage.setFullScreen(true);
+        stage.setFullScreen(MagicConstants.FullScreen);
         mainMenuController.Init();
     }
     @FXML

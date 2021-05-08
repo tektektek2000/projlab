@@ -4,7 +4,7 @@
 }
 
 .savebutton{
-    -fx-background-image:url('Resources/Buttons/save_button.png');
+    -fx-background-image:url('Resources/save_button.png');
     -fx-background-size: 100% 100%
 }
 

@@ -1,3 +1,4 @@
+import UI.Components.MagicConstants;
 import UI.Layout.MainMenu.MainMenuController;
 import UI.Layout.WonMenu.GameOverMenuController;
 import UI.Layout.WonMenu.WonMenuController;
@@ -7,12 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import UI.Layout.Game.GameUIController;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*GameController gc = new GameController();
+        /*
+        GameController gc = new GameController();
         gc.NewMap();
         GameUIController gameUIController = new GameUIController(gc);
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -24,9 +27,9 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1600, 800);
         primaryStage.setScene(scene);
         gameUIController.Init();
-        //primaryStage.setFullScreen(true);
-        primaryStage.show();*/
-
+        //primarystage.setFullScreen(MagicConstants.FullScreen);
+        primaryStage.show();
+        */
         MainMenuController mainMenuController = new MainMenuController(primaryStage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(mainMenuController);
@@ -37,7 +40,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1600, 800);
         primaryStage.setScene(scene);
         mainMenuController.Init();
-        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(MagicConstants.FullScreen);
         primaryStage.setFullScreenExitHint("");
         primaryStage.show();
 
@@ -51,7 +54,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1600, 800);
         primaryStage.setScene(scene);
         wonMenuController.Init();
-        primaryStage.setFullScreen(true);
+        primarystage.setFullScreen(MagicConstants.FullScreen);
         primaryStage.setFullScreenExitHint("");
         primaryStage.show();*/
 
@@ -65,7 +68,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1600, 800);
         primaryStage.setScene(scene);
         gameOverMenuController.Init();
-        primaryStage.setFullScreen(true);
+        primarystage.setFullScreen(MagicConstants.FullScreen);
         primaryStage.setFullScreenExitHint("");
         primaryStage.show();*/
     }

@@ -50,7 +50,6 @@ public class MapBuilder {
         // creating asteroids and adding to sectors
         Random r = new Random();
         for (int i = 0; i < 80; i++){
-
             Asteroid a = genRndAsteroid(GC, asteroids, r);
             System.out.println(a.getX()+" "+a.getY());
             asteroids.add(a);
