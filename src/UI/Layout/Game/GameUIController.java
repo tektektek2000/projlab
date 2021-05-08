@@ -7,24 +7,18 @@ import Model.Sector;
 import UI.Components.Connection;
 import UI.Components.FieldImage;
 import UI.Components.SelectHandler;
+import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
 import Utils.Pair;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -38,18 +32,6 @@ public class GameUIController {
     @FXML
     Button SaveButton;
     @FXML
-    Button DrillButton;
-    @FXML
-    Button MineButton;
-    @FXML
-    Button BuildButton;
-    @FXML
-    Button CraftButton;
-    @FXML
-    Button PutBackButton;
-    @FXML
-    Button PutDownButton;
-    @FXML
     Pane SidePanelWrapper;
     @FXML
     Pane GameContent;
@@ -59,22 +41,18 @@ public class GameUIController {
     }
 
     private void SwitchToActionSidePanel(){
+        ActionSidePanelController actionSidePanelController = new ActionSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setController(this);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/ActionSidePanel.fxml"));
+        fxmlLoader.setController(actionSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/ActionSidePanel/ActionSidePanel.fxml"));
         try {
             VBox actionPanel = fxmlLoader.load();
             SidePanelWrapper.getChildren().add(actionPanel);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        actionSidePanelController.Init();
         new SelectHandler(SaveButton);
-        new SelectHandler(DrillButton);
-        new SelectHandler(MineButton);
-        new SelectHandler(BuildButton);
-        new SelectHandler(CraftButton);
-        new SelectHandler(PutBackButton);
-        new SelectHandler(PutDownButton);
     }
 
     public void setAnchor(AnchorPane a){
@@ -130,30 +108,7 @@ public class GameUIController {
     public void Save(){
         System.out.println("Nem működik a mentés még tesókám, erre bizony alaposan rábasztál!");
     }
-    @FXML
-    public void Drill(){
-        PlaceImage( new FieldImage(new Asteroid(gameController.getMap().getSectors().get(0))));
-    }
-    @FXML
-    public void Mine(){
-        System.out.println("Mine");
-    }
-    @FXML
-    public void Build(){
-        System.out.println("Build");
-    }
-    @FXML
-    public void Craft(){
-        System.out.println("Craft");
-    }
-    @FXML
-    public void PutBack(){
-        System.out.println("PutBack");
-    }
-    @FXML
-    public void PutDown(){
-        System.out.println("PutDown");
-    }
+
 
     public void Refresh(){
         System.out.println("Timer activated");
