@@ -68,7 +68,7 @@ public class MapBuilder {
         // linking asteroids which has 0 neighbours
         for(Asteroid a1 : asteroids){
             if(a1.getNeighbours().size()==0){
-                System.out.println("NO NE");
+                //System.out.println("NO NE");
                 double minDistance = 2.0;
                 Asteroid minAsteroid = null;
                 for(Asteroid a2 : asteroids){
@@ -83,11 +83,13 @@ public class MapBuilder {
             }
         }
 
-
+        // linking asteroids with sectors based on angles
         for(Asteroid a : asteroids) {
-            Sector s = map.getSectors().get(random.nextInt(map.getSectors().size()));
+
+            Sector s = whichSectorItIs(a);
             a.setSector(s);
             s.Add(a);
+
         }
 
         /*for(Sector s : map.getSectors()) {
@@ -133,11 +135,31 @@ public class MapBuilder {
         return map;
     }
 
+    // gives back Sector base on angles (0.0,0.0 is the sun)
+    private Sector whichSectorItIs(Asteroid a) {
+        int sectorCnt = map.getSectors().size();
+        double angleSize = 360.0/sectorCnt;
+        double dX = a.getX() - 0.0;
+        double dY = a.getY() - 0.0;
+        double deg = Math.atan2(dY, dX)*180.0/Math.PI;
+        if(deg < 0)
+            deg += 360;
+        int index = (int) Math.floor(deg/angleSize);
+        return map.getSectors().get(index);
+    }
+
+
     boolean tooClose(ArrayList<Asteroid> asteroids, Asteroid a){
         for(Asteroid a2: asteroids)
             if(closeEnough(a,a2,asteroidTooClose))
                 return true;
 
+        return false;
+    }
+
+    boolean tooCloseToSun(Asteroid a){
+        if(closeEnough(a,0,0,asteroidTooClose))
+            return true;
         return false;
     }
 
@@ -150,6 +172,12 @@ public class MapBuilder {
             a.setX(r.nextDouble()*2-1.0);
             a.setY(r.nextDouble()*2-1.0);
         }
+
+        while(tooCloseToSun(a)){
+            a.setX(r.nextDouble()*2-1.0);
+            a.setY(r.nextDouble()*2-1.0);
+        }
+
         return a;
     }
 
@@ -205,13 +233,21 @@ public class MapBuilder {
         return Math.sqrt(Math.pow(a1.getX()-a2.getX(),2) + Math.pow(a1.getY()-a2.getY(),2));
     }
 
+    public double distance(Asteroid a1, double x, double y){
+        return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
+    }
+
     private boolean closeEnough(Asteroid a1, Asteroid a2, double maxDistance){
         if(a1 == a2){
             return false;
         }
-
-
         double d = distance(a1, a2);
+        //System.out.println(d);
+        return d <= maxDistance;
+    }
+
+    private boolean closeEnough(Asteroid a1, double x, double y, double maxDistance){
+        double d = distance(a1, x, y);
         //System.out.println(d);
         return d <= maxDistance;
     }
