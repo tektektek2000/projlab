@@ -1,7 +1,9 @@
-package UI.Layout.Load_menu;
+package UI.Layout.WonMenu;
 
 import UI.Components.SelectHandler;
-import UI.Layout.Main_menu.MainMenuController;
+import UI.Layout.LoadMenu.LoadMenuController;
+import UI.Layout.MainMenu.MainMenuController;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -10,20 +12,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoadMenuController {
+public class GameOverMenuController {
     public Stage stage;
     @FXML
     AnchorPane Anchor;
     @FXML
-    Button Back_button;
+    Button Restart_button;
     @FXML
-    Button Load_button;
-    @FXML
-    Button Left_button;
-    @FXML
-    Button Right_button;
+    Button Exit_button;
 
-    public LoadMenuController(Stage s){
+    public GameOverMenuController(Stage s){
         stage = s;
     }
 
@@ -32,17 +30,16 @@ public class LoadMenuController {
     }
 
     public void Init(){
-        new SelectHandler(Back_button);
-        new SelectHandler(Load_button);
-        new SelectHandler(Left_button);
-        new SelectHandler(Right_button);
+        new SelectHandler(Restart_button);
+        new SelectHandler(Exit_button);
     }
+
     @FXML
-    public void Back(){
+    public void Restart(){
         MainMenuController mainMenuController = new MainMenuController(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(mainMenuController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Main_menu/Main_menuLayout.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/MainMenu/MainMenuLayout.fxml"));
         AnchorPane root = null;
         try {
             root = fxmlLoader.load();
@@ -56,15 +53,7 @@ public class LoadMenuController {
         mainMenuController.Init();
     }
     @FXML
-    public void Load(){
-        System.out.println("Load");
-    }
-    @FXML
-    public void Left(){
-        System.out.println("Left");
-    }
-    @FXML
-    public void Right(){
-        System.out.println("Right");
+    public void Exit(){
+        stage.close();
     }
 }
