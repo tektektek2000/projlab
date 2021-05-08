@@ -9,6 +9,7 @@ import UI.Components.Connection;
 import UI.Components.FieldImage;
 import UI.Components.SelectHandler;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
+import UI.Layout.Game.CraftSidePanel.CraftSidePanelController;
 import Utils.Pair;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -69,6 +70,20 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         actionSidePanelController.Init();
+        new SelectHandler(SaveButton);
+    }
+    private void SwitchToCraftSidePanel(){
+        CraftSidePanelController craftSidePanelController = new CraftSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(craftSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CraftSidePanel/CraftSidePanel.fxml"));
+        try {
+            VBox craftPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(craftPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        craftSidePanelController.Init();
         new SelectHandler(SaveButton);
     }
 
