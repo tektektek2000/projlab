@@ -7,6 +7,8 @@ import Model.Map;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
 import UI.Layout.Game.CraftSidePanel.CraftSidePanelController;
+import UI.Layout.Game.PutBackSidePanel.PutBackSidePanelController;
+import UI.Layout.Game.PutDownSidePanel.PutDownSidePanelController;
 import UI.Layout.Game.CurrentAsteroidSidePanel.CurrentAsteroidSidePanelController;
 import UI.Layout.Game.InventorySidePanel.InventorySidePanelController;
 import Utils.Pair;
@@ -122,6 +124,37 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         inventorySidePanelController.Init();
+        new SelectHandler(SaveButton);
+    }
+
+
+    private void SwitchToPutDownSidePanel(){
+        PutDownSidePanelController putDownSidePanelController = new PutDownSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(putDownSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/PutDownSidePanel/PutDownSidePanel.fxml"));
+        try {
+            VBox putdownPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(putdownPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        putDownSidePanelController.Init();
+        new SelectHandler(SaveButton);
+    }
+
+    private void SwitchToPutBackSidePanel(){
+        PutBackSidePanelController putBackSidePanelController = new PutBackSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(putBackSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/PutBackSidePanel/PutBackSidePanel.fxml"));
+        try {
+            VBox putbackPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(putbackPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        putBackSidePanelController.Init();
         new SelectHandler(SaveButton);
     }
 
