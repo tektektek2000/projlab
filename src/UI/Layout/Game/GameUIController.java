@@ -66,6 +66,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     Pane SidePanelWrapper;
     @FXML
     Pane GameContent;
+    public Timeline timeline;
 
     public GameUIController(GameController gc, Stage s){
         gameController = gc;
@@ -201,7 +202,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void Init(){
         SwitchToActionSidePanel();
-        Timeline timeline = new Timeline(new KeyFrame(
+        timeline = new Timeline(new KeyFrame(
                 Duration.millis(17),
                 ae -> Refresh()));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -289,11 +290,12 @@ public class GameUIController implements EventHandler<KeyEvent> {
             filePath += "Sun.png";
             try {
                 Sun = new ImageView(new Image(new FileInputStream(filePath)));
-                GameContent.getChildren().add(Sun);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
+        if(!GameContent.getChildren().contains(Sun))
+            GameContent.getChildren().add(Sun);
         Sun.setFitWidth(MagicConstants.SunDiameter);
         Sun.setFitHeight(MagicConstants.SunDiameter);
         Sun.setPreserveRatio(true);
@@ -494,5 +496,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
                     CameraShift.remove("Unzoom");
                     break;
             }
+    }
+
+    public void CleanUp(){
+        Anchor.removeEventHandler(KeyEvent.KEY_PRESSED,this);
+        Anchor.removeEventHandler(KeyEvent.KEY_RELEASED,this);
+        Anchor.getChildren().clear();
+        timeline.stop();
+        timeline = null;
+        Anchor = null;
     }
 }

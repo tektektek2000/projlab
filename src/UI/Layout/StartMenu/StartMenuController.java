@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -73,6 +74,7 @@ public class StartMenuController {
     }
     @FXML
     public void Start(){
+
         GameController gc = new GameController();
         gc.NewMap();
         GameUIController gameUIController = new GameUIController(gc, stage);
@@ -89,6 +91,7 @@ public class StartMenuController {
         Anchor.getChildren().addAll(root.getChildren());
         gameUIController.setAnchor(Anchor);
         stage.setFullScreen(MagicConstants.FullScreen);
+        CleanUp();
         gameUIController.Init();
 
     }
@@ -108,6 +111,7 @@ public class StartMenuController {
         Anchor.getChildren().addAll(root.getChildren());
         mainMenuController.setAnchor(Anchor);
         stage.setFullScreen(MagicConstants.FullScreen);
+        CleanUp();
         mainMenuController.Init();
     }
     @FXML
@@ -118,5 +122,15 @@ public class StartMenuController {
     }
     @FXML
     public void Large(){
+    }
+
+    public void CleanUp(){
+        Anchor = null;
+        Start_button = null;
+        Back_button = null;
+        Small_button = null;
+        Normal_button = null;
+        Large_button = null;
+        Counter_field = null;
     }
 }

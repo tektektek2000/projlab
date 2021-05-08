@@ -56,6 +56,7 @@ public class MainMenuController {
         Anchor.getChildren().addAll(root.getChildren());
         startMenuController.setAnchor(Anchor);
         stage.setFullScreen(MagicConstants.FullScreen);
+        CleanUp();
         startMenuController.Init();
     }
     @FXML
@@ -74,10 +75,18 @@ public class MainMenuController {
         Anchor.getChildren().addAll(root.getChildren());
         loadMenuController.setAnchor(Anchor);
         stage.setFullScreen(MagicConstants.FullScreen);
+        CleanUp();
         loadMenuController.Init();
     }
     @FXML
     public void Exit(){
        stage.close();
+    }
+
+    public void CleanUp(){
+        Anchor = null;
+        Start_button = null;
+        Load_button = null;
+        Exit_button = null;
     }
 }

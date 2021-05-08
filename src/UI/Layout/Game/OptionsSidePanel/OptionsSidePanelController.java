@@ -50,6 +50,7 @@ public class OptionsSidePanelController {
     }
     @FXML
     public void Menu(){
+        gameUIController.CleanUp();
         MainMenuController mainMenuController = new MainMenuController(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(mainMenuController);

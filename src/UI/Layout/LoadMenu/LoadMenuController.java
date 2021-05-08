@@ -54,6 +54,7 @@ public class LoadMenuController {
         Anchor.getChildren().addAll(root.getChildren());
         mainMenuController.setAnchor(Anchor);
         stage.setFullScreen(MagicConstants.FullScreen);
+        Anchor = null;
         mainMenuController.Init();
     }
     @FXML
