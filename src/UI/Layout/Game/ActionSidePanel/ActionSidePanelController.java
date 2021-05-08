@@ -44,22 +44,29 @@ public class ActionSidePanelController {
     }
     @FXML
     public void Mine(){
-        System.out.println("Mine");
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " mine");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
     @FXML
     public void Build(){
-        System.out.println("Build");
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " build_base");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void Craft(){
         gameUIController.SwitchToCraftSidePanel();
     }
     @FXML
-    public void PutBack(){
-        System.out.println("PutBack");
-    }
+    public void PutBack(){ gameUIController.SwitchToPutBackSidePanel();}
     @FXML
     public void PutDown(){
-        System.out.println("PutDown");
+        gameUIController.SwitchToPutDownSidePanel();
     }
 }

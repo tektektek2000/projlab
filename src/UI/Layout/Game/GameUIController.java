@@ -98,7 +98,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(SaveButton);
     }
 
-    private void SwitchToCurrentAsteroidSidePanel(){
+    public void SwitchToCurrentAsteroidSidePanel(){
         CurrentAsteroidSidePanelController currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(currentAsteroidSidePanelController);
@@ -112,7 +112,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         currentAsteroidSidePanelController.Init();
         new SelectHandler(SaveButton);
     }
-    private void SwitchToInventorySidePanel(){
+    public void SwitchToInventorySidePanel(){
         InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(inventorySidePanelController);
@@ -128,7 +128,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
 
-    private void SwitchToPutDownSidePanel(){
+    public void SwitchToPutDownSidePanel(){
         PutDownSidePanelController putDownSidePanelController = new PutDownSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(putDownSidePanelController);
@@ -143,7 +143,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(SaveButton);
     }
 
-    private void SwitchToPutBackSidePanel(){
+    public void SwitchToPutBackSidePanel(){
         PutBackSidePanelController putBackSidePanelController = new PutBackSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(putBackSidePanelController);
