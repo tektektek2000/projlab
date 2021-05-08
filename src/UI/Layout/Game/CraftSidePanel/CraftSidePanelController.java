@@ -37,5 +37,5 @@ public class CraftSidePanelController {
     @FXML
     public void Base(){ System.out.println("Base"); }
     @FXML
-    public void Cancel(){ System.out.println("Cancel"); }
+    public void Cancel(){ gameUIController.SwitchToActionSidePanel(); }
 }

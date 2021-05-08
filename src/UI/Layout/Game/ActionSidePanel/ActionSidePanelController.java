@@ -48,7 +48,7 @@ public class ActionSidePanelController {
     }
     @FXML
     public void Craft(){
-        System.out.println("Craft");
+        gameUIController.SwitchToCraftSidePanel();
     }
     @FXML
     public void PutBack(){

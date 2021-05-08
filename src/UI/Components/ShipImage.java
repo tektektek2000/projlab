@@ -19,4 +19,8 @@ public class ShipImage extends ImageView {
 
         //TODO
     }
+
+    public Ship getShip(){
+        return ship;
+    }
 }

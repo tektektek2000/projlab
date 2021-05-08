@@ -2,6 +2,7 @@ package UI.Layout.Game;
 import Controllers.GameController;
 import Model.Field;
 import Model.Map;
+import Model.PlayerShip;
 import Model.Sector;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
@@ -44,6 +45,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     static ImageView Sun = null;
     FieldImage selected = null;
     Circle selectedCircle = null;
+    Circle selectedPlayer = null;
     ArrayList<FieldImage> fieldImages = new ArrayList<>();
     ArrayList<Connection> connections = new ArrayList<>();
     @FXML
@@ -59,7 +61,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
         gameController = gc;
     }
 
-    private void SwitchToActionSidePanel(){
+    public void SwitchToActionSidePanel(){
+        SidePanelWrapper.getChildren().clear();
         ActionSidePanelController actionSidePanelController = new ActionSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(actionSidePanelController);
@@ -73,7 +76,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
         actionSidePanelController.Init();
         new SelectHandler(SaveButton);
     }
-    private void SwitchToCraftSidePanel(){
+    public void SwitchToCraftSidePanel(){
+        SidePanelWrapper.getChildren().clear();
         CraftSidePanelController craftSidePanelController = new CraftSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(craftSidePanelController);
@@ -131,6 +135,16 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 ShipImage s = (ShipImage) n;
                 s.setFitWidth(camera.TransformWidth(s.size));
                 s.setFitHeight(camera.TransformHeight(s.size));
+                PlayerShip curr = gameController.getCurrentPlayer();
+                if(s.getShip() == curr){
+                    /*GameContent.getChildren().remove(selectedCircle);
+                    selectedCircle = new Circle();
+                    selectedCircle.setCenterX(FieldX(selected.x));
+                    selectedCircle.setCenterY(FieldY(selected.y));
+                    selectedCircle.setRadius(selected.getFitWidth() / 2.0 + 5);
+                    selectedCircle.setFill(Color.BLUE);
+                    GameContent.getChildren().add(0, selectedCircle);*/
+                }
             }
         }
     }
@@ -189,8 +203,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
             selectedCircle = new Circle();
             selectedCircle.setCenterX(FieldX(selected.x));
             selectedCircle.setCenterY(FieldY(selected.y));
-            selectedCircle.setRadius(selected.getFitWidth() / 2.0 + 5);
-            selectedCircle.setFill(Color.BLUE);
+            selectedCircle.setRadius(selected.getFitWidth() / 2.0 * 1.2);
+            selectedCircle.setFill(Color.MAGENTA);
             GameContent.getChildren().add(0, selectedCircle);
         }
     }

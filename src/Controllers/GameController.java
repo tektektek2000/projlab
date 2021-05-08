@@ -32,7 +32,7 @@ public class GameController {
     private PlayerShip CurrentPlayer;
 
     // getter for the current player
-    PlayerShip getCurrentPlayer(){
+    public PlayerShip getCurrentPlayer(){
         if(CurrentPlayer==null){
             CurrentPlayer = ps.get(0);
         }
