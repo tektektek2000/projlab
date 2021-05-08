@@ -3,6 +3,7 @@ package UI.Components;
 import Model.Field;
 import Model.Ship;
 import Utils.Pair;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -30,5 +31,14 @@ public class FieldImage extends ImageView {
             }
         }
         //TODO
+
+        // magic coloring
+        // !!!!!!!!!!!!!!!!!!!!
+        // BASED ON THE KNOWING OF SECTOR COUNT
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(f.getSector().GetUID()*0.1);
+        colorAdjust.setSaturation(1.0);
+        this.setEffect(colorAdjust);
+
     }
 }

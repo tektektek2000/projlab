@@ -20,6 +20,10 @@ public abstract class Field extends Saveable implements IVisitable{
         this.sector = sector;
     }
 
+    public Sector getSector() {
+        return sector;
+    }
+
     /**
      * The sector where the field is.
      */
