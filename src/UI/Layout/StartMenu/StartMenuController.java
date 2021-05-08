@@ -75,7 +75,7 @@ public class StartMenuController {
     public void Start(){
         GameController gc = new GameController();
         gc.NewMap();
-        GameUIController gameUIController = new GameUIController(gc);
+        GameUIController gameUIController = new GameUIController(gc, stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(gameUIController);
         fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));

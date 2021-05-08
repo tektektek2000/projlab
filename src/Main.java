@@ -1,3 +1,4 @@
+import Controllers.GameController;
 import UI.Components.MagicConstants;
 import UI.Layout.MainMenu.MainMenuController;
 import UI.Layout.WonMenu.GameOverMenuController;
@@ -14,8 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*
-        GameController gc = new GameController();
+        /*GameController gc = new GameController();
         gc.NewMap();
         GameUIController gameUIController = new GameUIController(gc);
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -27,9 +27,9 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1600, 800);
         primaryStage.setScene(scene);
         gameUIController.Init();
-        //primarystage.setFullScreen(MagicConstants.FullScreen);
-        primaryStage.show();
-        */
+        primaryStage.setFullScreen(MagicConstants.FullScreen);
+        primaryStage.show();*/
+
         MainMenuController mainMenuController = new MainMenuController(primaryStage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(mainMenuController);

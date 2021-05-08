@@ -35,9 +35,9 @@
                            <VBox.margin>
                               <Insets top="50.0" />
                            </VBox.margin></Pane>
-                        <Button fx:id="Small_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Small" prefHeight="77.0" prefWidth="164.0" styleClass="small" stylesheets="@startmenu.css" />
-                        <Button fx:id="Normal_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Normal" prefHeight="77.0" prefWidth="164.0" styleClass="normal" stylesheets="@startmenu.css" />
-                        <Button fx:id="Large_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Large" prefHeight="77.0" prefWidth="164.0" styleClass="large" stylesheets="@startmenu.css" />
+                        <Button fx:id="Small_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Small" prefHeight="77.0" prefWidth="164.0" styleClass="small" stylesheets="@startmenu.css" textFill="TRANSPARENT" />
+                        <Button fx:id="Normal_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Normal" prefHeight="77.0" prefWidth="164.0" styleClass="normal" stylesheets="@startmenu.css" textFill="TRANSPARENT" />
+                        <Button fx:id="Large_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Large" prefHeight="77.0" prefWidth="164.0" styleClass="large" stylesheets="@startmenu.css" textFill="TRANSPARENT" />
                      </children>
                   </VBox>
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" spacing="20.0">
@@ -60,8 +60,8 @@
             <Pane prefHeight="135.0" prefWidth="1920.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="1000.0">
                <children>
-                  <Button fx:id="Back_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Back" prefHeight="77.0" prefWidth="164.0" styleClass="back" stylesheets="@startmenu.css" />
-                  <Button fx:id="Start_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Start" prefHeight="77.0" prefWidth="164.0" styleClass="start" stylesheets="@startmenu.css" />
+                  <Button fx:id="Back_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Back" prefHeight="77.0" prefWidth="164.0" styleClass="back" stylesheets="@startmenu.css" textFill="TRANSPARENT" />
+                  <Button fx:id="Start_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Start" prefHeight="77.0" prefWidth="164.0" styleClass="start" stylesheets="@startmenu.css" textFill="TRANSPARENT" />
                </children>
             </HBox>
          </children></VBox>

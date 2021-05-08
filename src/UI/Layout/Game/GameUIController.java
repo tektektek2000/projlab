@@ -7,6 +7,7 @@ import Model.Map;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
 import UI.Layout.Game.CraftSidePanel.CraftSidePanelController;
+import UI.Layout.Game.OptionsSidePanel.OptionsSidePanelController;
 import UI.Layout.Game.PutBackSidePanel.PutBackSidePanelController;
 import UI.Layout.Game.PutDownSidePanel.PutDownSidePanelController;
 import UI.Layout.Game.CurrentAsteroidSidePanel.CurrentAsteroidSidePanelController;
@@ -33,8 +34,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import javax.swing.text.Position;
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,6 +48,7 @@ import java.util.*;
 public class GameUIController implements EventHandler<KeyEvent> {
     ArrayList<String> CameraShift = new ArrayList<>();
     GameController gameController;
+    Stage stage;
     boolean invalidState = true;
     double PaneHalf = 1920.0/2.0;
     Camera camera = new Camera(0,0,2);
@@ -57,14 +61,15 @@ public class GameUIController implements EventHandler<KeyEvent> {
     @FXML
     AnchorPane Anchor;
     @FXML
-    Button SaveButton;
+    Button OptionsButton;
     @FXML
     Pane SidePanelWrapper;
     @FXML
     Pane GameContent;
 
-    public GameUIController(GameController gc){
+    public GameUIController(GameController gc, Stage s){
         gameController = gc;
+        stage = s;
     }
 
     public void SwitchToActionSidePanel(){
@@ -80,7 +85,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         actionSidePanelController.Init();
-        new SelectHandler(SaveButton);
+        OptionsButton.setVisible(true);
+        new SelectHandler(OptionsButton);
     }
     public void SwitchToCraftSidePanel(){
         SidePanelWrapper.getChildren().clear();
@@ -95,7 +101,26 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         craftSidePanelController.Init();
-        new SelectHandler(SaveButton);
+        OptionsButton.setVisible(true);
+        new SelectHandler(OptionsButton);
+    }
+
+    public void SwitchToOptionsSidePanel(){
+        SidePanelWrapper.getChildren().clear();
+        OptionsSidePanelController optionsSidePanelController = new OptionsSidePanelController(this, stage);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(optionsSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/OptionsSidePanel/OptionsSidePanelLayout.fxml"));
+        try {
+            VBox optionsPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(optionsPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        optionsSidePanelController.setAnchor(Anchor);
+        optionsSidePanelController.Init();
+        OptionsButton.setVisible(false);
+        new SelectHandler(OptionsButton);
     }
 
     public void SwitchToCurrentAsteroidSidePanel(){
@@ -110,7 +135,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         currentAsteroidSidePanelController.Init();
-        new SelectHandler(SaveButton);
+        new SelectHandler(OptionsButton);
     }
     public void SwitchToInventorySidePanel(){
         InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
@@ -124,7 +149,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         inventorySidePanelController.Init();
-        new SelectHandler(SaveButton);
+        new SelectHandler(OptionsButton);
     }
 
 
@@ -140,7 +165,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         putDownSidePanelController.Init();
-        new SelectHandler(SaveButton);
+        new SelectHandler(OptionsButton);
     }
 
     public void SwitchToPutBackSidePanel(){
@@ -155,7 +180,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         putBackSidePanelController.Init();
-        new SelectHandler(SaveButton);
+        new SelectHandler(OptionsButton);
     }
 
     public GameController getGameController(){
@@ -164,6 +189,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void setAnchor(AnchorPane a){
         Anchor = a;
+        Anchor.getStylesheets().clear();
         Anchor.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
         Anchor.getStyleClass().clear();
         Anchor.getStyleClass().add("anchor");
@@ -176,7 +202,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 ae -> Refresh()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        new SelectHandler(SaveButton);
+        new SelectHandler(OptionsButton);
         Anchor.addEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
     }

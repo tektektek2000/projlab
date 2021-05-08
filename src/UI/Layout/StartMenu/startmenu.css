@@ -41,10 +41,14 @@
 .counter{
     -fx-background-image:url('Resources/counter.png');
     -fx-background-size: 100% 100%;
-    -fx-border-color: transparent;
+    -fx-highlight-fill: rgba(0, 0, 0, 0);
+    -fx-prompt-text-fill: gray;
+    -fx-text-fill: rgba(0, 0, 0, 1);
+    -fx-highlight-text-fill: rgba(0, 0, 0, 0);
+    -fx-border-color: rgba(0, 0, 0, 0);
     -fx-border-width: 0;
     -fx-background-radius: 0;
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
 .fileName{
@@ -55,8 +59,11 @@
 .fileName_in{
     -fx-background-image:url('Resources/file_name_in.png');
     -fx-background-size: 100% 100%;
-    -fx-border-color: transparent;
+    -fx-highlight-fill: rgba(0, 0, 0, 0);
+    -fx-text-fill: rgba(0, 0, 0, 1);
+    -fx-highlight-text-fill: rgba(0, 0, 0, 0);
+    -fx-border-color: rgba(0, 0, 0, 0);
     -fx-border-width: 0;
     -fx-background-radius: 0;
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(0, 0, 0, 0);
 }

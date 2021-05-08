@@ -29,6 +29,10 @@ public class MainMenuController {
 
     public void setAnchor(AnchorPane a){
         Anchor = a;
+        Anchor.getStylesheets().clear();
+        Anchor.getStylesheets().add(this.getClass().getResource("mainmenu.css").toExternalForm());
+        Anchor.getStyleClass().clear();
+        Anchor.getStyleClass().add("anchor");
     }
 
     public void Init(){
