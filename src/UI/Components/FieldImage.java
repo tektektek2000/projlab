@@ -31,7 +31,8 @@ public class FieldImage extends ImageView {
             ships = new GridPane();
             int i =0;
             for(Ship s : Ships){
-                ships.add(new ShipImage(s),1,0);
+                ships.add(new ShipImage(s),i,0);
+                i++;
             }
         }
         //TODO

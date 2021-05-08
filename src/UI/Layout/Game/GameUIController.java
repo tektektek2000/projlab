@@ -311,6 +311,12 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void Move(FieldImage f){
         System.out.println("Move to " + f.getField().GetUID());
+        Deselect(f);
+        try {
+            gameController.InterpretCommand("p " + gameController.getCurrentPlayer().GetUID() + " move " + f.getField().GetUID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void Select(FieldImage image){
@@ -387,6 +393,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             for (FieldImage f : fieldImages) {
                 PlaceField(f);
             }
+            PlaceSun();
             invalidState = false;
             camera.setX(gameController.getCurrentPlayer().getAsteroid().getX());
             camera.setY(gameController.getCurrentPlayer().getAsteroid().getY());
