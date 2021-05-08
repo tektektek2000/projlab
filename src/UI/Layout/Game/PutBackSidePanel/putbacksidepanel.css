@@ -8,7 +8,7 @@
     -fx-background-size: 100% 100%
 }
 
-.irondbutton {
+.ironbutton {
     -fx-background-image:url('Resources/iron_button.png');
     -fx-background-size: 100% 100%
 }

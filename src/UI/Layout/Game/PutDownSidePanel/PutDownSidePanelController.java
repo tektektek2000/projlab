@@ -38,6 +38,7 @@ public class PutDownSidePanelController {
         System.out.println("Teleport3");
     }
     @FXML
-    public void Cancel(){ System.out.println("Cancel"); }
-
+    public void Cancel() {
+        gameUIController.SwitchToActionSidePanel();
+    }
 }

@@ -68,7 +68,7 @@ public class OptionsSidePanelController {
     }
     @FXML
     public void Exit(){
-        exit(0);
+        stage.close();
     }
     @FXML
     public void Cancel(){ gameUIController.SwitchToActionSidePanel(); }

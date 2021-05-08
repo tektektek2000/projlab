@@ -43,5 +43,7 @@ public class PutBackSidePanelController {
     @FXML
     public void Uran(){ System.out.println("Uranium"); }
     @FXML
-    public void Cancel(){ System.out.println("Cancel"); }
+    public void Cancel(){
+        gameUIController.SwitchToActionSidePanel();
+    }
 }

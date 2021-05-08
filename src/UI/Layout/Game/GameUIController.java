@@ -124,6 +124,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     public void SwitchToCurrentAsteroidSidePanel(){
+        SidePanelWrapper.getChildren().clear();
         CurrentAsteroidSidePanelController currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(currentAsteroidSidePanelController);
@@ -138,6 +139,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(OptionsButton);
     }
     public void SwitchToInventorySidePanel(){
+        SidePanelWrapper.getChildren().clear();
         InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(inventorySidePanelController);
@@ -154,6 +156,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
 
     public void SwitchToPutDownSidePanel(){
+        SidePanelWrapper.getChildren().clear();
         PutDownSidePanelController putDownSidePanelController = new PutDownSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(putDownSidePanelController);
@@ -169,6 +172,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     public void SwitchToPutBackSidePanel(){
+        SidePanelWrapper.getChildren().clear();
         PutBackSidePanelController putBackSidePanelController = new PutBackSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(putBackSidePanelController);
