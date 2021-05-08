@@ -1,6 +1,8 @@
 package UI.Layout.Game;
 import Controllers.GameController;
 import Model.*;
+import Controllers.NotificationManager;
+import Model.Field;
 import Model.Map;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
@@ -20,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
@@ -42,7 +45,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     GameController gameController;
     boolean invalidState = true;
     double PaneHalf = 1920.0/2.0;
-    Camera camera = new Camera(0,0,1);
+    Camera camera = new Camera(0,0,2);
     static ImageView Sun = null;
     FieldImage selected = null;
     Circle selectedCircle = null;
@@ -122,6 +125,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(SaveButton);
     }
 
+    public GameController getGameController(){
+        return gameController;
+    }
+
     public void setAnchor(AnchorPane a){
         Anchor = a;
         Anchor.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
@@ -142,11 +149,11 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     private double FieldX(double x){
-        return PaneHalf + camera.TransformX(x) * PaneHalf;
+        return GameContent.getWidth()/2.0 + camera.TransformX(x) * PaneHalf;
     }
 
     private double FieldY(double y){
-        return PaneHalf + camera.TransformY(y) * PaneHalf;
+        return GameContent.getHeight()/2.0 + camera.TransformY(y) * PaneHalf;
     }
 
     private void PositionField(FieldImage image){
@@ -156,25 +163,40 @@ public class GameUIController implements EventHandler<KeyEvent> {
         double posy = FieldY(image.y) - (camera.TransformWidth(image.size)/2);
         //System.out.println(image.getFitWidth());
         image.relocate(posx,posy);
-        HBox ships = image.getShips();
+        GridPane ships = image.getShips();
         if(ships != null) {
             double ShipPosX = FieldX(image.x) + (camera.TransformWidth(image.size) / 2);
             double ShipPosY = FieldY(image.y) - (camera.TransformHeight(image.size) / 2);
             ships.relocate(ShipPosX, ShipPosY);
+            boolean selectedAdd = false;
+            int x = 0;
+            ShipImage selected = null;
             for (Node n : ships.getChildren()) {
-                ShipImage s = (ShipImage) n;
-                s.setFitWidth(camera.TransformWidth(s.size));
-                s.setFitHeight(camera.TransformHeight(s.size));
-                PlayerShip curr = gameController.getCurrentPlayer();
-                if(s.getShip() == curr){
-                    /*GameContent.getChildren().remove(selectedCircle);
-                    selectedCircle = new Circle();
-                    selectedCircle.setCenterX(FieldX(selected.x));
-                    selectedCircle.setCenterY(FieldY(selected.y));
-                    selectedCircle.setRadius(selected.getFitWidth() / 2.0 + 5);
-                    selectedCircle.setFill(Color.BLUE);
-                    GameContent.getChildren().add(0, selectedCircle);*/
+                if(n.toString().equals("ShipImage")) {
+                    ShipImage s = (ShipImage) n;
+                    s.setFitWidth(camera.TransformWidth(s.size));
+                    s.setFitHeight(camera.TransformHeight(s.size));
+                    PlayerShip curr = gameController.getCurrentPlayer();
+                    if (s.getShip().GetUID() == curr.GetUID()) {
+                        selected = s;
+                        x = GridPane.getColumnIndex(s);
+                        selectedPlayer = new Circle();
+                        selectedPlayer.setRadius(s.getFitWidth() / 2.0);
+                        selectedPlayer.setFill(Color.WHITE);
+                        selectedAdd = true;
+                    }
                 }
+            }
+            if(selectedAdd) {
+                ArrayList<Node> ToBeDeleted = new ArrayList<>();
+                for(Node n : ships.getChildren()){
+                    if(GridPane.getColumnIndex(n) == x)
+                        ToBeDeleted.add(n);
+                }
+                for(Node n : ToBeDeleted)
+                    ships.getChildren().remove(n);
+                ships.add(selectedPlayer, x, 0);
+                ships.add(selected,x,0);
             }
         }
     }
@@ -184,9 +206,16 @@ public class GameUIController implements EventHandler<KeyEvent> {
         GameContent.getChildren().add(image);
         image.addEventHandler(MouseEvent.ANY,new FieldImageMouseHandler(image,this));
         PositionField(image);
-        HBox ships = image.getShips();
+        GridPane ships = image.getShips();
         if(ships != null){
             GameContent.getChildren().add(ships);
+            for (Node n : ships.getChildren()) {
+                if(n.toString().equals("ShipImage")) {
+                    ShipImage s = (ShipImage) n;
+                    s.setFitWidth(camera.TransformWidth(s.size));
+                    s.setFitHeight(camera.TransformHeight(s.size));
+                }
+            }
         }
     }
 
@@ -270,6 +299,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
 
     public void Refresh(){
+        if(NotificationManager.getLastCommandSuccess()){
+            Invalidate();
+            NotificationManager.setLastCommandSuccess(false);
+        }
         final double CamShift = 0.015;
         final double CamZoom = 0.98;
         if (GameContent.getWidth() >= GameContent.getHeight())
@@ -292,6 +325,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
         if(invalidState) {
             System.out.println("Invalidated");
+            selectedPlayer = null;
             Map map = gameController.getMap();
             GameContent.getChildren().clear();
             fieldImages = new ArrayList<>();
@@ -321,6 +355,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 PlaceField(f);
             }
             invalidState = false;
+            camera.setX(gameController.getCurrentPlayer().getAsteroid().getX());
+            camera.setY(gameController.getCurrentPlayer().getAsteroid().getY());
         }
         else {
             PositionSelectedCircle();

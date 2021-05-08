@@ -4,13 +4,14 @@ import Model.Field;
 import Model.Ship;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
 public class FieldImage extends ImageView {
     Field field;
-    HBox ships = null;
+    GridPane ships = null;
     public double x=0;
     public double y=0;
     public double size;
@@ -27,9 +28,10 @@ public class FieldImage extends ImageView {
         this.setPreserveRatio(true);
         ArrayList<Ship> Ships = IV.getShips();
         if(Ships != null && Ships.size() != 0){
-            ships = new HBox();
+            ships = new GridPane();
+            int i =0;
             for(Ship s : Ships){
-                ships.getChildren().add(new ShipImage(s));
+                ships.add(new ShipImage(s),1,0);
             }
         }
         //TODO
@@ -45,7 +47,7 @@ public class FieldImage extends ImageView {
 
     }
 
-    public HBox getShips(){
+    public GridPane getShips(){
         return ships;
     }
 

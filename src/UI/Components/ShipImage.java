@@ -1,6 +1,7 @@
 package UI.Components;
 
 import Model.Ship;
+import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -16,11 +17,17 @@ public class ShipImage extends ImageView {
         this.setFitHeight(MagicConstants.ShipSize);
         size = MagicConstants.ShipSize;
         this.setPreserveRatio(true);
+        ship = s;
 
         //TODO
     }
 
     public Ship getShip(){
         return ship;
+    }
+
+    @Override
+    public String toString(){
+        return "ShipImage";
     }
 }

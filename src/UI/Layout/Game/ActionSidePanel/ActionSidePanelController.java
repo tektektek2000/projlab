@@ -36,7 +36,11 @@ public class ActionSidePanelController {
 
     @FXML
     public void Drill(){
-        System.out.println("Drill");
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " drill");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void Mine(){
