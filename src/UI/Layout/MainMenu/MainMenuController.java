@@ -1,22 +1,15 @@
-package UI.Layout.Main_menu;
+package UI.Layout.MainMenu;
 
-import UI.Layout.Load_menu.LoadMenuController;
-import UI.Layout.Start_menu.StartMenuController;
-import javafx.collections.ObservableList;
+import UI.Layout.LoadMenu.LoadMenuController;
+import UI.Layout.StartMenu.StartMenuController;
 import UI.Components.SelectHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-import static java.lang.System.exit;
-import static java.lang.System.load;
 
 public class MainMenuController {
     public Stage stage;
@@ -47,7 +40,7 @@ public class MainMenuController {
         StartMenuController startMenuController = new StartMenuController(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(startMenuController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Start_menu/Start_menuLayout.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/StartMenu/StartMenuLayout.fxml"));
         AnchorPane root = null;
         try {
             root = fxmlLoader.load();
@@ -65,7 +58,7 @@ public class MainMenuController {
         LoadMenuController loadMenuController = new LoadMenuController(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(loadMenuController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Load_menu/Load_menuLayout.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/LoadMenu/LoadMenuLayout.fxml"));
         AnchorPane root = null;
         try {
             root = fxmlLoader.load();

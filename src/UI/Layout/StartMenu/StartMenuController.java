@@ -1,14 +1,11 @@
-package UI.Layout.Start_menu;
+package UI.Layout.StartMenu;
 
 import Controllers.GameController;
-import Model.PlayerShip;
 import UI.Components.SelectHandler;
 import UI.Layout.Game.GameUIController;
-import UI.Layout.Load_menu.LoadMenuController;
-import UI.Layout.Main_menu.MainMenuController;
+import UI.Layout.MainMenu.MainMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -98,7 +95,7 @@ public class StartMenuController {
         MainMenuController mainMenuController = new MainMenuController(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(mainMenuController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Main_menu/Main_menuLayout.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/MainMenu/MainMenuLayout.fxml"));
         AnchorPane root = null;
         try {
             root = fxmlLoader.load();
