@@ -7,6 +7,8 @@ public class InfoPanelVisitor implements IVisitor {
     public boolean isAsteroid;
     public int Shell;
     public Material Core;
+    public boolean isActive;
+    public boolean isCrazy;
 
     public InfoPanelVisitor(IVisitable v){
         isAsteroid = false;
@@ -15,7 +17,9 @@ public class InfoPanelVisitor implements IVisitor {
 
     @Override
     public void visit(TeleportGate tg) {
-
+        isAsteroid = false;
+        isActive = tg.isActive();
+        isCrazy = tg.getWasHitByStorm();
     }
 
     @Override

@@ -183,6 +183,17 @@ public class TeleportGate extends Field{
         os.println("}");
     }
 
+    public double distance(TeleportGate a1, double x, double y){
+        return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
+    }
+
+    public boolean getSunClose(){
+        if(distance(this,0.0,0.0)<0.6){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void accept(IVisitor v) {
         v.visit(this);

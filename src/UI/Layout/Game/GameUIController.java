@@ -7,6 +7,7 @@ import Model.Map;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
 import UI.Layout.Game.CraftSidePanel.CraftSidePanelController;
+import UI.Layout.Game.CurrentTeleportSidePanel.CurrentTeleportSidePanelController;
 import UI.Layout.Game.OptionsSidePanel.OptionsSidePanelController;
 import UI.Layout.Game.PutBackSidePanel.PutBackSidePanelController;
 import UI.Layout.Game.PutDownSidePanel.PutDownSidePanelController;
@@ -73,6 +74,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     VBox NotificationVBox;
     public Timeline timeline;
     CurrentAsteroidSidePanelController currentAsteroidSidePanelController;
+    CurrentTeleportSidePanelController currentTeleportSidePanelController;
     boolean SelectStuck = false;
 
     public GameUIController(GameController gc, Stage s){
@@ -142,6 +144,22 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
         currentAsteroidSidePanelController.Init();
     }
+
+    public void SwitchToCurrentTeleportSidePanel(){
+        SidePanelWrapper.getChildren().clear();
+        CurrentTeleportSidePanelController currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentTeleportSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentTeleportSidePanel.fxml"));
+        try {
+            VBox CurrentTeleportPanel = fxmlLoader.load();
+            SidePanelWrapper.getChildren().add(CurrentTeleportPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        currentTeleportSidePanelController.Init();
+    }
+
     public void SwitchToInventorySidePanel(){
         SidePanelWrapper.getChildren().clear();
         InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
@@ -203,7 +221,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         inventorySidePanelController.Init();
     }
 
-    public void SwitchToFieldInfo(){
+    public void SwitchToAsteroidInfo(){
         InfoWrapper.getChildren().clear();
         currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -219,6 +237,24 @@ public class GameUIController implements EventHandler<KeyEvent> {
         infoPanel.setVisible(false);
         InfoWrapper.setVisible(false);
     }
+
+    public void SwitchToTeleportInfo(){
+        InfoWrapper.getChildren().clear();
+        currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentTeleportSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentTeleportSidePanel/CurrentTeleportSidePanel.fxml"));
+        try {
+            infoPanel = fxmlLoader.load();
+            InfoWrapper.getChildren().add(infoPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        currentTeleportSidePanelController.Init();
+        infoPanel.setVisible(false);
+        InfoWrapper.setVisible(false);
+    }
+
 
     public GameController getGameController(){
         return gameController;
@@ -243,7 +279,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Anchor.addEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
         SwitchToInventory();
-        SwitchToFieldInfo();
+        SwitchToAsteroidInfo();
     }
 
     private double FieldX(double x){
@@ -437,7 +473,16 @@ public class GameUIController implements EventHandler<KeyEvent> {
     public void Select(FieldImage image){
         selected = image;
         PositionSelectedCircle();
-        currentAsteroidSidePanelController.Show(image);
+        InfoPanelVisitor ipv = new InfoPanelVisitor(image.getField());
+        if(ipv.isAsteroid) {
+            //SwitchToAsteroidInfo();
+            currentAsteroidSidePanelController.Show(image);
+        }
+        //else{
+        //    SwitchToTeleportInfo();
+        //    currentTeleportSidePanelController.Show(image);
+        //}
+
         infoPanel.setVisible(true);
         InfoWrapper.setVisible(true);
         if(InFrontOfField(image)){
