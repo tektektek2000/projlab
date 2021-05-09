@@ -116,15 +116,6 @@ public class Sun {
     }
 
     /**
-     * Checks if the given asteroid is in sun close area.
-     * @param a The asteroid which can be close or not close to the sun.
-     * @return True, if it's close and false if not.
-     */
-    public boolean isClose(Asteroid a){
-        return false;
-    }
-
-    /**
      * Resets the instance of the Sun.
      */
     public static void Reset(){

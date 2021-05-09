@@ -41,7 +41,6 @@ public class Asteroid extends Field {
     private boolean SunStorm = false;
 
 
-
     public Asteroid(Sector s){
         super(s);
         ships = new ArrayList<>();
@@ -136,7 +135,7 @@ public class Asteroid extends Field {
         }
         if(shell == 0 && core == null){
             core = m;
-            if(sector.getSunClose()){
+            if(this.getSunClose()){
                 core.DrilledThroughSunClose(this);
             }
             return true;
@@ -181,7 +180,7 @@ public class Asteroid extends Field {
         shell--;
         // if shell size is zero then checks whether it is in sun close area
         if(shell==0){
-            if (sector.getSunClose()) {
+            if (this.getSunClose()) {
                 core.DrilledThroughSunClose(this);
             }
         }
@@ -333,6 +332,17 @@ public class Asteroid extends Field {
                 s.Save(os, CallChildren);
             }
         }
+    }
+
+    public double distance(Asteroid a1, double x, double y){
+        return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
+    }
+
+    public boolean getSunClose(){
+        if(distance(this,0.0,0.0)<3.0){
+            return true;
+        }
+        return false;
     }
 
     @Override
