@@ -10,5 +10,6 @@
       <Pane fx:id="InventoryWrapper" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Pane fx:id="InfoWrapper" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="183.0" />
       <Pane fx:id="SidePanelWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="339.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <VBox fx:id="NotificationVBox" alignment="BOTTOM_LEFT" prefHeight="33.0" prefWidth="132.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
    </children>
 </AnchorPane>

@@ -20,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -31,6 +33,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -68,6 +73,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
     @FXML
     Pane InfoWrapper;
     VBox infoPanel;
+    @FXML
+    VBox NotificationVBox;
     public Timeline timeline;
 
     public GameUIController(GameController gc, Stage s){
@@ -417,8 +424,36 @@ public class GameUIController implements EventHandler<KeyEvent> {
         System.out.println("Nem működik a mentés még tesókám, erre bizony alaposan rábasztál!");
     }
 
+    private void NotificationRefresh(){
+        if(!NotificationManager.getLastCommandSuccess()){
+            String l = NotificationManager.getError();
+            while(l != null){
+                Label error = new Label(l);
+                error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
+                error.getStyleClass().add("msg");
+                NotificationVBox.getChildren().add(error);
+                l = NotificationManager.getError();
+            }
+        }
+        else{
+            String l = NotificationManager.getMessage();
+            while(l != null){
+                Label msg = new Label(l);
+                msg.setPrefWidth(12 * l.length());
+                msg.setMinWidth(msg.getPrefWidth());
+                msg.setMaxWidth(msg.getPrefWidth());
+                msg.setMinHeight(msg.getPrefHeight());
+                msg.setMaxHeight(msg.getPrefHeight());;
+                msg.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
+                msg.getStyleClass().add("msg");
+                NotificationVBox.getChildren().add(msg);
+                l = NotificationManager.getMessage();
+            }
+        }
+    }
 
     public void Refresh(){
+        NotificationRefresh();
         if(NotificationManager.getLastCommandSuccess()){
             Invalidate();
             NotificationManager.setLastCommandSuccess(false);
