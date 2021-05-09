@@ -1,5 +1,6 @@
 package UI.Layout.Game.OptionsSidePanel;
 
+import Controllers.NotificationManager;
 import UI.Components.MagicConstants;
 import UI.Components.SelectHandler;
 import UI.Layout.Game.GameUIController;
@@ -46,7 +47,12 @@ public class OptionsSidePanelController {
 
     @FXML
     public void Save(){
-        System.out.println("Save");
+        try {
+            NotificationManager.AddWarning("Game saved!");
+            gameUIController.getGameController().InterpretCommand("save " + gameUIController.getFileName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void Menu(){

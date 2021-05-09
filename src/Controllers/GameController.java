@@ -3,6 +3,7 @@ package Controllers;
 import Model.*;
 import Model.Materials.Material;
 import Model.Materials.Uranium;
+import UI.Components.Notification;
 import Utils.InvalidCommand;
 
 import java.io.File;
@@ -31,10 +32,23 @@ public class GameController {
     //the current player
     private PlayerShip CurrentPlayer;
 
+    public void SetCurrentWorkingDirectory(String CWD){
+        CurrentWorkingDirectory += CWD;
+    }
+
     // getter for the current player
     public PlayerShip getCurrentPlayer(){
         if(CurrentPlayer==null){
+            if(ps.size() == 0){
+                NotificationManager.PlayersLost();
+                return null;
+            }
             CurrentPlayer = ps.get(0);
+        }
+        if(CurrentPlayer.getAsteroid() == null){
+            ps.remove(CurrentPlayer);
+            CurrentPlayer = null;
+            return getCurrentPlayer();
         }
         return CurrentPlayer;
     }
@@ -84,7 +98,7 @@ public class GameController {
         }
         else if(parts[0].equals("load")){
             FileController fc = new FileController();
-            map = fc.Load(new File(CurrentWorkingDirectory + "\\saves\\" + parts[1]),this);
+            map = fc.Load(new File(CurrentWorkingDirectory + "\\" + parts[1]),this);
         }
         else if(parts[0].equals("controller")){
             controller = Boolean.parseBoolean(parts[1]);
@@ -271,6 +285,9 @@ public class GameController {
         }
         else if(command.equals("build_base")){
             current.BuildBase();
+        }
+        else if(command.equals("skip")){
+            NotificationManager.setLastCommandSuccess(true);
         }
         else{
             throw(new InvalidCommand("p "+ UID + " " + command, Args , "-> Unkown command"));

@@ -49,6 +49,11 @@ public class NotificationManager {
         PlayersWon = PW;
     }
 
+    public static void ClearAll(){
+        messages.clear();
+        errors.clear();
+        warnings.clear();
+    }
     /**
      * True, if the game is over, false if not.
      */

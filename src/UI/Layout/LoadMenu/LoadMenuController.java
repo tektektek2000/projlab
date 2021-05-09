@@ -86,8 +86,23 @@ public class LoadMenuController {
     public void Load() {
         GameController gc = new GameController();
         GameUIController gameUIController = new GameUIController(gc, stage);
+        gc.SetCurrentWorkingDirectory("\\saves");
         try {
             gameUIController.getGameController().InterpretCommand("load " + saves.get(currentIndex));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setController(gameUIController);
+            fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));
+            AnchorPane root = null;
+            try {
+                root = fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Anchor.getChildren().clear();
+            Anchor.getChildren().addAll(root.getChildren());
+            gameUIController.setAnchor(Anchor);
+            stage.setFullScreen(MagicConstants.FullScreen);
+            gameUIController.Init();
         } catch (Exception e) {
             e.printStackTrace();
         }

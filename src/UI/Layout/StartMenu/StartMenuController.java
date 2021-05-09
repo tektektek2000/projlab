@@ -14,6 +14,7 @@ import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +37,8 @@ public class StartMenuController {
     Button Large_button;
     @FXML
     TextField Counter_field;
+    @FXML
+    TextField File_name_field;
 
     public StartMenuController(Stage s){
         stage = s;
@@ -81,8 +84,12 @@ public class StartMenuController {
     public void Start(){
 
         GameController gc = new GameController();
+        gc.SetCurrentWorkingDirectory("\\saves");
         gc.NewMap();
         GameUIController gameUIController = new GameUIController(gc, stage);
+        if(File_name_field.getText() == null) gameUIController.setFileName("save");
+        else gameUIController.setFileName(File_name_field.getText());
+
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(gameUIController);
         fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameLayout.fxml"));

@@ -48,6 +48,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     ArrayList<String> CameraShift = new ArrayList<>();
     GameController gameController;
     Stage stage;
+    String fileName;
     boolean invalidState = true;
     double PaneHalf = 1920.0/2.0;
     Camera camera = new Camera(0,0,2);
@@ -84,6 +85,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
     public GameUIController(GameController gc, Stage s){
         gameController = gc;
         stage = s;
+    }
+
+    public void setFileName(String fn){
+        fileName = fn;
+    }
+
+    public String getFileName(){
+        return fileName;
     }
 
     public void SwitchToActionSidePanel(){
@@ -289,6 +298,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     public void Init(){
+        NotificationManager.setGameOver(false);
+        NotificationManager.setPlayersWon(false);
+        NotificationManager.ClearAll();
         SwitchToActionSidePanel();
         timeline = new Timeline(new KeyFrame(
                 Duration.millis(17),
@@ -298,8 +310,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(OptionsButton);
         Anchor.addEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
-        NotificationManager.setGameOver(false);
-        NotificationManager.setPlayersWon(false);
         SwitchToInventory();
         currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -351,14 +361,16 @@ public class GameUIController implements EventHandler<KeyEvent> {
                     ShipImage s = (ShipImage) n;
                     s.setFitWidth(camera.TransformWidth(s.size));
                     s.setFitHeight(camera.TransformHeight(s.size));
-                    PlayerShip curr = gameController.getCurrentPlayer();
-                    if (s.getShip().GetUID() == curr.GetUID()) {
-                        selected = s;
-                        x = GridPane.getColumnIndex(s);
-                        selectedPlayer = new Circle();
-                        selectedPlayer.setRadius(s.getFitWidth() / 2.0);
-                        selectedPlayer.setFill(Color.WHITE);
-                        selectedAdd = true;
+                    if(gameController.getCurrentPlayer() != null && gameController.getCurrentPlayer().getAsteroid() != null) {
+                        PlayerShip curr = gameController.getCurrentPlayer();
+                        if (s.getShip().GetUID() == curr.GetUID()) {
+                            selected = s;
+                            x = GridPane.getColumnIndex(s);
+                            selectedPlayer = new Circle();
+                            selectedPlayer.setRadius(s.getFitWidth() / 2.0);
+                            selectedPlayer.setFill(Color.WHITE);
+                            selectedAdd = true;
+                        }
                     }
                 }
             }
@@ -460,16 +472,18 @@ public class GameUIController implements EventHandler<KeyEvent> {
     public void PositionMovableCircles(){
         GameContent.getChildren().removeAll(MovableCircle);
         MovableCircle.clear();
-        for (Field f : gameController.getCurrentPlayer().getAsteroid().getNeighbours()) {
-            Circle Add = new Circle();
-            FieldImage field = new FieldImage(f);
-            Add.setCenterX(FieldX(field.x));
-            Add.setCenterY(FieldY(field.y));
-            Add.setRadius(camera.TransformWidth(field.size) / 2.0 * 1.2);
-            Add.setFill(Color.AQUA);
-            //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
-            GameContent.getChildren().add(0, Add);
-            MovableCircle.add(Add);
+        if(gameController.getCurrentPlayer() != null && gameController.getCurrentPlayer().getAsteroid() != null){
+            for (Field f : gameController.getCurrentPlayer().getAsteroid().getNeighbours()) {
+                Circle Add = new Circle();
+                FieldImage field = new FieldImage(f);
+                Add.setCenterX(FieldX(field.x));
+                Add.setCenterY(FieldY(field.y));
+                Add.setRadius(camera.TransformWidth(field.size) / 2.0 * 1.2);
+                Add.setFill(Color.AQUA);
+                //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
+                GameContent.getChildren().add(0, Add);
+                MovableCircle.add(Add);
+            }
         }
     }
 
@@ -504,15 +518,17 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     private void PlaceConnection(Connection connection){
         Line line = new Line();
-        if(connection.getF1() == gameController.getCurrentPlayer().getAsteroid() || connection.getF2() == gameController.getCurrentPlayer().getAsteroid())
-            line.setStyle("-fx-stroke: aqua;");
-        else if(connection.teleports)
-            line.setStyle("-fx-stroke: green;");
-        else
-            line.setStyle("-fx-stroke: yellow;");
-        connection.line = line;
-        PositionConnection(connection);
-        GameContent.getChildren().add(0,line);
+        if(gameController.getCurrentPlayer() != null && gameController.getCurrentPlayer().getAsteroid() != null) {
+            if (connection.getF1() == gameController.getCurrentPlayer().getAsteroid() || connection.getF2() == gameController.getCurrentPlayer().getAsteroid())
+                line.setStyle("-fx-stroke: aqua;");
+            else if (connection.teleports)
+                line.setStyle("-fx-stroke: green;");
+            else
+                line.setStyle("-fx-stroke: yellow;");
+            connection.line = line;
+            PositionConnection(connection);
+            GameContent.getChildren().add(0, line);
+        }
     }
 
     public void Move(FieldImage f){
@@ -581,37 +597,35 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     private void NotificationRefresh(){
-        if(!NotificationManager.getLastCommandSuccess()){
-            String l = NotificationManager.getError();
-            while(l != null){
-                Label error = new Label(l);
-                error.setPrefWidth(12 * l.length());
-                error.setMinWidth(error.getPrefWidth());
-                error.setMaxWidth(error.getPrefWidth());
-                error.setMinHeight(error.getPrefHeight());
-                error.setMaxHeight(error.getPrefHeight());;
-                error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
-                error.getStyleClass().add("error");
-                new Notification(error,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.RED);
-                l = NotificationManager.getError();
-            }
+        String l = NotificationManager.getError();
+        while(l != null){
+            Label error = new Label(l);
+            error.setPrefWidth(12 * l.length());
+            error.setMinWidth(error.getPrefWidth());
+            error.setMaxWidth(error.getPrefWidth());
+            error.setMinHeight(error.getPrefHeight());
+            error.setMaxHeight(error.getPrefHeight());;
+            error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
+            error.getStyleClass().add("error");
+            new Notification(error,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.RED);
+            l = NotificationManager.getError();
         }
-        else{
-            String l = NotificationManager.getMessage();
-            while(l != null){
-                Label msg = new Label(l);
-                msg.setPrefWidth(12 * l.length());
-                msg.setMinWidth(msg.getPrefWidth());
-                msg.setMaxWidth(msg.getPrefWidth());
-                msg.setMinHeight(msg.getPrefHeight());
-                msg.setMaxHeight(msg.getPrefHeight());;
-                msg.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
-                msg.getStyleClass().add("msg");
-                new Notification(msg,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.AQUA);
-                l = NotificationManager.getMessage();
-            }
+
+        l = NotificationManager.getMessage();
+        while(l != null){
+            Label msg = new Label(l);
+            msg.setPrefWidth(12 * l.length());
+            msg.setMinWidth(msg.getPrefWidth());
+            msg.setMaxWidth(msg.getPrefWidth());
+            msg.setMinHeight(msg.getPrefHeight());
+            msg.setMaxHeight(msg.getPrefHeight());;
+            msg.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
+            msg.getStyleClass().add("msg");
+            new Notification(msg,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.AQUA);
+            l = NotificationManager.getMessage();
         }
-        String l = NotificationManager.getWarning();
+
+        l = NotificationManager.getWarning();
         while(l != null){
             Label error = new Label(l);
             error.setPrefWidth(12 * l.length());
@@ -754,8 +768,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
             }
             PlaceSun();
             invalidState = false;
-            camera.setX(gameController.getCurrentPlayer().getAsteroid().getX());
-            camera.setY(gameController.getCurrentPlayer().getAsteroid().getY());
+            if(gameController.getCurrentPlayer() != null && gameController.getCurrentPlayer().getAsteroid() != null){
+                camera.setX(gameController.getCurrentPlayer().getAsteroid().getX());
+                camera.setY(gameController.getCurrentPlayer().getAsteroid().getY());
+            }
         }
         else {
             HandleExplosions();

@@ -76,6 +76,11 @@ public class ActionSidePanelController {
     }
     @FXML
     public void Skip(){
-        System.out.println("Skip");
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " skip");
+            gameUIController.SwitchToInventory();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

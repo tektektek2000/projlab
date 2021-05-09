@@ -87,7 +87,7 @@ public abstract class Field extends Saveable implements IVisitable{
      * @param f The field we want to be added to the neighbour.
      */
     public void AddNeighbour(Field f){
-        Neighbours.add(f);
+        if(!Neighbours.contains(f)) Neighbours.add(f);
     }
 
     // Getter for the neighbours
@@ -119,10 +119,10 @@ public abstract class Field extends Saveable implements IVisitable{
                 sector = (Sector) fc.GetWithUID(Integer.parseInt(it.second));
             }
             else if(it.first.equals("X")){
-                x = Integer.parseInt(it.second);
+                x = Double.parseDouble(it.second);
             }
             else if(it.first.equals("Y")){
-                y = Integer.parseInt(it.second);
+                y = Double.parseDouble(it.second);
             }
         }
     }
