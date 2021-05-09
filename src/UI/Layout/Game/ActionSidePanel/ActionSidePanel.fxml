@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="555.0" prefWidth="339.0" spacing="15.0" styleClass="actionpanel" stylesheets="@actionsidepanel.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="628.0" prefWidth="339.0" spacing="15.0" styleClass="actionpanel" stylesheets="@actionsidepanel.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Button fx:id="DrillButton" mnemonicParsing="false" onAction="#Drill" prefHeight="60.0" prefWidth="218.0" styleClass="drillbutton" stylesheets="@../game.css" textFill="TRANSPARENT">
             <VBox.margin>
@@ -15,6 +15,7 @@
         <Button fx:id="CraftButton" mnemonicParsing="false" onAction="#Craft" prefHeight="60.0" prefWidth="218.0" styleClass="craftbutton" stylesheets="@actionsidepanel.css" textFill="TRANSPARENT" />
         <Button fx:id="PutBackButton" mnemonicParsing="false" onAction="#PutBack" prefHeight="60.0" prefWidth="218.0" styleClass="putbackbutton" stylesheets="@actionsidepanel.css" textFill="TRANSPARENT" />
         <Button fx:id="PutDownButton" mnemonicParsing="false" onAction="#PutDown" prefHeight="60.0" prefWidth="218.0" styleClass="putdownbutton" stylesheets="@actionsidepanel.css" textFill="TRANSPARENT" />
+        <Button fx:id="SkipButton" mnemonicParsing="false" onAction="#Skip" prefHeight="60.0" prefWidth="218.0" styleClass="skipbutton" stylesheets="@actionsidepanel.css" textFill="TRANSPARENT" />
     </children>
     <VBox.margin>
         <Insets right="20.0" top="20.0" />

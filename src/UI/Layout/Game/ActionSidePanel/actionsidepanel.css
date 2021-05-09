@@ -32,3 +32,8 @@
     -fx-background-image:url('Resources/put_back.png');
     -fx-background-size: 100% 100%
 }
+
+.skipbutton {
+    -fx-background-image:url('Resources/skip.png');
+    -fx-background-size: 100% 100%;
+}

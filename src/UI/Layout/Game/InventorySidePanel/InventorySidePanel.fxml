@@ -23,7 +23,7 @@
       <Pane prefHeight="70.0" prefWidth="81.0" styleClass="ice" stylesheets="@inventorysidepanel.css" GridPane.columnIndex="2" />
       <Pane prefHeight="80.0" prefWidth="86.0" styleClass="uran" stylesheets="@inventorysidepanel.css" GridPane.columnIndex="3" />
       <Pane prefHeight="70.0" prefWidth="79.0" styleClass="teleports" stylesheets="@inventorysidepanel.css" GridPane.columnIndex="4" />
-      <Label fx:id="CoalNumb" alignment="CENTER" text="1" GridPane.rowIndex="1">
+      <Label fx:id="CoalNumb" textFill="black" alignment="CENTER" text="1" GridPane.rowIndex="1">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -33,7 +33,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Label fx:id="IronNumb" alignment="CENTER" prefHeight="34.0" prefWidth="15.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label fx:id="IronNumb" textFill="black" alignment="CENTER" prefHeight="34.0" prefWidth="15.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -41,7 +41,7 @@
             <Insets bottom="5.0" left="37.0" />
          </GridPane.margin>
       </Label>
-      <Label fx:id="IceNumb" prefHeight="27.0" prefWidth="11.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Label fx:id="IceNumb" textFill="black" prefHeight="27.0" prefWidth="11.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -49,7 +49,7 @@
             <Insets bottom="5.0" left="38.0" />
          </GridPane.margin>
       </Label>
-      <Label fx:id="UranNumb" alignment="CENTER" text="1" GridPane.columnIndex="3" GridPane.rowIndex="1">
+      <Label fx:id="UranNumb" textFill="black" alignment="CENTER" text="1" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -57,7 +57,7 @@
             <Insets bottom="5.0" left="35.0" />
          </GridPane.margin>
       </Label>
-      <Label fx:id="PortalNumb" alignment="CENTER" text="1" GridPane.columnIndex="4" GridPane.rowIndex="1">
+      <Label fx:id="PortalNumb" textFill="black" alignment="CENTER" text="1" GridPane.columnIndex="4" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -413,6 +413,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Deselect(f);
         try {
             gameController.InterpretCommand("p " + gameController.getCurrentPlayer().GetUID() + " move " + f.getField().GetUID());
+            SwitchToInventory();
         } catch (Exception e) {
             e.printStackTrace();
         }

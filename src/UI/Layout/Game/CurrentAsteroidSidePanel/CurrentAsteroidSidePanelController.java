@@ -21,6 +21,10 @@ public class CurrentAsteroidSidePanelController {
     TextField ShellField;
     @FXML
     AnchorPane CoreField;
+    @FXML
+    TextField SectorField;
+    @FXML
+    AnchorPane CloseField;
 
     public CurrentAsteroidSidePanelController(GameUIController GUIC){
         gameUIController = GUIC;

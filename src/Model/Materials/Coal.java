@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Coal extends Material{
 
-    Coal(Map m){super(m);}
+    public Coal(Map m){super(m);}
 
     public Coal(int uid) {super(uid);}
 

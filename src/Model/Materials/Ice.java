@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Ice extends Material {
 
-    Ice(Map m){super(m);}
+    public Ice(Map m){super(m);}
 
     public Ice(int uid) {super(uid);}
 

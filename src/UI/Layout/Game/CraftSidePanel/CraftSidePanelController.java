@@ -32,6 +32,7 @@ public class CraftSidePanelController {
     public void Robot(){
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft robot");
+            gameUIController.SwitchToInventory();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,12 +40,14 @@ public class CraftSidePanelController {
     @FXML
     public void Teleports(){try {
         gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft teleports");
+        gameUIController.SwitchToInventory();
     } catch (Exception e) {
         e.printStackTrace();
     }}
     @FXML
     public void Base(){ try {
         gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft base");
+        gameUIController.SwitchToInventory();
     } catch (Exception e) {
         e.printStackTrace();
     } }

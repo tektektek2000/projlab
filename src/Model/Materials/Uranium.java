@@ -15,7 +15,7 @@ public class Uranium extends Material{
     boolean isExposed;
     Asteroid LastAsteroid;
 
-    Uranium(Map m){
+    public Uranium(Map m){
         super(m);
     }
 

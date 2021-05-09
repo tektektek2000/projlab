@@ -20,6 +20,8 @@ public class ActionSidePanelController {
     Button PutBackButton;
     @FXML
     Button PutDownButton;
+    @FXML
+    Button SkipButton;
 
     public ActionSidePanelController(GameUIController GUIC){
         gameUIController = GUIC;
@@ -32,6 +34,7 @@ public class ActionSidePanelController {
         new SelectHandler(CraftButton);
         new SelectHandler(PutBackButton);
         new SelectHandler(PutDownButton);
+        new SelectHandler(SkipButton);
     }
 
     @FXML
@@ -46,6 +49,7 @@ public class ActionSidePanelController {
     public void Mine(){
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " mine");
+            gameUIController.SwitchToInventory();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,6 +59,7 @@ public class ActionSidePanelController {
     public void Build(){
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " build_base");
+            gameUIController.SwitchToInventory();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,5 +73,9 @@ public class ActionSidePanelController {
     @FXML
     public void PutDown(){
         gameUIController.SwitchToPutDownSidePanel();
+    }
+    @FXML
+    public void Skip(){
+        System.out.println("Skip");
     }
 }

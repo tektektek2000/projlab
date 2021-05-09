@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Iron extends Material {
 
-    Iron(Map m){
+    public Iron(Map m){
         super(m);
     }
 

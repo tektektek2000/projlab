@@ -1,6 +1,8 @@
 package Model.Materials;
 
 import Model.Map;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +24,22 @@ public class BillCreator {
             instance = new BillCreator();
         }
         return instance;
+    }
+
+    /**
+     * Counts a specific material in a gived inventory
+     * @param inventory the inventory, where it counts the given material
+     * @param comparator the material we want to count in the inventory
+     * @return with the number of the given material type in the inventory
+     */
+    public int Count(ArrayList<Material> inventory, Material comparator){
+        int count = 0;
+        for(Material it: inventory){
+            if(comparator.isSameType(it)){
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
