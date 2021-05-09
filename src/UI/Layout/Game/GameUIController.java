@@ -491,14 +491,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
         selected = image;
         PositionSelectedCircle();
         InfoPanelVisitor ipv = new InfoPanelVisitor(image.getField());
-        if(ipv.isAsteroid) {
-            //SwitchToAsteroidInfo();
+//        if(ipv.isAsteroid) {
+//            SwitchToAsteroidInfo();
             currentAsteroidSidePanelController.Show(image);
-        }
-        //else{
-        //    SwitchToTeleportInfo();
-        //    currentTeleportSidePanelController.Show(image);
-        //}
+//        }
+//        else{
+//            SwitchToTeleportInfo();
+//            currentTeleportSidePanelController.Show(image);
+//        }
 
         infoPanel.setVisible(true);
         InfoWrapper.setVisible(true);
