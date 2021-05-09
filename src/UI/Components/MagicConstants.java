@@ -5,7 +5,7 @@ import Utils.Pair;
 public class MagicConstants {
     public static final double AsteroidSize = 30;
     public static final double ShipSize = 20;
-    public static final boolean FullScreen = true;
+    public static final boolean FullScreen = false;
     // Number of sectors
     public static final int sectorNumber = 8;
     // the distance where asteroids doesnt overlap each other
@@ -42,4 +42,6 @@ public class MagicConstants {
             neighbourMaxDistance = 0.22;
         }
     }
+
+    public static final double BaseImageSize = 25;
 }

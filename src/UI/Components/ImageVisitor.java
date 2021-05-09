@@ -17,6 +17,8 @@ public class ImageVisitor implements IVisitor {
     Image image = null;
     String filePath;
     ArrayList<Ship> ships = null;
+    Base base = null;
+    TeleportGate pair = null;
     static Image AsteroidImage = null;
     static Image ActiveTeleportImage = null;
     static Image InsaneTeleportImage = null;
@@ -32,6 +34,8 @@ public class ImageVisitor implements IVisitor {
     static Image Iron = null;
     static Image Ice = null;
     static Image Coal = null;
+    static Image BaseFoundation = null;
+    static Image BaseComplete = null;
 
     public ImageVisitor(IVisitable v){
         filePath = new File("").getAbsolutePath();
@@ -43,6 +47,10 @@ public class ImageVisitor implements IVisitor {
         return image;
     }
     public ArrayList<Ship> getShips(){return ships;}
+
+    public Base getBase(){return base;}
+
+    public TeleportGate getPair(){return pair;}
 
     @Override
     public void visit(TeleportGate tg){
@@ -83,6 +91,7 @@ public class ImageVisitor implements IVisitor {
             }
             image = InsaneTeleportImage;
         }
+        pair = tg.getPair();
     }
 
     @Override
@@ -98,6 +107,7 @@ public class ImageVisitor implements IVisitor {
         }
         image = AsteroidImage;
         ships = a.getShips();
+        base = a.GetBase();
     }
 
     @Override
@@ -248,5 +258,34 @@ public class ImageVisitor implements IVisitor {
             }
         }
         image = Coal;
+    }
+
+    @Override
+    public void visit(Base b) {
+        if(b.CheckComplete()){
+            if(BaseComplete == null) {
+                try {
+                    filePath += "BaseDone.png";
+                    BaseComplete = new Image(new FileInputStream(filePath));
+                } catch (FileNotFoundException e) {
+                    System.out.println(filePath);
+                    e.printStackTrace();
+                }
+            }
+            image = BaseComplete;
+        }
+        else{
+            if(BaseFoundation == null) {
+                try {
+                    filePath += "BaseFoundation.png";
+                    BaseFoundation = new Image(new FileInputStream(filePath));
+                } catch (FileNotFoundException e) {
+                    System.out.println(filePath);
+                    e.printStackTrace();
+                }
+            }
+            image = BaseFoundation;
+        }
+
     }
 }

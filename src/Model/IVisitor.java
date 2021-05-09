@@ -15,4 +15,5 @@ public interface IVisitor {
     void visit(Iron i);
     void visit(Ice i);
     void visit(Coal tg);
+    void visit(Base b);
 }

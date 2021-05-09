@@ -34,6 +34,8 @@ public class CurrentAsteroidSidePanelController {
     TextField SectorField;
     @FXML
     AnchorPane CloseField;
+    static Image X = null;
+    static Image checkmark = null;
 
     public CurrentAsteroidSidePanelController(GameUIController GUIC){
         gameUIController = GUIC;
@@ -63,7 +65,11 @@ public class CurrentAsteroidSidePanelController {
             }
             if(((Asteroid) f.getField()).getSunClose()){
                 try {
-                    ImageView img = new ImageView(new Image(new FileInputStream("E:/BME/4.felev/Projlab/projlab/src/UI/Layout/Game/CurrentAsteroidSidePanel/Resources/pipa.png")));
+                    if(checkmark == null){
+
+                        checkmark = new Image(new FileInputStream(new File("").getAbsolutePath()+"\\img\\checkmark.png"));
+                    }
+                    ImageView img = new ImageView(checkmark);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
                     AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
@@ -75,7 +81,10 @@ public class CurrentAsteroidSidePanelController {
             }
             else{
                 try {
-                    ImageView img = new ImageView(new Image(new FileInputStream("E:/BME/4.felev/Projlab/projlab/src/UI/Layout/Game/CurrentAsteroidSidePanel/Resources/x.png")));
+                    if(X == null){
+                        X = new Image(new FileInputStream(new File("").getAbsolutePath()+"\\img\\x.png"));
+                    }
+                    ImageView img = new ImageView(X);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
                     AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());

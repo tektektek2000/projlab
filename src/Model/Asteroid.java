@@ -248,12 +248,14 @@ public class Asteroid extends Field {
                 break;
             }
         }
+        ships.clear();
         // Removes asteroid from all neighbours.
         for(Field f : Neighbours){
             f.RemoveNeighbour(this);
         }
         sector.Remove(this);
         Neighbours.clear();
+        NotificationManager.AddExplodedAsteroid(this);
     }
 
     /**

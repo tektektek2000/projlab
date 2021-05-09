@@ -1,7 +1,9 @@
 package UI.Components;
 
+import Model.Base;
 import Model.Field;
 import Model.Ship;
+import Model.TeleportGate;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 public class FieldImage extends ImageView {
     Field field;
     GridPane ships = null;
+    ImageView base = null;
+    TeleportGate pair = null;
     public double x=0;
     public double y=0;
     public double size;
@@ -35,6 +39,15 @@ public class FieldImage extends ImageView {
                 i++;
             }
         }
+        Base b = IV.getBase();
+        if(b != null){
+            ImageVisitor baseVisit = new ImageVisitor(b);
+            base = new ImageView(baseVisit.image);
+            base.setPreserveRatio(true);
+            base.setFitWidth(MagicConstants.BaseImageSize);
+            base.setFitHeight(MagicConstants.BaseImageSize);
+        }
+        pair = IV.getPair();
         //TODO
 
         // magic coloring
@@ -55,4 +68,8 @@ public class FieldImage extends ImageView {
     public Field getField(){
         return field;
     }
+
+    public ImageView getBase(){return base;}
+
+    public TeleportGate getPair(){return pair;}
 }

@@ -39,6 +39,8 @@ public class TeleportGate extends Field{
 
     public boolean getWasHitByStorm(){return WashHitByStorm;}
 
+    public TeleportGate getPair(){return pair;}
+
     /**
      * The setter for the teleport gate's sector.
      * @param s The sector, we want to set for the teleport gate.

@@ -73,6 +73,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     VBox NotificationVBox;
     public Timeline timeline;
     CurrentAsteroidSidePanelController currentAsteroidSidePanelController;
+    boolean SelectStuck = false;
 
     public GameUIController(GameController gc, Stage s){
         gameController = gc;
@@ -216,6 +217,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
         currentAsteroidSidePanelController.Init();
         infoPanel.setVisible(false);
+        InfoWrapper.setVisible(false);
     }
 
     public GameController getGameController(){
@@ -295,13 +297,20 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 ships.add(selected,x,0);
             }
         }
+        ImageView base = image.getBase();
+        if(base != null){
+            base.setFitWidth(camera.TransformWidth(MagicConstants.BaseImageSize));
+            base.setFitHeight(camera.TransformHeight(MagicConstants.BaseImageSize));
+            double basePosX = FieldX(image.x) - (camera.TransformWidth(MagicConstants.BaseImageSize)/2);
+            double basePosY = FieldY(image.y) - (camera.TransformHeight(image.size) / 2) - (camera.TransformHeight(MagicConstants.BaseImageSize)) + 5.0;
+            base.relocate(basePosX, basePosY);
+        }
     }
 
     private void PlaceField(FieldImage image){
         //System.out.println(posx + " " + posy);
         GameContent.getChildren().add(image);
         image.addEventHandler(MouseEvent.ANY,new FieldImageMouseHandler(image,this));
-        PositionField(image);
         GridPane ships = image.getShips();
         if(ships != null){
             GameContent.getChildren().add(ships);
@@ -313,6 +322,11 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 }
             }
         }
+        ImageView base = image.getBase();
+        if(base != null){
+            GameContent.getChildren().add(base);
+        }
+        PositionField(image);
     }
 
     private void PlaceSun(){
@@ -410,7 +424,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void Move(FieldImage f){
         System.out.println("Move to " + f.getField().GetUID());
-        Deselect(f);
         try {
             gameController.InterpretCommand("p " + gameController.getCurrentPlayer().GetUID() + " move " + f.getField().GetUID());
             SwitchToInventory();
@@ -424,13 +437,43 @@ public class GameUIController implements EventHandler<KeyEvent> {
         PositionSelectedCircle();
         currentAsteroidSidePanelController.Show(image);
         infoPanel.setVisible(true);
+        InfoWrapper.setVisible(true);
+        if(InFrontOfField(image)){
+            SelectStuck = true;
+        }
     }
 
-    public void Deselect(FieldImage f){
+    private boolean Inside(double x,double y, boolean print){
+        if(print) {
+            System.out.println("point x:" + x + " y:" + y);
+            System.out.println("panel stuff x:" + InfoWrapper.getLayoutX() + " y:" + InfoWrapper.getLayoutY() + " w:" + InfoWrapper.getWidth() + " h:" + +InfoWrapper.getHeight());
+        }
+        return (InfoWrapper.getLayoutX() <= x && x <= InfoWrapper.getLayoutX() + InfoWrapper.getWidth())
+                && (InfoWrapper.getLayoutY() <= y && y <= InfoWrapper.getLayoutY() + InfoWrapper.getHeight());
+    }
+
+    private boolean InFrontOfField(FieldImage f){
+        return Inside(f.getLayoutX(),f.getLayoutY(),false)
+                || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY(),false)
+                || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY() + f.getFitHeight(),false)
+                || Inside(f.getLayoutX(),f.getLayoutY() + f.getFitHeight(),false);
+    }
+
+    public void Deselect(FieldImage f, boolean Force, double x ,double y){
         if(f == selected) {
-            selected = null;
-            GameContent.getChildren().remove(selectedCircle);
-            infoPanel.setVisible(false);
+            System.out.println("Deselect");
+            if((!InFrontOfField(f)) || Force){
+                selected = null;
+                GameContent.getChildren().remove(selectedCircle);
+                infoPanel.setVisible(false);
+                InfoWrapper.setVisible(false);
+                SelectStuck = false;
+            }
+            else{
+                SelectStuck = true;
+                if(!Inside(x,y,true))
+                    Deselect(f,true,0,0);
+            }
         }
     }
 
@@ -624,5 +667,13 @@ public class GameUIController implements EventHandler<KeyEvent> {
         timeline.stop();
         timeline = null;
         Anchor = null;
+    }
+
+    @FXML
+    public void UnstuckSelect(){
+        if(SelectStuck) {
+            System.out.println("Unstuck");
+            Deselect(selected,true,0,0);
+        }
     }
 }

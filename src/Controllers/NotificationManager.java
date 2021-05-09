@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.Asteroid;
 import Utils.Pair;
 
 import java.util.ArrayList;
@@ -20,6 +21,10 @@ public class NotificationManager {
      * List of warnings.
      */
     static ArrayList<String> warnings = new ArrayList<>();
+    /**
+     * List of Recently exploded asteroids.
+     */
+    static ArrayList<Asteroid> ExplodedAsteroids = new ArrayList<>();
     /**
      * True, if the last command ran successful, false if not.
      */
@@ -82,16 +87,16 @@ public class NotificationManager {
     }
 
     /**
-     * Adds an error to the list.
-     * @param m The error we want to add.
+     * Adds an warning to the list.
+     * @param m The warning we want to add.
      */
     public static void AddWarning(String m){
         warnings.add(m);
     }
 
     /**
-     * Gets a error and removes it from the list.
-     * @return The first error from the list.
+     * Gets a warning and removes it from the list.
+     * @return The first warning from the list.
      */
     public static String getWarning(){
         String ret = null;
@@ -99,6 +104,28 @@ public class NotificationManager {
             ret = warnings.get(0);
         if(ret != null){
             warnings.remove(ret);
+        }
+        return ret;
+    }
+
+    /**
+     * Adds an error to the list.
+     * @param m The error we want to add.
+     */
+    public static void AddExplodedAsteroid(Asteroid a){
+        ExplodedAsteroids.add(a);
+    }
+
+    /**
+     * Gets a error and removes it from the list.
+     * @return The first error from the list.
+     */
+    public static Asteroid getExplodedAsteroid(){
+        Asteroid ret = null;
+        if(ExplodedAsteroids.size() != 0)
+            ret = ExplodedAsteroids.get(0);
+        if(ret != null){
+            ExplodedAsteroids.remove(ret);
         }
         return ret;
     }

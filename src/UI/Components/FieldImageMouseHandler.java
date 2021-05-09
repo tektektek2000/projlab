@@ -24,7 +24,7 @@ public class FieldImageMouseHandler implements EventHandler<MouseEvent> {
             gameUIController.Select(fieldImage);
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_EXITED){
-            gameUIController.Deselect(fieldImage);
+            gameUIController.Deselect(fieldImage,false, mouseEvent.getSceneX(),mouseEvent.getSceneY());
         }
     }
 }

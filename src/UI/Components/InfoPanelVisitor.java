@@ -59,4 +59,9 @@ public class InfoPanelVisitor implements IVisitor {
     public void visit(Coal tg) {
 
     }
+
+    @Override
+    public void visit(Base b) {
+
+    }
 }
