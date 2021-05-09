@@ -13,11 +13,11 @@ public class MagicConstants {
     // the distance where asteroids doesnt overlap each other
     public static final double sunTooClose = 0.17;
 
-    public static final double MaxGeneratedDistance = 1.2;
+    public static final double MaxGeneratedDistance = 1.5;
 
     public static final double SunDiameter = 200;
 
-    public static final double CoreInfoImageSize = 40;
+    public static final double CoreInfoImageSize = 41;
 
 
 
