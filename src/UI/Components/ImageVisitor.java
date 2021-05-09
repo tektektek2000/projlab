@@ -82,14 +82,14 @@ public class ImageVisitor implements IVisitor {
         else{
             if(InactiveTeleportImage == null){
                 try{
-                    filePath += "Not_active_teleportgate.png";
+                    filePath += "Not_active_teleportgate.PNG";
                     InactiveTeleportImage = new Image(new FileInputStream(filePath));
                 } catch (FileNotFoundException e){
                     System.out.println(filePath);
                     e.printStackTrace();
                 }
             }
-            image = InsaneTeleportImage;
+            image = InactiveTeleportImage;
         }
         pair = tg.getPair();
     }

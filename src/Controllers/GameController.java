@@ -293,6 +293,11 @@ public class GameController {
                 }
             }
         }
+        TeleportGate gate = NotificationManager.getNewTeleport();
+        if(gate != null){
+            tgs.add(gate);
+            NotificationManager.AddNewTeleport(gate); //Pushing it back so the UI can see it as well.
+        }
         if(current.getAsteroid()==null)
             ps.remove(current);
     }

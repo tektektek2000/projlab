@@ -1,7 +1,9 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.MapBuilder;
 import Controllers.NotificationManager;
+import UI.Components.MagicConstants;
 import Utils.LinkerException;
 import Utils.StringPair;
 import java.io.PrintStream;
@@ -89,6 +91,7 @@ public class TeleportGate extends Field{
         Neighbours.remove(Neighbours.get(0));
         Neighbours.add(dest);
         dest.AddNeighbour(this);
+        Reposition();
         NotificationManager.AddMessage("Teleport" + GetUID() + " moved to Asteroid" + f.GetUID() + ".");
     }
 
@@ -106,6 +109,21 @@ public class TeleportGate extends Field{
                 Move(dest);
             }
         }
+    }
+
+    public void Reposition(){
+        Random r = new Random();
+        ArrayList<Field> AllFields = new ArrayList<>();
+        Field asteroid = getNeighbours().get(0);
+        for(Sector s : asteroid.getSector().getMap().getSectors()){
+            AllFields.addAll(s.getFields());
+        }
+        do{
+            double alfa = r.nextDouble() * 2.0 * Math.PI;
+            double dist = r.nextDouble() * (MagicConstants.neighbourMaxDistance - MagicConstants.asteroidTooClose) + MagicConstants.asteroidTooClose;
+            setX(asteroid.x+Math.cos(alfa)*dist);
+            setY(asteroid.y+Math.sin(alfa)*dist);
+        }while(MapBuilder.tooClose(AllFields,this) || MapBuilder.tooCloseToSun(this));
     }
 
     @Override

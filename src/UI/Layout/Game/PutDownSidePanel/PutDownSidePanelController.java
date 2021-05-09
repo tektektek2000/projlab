@@ -34,7 +34,7 @@ public class PutDownSidePanelController {
     @FXML
     public void Teleport1(){
         try {
-            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down " + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Asteroid;
+import Model.TeleportGate;
 import Utils.Pair;
 
 import java.util.ArrayList;
@@ -25,6 +26,10 @@ public class NotificationManager {
      * List of Recently exploded asteroids.
      */
     static ArrayList<Asteroid> ExplodedAsteroids = new ArrayList<>();
+    /**
+     * List of Recently exploded asteroids.
+     */
+    static ArrayList<TeleportGate> NewTeleports = new ArrayList<>();
     /**
      * True, if the last command ran successful, false if not.
      */
@@ -109,16 +114,16 @@ public class NotificationManager {
     }
 
     /**
-     * Adds an error to the list.
-     * @param m The error we want to add.
+     * Adds an asteroid to the list.
+     * @param a The asteroid we want to add.
      */
     public static void AddExplodedAsteroid(Asteroid a){
         ExplodedAsteroids.add(a);
     }
 
     /**
-     * Gets a error and removes it from the list.
-     * @return The first error from the list.
+     * Gets an asteroid and removes it from the list.
+     * @return The first Asteroid from the list.
      */
     public static Asteroid getExplodedAsteroid(){
         Asteroid ret = null;
@@ -126,6 +131,28 @@ public class NotificationManager {
             ret = ExplodedAsteroids.get(0);
         if(ret != null){
             ExplodedAsteroids.remove(ret);
+        }
+        return ret;
+    }
+
+    /**
+     * Adds an asteroid to the list.
+     * @param a The asteroid we want to add.
+     */
+    public static void AddNewTeleport(TeleportGate a){
+        NewTeleports.add(a);
+    }
+
+    /**
+     * Gets an asteroid and removes it from the list.
+     * @return The first Asteroid from the list.
+     */
+    public static TeleportGate getNewTeleport(){
+        TeleportGate ret = null;
+        if(NewTeleports.size() != 0)
+            ret = NewTeleports.get(0);
+        if(ret != null){
+            NewTeleports.remove(ret);
         }
         return ret;
     }

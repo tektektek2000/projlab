@@ -415,11 +415,13 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Line line = new Line();
         if(connection.getF1() == gameController.getCurrentPlayer().getAsteroid() || connection.getF2() == gameController.getCurrentPlayer().getAsteroid())
             line.setStyle("-fx-stroke: aqua;");
+        else if(connection.teleports)
+            line.setStyle("-fx-stroke: green;");
         else
             line.setStyle("-fx-stroke: yellow;");
         connection.line = line;
         PositionConnection(connection);
-        GameContent.getChildren().add(line);
+        GameContent.getChildren().add(0,line);
     }
 
     public void Move(FieldImage f){
@@ -527,6 +529,36 @@ public class GameUIController implements EventHandler<KeyEvent> {
             new Notification(error,NotificationVBox,4000.0,5000.0,Color.YELLOW);
             l = NotificationManager.getWarning();
         }
+        TeleportGate t = NotificationManager.getNewTeleport();
+        if(t != null){
+            FieldImage newT = new FieldImage(t);
+            fieldImages.add(newT);
+            ArrayList<Connection> newConnections = new ArrayList<>();
+            for (Field n : t.getNeighbours()) {
+                Connection c = new Connection(t, n);
+                boolean found = false;
+                for (Connection connection : connections) {
+                    if (connection.isSame(c)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    connections.add(c);
+                    newConnections.add(c);
+                }
+            }
+            if(t.getPair() != null && t.isActive()){
+                Connection c = new Connection(t, t.getPair());
+                c.teleports = true;
+                connections.add(c);
+                newConnections.add(c);
+            }
+            for(Connection c : newConnections){
+                PlaceConnection(c);
+            }
+            PlaceField(newT);
+        }
     }
 
     public void Refresh(){
@@ -564,7 +596,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
             connections = new ArrayList<>();
             for (Sector s : map.getSectors()) {
                 for (Field f : s.getFields()) {
-                    fieldImages.add(new FieldImage(f));
+                    FieldImage FI = new FieldImage(f);
+                    fieldImages.add(FI);
                     for (Field n : f.getNeighbours()) {
                         Connection c = new Connection(f, n);
                         boolean found = false;
@@ -576,6 +609,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
                         }
                         if (!found)
                             connections.add(c);
+                    }
+                    if(FI.getPair() != null){
+                        TeleportGate t = (TeleportGate) FI.getField();
+                        if(t.isActive()) {
+                            Connection c = new Connection(t, t.getPair());
+                            connections.add(c);
+                            c.teleports = true;
+                        }
                     }
                 }
             }

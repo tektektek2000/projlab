@@ -229,17 +229,9 @@ public class PlayerShip extends Ship {
             t.SetSector(asteroid.sector);
             asteroid.sector.Add(t);
             asteroid.AddNeighbour(t);
-            ArrayList<Field> AllFields = new ArrayList<>();
-            for(Sector s : asteroid.getSector().getMap().getSectors()){
-                AllFields.addAll(s.getFields());
-            }
-            do{
-                double alfa = r.nextDouble() * 2.0 * Math.PI;
-                double dist = r.nextDouble() * (MagicConstants.neighbourMaxDistance-MagicConstants.asteroidTooClose) + MagicConstants.asteroidTooClose;
-                t.setX(Math.cos(alfa)*dist);
-                t.setY(Math.sin(alfa)*dist);
-            }while(MapBuilder.tooClose(AllFields,t) || MapBuilder.tooCloseToSun(t));
+            t.Reposition();
             NotificationManager.AddMessage("Player" + GetUID() + " successfully put Teleport" + t.GetUID() + " down.");
+            NotificationManager.AddNewTeleport(t);
         }
     }
 
