@@ -93,7 +93,9 @@ public class CurrentAsteroidSidePanelController {
                     e.printStackTrace();
                 }
             }
-
+            if(ipv.base != null){
+                gameUIController.SwitchToBasePanel(ipv.base);
+            }
         }
         else
             CurrentAsteroidPanel.setVisible(false);

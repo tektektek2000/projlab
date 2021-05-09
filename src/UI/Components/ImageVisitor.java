@@ -128,7 +128,7 @@ public class ImageVisitor implements IVisitor {
             case 2:
                 if(Player2 == null) {
                     try {
-                        filePath += "PlayerShip1.png";
+                        filePath += "PlayerShip2.png";
                         Player2 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
                         System.out.println(filePath);
@@ -140,7 +140,7 @@ public class ImageVisitor implements IVisitor {
             case 3:
                 if(Player3 == null) {
                     try {
-                        filePath += "PlayerShip1.png";
+                        filePath += "PlayerShip3.png";
                         Player3 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
                         System.out.println(filePath);
@@ -152,7 +152,7 @@ public class ImageVisitor implements IVisitor {
             case 4:
                 if(Player4 == null) {
                     try {
-                        filePath += "PlayerShip1.png";
+                        filePath += "PlayerShip4.png";
                         Player4 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
                         System.out.println(filePath);
@@ -164,7 +164,7 @@ public class ImageVisitor implements IVisitor {
             case 5:
                 if(Player5 == null) {
                     try {
-                        filePath += "PlayerShip1.png";
+                        filePath += "PlayerShip5.png";
                         Player5 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
                         System.out.println(filePath);

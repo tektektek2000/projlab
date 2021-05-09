@@ -9,6 +9,7 @@ public class InfoPanelVisitor implements IVisitor {
     public Material Core;
     public boolean isActive;
     public boolean isCrazy;
+    public Base base;
 
     public InfoPanelVisitor(IVisitable v){
         isAsteroid = false;
@@ -27,6 +28,7 @@ public class InfoPanelVisitor implements IVisitor {
         isAsteroid = true;
         Shell = a.GetShell();
         Core = a.GetCore();
+        base = a.GetBase();
     }
 
     @Override

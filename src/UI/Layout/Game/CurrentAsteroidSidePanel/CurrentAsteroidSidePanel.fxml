@@ -23,7 +23,7 @@
             <Insets top="20.0" />
          </VBox.margin>
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="Comic Sans MS" size="24.0" />
          </font>
          <padding>
             <Insets right="30.0" />
@@ -42,7 +42,7 @@
             <Insets />
          </VBox.margin>
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="Comic Sans MS" size="24.0" />
          </font>
          <padding>
             <Insets right="30.0" />

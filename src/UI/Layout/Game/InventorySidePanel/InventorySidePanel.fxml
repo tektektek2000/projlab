@@ -31,11 +31,11 @@
             <Insets bottom="5.0" left="43.0" />
          </GridPane.margin>
          <font>
-            <Font name="System Bold" size="18.0" />
+             <Font name="Comic Sans MS" size="18.0" />
          </font></Label>
       <Label fx:id="IronNumb" textFill="black" alignment="CENTER" prefHeight="34.0" prefWidth="15.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
-            <Font name="System Bold" size="18.0" />
+             <Font name="Comic Sans MS" size="18.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="5.0" left="37.0" />
@@ -43,7 +43,7 @@
       </Label>
       <Label fx:id="IceNumb" textFill="black" prefHeight="27.0" prefWidth="11.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
-            <Font name="System Bold" size="18.0" />
+             <Font name="Comic Sans MS" size="18.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="5.0" left="38.0" />
@@ -51,7 +51,7 @@
       </Label>
       <Label fx:id="UranNumb" textFill="black" alignment="CENTER" text="1" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <font>
-            <Font name="System Bold" size="18.0" />
+             <Font name="Comic Sans MS" size="18.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="5.0" left="35.0" />
@@ -59,7 +59,7 @@
       </Label>
       <Label fx:id="PortalNumb" textFill="black" alignment="CENTER" text="1" GridPane.columnIndex="4" GridPane.rowIndex="1">
          <font>
-            <Font name="System Bold" size="18.0" />
+             <Font name="Comic Sans MS" size="18.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="5.0" left="35.0" />

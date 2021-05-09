@@ -24,6 +24,10 @@ public class Base extends Saveable implements IVisitable{
         super(uid);
     }
 
+    public ArrayList<Material> getMaterials(){
+        return materials;
+    }
+
     /**
      * Handles if the base will accept an offered material.
      * Returns true if it added the material, false if not.

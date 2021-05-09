@@ -6,6 +6,7 @@ import Model.Field;
 import Model.Map;
 import UI.Components.*;
 import UI.Layout.Game.ActionSidePanel.ActionSidePanelController;
+import UI.Layout.Game.BaseInfoSidePanel.BaseInfoPanelController;
 import UI.Layout.Game.CraftSidePanel.CraftSidePanelController;
 import UI.Layout.Game.CurrentTeleportSidePanel.CurrentTeleportSidePanelController;
 import UI.Layout.Game.OptionsSidePanel.OptionsSidePanelController;
@@ -75,6 +76,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
     Pane InventoryWrapper;
     @FXML
     Pane InfoWrapper;
+    @FXML
+    Pane BaseInfoSidePanelWrapper;
+    BaseInfoPanelController baseInfoPanelController;
+    boolean BaseInfoActive = false;
     VBox InfoPanel;
     @FXML
     VBox NotificationVBox;
@@ -94,6 +99,15 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public String getFileName(){
         return fileName;
+    }
+
+    public void SwitchToBasePanel(Base b){
+        BaseInfoSidePanelWrapper.setVisible(true);
+        baseInfoPanelController.Show(b);
+    }
+
+    public void CloseBasePanel(){
+        BaseInfoSidePanelWrapper.setVisible(false);
     }
 
     public void SwitchToActionSidePanel(){
@@ -342,6 +356,17 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
         SwitchToInventory();
 
+        baseInfoPanelController = new BaseInfoPanelController();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(baseInfoPanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/BaseInfoSidePanel/BaseInfoSidePanel.fxml"));
+        try {
+            VBox baseinfostuff = fxmlLoader.load();
+            BaseInfoSidePanelWrapper.getChildren().addAll(baseinfostuff);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BaseInfoSidePanelWrapper.setVisible(false);
     }
 
     private double FieldX(double x){
@@ -593,6 +618,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                     GameContent.getChildren().remove(selectedCircle);
                 InfoPanel.setVisible(false);
                 InfoWrapper.setVisible(false);
+                CloseBasePanel();
                 SelectStuck = false;
             }
             else{
