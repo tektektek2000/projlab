@@ -28,6 +28,10 @@ public class WonMenuController {
 
     public void setAnchor(AnchorPane a){
         Anchor = a;
+        Anchor.getStylesheets().clear();
+        Anchor.getStylesheets().add(this.getClass().getResource("wonmenu.css").toExternalForm());
+        Anchor.getStyleClass().clear();
+        Anchor.getStyleClass().add("anchor");
     }
 
     public void Init(){

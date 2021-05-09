@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Asteroid;
+import Model.PlayerShip;
 import Model.TeleportGate;
 import Utils.Pair;
 
@@ -35,17 +36,24 @@ public class NotificationManager {
      */
     static boolean LastCommandSuccess = true;
 
-    public static boolean isGameOver() {
+    public static boolean getGameOver() {
         return GameOver;
+    }
+    public static boolean getPlayersWon(){
+        return PlayersWon;
     }
     public static void setGameOver(boolean GO){
         GameOver = GO;
+    }
+    public static void setPlayersWon(boolean PW){
+        PlayersWon = PW;
     }
 
     /**
      * True, if the game is over, false if not.
      */
     static boolean GameOver = false;
+    static boolean PlayersWon = false;
 
     // Setter for LastCommandSuccess
     public static void setLastCommandSuccess(boolean val){
@@ -169,7 +177,7 @@ public class NotificationManager {
      * Called when players won, notifies them.
      */
     public static void PlayersWon(){
-        GameOver = true;
+        PlayersWon = true;
         AddMessage("Players have successfully built the base and won.");
     }
 

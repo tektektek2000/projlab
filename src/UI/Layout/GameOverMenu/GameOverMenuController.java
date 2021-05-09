@@ -1,4 +1,4 @@
-package UI.Layout.WonMenu;
+package UI.Layout.GameOverMenu;
 
 import UI.Components.MagicConstants;
 import UI.Components.SelectHandler;
@@ -28,6 +28,10 @@ public class GameOverMenuController {
 
     public void setAnchor(AnchorPane a){
         Anchor = a;
+        Anchor.getStylesheets().clear();
+        Anchor.getStylesheets().add(this.getClass().getResource("gameover.css").toExternalForm());
+        Anchor.getStyleClass().clear();
+        Anchor.getStyleClass().add("anchor");
     }
 
     public void Init(){

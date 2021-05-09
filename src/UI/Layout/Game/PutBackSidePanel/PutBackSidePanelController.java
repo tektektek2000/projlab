@@ -37,6 +37,8 @@ public class PutBackSidePanelController {
         BillCreator bc=BillCreator.GetInstance();
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchCoal(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+            gameUIController.SwitchToInventory();
+            gameUIController.SwitchToActionSidePanel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,6 +48,8 @@ public class PutBackSidePanelController {
         BillCreator bc=BillCreator.GetInstance();
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchIron(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+            gameUIController.SwitchToInventory();
+            gameUIController.SwitchToActionSidePanel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,6 +59,8 @@ public class PutBackSidePanelController {
         BillCreator bc=BillCreator.GetInstance();
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchIce(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+            gameUIController.SwitchToInventory();
+            gameUIController.SwitchToActionSidePanel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,6 +69,8 @@ public class PutBackSidePanelController {
     public void Uran(){  BillCreator bc=BillCreator.GetInstance();
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back " + bc.SearchUranium(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+            gameUIController.SwitchToInventory();
+            gameUIController.SwitchToActionSidePanel();
         } catch (Exception e) {
             e.printStackTrace();
         } }

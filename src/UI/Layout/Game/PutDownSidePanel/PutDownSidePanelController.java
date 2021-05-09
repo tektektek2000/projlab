@@ -47,6 +47,8 @@ public class PutDownSidePanelController {
             if(gameUIController.getGameController().getCurrentPlayer().getTeleports().size() >= 1){
                 Teleport1Button.setText("");
                 gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down " + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
+                gameUIController.SwitchToInventory();
+                gameUIController.SwitchToActionSidePanel();
             }
 
         } catch (Exception e) {
@@ -59,6 +61,8 @@ public class PutDownSidePanelController {
             if(gameUIController.getGameController().getCurrentPlayer().getTeleports().size() >= 2) {
                 Teleport2Button.setText("");
                 gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(1).GetUID());
+                gameUIController.SwitchToInventory();
+                gameUIController.SwitchToActionSidePanel();
             }
         } catch (Exception e) {
         e.printStackTrace();
@@ -70,6 +74,8 @@ public class PutDownSidePanelController {
             if (gameUIController.getGameController().getCurrentPlayer().getTeleports().size() >= 3){
                 Teleport3Button.setText("");
                 gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(2).GetUID());
+                gameUIController.SwitchToInventory();
+                gameUIController.SwitchToActionSidePanel();
             }
         } catch (Exception e) {
             e.printStackTrace();

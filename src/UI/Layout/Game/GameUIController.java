@@ -13,7 +13,8 @@ import UI.Layout.Game.PutBackSidePanel.PutBackSidePanelController;
 import UI.Layout.Game.PutDownSidePanel.PutDownSidePanelController;
 import UI.Layout.Game.CurrentAsteroidSidePanel.CurrentAsteroidSidePanelController;
 import UI.Layout.Game.InventorySidePanel.InventorySidePanelController;
-import UI.Layout.WonMenu.GameOverMenuController;
+import UI.Layout.GameOverMenu.GameOverMenuController;
+import UI.Layout.WonMenu.WonMenuController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -240,18 +241,39 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     public void SwitchToGameOver(){
-        InfoWrapper.getChildren().clear();
+        Anchor.getChildren().clear();
         GameOverMenuController gameOverMenuController=new GameOverMenuController(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(gameOverMenuController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameOverMenuController/GameOverMenuController.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/GameOverMenu/GameOverMenuLayout.fxml"));
+        AnchorPane root = null;
         try {
-            AnchorPane anchorPane= fxmlLoader.load();
-            InfoWrapper.getChildren().add(anchorPane);
+            root = fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Anchor.getChildren().addAll(root.getChildren());
+        gameOverMenuController.setAnchor(Anchor);
+        CleanUp();
         gameOverMenuController.Init();
+    }
+
+    public void SwitchToWon(){
+        Anchor.getChildren().clear();
+        WonMenuController wonMenuController=new WonMenuController(stage);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(wonMenuController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/WonMenu/WonMenuLayout.fxml"));
+        AnchorPane root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Anchor.getChildren().addAll(root.getChildren());
+        wonMenuController.setAnchor(Anchor);
+        CleanUp();
+        wonMenuController.Init();
     }
 
     public void SwitchToTeleportInfo(){
@@ -294,6 +316,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(OptionsButton);
         Anchor.addEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
+        NotificationManager.setGameOver(false);
+        NotificationManager.setPlayersWon(false);
         SwitchToInventory();
         SwitchToAsteroidInfo();
     }
@@ -592,9 +616,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
             l = NotificationManager.getWarning();
             }
 
-        if(NotificationManager.isGameOver()){
+        if(NotificationManager.getGameOver()){
             SwitchToGameOver();
         }
+
+        if(NotificationManager.getPlayersWon()){
+            SwitchToWon();
+        }
+
         TeleportGate t = NotificationManager.getNewTeleport();
         if(t != null){
             FieldImage newT = new FieldImage(t);
@@ -771,7 +800,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
     public void CleanUp(){
         Anchor.removeEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.removeEventHandler(KeyEvent.KEY_RELEASED,this);
-        Anchor.getChildren().clear();
         timeline.stop();
         timeline = null;
         Anchor = null;
