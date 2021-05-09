@@ -151,4 +151,14 @@ public class CurrentTeleportSidePanelController {
         else
             CurrentTeleportPanel.setVisible(false);
     }
+
+    public void CleanUp(){
+        gameUIController = null;
+        NameLabel = null;
+        CurrentTeleportPanel = null;
+        ActiveField = null;
+        CrazyField = null;
+        SectorField = null;
+        CloseField = null;
+    }
 }

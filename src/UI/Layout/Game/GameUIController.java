@@ -59,6 +59,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     ArrayList<Circle> SunStormCircle = new ArrayList<>();
     ArrayList<FieldImage> fieldImages = new ArrayList<>();
     ArrayList<Connection> connections = new ArrayList<>();
+    ArrayList<Explosion> explosions = new ArrayList<>();
     @FXML
     AnchorPane Anchor;
     @FXML
@@ -71,7 +72,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
     Pane InventoryWrapper;
     @FXML
     Pane InfoWrapper;
-    VBox infoPanel;
+    VBox AsteroidInfoPanel;
+    VBox TeleportInfoPanel;
     @FXML
     VBox NotificationVBox;
     public Timeline timeline;
@@ -225,18 +227,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void SwitchToAsteroidInfo(){
         InfoWrapper.getChildren().clear();
-        currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setController(currentAsteroidSidePanelController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
-        try {
-            infoPanel = fxmlLoader.load();
-            InfoWrapper.getChildren().add(infoPanel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        currentAsteroidSidePanelController.Init();
-        infoPanel.setVisible(false);
+        InfoWrapper.getChildren().add(AsteroidInfoPanel);
+        TeleportInfoPanel.setVisible(false);
         InfoWrapper.setVisible(false);
     }
 
@@ -278,18 +270,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void SwitchToTeleportInfo(){
         InfoWrapper.getChildren().clear();
-        currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setController(currentTeleportSidePanelController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentTeleportSidePanel/CurrentTeleportSidePanel.fxml"));
-        try {
-            infoPanel = fxmlLoader.load();
-            InfoWrapper.getChildren().add(infoPanel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        currentTeleportSidePanelController.Init();
-        infoPanel.setVisible(false);
+        InfoWrapper.getChildren().add(TeleportInfoPanel);
+        TeleportInfoPanel.setVisible(false);
         InfoWrapper.setVisible(false);
     }
 
@@ -319,7 +301,26 @@ public class GameUIController implements EventHandler<KeyEvent> {
         NotificationManager.setGameOver(false);
         NotificationManager.setPlayersWon(false);
         SwitchToInventory();
-        SwitchToAsteroidInfo();
+        currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentAsteroidSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
+        try {
+            AsteroidInfoPanel = fxmlLoader.load();
+            currentAsteroidSidePanelController.Init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
+        fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentTeleportSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentTeleportSidePanel/CurrentTeleportSidePanel.fxml"));
+        try {
+            TeleportInfoPanel = fxmlLoader.load();
+            currentTeleportSidePanelController.Init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private double FieldX(double x){
@@ -488,6 +489,19 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    private void PositionExplosion(Explosion explosion){
+        ImageView image = explosion.getImage();
+        image.setFitHeight(camera.TransformHeight(explosion.getHeight()));
+        image.setFitWidth(camera.TransformWidth(explosion.getWidth()));
+        double posx = FieldX(explosion.getX()) - (camera.TransformWidth(explosion.getWidth())/2);
+        double posy = FieldY(explosion.getY()) - (camera.TransformHeight(explosion.getHeight())/2);
+        if(!GameContent.getChildren().contains(image)){
+            GameContent.getChildren().add(image);
+        }
+        image.relocate(posx,posy);
+        System.out.println("Explosion at: x" + posx + " y" + posy);
+    }
+
     private void PlaceConnection(Connection connection){
         Line line = new Line();
         if(connection.getF1() == gameController.getCurrentPlayer().getAsteroid() || connection.getF2() == gameController.getCurrentPlayer().getAsteroid())
@@ -515,52 +529,47 @@ public class GameUIController implements EventHandler<KeyEvent> {
         selected = image;
         PositionSelectedCircle();
         InfoPanelVisitor ipv = new InfoPanelVisitor(image.getField());
-//        if(ipv.isAsteroid) {
-//            SwitchToAsteroidInfo();
+        if(ipv.isAsteroid) {
+            SwitchToAsteroidInfo();
             currentAsteroidSidePanelController.Show(image);
-//        }
-//        else{
-//            SwitchToTeleportInfo();
-//            currentTeleportSidePanelController.Show(image);
-//        }
+        }
+        else{
+            SwitchToTeleportInfo();
+            currentTeleportSidePanelController.Show(image);
+        }
 
-        infoPanel.setVisible(true);
+        TeleportInfoPanel.setVisible(true);
         InfoWrapper.setVisible(true);
         if(InFrontOfField(image)){
             SelectStuck = true;
         }
     }
 
-    private boolean Inside(double x,double y, boolean print){
-        if(print) {
-            System.out.println("point x:" + x + " y:" + y);
-            System.out.println("panel stuff x:" + InfoWrapper.getLayoutX() + " y:" + InfoWrapper.getLayoutY() + " w:" + InfoWrapper.getWidth() + " h:" + +InfoWrapper.getHeight());
-        }
+    private boolean Inside(double x,double y){
         return (InfoWrapper.getLayoutX() <= x && x <= InfoWrapper.getLayoutX() + InfoWrapper.getWidth())
                 && (InfoWrapper.getLayoutY() <= y && y <= InfoWrapper.getLayoutY() + InfoWrapper.getHeight());
     }
 
     private boolean InFrontOfField(FieldImage f){
-        return Inside(f.getLayoutX(),f.getLayoutY(),false)
-                || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY(),false)
-                || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY() + f.getFitHeight(),false)
-                || Inside(f.getLayoutX(),f.getLayoutY() + f.getFitHeight(),false);
+        return Inside(f.getLayoutX(),f.getLayoutY())
+                || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY())
+                || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY() + f.getFitHeight())
+                || Inside(f.getLayoutX(),f.getLayoutY() + f.getFitHeight());
     }
 
     public void Deselect(FieldImage f, boolean Force, double x ,double y){
         if(f == selected) {
-            System.out.println("Deselect");
             if((!InFrontOfField(f)) || Force){
                 selected = null;
                 if(!invalidState)
                     GameContent.getChildren().remove(selectedCircle);
-                infoPanel.setVisible(false);
+                TeleportInfoPanel.setVisible(false);
                 InfoWrapper.setVisible(false);
                 SelectStuck = false;
             }
             else{
                 SelectStuck = true;
-                if(!Inside(x,y,true))
+                if(!Inside(x,y))
                     Deselect(f,true,0,0);
             }
         }
@@ -583,7 +592,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 error.setMaxHeight(error.getPrefHeight());;
                 error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
                 error.getStyleClass().add("error");
-                new Notification(error,NotificationVBox,4000.0,5000.0,Color.RED);
+                new Notification(error,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.RED);
                 l = NotificationManager.getError();
             }
         }
@@ -598,7 +607,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 msg.setMaxHeight(msg.getPrefHeight());;
                 msg.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
                 msg.getStyleClass().add("msg");
-                new Notification(msg,NotificationVBox,4000.0,5000.0,Color.AQUA);
+                new Notification(msg,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.AQUA);
                 l = NotificationManager.getMessage();
             }
         }
@@ -612,7 +621,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             error.setMaxHeight(error.getPrefHeight());;
             error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
             error.getStyleClass().add("warning");
-            new Notification(error,NotificationVBox,4000.0,5000.0,Color.YELLOW);
+            new Notification(error,NotificationVBox,MagicConstants.NotificationFadeStart,MagicConstants.NotificationDuration,Color.YELLOW);
             l = NotificationManager.getWarning();
             }
 
@@ -654,6 +663,27 @@ public class GameUIController implements EventHandler<KeyEvent> {
             }
             PlaceField(newT);
         }
+        Asteroid a = NotificationManager.getExplodedAsteroid();
+        if(a != null){
+            Explosion explosion = new Explosion(a,MagicConstants.ExplosionDuration,MagicConstants.ExplosionGrowth);
+            explosions.add(explosion);
+            GameContent.getChildren().add(explosion.getImage());
+            PositionExplosion(explosion);
+        }
+    }
+
+    public void HandleExplosions(){
+        ArrayList<Explosion> Delete = new ArrayList<>();
+        for(Explosion e : explosions){
+            if(e.isDone()){
+                Delete.add(e);
+                GameContent.getChildren().remove(e.getImage());
+            }
+            else{
+                PositionExplosion(e);
+            }
+        }
+        explosions.removeAll(Delete);
     }
 
     public void Refresh(){
@@ -728,6 +758,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             camera.setY(gameController.getCurrentPlayer().getAsteroid().getY());
         }
         else {
+            HandleExplosions();
             PositionSelectedCircle();
             PositionMovableCircles();
             PositionSunStormCircles();
@@ -808,7 +839,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
     @FXML
     public void UnstuckSelect(){
         if(SelectStuck) {
-            System.out.println("Unstuck");
             Deselect(selected,true,0,0);
         }
     }

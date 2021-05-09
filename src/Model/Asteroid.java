@@ -240,7 +240,6 @@ public class Asteroid extends Field {
      * The asteroid explodes.
      */
     public void Explode(){
-        NotificationManager.AddMessage("Asteroid" + GetUID() + " exploded.");
         // calls for each ship exploding action
         for (int i=0;i<ships.size();i++) {
             for (Ship ship : ships) {
@@ -255,7 +254,10 @@ public class Asteroid extends Field {
         }
         sector.Remove(this);
         Neighbours.clear();
+        core.PickedUp();
+        core = null;
         NotificationManager.AddExplodedAsteroid(this);
+        NotificationManager.AddWarning("Asteroid" + GetUID() + " exploded");
     }
 
     /**
@@ -263,6 +265,7 @@ public class Asteroid extends Field {
      */
     public void Evaporate(){
         core = null;
+        NotificationManager.AddWarning("Ice from Asteroid" + GetUID() + " evaporated");
     }
 
     /**

@@ -20,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class CurrentAsteroidSidePanelController {
-    Field shown;
     GameUIController gameUIController;
     @FXML
     Label NameLabel;
@@ -98,5 +97,15 @@ public class CurrentAsteroidSidePanelController {
         }
         else
             CurrentAsteroidPanel.setVisible(false);
+    }
+
+    public void CleanUp(){
+        gameUIController = null;
+        NameLabel = null;
+        CurrentAsteroidPanel = null;
+        ShellField = null;
+        CoreField = null;
+        SectorField = null;
+        CloseField = null;
     }
 }
