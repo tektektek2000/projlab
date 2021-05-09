@@ -162,6 +162,7 @@ public class MapBuilder {
 //            GC.ps.add(p);
 //        }
 
+
         // creating UFOs on random asteroid
         for (int i = 0; i < MagicConstants.shipNumber; i++) {
             UFO p = new UFO(asteroids.get(random.nextInt(asteroids.size())));

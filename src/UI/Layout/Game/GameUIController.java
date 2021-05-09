@@ -12,6 +12,7 @@ import UI.Layout.Game.PutBackSidePanel.PutBackSidePanelController;
 import UI.Layout.Game.PutDownSidePanel.PutDownSidePanelController;
 import UI.Layout.Game.CurrentAsteroidSidePanel.CurrentAsteroidSidePanelController;
 import UI.Layout.Game.InventorySidePanel.InventorySidePanelController;
+import UI.Layout.WonMenu.GameOverMenuController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -220,6 +221,21 @@ public class GameUIController implements EventHandler<KeyEvent> {
         InfoWrapper.setVisible(false);
     }
 
+    public void SwitchToGameOver(){
+        InfoWrapper.getChildren().clear();
+        GameOverMenuController gameOverMenuController=new GameOverMenuController(stage);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(gameOverMenuController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/GameOverMenuController/GameOverMenuController.fxml"));
+        try {
+            AnchorPane anchorPane= fxmlLoader.load();
+            InfoWrapper.getChildren().add(anchorPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        gameOverMenuController.Init();
+    }
+
     public GameController getGameController(){
         return gameController;
     }
@@ -353,6 +369,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         SunImage.relocate(posx,posy);
         //System.out.println(posx + " " + posy);
     }
+
 
     private void PositionConnection(Connection connection){
         FieldImage f1 = new FieldImage(connection.getF1());
@@ -528,6 +545,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
             error.getStyleClass().add("warning");
             new Notification(error,NotificationVBox,4000.0,5000.0,Color.YELLOW);
             l = NotificationManager.getWarning();
+            }
+
+        if(NotificationManager.isGameOver()){
+            SwitchToGameOver();
         }
         TeleportGate t = NotificationManager.getNewTeleport();
         if(t != null){
