@@ -46,6 +46,8 @@ import java.util.*;
 
 public class GameUIController implements EventHandler<KeyEvent> {
     ArrayList<String> CameraShift = new ArrayList<>();
+    ISidePanelController sidePanelController;
+
     GameController gameController;
     Stage stage;
     String fileName;
@@ -107,6 +109,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         actionSidePanelController.Init();
+        sidePanelController = actionSidePanelController;
         OptionsButton.setVisible(true);
     }
     public void SwitchToCraftSidePanel(){
@@ -736,6 +739,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 camera.setZoom(camera.getZoom() / CamZoom);
         }
         if(invalidState) {
+            sidePanelController.Refresh();
             System.out.println("Invalidated");
             selectedPlayer = null;
             Map map = gameController.getMap();

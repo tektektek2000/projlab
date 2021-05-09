@@ -1,15 +1,18 @@
 package UI.Layout.Game.PutDownSidePanel;
 
+import Model.PlayerShip;
 import Model.TeleportGate;
 import UI.Components.SelectHandler;
 import UI.Layout.Game.GameUIController;
+import UI.Layout.Game.ISidePanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 
 import java.util.ArrayList;
 
-public class PutDownSidePanelController {
+public class PutDownSidePanelController implements ISidePanelController {
     GameUIController gameUIController;
     @FXML
     Button Teleport1Button;
@@ -37,6 +40,7 @@ public class PutDownSidePanelController {
             Teleport2Button.setText("X");
         if (teleportCnt >= 3)
             Teleport3Button.setText("X");
+        Refresh();
     }
 
 
@@ -84,5 +88,31 @@ public class PutDownSidePanelController {
     @FXML
     public void Cancel() {
         gameUIController.SwitchToActionSidePanel();
+    }
+
+    @Override
+    public void Refresh() {
+        PlayerShip curr = gameUIController.getGameController().getCurrentPlayer();
+
+        if(curr.getTeleports().size() == 0){
+            Teleport1Button.setEffect(new ColorAdjust(0, 1, 0, 0));
+            Teleport2Button.setEffect(new ColorAdjust(0, 1, 0, 0));
+            Teleport3Button.setEffect(new ColorAdjust(0, 1, 0, 0));
+        }
+        else if(curr.getTeleports().size() == 1){
+            Teleport1Button.setEffect(null);
+            Teleport2Button.setEffect(new ColorAdjust(0, 1, 0, 0));
+            Teleport3Button.setEffect(new ColorAdjust(0, 1, 0, 0));
+        }
+        else if(curr.getTeleports().size() == 2){
+            Teleport1Button.setEffect(null);
+            Teleport2Button.setEffect(null);
+            Teleport3Button.setEffect(new ColorAdjust(0, 1, 0, 0));
+        }
+        else{
+            Teleport1Button.setEffect(null);
+            Teleport2Button.setEffect(null);
+            Teleport3Button.setEffect(null);
+        }
     }
 }

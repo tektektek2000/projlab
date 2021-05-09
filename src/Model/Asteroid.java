@@ -167,7 +167,7 @@ public class Asteroid extends Field {
      * @param s The ship we want to be added to the asteroid.
      */
     public void Add(Ship s){
-        ships.add(s);
+        if(!ships.contains(s)) ships.add(s);
     }
 
     /**
