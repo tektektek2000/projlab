@@ -84,7 +84,7 @@ public class GameController {
         }
         else if(parts[0].equals("load")){
             FileController fc = new FileController();
-            map = fc.Load(new File(CurrentWorkingDirectory + "\\" + parts[1]),this);
+            map = fc.Load(new File(CurrentWorkingDirectory + "\\saves\\" + parts[1]),this);
         }
         else if(parts[0].equals("controller")){
             controller = Boolean.parseBoolean(parts[1]);
@@ -474,6 +474,16 @@ public class GameController {
         for(Uranium uranium : urans){
             uranium.TurnOver();
         }
+        ArrayList<PlayerShip> deletable = new ArrayList<>();
+        for(PlayerShip current : ps){
+            if(current.getAsteroid()==null)
+                deletable.add(current);
+        }
+        ps.removeAll(deletable);
+        if(ps.size()==0){
+            NotificationManager.PlayersLost();
+        }
+
     }
 
     /**

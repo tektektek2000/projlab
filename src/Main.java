@@ -1,7 +1,7 @@
 import Controllers.GameController;
 import UI.Components.MagicConstants;
 import UI.Layout.MainMenu.MainMenuController;
-import UI.Layout.WonMenu.GameOverMenuController;
+import UI.Layout.GameOverMenu.GameOverMenuController;
 import UI.Layout.WonMenu.WonMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

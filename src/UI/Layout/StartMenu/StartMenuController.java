@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -19,6 +21,7 @@ import java.io.IOException;
 public class StartMenuController {
     public Stage stage;
     private int playerNum = 1;
+
     @FXML
     AnchorPane Anchor;
     @FXML
@@ -48,6 +51,7 @@ public class StartMenuController {
         new SelectHandler(Small_button);
         new SelectHandler(Normal_button);
         new SelectHandler(Large_button);
+        Small_button.setEffect(new Glow(0.5));
     }
 
     @FXML
@@ -117,14 +121,23 @@ public class StartMenuController {
     }
     @FXML
     public void Small(){
+        Small_button.setEffect(new Glow(0.5));
+        Normal_button.setEffect(null);
+        Large_button.setEffect(null);
         MagicConstants.setMapSize(0);
     }
     @FXML
     public void Normal(){
+        Small_button.setEffect(null);
+        Normal_button.setEffect(new Glow(0.5));
+        Large_button.setEffect(null);
         MagicConstants.setMapSize(1);
     }
     @FXML
     public void Large(){
+        Small_button.setEffect(null);
+        Normal_button.setEffect(null);
+        Large_button.setEffect(new Glow(0.5));
         MagicConstants.setMapSize(2);
     }
 

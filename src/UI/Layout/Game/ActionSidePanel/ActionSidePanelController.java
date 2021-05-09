@@ -2,7 +2,7 @@ package UI.Layout.Game.ActionSidePanel;
 
 import UI.Components.SelectHandler;
 import UI.Layout.Game.GameUIController;
-import UI.Layout.WonMenu.GameOverMenuController;
+import UI.Layout.GameOverMenu.GameOverMenuController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 

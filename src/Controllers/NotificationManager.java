@@ -38,6 +38,9 @@ public class NotificationManager {
     public static boolean isGameOver() {
         return GameOver;
     }
+    public static void setGameOver(boolean GO){
+        GameOver = GO;
+    }
 
     /**
      * True, if the game is over, false if not.
@@ -76,7 +79,7 @@ public class NotificationManager {
     }
     /**
      * Adds an error to the list.
-     * @param a The error we want to add.
+     * @param m The error we want to add.
      */
     public static void AddError(String m){
         errors.add(m);

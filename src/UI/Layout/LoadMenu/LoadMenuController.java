@@ -1,7 +1,9 @@
 package UI.Layout.LoadMenu;
 
+import Controllers.GameController;
 import UI.Components.MagicConstants;
 import UI.Components.SelectHandler;
+import UI.Layout.Game.GameUIController;
 import UI.Layout.MainMenu.MainMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
 
 public class LoadMenuController {
     public Stage stage;
-    private ArrayList<String> saves;
+    private ArrayList<String> saves = new ArrayList<>();
+    private String path = new File("").getAbsolutePath() + "\\saves";
+    private int currentIndex = 0;
     @FXML
     AnchorPane Anchor;
     @FXML
@@ -45,6 +49,19 @@ public class LoadMenuController {
         new SelectHandler(Left_button);
         new SelectHandler(Right_button);
 
+        File dir = new File(path);
+        System.out.println(path);
+
+        if(!dir.exists()) {
+            dir.mkdir();
+            System.out.println("Invalid directory.");
+        }
+
+        File [] files = dir.listFiles();
+        for(File f : files){
+            saves.add(f.getName());
+        }
+        Save_label.setText(saves.get(currentIndex));
     }
     @FXML
     public void Back(){
@@ -67,14 +84,24 @@ public class LoadMenuController {
     }
     @FXML
     public void Load() {
-
+        GameController gc = new GameController();
+        GameUIController gameUIController = new GameUIController(gc, stage);
+        try {
+            gameUIController.getGameController().InterpretCommand("load " + saves.get(currentIndex));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void Left(){
-        System.out.println("Left");
+        if(currentIndex > 0) currentIndex --;
+        else currentIndex = saves.size()-1;
+        Save_label.setText(saves.get(currentIndex));
     }
     @FXML
     public void Right(){
-        System.out.println("Right");
+        if(currentIndex < saves.size()-1) currentIndex ++;
+        else currentIndex = 0;
+        Save_label.setText(saves.get(currentIndex));
     }
 }

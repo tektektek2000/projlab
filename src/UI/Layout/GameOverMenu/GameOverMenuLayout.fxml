@@ -10,8 +10,8 @@
                 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="132.0" prefWidth="495.0" styleClass="over" stylesheets="@gameover.css" />
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
                     <children>
-                        <Button fx:id="Exit_button" mnemonicParsing="false" onAction="#Exit" prefHeight="76.0" prefWidth="164.0" styleClass="exit" stylesheets="@gameover.css" />
-                        <Button fx:id="Restart_button" mnemonicParsing="false" onAction="#Restart" prefHeight="76.0" prefWidth="164.0" styleClass="restart" stylesheets="@gameover.css" />
+                        <Button fx:id="Exit_button" mnemonicParsing="false" onAction="#Exit" prefHeight="76.0" prefWidth="164.0" styleClass="exit" stylesheets="@gameover.css" textFill="TRANSPARENT" />
+                        <Button fx:id="Restart_button" mnemonicParsing="false" onAction="#Restart" prefHeight="76.0" prefWidth="164.0" styleClass="restart" stylesheets="@gameover.css" textFill="TRANSPARENT" />
                     </children>
                 </HBox>
                 <Pane prefHeight="359.0" prefWidth="1920.0" />
