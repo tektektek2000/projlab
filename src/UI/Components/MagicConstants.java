@@ -17,7 +17,7 @@ public class MagicConstants {
 
     public static final double SunDiameter = 200;
 
-    public static final double CoreInfoImageSize = 41;
+    public static final double CoreInfoImageSize = 42;
 
     // number of ships
     public static int shipNumber = 1;

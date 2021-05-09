@@ -58,8 +58,8 @@ public class CurrentAsteroidSidePanelController {
                 ImageView MaterialImage = new ImageView(iv.getImage());
                 MaterialImage.setPreserveRatio(true);
                 MaterialImage.setFitHeight(MagicConstants.CoreInfoImageSize);
-                AnchorPane.setRightAnchor(MaterialImage, 15.0 + MaterialImage.getFitWidth());
-                AnchorPane.setTopAnchor(MaterialImage, (CoreField.getHeight() - MaterialImage.getFitHeight()) / 2);
+                AnchorPane.setRightAnchor(MaterialImage, 15.0); // + MaterialImage.getFitWidth());
+                AnchorPane.setTopAnchor(MaterialImage,  9.0);
                 CoreField.getChildren().add(MaterialImage);
             }
             if(((Asteroid) f.getField()).getSunClose()){
@@ -71,8 +71,8 @@ public class CurrentAsteroidSidePanelController {
                     ImageView img = new ImageView(checkmark);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (CloseField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     CloseField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -86,8 +86,8 @@ public class CurrentAsteroidSidePanelController {
                     ImageView img = new ImageView(X);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (CloseField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     CloseField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

@@ -64,8 +64,8 @@ public class CurrentTeleportSidePanelController {
                     ImageView img = new ImageView(checkmark);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (ActiveField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     ActiveField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -78,8 +78,8 @@ public class CurrentTeleportSidePanelController {
                     ImageView img = new ImageView(X);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (ActiveField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     ActiveField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -94,8 +94,8 @@ public class CurrentTeleportSidePanelController {
                     ImageView img = new ImageView(checkmark);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (CrazyField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     CrazyField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -108,8 +108,8 @@ public class CurrentTeleportSidePanelController {
                     ImageView img = new ImageView(X);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (CrazyField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     CrazyField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -125,8 +125,8 @@ public class CurrentTeleportSidePanelController {
                     ImageView img = new ImageView(checkmark);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (CloseField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0 );
+                    AnchorPane.setTopAnchor(img, 9.0);
                     CloseField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -140,8 +140,8 @@ public class CurrentTeleportSidePanelController {
                     ImageView img = new ImageView(X);
                     img.setPreserveRatio(true);
                     img.setFitHeight(MagicConstants.CoreInfoImageSize);
-                    AnchorPane.setRightAnchor(img, 15.0 + img.getFitWidth());
-                    AnchorPane.setTopAnchor(img, (CloseField.getHeight() - img.getFitHeight()) / 2);
+                    AnchorPane.setRightAnchor(img, 15.0);
+                    AnchorPane.setTopAnchor(img, 9.0);
                     CloseField.getChildren().add(img);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

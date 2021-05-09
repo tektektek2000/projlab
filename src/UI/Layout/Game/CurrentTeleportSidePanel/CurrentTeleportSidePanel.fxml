@@ -22,9 +22,6 @@
             <VBox.margin>
                 <Insets top="20.0" />
             </VBox.margin>
-            <padding>
-                <Insets right="30.0" />
-            </padding>
         </AnchorPane>
         <AnchorPane fx:id="CrazyField" prefHeight="60.0" prefWidth="175.0" styleClass="crazypanel" stylesheets="@currentteleportsidepanel.css">
             <VBox.margin>

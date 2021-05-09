@@ -73,8 +73,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     Pane InventoryWrapper;
     @FXML
     Pane InfoWrapper;
-    VBox AsteroidInfoPanel;
-    VBox TeleportInfoPanel;
+    VBox InfoPanel;
     @FXML
     VBox NotificationVBox;
     public Timeline timeline;
@@ -235,9 +234,23 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     public void SwitchToAsteroidInfo(){
+        if(currentTeleportSidePanelController != null){
+            currentTeleportSidePanelController.CleanUp();
+            currentTeleportSidePanelController = null;
+        }
         InfoWrapper.getChildren().clear();
-        InfoWrapper.getChildren().add(AsteroidInfoPanel);
-        TeleportInfoPanel.setVisible(false);
+        currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentAsteroidSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
+        try {
+            InfoPanel = fxmlLoader.load();
+            currentAsteroidSidePanelController.Init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InfoWrapper.getChildren().add(InfoPanel);
+        //TeleportInfoPanel.setVisible(false);
         InfoWrapper.setVisible(false);
     }
 
@@ -278,9 +291,23 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     public void SwitchToTeleportInfo(){
+        if(currentAsteroidSidePanelController != null){
+            currentAsteroidSidePanelController.CleanUp();
+            currentAsteroidSidePanelController = null;
+        }
         InfoWrapper.getChildren().clear();
-        InfoWrapper.getChildren().add(TeleportInfoPanel);
-        TeleportInfoPanel.setVisible(false);
+        currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentTeleportSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentTeleportSidePanel/CurrentTeleportSidePanel.fxml"));
+        try {
+            InfoPanel = fxmlLoader.load();
+            currentTeleportSidePanelController.Init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InfoWrapper.getChildren().add(InfoPanel);
+        //TeleportInfoPanel.setVisible(false);
         InfoWrapper.setVisible(false);
     }
 
@@ -311,26 +338,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Anchor.addEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
         SwitchToInventory();
-        currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setController(currentAsteroidSidePanelController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
-        try {
-            AsteroidInfoPanel = fxmlLoader.load();
-            currentAsteroidSidePanelController.Init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
-        fxmlLoader = new FXMLLoader();
-        fxmlLoader.setController(currentTeleportSidePanelController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentTeleportSidePanel/CurrentTeleportSidePanel.fxml"));
-        try {
-            TeleportInfoPanel = fxmlLoader.load();
-            currentTeleportSidePanelController.Init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private double FieldX(double x){
@@ -548,13 +556,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
         if(ipv.isAsteroid) {
             SwitchToAsteroidInfo();
             currentAsteroidSidePanelController.Show(image);
+            InfoPanel.setVisible(true);
         }
         else{
             SwitchToTeleportInfo();
             currentTeleportSidePanelController.Show(image);
+            InfoPanel.setVisible(true);
         }
-
-        TeleportInfoPanel.setVisible(true);
+        //TeleportInfoPanel.setVisible(true);
         InfoWrapper.setVisible(true);
         if(InFrontOfField(image)){
             SelectStuck = true;
@@ -579,7 +588,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 selected = null;
                 if(!invalidState)
                     GameContent.getChildren().remove(selectedCircle);
-                TeleportInfoPanel.setVisible(false);
+                InfoPanel.setVisible(false);
                 InfoWrapper.setVisible(false);
                 SelectStuck = false;
             }
