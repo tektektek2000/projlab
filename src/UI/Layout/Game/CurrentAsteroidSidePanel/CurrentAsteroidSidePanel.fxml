@@ -7,7 +7,7 @@
 
 <VBox fx:id="CurrentAsteroidPanel" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="209.0" spacing="15.0" styleClass="currentasteroidpanel" stylesheets="@currentasteroidsidepanel.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" prefHeight="33.0" prefWidth="167.0">
+      <Label fx:id="NameLabel" alignment="CENTER" prefHeight="33.0" prefWidth="167.0">
          <VBox.margin>
             <Insets top="5.0" />
          </VBox.margin>
@@ -25,6 +25,9 @@
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
+         <padding>
+            <Insets right="30.0" />
+         </padding>
       </TextField>
       <AnchorPane fx:id="CoreField" prefHeight="60.0" prefWidth="175.0" styleClass="corepanel" stylesheets="@currentasteroidsidepanel.css">
          <VBox.margin>
@@ -41,6 +44,9 @@
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
+         <padding>
+            <Insets right="30.0" />
+         </padding>
       </TextField>
       <AnchorPane fx:id="CloseField" prefHeight="60.0" prefWidth="175.0" styleClass="closepanel" stylesheets="@currentasteroidsidepanel.css">
          <VBox.margin>
