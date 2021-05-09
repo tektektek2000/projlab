@@ -30,12 +30,24 @@ public class CraftSidePanelController {
 
     @FXML
     public void Robot(){
-        System.out.println("Robot");
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft robot");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
-    public void Teleports(){ System.out.println("Teleports"); }
+    public void Teleports(){try {
+        gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft teleports");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }}
     @FXML
-    public void Base(){ System.out.println("Base"); }
+    public void Base(){ try {
+        gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft base");
+    } catch (Exception e) {
+        e.printStackTrace();
+    } }
     @FXML
     public void Cancel(){ gameUIController.SwitchToActionSidePanel(); }
 }
