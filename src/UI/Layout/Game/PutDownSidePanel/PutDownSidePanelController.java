@@ -34,15 +34,27 @@ public class PutDownSidePanelController {
     @FXML
     public void Teleport1(){
         try {
-            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down88888888888888888888888888888888 " + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     @FXML
-    public void Teleport2(){ System.out.println("Teleport2"); }
+    public void Teleport2(){
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(1).GetUID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
-    public void Teleport3(){ System.out.println("Teleport3"); }
+    public void Teleport3(){
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(2).GetUID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void Cancel() {
         gameUIController.SwitchToActionSidePanel();
