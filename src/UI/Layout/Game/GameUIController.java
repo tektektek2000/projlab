@@ -21,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -33,9 +32,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -52,7 +48,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     boolean invalidState = true;
     double PaneHalf = 1920.0/2.0;
     Camera camera = new Camera(0,0,2);
-    static ImageView Sun = null;
+    static ImageView SunImage = null;
     FieldImage selected = null;
     Circle selectedCircle = null;
     Circle selectedPlayer = null;
@@ -320,27 +316,27 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     private void PlaceSun(){
-        if(Sun == null){
+        if(SunImage == null){
             String filePath = new File("").getAbsolutePath();
             filePath+="\\img\\";
             filePath += "Sun.png";
             try {
-                Sun = new ImageView(new Image(new FileInputStream(filePath)));
+                SunImage = new ImageView(new Image(new FileInputStream(filePath)));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        if(!GameContent.getChildren().contains(Sun))
-            GameContent.getChildren().add(Sun);
-        Sun.setFitWidth(MagicConstants.SunDiameter);
-        Sun.setFitHeight(MagicConstants.SunDiameter);
-        Sun.setPreserveRatio(true);
-        Sun.setFitWidth(camera.TransformWidth(Sun.getFitWidth()));
-        Sun.setFitHeight(camera.TransformHeight(Sun.getFitHeight()));
-        double posx = FieldX(0) - (Sun.getFitWidth()/2);
-        double posy = FieldY(0) - (Sun.getFitHeight()/2);
+        if(!GameContent.getChildren().contains(SunImage))
+            GameContent.getChildren().add(SunImage);
+        SunImage.setFitWidth(MagicConstants.SunDiameter);
+        SunImage.setFitHeight(MagicConstants.SunDiameter);
+        SunImage.setPreserveRatio(true);
+        SunImage.setFitWidth(camera.TransformWidth(SunImage.getFitWidth()));
+        SunImage.setFitHeight(camera.TransformHeight(SunImage.getFitHeight()));
+        double posx = FieldX(0) - (SunImage.getFitWidth()/2);
+        double posy = FieldY(0) - (SunImage.getFitHeight()/2);
         //System.out.println(image.getFitWidth());
-        Sun.relocate(posx,posy);
+        SunImage.relocate(posx,posy);
         //System.out.println(posx + " " + posy);
     }
 
@@ -364,7 +360,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             selectedCircle.setCenterX(FieldX(selected.x));
             selectedCircle.setCenterY(FieldY(selected.y));
             selectedCircle.setRadius(selected.getFitWidth() / 2.0 * 1.2);
-            selectedCircle.setFill(Color.MAGENTA);
+            selectedCircle.setFill(Color.WHITE);
             GameContent.getChildren().add(0, selectedCircle);
         }
     }
@@ -382,6 +378,22 @@ public class GameUIController implements EventHandler<KeyEvent> {
             //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
             GameContent.getChildren().add(0, Add);
             MovableCircle.add(Add);
+        }
+    }
+
+    public void PositionSunStormCircles(){
+        GameContent.getChildren().removeAll(SunStormCircle);
+        SunStormCircle.clear();
+        for (Field f : Sun.GetInstance().getTarget().getFields()) {
+            Circle Add = new Circle();
+            FieldImage field = new FieldImage(f);
+            Add.setCenterX(FieldX(field.x));
+            Add.setCenterY(FieldY(field.y));
+            Add.setRadius(camera.TransformWidth(field.size) / 2.0 * 1.4);
+            Add.setFill(Color.RED);
+            //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
+            GameContent.getChildren().add(0, Add);
+            SunStormCircle.add(Add);
         }
     }
 
@@ -537,6 +549,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         else {
             PositionSelectedCircle();
             PositionMovableCircles();
+            PositionSunStormCircles();
             for (Connection c : connections) {
                 PositionConnection(c);
             }
