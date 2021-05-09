@@ -19,8 +19,6 @@ public class MagicConstants {
 
     public static final double CoreInfoImageSize = 41;
 
-
-
     // number of ships
     public static int shipNumber = 1;
     // number of asteroids
