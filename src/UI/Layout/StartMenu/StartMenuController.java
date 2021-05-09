@@ -71,6 +71,7 @@ public class StartMenuController {
             System.out.println("Invalid value! Please enter a number between 1 and 5.");
         }
         Counter_field.setText(Integer.toString(playerNum));
+        MagicConstants.setShipNumber(playerNum);
     }
     @FXML
     public void Start(){
@@ -116,12 +117,15 @@ public class StartMenuController {
     }
     @FXML
     public void Small(){
+        MagicConstants.setMapSize(0);
     }
     @FXML
     public void Normal(){
+        MagicConstants.setMapSize(1);
     }
     @FXML
     public void Large(){
+        MagicConstants.setMapSize(2);
     }
 
     public void CleanUp(){

@@ -93,7 +93,7 @@ public class MapBuilder {
         ArrayList<Asteroid> asteroids = new ArrayList<>();
 
         // creating players on random asteroid
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < MagicConstants.shipNumber; i++) {
             PlayerShip p = new PlayerShip(map);
             GC.ps.add(p);
         }
@@ -104,15 +104,20 @@ public class MapBuilder {
 
         // creating asteroids and adding to sectors
         Random r = new Random();
-        for (int i = 0; i < 80; i++){
+        for (int i = 0; i < MagicConstants.asteroidNumber; i++){
             Asteroid a = genRndAsteroid(GC, asteroids, r);
             System.out.println(a.getX()+" "+a.getY());
             asteroids.add(a);
         }
 
         // placing playerships on asteroid
-        for(PlayerShip ps: GC.ps)
-            ps.setAsteroid(asteroids.get(random.nextInt(asteroids.size())));
+        for(PlayerShip ps: GC.ps){
+            Asteroid a = asteroids.get(random.nextInt(asteroids.size()));
+            ps.setAsteroid(a);
+            a.Add(ps);
+
+        }
+
 
         // linking asteroids in max distance
         for(Asteroid a1 : asteroids){
@@ -158,7 +163,7 @@ public class MapBuilder {
 //        }
 
         // creating UFOs on random asteroid
-        for (int i = 0; i < MagicConstants.shipNumberMin+random.nextInt(MagicConstants.shipNumberMax); i++) {
+        for (int i = 0; i < MagicConstants.shipNumber; i++) {
             UFO p = new UFO(asteroids.get(random.nextInt(asteroids.size())));
             GC.ufos.add(p);
         }

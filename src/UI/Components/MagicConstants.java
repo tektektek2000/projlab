@@ -8,20 +8,40 @@ public class MagicConstants {
     public static final boolean FullScreen = true;
     // Number of sectors
     public static final int sectorNumber = 8;
-    // Minimum number of ships
-    public static final int shipNumberMin = 1;
-    // Maximum number of ships
-    public static final int shipNumberMax = 1;
     // the distance where asteroids doesnt overlap each other
     public static final double asteroidTooClose = 0.15;
     // the distance where asteroids doesnt overlap each other
     public static final double sunTooClose = 0.17;
-    // max distance when asteroids are linked
-    public static final double neighbourMaxDistance = 0.25;
 
     public static final double MaxGeneratedDistance = 1.2;
 
     public static final double SunDiameter = 200;
 
     public static final double CoreInfoImageSize = 40;
+
+
+
+    // number of ships
+    public static int shipNumber = 1;
+    // number of asteroids
+    public static int asteroidNumber = 80;
+    // max distance when asteroids are linked
+    public static double neighbourMaxDistance = 0.25;
+
+    public static void setShipNumber(int shipNumber) {
+        MagicConstants.shipNumber = shipNumber;
+    }
+
+    public static void setMapSize(int i) {
+        if(i == 0){
+            asteroidNumber = 60;
+            neighbourMaxDistance = 0.28;
+        } else if (i == 1){
+            asteroidNumber = 80;
+            neighbourMaxDistance = 0.25;
+        } else if (i == 2) {
+            asteroidNumber = 120;
+            neighbourMaxDistance = 0.22;
+        }
+    }
 }
