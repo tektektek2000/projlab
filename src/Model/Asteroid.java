@@ -339,7 +339,7 @@ public class Asteroid extends Field {
     }
 
     public boolean getSunClose(){
-        if(distance(this,0.0,0.0)<3.0){
+        if(distance(this,0.0,0.0)<0.6){
             return true;
         }
         return false;

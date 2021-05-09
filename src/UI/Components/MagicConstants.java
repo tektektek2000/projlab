@@ -19,9 +19,9 @@ public class MagicConstants {
     // max distance when asteroids are linked
     public static final double neighbourMaxDistance = 0.25;
 
-    public static final double MaxGeneratedDistance = 1.2;
+    public static final double MaxGeneratedDistance = 1.5;
 
     public static final double SunDiameter = 200;
 
-    public static final double CoreInfoImageSize = 40;
+    public static final double CoreInfoImageSize = 41;
 }
