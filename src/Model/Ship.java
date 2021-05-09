@@ -22,6 +22,10 @@ public abstract class Ship extends Saveable implements IVisitable {
         asteroid.Add(this);
     }
 
+    public Ship(Map map){
+        super(map);
+    }
+
     public Ship(int uid) {
         super(uid);
     }

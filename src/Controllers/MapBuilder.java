@@ -92,6 +92,12 @@ public class MapBuilder {
         map = new Map();
         ArrayList<Asteroid> asteroids = new ArrayList<>();
 
+        // creating players on random asteroid
+        for (int i = 0; i < 1; i++) {
+            PlayerShip p = new PlayerShip(map);
+            GC.ps.add(p);
+        }
+
         // creating sectors
         for (int i = 0; i < MagicConstants.sectorNumber; i++)
             map.AddSector(new Sector(map.GetNewUID(),map));
@@ -104,6 +110,10 @@ public class MapBuilder {
             asteroids.add(a);
         }
 
+        // placing playerships on asteroid
+        for(PlayerShip ps: GC.ps)
+            ps.setAsteroid(asteroids.get(random.nextInt(asteroids.size())));
+
         // linking asteroids in max distance
         for(Asteroid a1 : asteroids){
             for(Asteroid a2 : asteroids){
@@ -113,6 +123,7 @@ public class MapBuilder {
                 }
             }
         }
+
         // linking asteroids which has 0 neighbours
         for(Asteroid a1 : asteroids){
             if(a1.getNeighbours().size()==0){
@@ -132,48 +143,19 @@ public class MapBuilder {
             }
         }
         MakeGraphTraversable(asteroids);
+
         // linking asteroids with sectors based on angles
         for(Asteroid a : asteroids) {
-
             Sector s = whichSectorItIs(a);
             a.setSector(s);
             s.Add(a);
-
         }
 
-        /*for(Sector s : map.getSectors()) {
-            for (Field f : s.getFields()) {
-                Field rndField = s.getFields().get(random.nextInt(s.getFields().size()));
-                f.AddNeighbour(rndField);
-                rndField.AddNeighbour(f);
-            }
-        }*/
-
-
-        /*
-        // linking asteroids in sectors (only 1)
-        for(Sector s : map.getSectors())
-            for (Field f : s.getFields()){
-                Field rndField = s.getFields().get(random.nextInt(s.getFields().size()));
-                f.AddNeighbour(rndField);
-                rndField.AddNeighbour(f);
-            }
-
-        // linking asteroids in outside sectors (only 1)
-        for(Sector s : map.getSectors()){
-            Field rndField = s.getFields().get(random.nextInt(s.getFields().size()));
-            Sector rndSector = genRndSector(s);
-            Field rndFieldOuterSector = rndSector.getFields().get(random.nextInt(rndSector.getFields().size()));
-            rndField.AddNeighbour(rndFieldOuterSector);
-            rndFieldOuterSector.AddNeighbour(rndField);
-        }
-        */
-
-        // creating players on random asteroid
-        for (int i = 0; i < 1; i++) {
-            PlayerShip p = new PlayerShip(asteroids.get(random.nextInt(asteroids.size())));
-            GC.ps.add(p);
-        }
+//        // creating players on random asteroid
+//        for (int i = 0; i < 1; i++) {
+//            PlayerShip p = new PlayerShip(asteroids.get(random.nextInt(asteroids.size())));
+//            GC.ps.add(p);
+//        }
 
         // creating UFOs on random asteroid
         for (int i = 0; i < MagicConstants.shipNumberMin+random.nextInt(MagicConstants.shipNumberMax); i++) {

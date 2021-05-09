@@ -38,6 +38,10 @@ public class PlayerShip extends Ship {
         teleports = new ArrayList<>();
     }
 
+    public PlayerShip(Map map) {
+        super(map);
+    }
+
     /**
      * The getter of the materials.
      * @return With the player's materials.
