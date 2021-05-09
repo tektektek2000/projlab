@@ -115,9 +115,7 @@ public class MapBuilder {
             Asteroid a = asteroids.get(random.nextInt(asteroids.size()));
             ps.setAsteroid(a);
             a.Add(ps);
-
         }
-
 
         // linking asteroids in max distance
         for(Asteroid a1 : asteroids){
@@ -200,7 +198,7 @@ public class MapBuilder {
     }
 
     private Asteroid genRndAsteroid(GameController GC, ArrayList<Asteroid> asteroids, Random r) {
-        Asteroid a = new Asteroid(map.GetNewUID(), null, genRndMaterial(GC) , random.nextInt(6));
+        Asteroid a = new Asteroid(map.GetNewUID(), null, genRndMaterial(GC) , random.nextInt(6)+4);
         do{
             double alfa = r.nextDouble() * 2.0 * Math.PI;
             double dist = r.nextDouble() * MagicConstants.MaxGeneratedDistance;

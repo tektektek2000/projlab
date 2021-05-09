@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="anchor" stylesheets="@loadmenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -10,7 +11,10 @@
             <Pane prefHeight="220.0" prefWidth="1920.0" />
             <HBox alignment="CENTER" prefHeight="77.0" prefWidth="1920.0">
                <children>
-                  <Pane prefHeight="77.0" prefWidth="482.0" styleClass="save" stylesheets="@loadmenu.css" />
+                  <Label fx:id="Save_label" alignment="CENTER" prefHeight="77.0" prefWidth="482.0" styleClass="save" stylesheets="@loadmenu.css">
+                     <font>
+                        <Font name="Comic Sans MS" size="36.0" />
+                     </font></Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="170.0" prefWidth="1920.0" spacing="200.0">

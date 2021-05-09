@@ -37,5 +37,6 @@ public class InventorySidePanelController {
         IronNumb.setText(Integer.toString(bc.Count(inv, new Iron(new Map()))));
         IceNumb.setText(Integer.toString(bc.Count(inv, new Ice(new Map()))));
         UranNumb.setText(Integer.toString(bc.Count(inv, new Uranium(new Map()))));
+        PortalNumb.setText(Integer.toString(gameUIController.getGameController().getCurrentPlayer().getTeleports().size()));
     }
 }

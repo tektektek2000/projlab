@@ -33,6 +33,7 @@ public class CraftSidePanelController {
         try {
             gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft robot");
             gameUIController.SwitchToInventory();
+            gameUIController.SwitchToActionSidePanel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,6 +42,7 @@ public class CraftSidePanelController {
     public void Teleports(){try {
         gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft teleports");
         gameUIController.SwitchToInventory();
+        gameUIController.SwitchToActionSidePanel();
     } catch (Exception e) {
         e.printStackTrace();
     }}
@@ -48,6 +50,7 @@ public class CraftSidePanelController {
     public void Base(){ try {
         gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft base");
         gameUIController.SwitchToInventory();
+        gameUIController.SwitchToActionSidePanel();
     } catch (Exception e) {
         e.printStackTrace();
     } }

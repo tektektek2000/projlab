@@ -46,7 +46,7 @@ public class Asteroid extends Field {
         ships = new ArrayList<>();
         Removables = new ArrayList<>();
         base=null;
-        shell = new Random().nextInt(6);
+        shell = new Random().nextInt(6)+4;
         x=0;
         y=0;
     }
@@ -84,7 +84,7 @@ public class Asteroid extends Field {
         ships = new ArrayList<>();
         Removables = new ArrayList<>();
         base=null;
-        shell = new Random().nextInt(6);
+        shell = new Random().nextInt(6)+4;
         x=0;
         y=0;
     }

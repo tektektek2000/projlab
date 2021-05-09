@@ -6,15 +6,22 @@ import UI.Layout.MainMenu.MainMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LoadMenuController {
     public Stage stage;
+    private ArrayList<String> saves;
     @FXML
     AnchorPane Anchor;
+    @FXML
+    Label Save_label;
     @FXML
     Button Back_button;
     @FXML
@@ -32,11 +39,12 @@ public class LoadMenuController {
         Anchor = a;
     }
 
-    public void Init(){
+    public void Init() {
         new SelectHandler(Back_button);
         new SelectHandler(Load_button);
         new SelectHandler(Left_button);
         new SelectHandler(Right_button);
+
     }
     @FXML
     public void Back(){
@@ -58,8 +66,8 @@ public class LoadMenuController {
         mainMenuController.Init();
     }
     @FXML
-    public void Load(){
-        System.out.println("Load");
+    public void Load() {
+
     }
     @FXML
     public void Left(){
