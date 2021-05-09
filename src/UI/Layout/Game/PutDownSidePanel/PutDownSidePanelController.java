@@ -29,12 +29,26 @@ public class PutDownSidePanelController {
         new SelectHandler(Teleport2Button);
         new SelectHandler(Teleport3Button);
         new SelectHandler(CancelButton);
+
+        int teleportCnt = gameUIController.getGameController().getCurrentPlayer().getTeleports().size();
+        if(teleportCnt >= 1)
+            Teleport1Button.setText("X");
+        if(teleportCnt >= 2)
+            Teleport2Button.setText("X");
+        if (teleportCnt >= 3)
+            Teleport3Button.setText("X");
     }
+
+
 
     @FXML
     public void Teleport1(){
         try {
-            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down " + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
+            if(gameUIController.getGameController().getCurrentPlayer().getTeleports().size() >= 1){
+                Teleport1Button.setText("");
+                gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down " + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,15 +56,21 @@ public class PutDownSidePanelController {
     @FXML
     public void Teleport2(){
         try {
-            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(1).GetUID());
+            if(gameUIController.getGameController().getCurrentPlayer().getTeleports().size() >= 2) {
+                Teleport2Button.setText("");
+                gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(1).GetUID());
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+        e.printStackTrace();
         }
     }
     @FXML
     public void Teleport3(){
         try {
-            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(2).GetUID());
+            if (gameUIController.getGameController().getCurrentPlayer().getTeleports().size() >= 3){
+                Teleport3Button.setText("");
+                gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down" + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(2).GetUID());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
