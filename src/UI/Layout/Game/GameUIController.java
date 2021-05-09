@@ -12,7 +12,6 @@ import UI.Layout.Game.PutBackSidePanel.PutBackSidePanelController;
 import UI.Layout.Game.PutDownSidePanel.PutDownSidePanelController;
 import UI.Layout.Game.CurrentAsteroidSidePanel.CurrentAsteroidSidePanelController;
 import UI.Layout.Game.InventorySidePanel.InventorySidePanelController;
-import Utils.Pair;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,9 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -37,8 +34,6 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.crypto.spec.OAEPParameterSpec;
-import javax.swing.text.Position;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -56,6 +51,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
     FieldImage selected = null;
     Circle selectedCircle = null;
     Circle selectedPlayer = null;
+    ArrayList<Circle> MovableCircle = new ArrayList<>();
+    ArrayList<Circle> SunStormCircle = new ArrayList<>();
     ArrayList<FieldImage> fieldImages = new ArrayList<>();
     ArrayList<Connection> connections = new ArrayList<>();
     @FXML
@@ -66,6 +63,11 @@ public class GameUIController implements EventHandler<KeyEvent> {
     Pane SidePanelWrapper;
     @FXML
     Pane GameContent;
+    @FXML
+    Pane InventoryWrapper;
+    @FXML
+    Pane InfoWrapper;
+    VBox infoPanel;
     public Timeline timeline;
 
     public GameUIController(GameController gc, Stage s){
@@ -87,7 +89,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
         actionSidePanelController.Init();
         OptionsButton.setVisible(true);
-        new SelectHandler(OptionsButton);
     }
     public void SwitchToCraftSidePanel(){
         SidePanelWrapper.getChildren().clear();
@@ -103,7 +104,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
         craftSidePanelController.Init();
         OptionsButton.setVisible(true);
-        new SelectHandler(OptionsButton);
     }
 
     public void SwitchToOptionsSidePanel(){
@@ -121,7 +121,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
         optionsSidePanelController.setAnchor(Anchor);
         optionsSidePanelController.Init();
         OptionsButton.setVisible(false);
-        new SelectHandler(OptionsButton);
     }
 
     public void SwitchToCurrentAsteroidSidePanel(){
@@ -137,7 +136,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         currentAsteroidSidePanelController.Init();
-        new SelectHandler(OptionsButton);
     }
     public void SwitchToInventorySidePanel(){
         SidePanelWrapper.getChildren().clear();
@@ -152,7 +150,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         inventorySidePanelController.Init();
-        new SelectHandler(OptionsButton);
     }
 
 
@@ -169,7 +166,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         putDownSidePanelController.Init();
-        new SelectHandler(OptionsButton);
     }
 
     public void SwitchToPutBackSidePanel(){
@@ -185,7 +181,37 @@ public class GameUIController implements EventHandler<KeyEvent> {
             e.printStackTrace();
         }
         putBackSidePanelController.Init();
-        new SelectHandler(OptionsButton);
+    }
+
+    public void SwitchToInventory(){
+        InventoryWrapper.getChildren().clear();
+        InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(inventorySidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/InventorySidePanel/InventorySidePanel.fxml"));
+        try {
+            GridPane inventoryPanel = fxmlLoader.load();
+            InventoryWrapper.getChildren().add(inventoryPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        inventorySidePanelController.Init();
+    }
+
+    public void SwitchToFieldInfo(){
+        InfoWrapper.getChildren().clear();
+        CurrentAsteroidSidePanelController currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setController(currentAsteroidSidePanelController);
+        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
+        try {
+            infoPanel = fxmlLoader.load();
+            InfoWrapper.getChildren().add(infoPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        currentAsteroidSidePanelController.Init();
+        infoPanel.setVisible(false);
     }
 
     public GameController getGameController(){
@@ -210,6 +236,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
         new SelectHandler(OptionsButton);
         Anchor.addEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.addEventHandler(KeyEvent.KEY_RELEASED,this);
+        SwitchToInventory();
+        SwitchToFieldInfo();
     }
 
     private double FieldX(double x){
@@ -333,9 +361,28 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    public void PositionMovableCircles(){
+        GameContent.getChildren().removeAll(MovableCircle);
+        MovableCircle.clear();
+        for (Field f : gameController.getCurrentPlayer().getAsteroid().getNeighbours()) {
+            Circle Add = new Circle();
+            FieldImage field = new FieldImage(f);
+            Add.setCenterX(FieldX(field.x));
+            Add.setCenterY(FieldY(field.y));
+            Add.setRadius(camera.TransformWidth(field.size) / 2.0 * 1.2);
+            Add.setFill(Color.AQUA);
+            //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
+            GameContent.getChildren().add(0, Add);
+            MovableCircle.add(Add);
+        }
+    }
+
     private void PlaceConnection(Connection connection){
         Line line = new Line();
-        line.setStyle("-fx-stroke: yellow;");
+        if(connection.getF1() == gameController.getCurrentPlayer().getAsteroid() || connection.getF2() == gameController.getCurrentPlayer().getAsteroid())
+            line.setStyle("-fx-stroke: aqua;");
+        else
+            line.setStyle("-fx-stroke: yellow;");
         connection.line = line;
         PositionConnection(connection);
         GameContent.getChildren().add(line);
@@ -354,12 +401,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
     public void Select(FieldImage image){
         selected = image;
         PositionSelectedCircle();
+        infoPanel.setVisible(true);
     }
 
     public void Deselect(FieldImage f){
         if(f == selected) {
             selected = null;
             GameContent.getChildren().remove(selectedCircle);
+            infoPanel.setVisible(false);
         }
     }
 
@@ -432,6 +481,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
         else {
             PositionSelectedCircle();
+            PositionMovableCircles();
             for (Connection c : connections) {
                 PositionConnection(c);
             }
