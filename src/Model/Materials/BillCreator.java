@@ -57,6 +57,32 @@ public class BillCreator {
         return bill;
     }
 
+    public int Search(ArrayList<Material> inventory,Material Comparator){
+        int Count=0;
+        for(Material it : inventory){
+            if(Comparator.isSameType(it)){
+                if(Count==1) {
+                    Count++;
+                    return it.GetUID();
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int SearchCoal(ArrayList<Material> inventory){
+       return Search(inventory,new Coal(new Map()));
+    }
+    public int SearchIron(ArrayList<Material> inventory){
+        return Search(inventory,new Iron(new Map()));
+    }
+    public int SearchIce(ArrayList<Material> inventory){
+        return Search(inventory,new Ice(new Map()));
+    }
+    public int SearchUranium(ArrayList<Material> inventory){
+        return Search(inventory,new Uranium(new Map()));
+    }
+
     /**
      * Prepares a BillOfMaterial for a base foundation.
      * @param inventory The list of materials where we search for the needed ones.

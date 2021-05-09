@@ -1,5 +1,7 @@
 package UI.Layout.Game.PutBackSidePanel;
-
+import Model.Map;
+import Model.Materials.BillCreator;
+import Model.Materials.Coal;
 import UI.Components.SelectHandler;
 import UI.Layout.Game.GameUIController;
 import javafx.fxml.FXML;
@@ -31,17 +33,39 @@ public class PutBackSidePanelController {
     }
 
     @FXML
-    public void Coal(){ System.out.println("Coal"); }
+    public void Coal(){
+        BillCreator bc=BillCreator.GetInstance();
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchCoal(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void Iron(){
-        System.out.println("Iron");
+        BillCreator bc=BillCreator.GetInstance();
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchIron(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void Ice(){
-        System.out.println("Ice");
+        BillCreator bc=BillCreator.GetInstance();
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchIce(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
-    public void Uran(){ System.out.println("Uranium"); }
+    public void Uran(){  BillCreator bc=BillCreator.GetInstance();
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchUranium(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } }
     @FXML
     public void Cancel(){
         gameUIController.SwitchToActionSidePanel();
