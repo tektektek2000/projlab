@@ -76,6 +76,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     @FXML
     VBox NotificationVBox;
     public Timeline timeline;
+    CurrentAsteroidSidePanelController currentAsteroidSidePanelController;
 
     public GameUIController(GameController gc, Stage s){
         gameController = gc;
@@ -207,7 +208,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     public void SwitchToFieldInfo(){
         InfoWrapper.getChildren().clear();
-        CurrentAsteroidSidePanelController currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
+        currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(currentAsteroidSidePanelController);
         fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/CurrentAsteroidSidePanel/CurrentAsteroidSidePanel.fxml"));
@@ -408,6 +409,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     public void Select(FieldImage image){
         selected = image;
         PositionSelectedCircle();
+        currentAsteroidSidePanelController.Show(image);
         infoPanel.setVisible(true);
     }
 
@@ -429,9 +431,14 @@ public class GameUIController implements EventHandler<KeyEvent> {
             String l = NotificationManager.getError();
             while(l != null){
                 Label error = new Label(l);
+                error.setPrefWidth(12 * l.length());
+                error.setMinWidth(error.getPrefWidth());
+                error.setMaxWidth(error.getPrefWidth());
+                error.setMinHeight(error.getPrefHeight());
+                error.setMaxHeight(error.getPrefHeight());;
                 error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
-                error.getStyleClass().add("msg");
-                NotificationVBox.getChildren().add(error);
+                error.getStyleClass().add("error");
+                new Notification(error,NotificationVBox,4000.0,5000.0,Color.RED);
                 l = NotificationManager.getError();
             }
         }
@@ -446,7 +453,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 msg.setMaxHeight(msg.getPrefHeight());;
                 msg.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
                 msg.getStyleClass().add("msg");
-                NotificationVBox.getChildren().add(msg);
+                new Notification(msg,NotificationVBox,4000.0,5000.0,Color.AQUA);
                 l = NotificationManager.getMessage();
             }
         }

@@ -22,4 +22,6 @@ public class MagicConstants {
     public static final double MaxGeneratedDistance = 1.2;
 
     public static final double SunDiameter = 200;
+
+    public static final double CoreInfoImageSize = 40;
 }
