@@ -34,6 +34,11 @@ public class NotificationManager {
      * True, if the last command ran successful, false if not.
      */
     static boolean LastCommandSuccess = true;
+
+    public static boolean isGameOver() {
+        return GameOver;
+    }
+
     /**
      * True, if the game is over, false if not.
      */
@@ -71,7 +76,7 @@ public class NotificationManager {
     }
     /**
      * Adds an error to the list.
-     * @param m The error we want to add.
+     * @param a The error we want to add.
      */
     public static void AddError(String m){
         errors.add(m);
