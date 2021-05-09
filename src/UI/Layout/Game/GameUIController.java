@@ -464,7 +464,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
             System.out.println("Deselect");
             if((!InFrontOfField(f)) || Force){
                 selected = null;
-                GameContent.getChildren().remove(selectedCircle);
+                if(!invalidState)
+                    GameContent.getChildren().remove(selectedCircle);
                 infoPanel.setVisible(false);
                 InfoWrapper.setVisible(false);
                 SelectStuck = false;

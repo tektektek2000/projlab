@@ -1,16 +1,19 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.MapBuilder;
 import Controllers.NotificationManager;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
+import UI.Components.MagicConstants;
 import Utils.LinkerException;
 import Utils.StringPair;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * It bases from the Ship class. Represents the player's ship in the game.
@@ -219,12 +222,23 @@ public class PlayerShip extends Ship {
      */
     public void PutDown(TeleportGate t){
         // Checks whether is player ship has teleport.
+        Random r = new Random();
         if(teleports.size()>0){
             Remove(t);
             t.AddNeighbour(asteroid);
             t.SetSector(asteroid.sector);
             asteroid.sector.Add(t);
             asteroid.AddNeighbour(t);
+            ArrayList<Field> AllFields = new ArrayList<>();
+            for(Sector s : asteroid.getSector().getMap().getSectors()){
+                AllFields.addAll(s.getFields());
+            }
+            do{
+                double alfa = r.nextDouble() * 2.0 * Math.PI;
+                double dist = r.nextDouble() * (MagicConstants.neighbourMaxDistance-MagicConstants.asteroidTooClose) + MagicConstants.asteroidTooClose;
+                t.setX(Math.cos(alfa)*dist);
+                t.setY(Math.sin(alfa)*dist);
+            }while(MapBuilder.tooClose(AllFields,t) || MapBuilder.tooCloseToSun(t));
             NotificationManager.AddMessage("Player" + GetUID() + " successfully put Teleport" + t.GetUID() + " down.");
         }
     }

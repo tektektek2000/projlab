@@ -105,7 +105,9 @@ public class MapBuilder {
         // creating asteroids and adding to sectors
         Random r = new Random();
         for (int i = 0; i < MagicConstants.asteroidNumber; i++){
-            Asteroid a = genRndAsteroid(GC, asteroids, r);
+            ArrayList<Field> idc = new ArrayList<>();
+            idc.addAll(asteroids);
+            Asteroid a = genRndAsteroid(GC, idc, r);
             System.out.println(a.getX()+" "+a.getY());
             asteroids.add(a);
         }
@@ -183,21 +185,21 @@ public class MapBuilder {
     }
 
 
-    boolean tooClose(ArrayList<Asteroid> asteroids, Asteroid a){
-        for(Asteroid a2: asteroids)
+    public static boolean tooClose(ArrayList<Field> asteroids, Field a){
+        for(Field a2: asteroids)
             if(closeEnough(a,a2,MagicConstants.asteroidTooClose))
                 return true;
 
         return false;
     }
 
-    boolean tooCloseToSun(Asteroid a){
+    public static boolean tooCloseToSun(Field a){
         if(closeEnough(a,0,0,MagicConstants.sunTooClose))
             return true;
         return false;
     }
 
-    private Asteroid genRndAsteroid(GameController GC, ArrayList<Asteroid> asteroids, Random r) {
+    private Asteroid genRndAsteroid(GameController GC, ArrayList<Field> asteroids, Random r) {
         Asteroid a = new Asteroid(map.GetNewUID(), null, genRndMaterial(GC) , random.nextInt(6)+4);
         do{
             double alfa = r.nextDouble() * 2.0 * Math.PI;
@@ -257,15 +259,15 @@ public class MapBuilder {
         return new Point(x,y);
     }
 
-    public double distance(Asteroid a1, Asteroid a2){
+    public static double distance(Field a1, Field a2){
         return Math.sqrt(Math.pow(a1.getX()-a2.getX(),2) + Math.pow(a1.getY()-a2.getY(),2));
     }
 
-    public double distance(Asteroid a1, double x, double y){
+    public static double distance(Field a1, double x, double y){
         return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
     }
 
-    private boolean closeEnough(Asteroid a1, Asteroid a2, double maxDistance){
+    private static boolean closeEnough(Field a1, Field a2, double maxDistance){
         if(a1 == a2){
             return false;
         }
@@ -274,7 +276,7 @@ public class MapBuilder {
         return d <= maxDistance;
     }
 
-    private boolean closeEnough(Asteroid a1, double x, double y, double maxDistance){
+    private static boolean closeEnough(Field a1, double x, double y, double maxDistance){
         double d = distance(a1, x, y);
         //System.out.println(d);
         return d <= maxDistance;

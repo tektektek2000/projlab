@@ -32,6 +32,10 @@ public class Sector extends Saveable{
         map = m;
     }
 
+    public Map getMap(){
+        return map;
+    }
+
     /**
      * Links the objects attributes with their "value"
      * @param args The pairs we want to match.

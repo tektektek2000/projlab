@@ -79,10 +79,7 @@ public class BillCreator {
         int Count=0;
         for(Material it : inventory){
             if(Comparator.isSameType(it)){
-                if(Count==1) {
-                    Count++;
-                    return it.GetUID();
-                }
+                return it.GetUID();
             }
         }
         return -1;

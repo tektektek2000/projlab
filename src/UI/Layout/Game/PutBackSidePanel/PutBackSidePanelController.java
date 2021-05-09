@@ -62,7 +62,7 @@ public class PutBackSidePanelController {
     @FXML
     public void Uran(){  BillCreator bc=BillCreator.GetInstance();
         try {
-            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back" + bc.SearchUranium(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_back " + bc.SearchUranium(gameUIController.getGameController().getCurrentPlayer().getMaterials()));
         } catch (Exception e) {
             e.printStackTrace();
         } }

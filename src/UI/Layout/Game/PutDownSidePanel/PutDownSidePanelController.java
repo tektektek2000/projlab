@@ -10,27 +10,35 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 
 public class PutDownSidePanelController {
-        GameUIController gameUIController;
-        @FXML
-        Button Teleport1Button;
-        @FXML
-        Button Teleport2Button;
-        @FXML
-        Button Teleport3Button;
-        @FXML
-        Button CancelButton;
+    GameUIController gameUIController;
+    @FXML
+    Button Teleport1Button;
+    @FXML
+    Button Teleport2Button;
+    @FXML
+    Button Teleport3Button;
+    @FXML
+    Button CancelButton;
 
-        public PutDownSidePanelController(GameUIController GUIC) {
+    public PutDownSidePanelController(GameUIController GUIC) {
             gameUIController = GUIC;
         }
 
-        public void Init() {
-            new SelectHandler(Teleport1Button);
-            new SelectHandler(Teleport2Button);
-            new SelectHandler(Teleport3Button);
-            new SelectHandler(CancelButton);
+    public void Init() {
+        new SelectHandler(Teleport1Button);
+        new SelectHandler(Teleport2Button);
+        new SelectHandler(Teleport3Button);
+        new SelectHandler(CancelButton);
+    }
+
+    @FXML
+    public void Teleport1(){
+        try {
+            gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " put_down88888888888888888888888888888888 " + gameUIController.getGameController().getCurrentPlayer().getTeleports().get(0).GetUID());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    public void Teleport1(){ System.out.println("Teleport1"); }
+    }
     @FXML
     public void Teleport2(){ System.out.println("Teleport2"); }
     @FXML
