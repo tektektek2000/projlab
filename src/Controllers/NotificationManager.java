@@ -17,6 +17,10 @@ public class NotificationManager {
      */
     static ArrayList<String> errors = new ArrayList<>();
     /**
+     * List of warnings.
+     */
+    static ArrayList<String> warnings = new ArrayList<>();
+    /**
      * True, if the last command ran successful, false if not.
      */
     static boolean LastCommandSuccess = true;
@@ -73,6 +77,28 @@ public class NotificationManager {
             ret = errors.get(0);
         if(ret != null){
             errors.remove(ret);
+        }
+        return ret;
+    }
+
+    /**
+     * Adds an error to the list.
+     * @param m The error we want to add.
+     */
+    public static void AddWarning(String m){
+        warnings.add(m);
+    }
+
+    /**
+     * Gets a error and removes it from the list.
+     * @return The first error from the list.
+     */
+    public static String getWarning(){
+        String ret = null;
+        if(warnings.size() != 0)
+            ret = warnings.get(0);
+        if(ret != null){
+            warnings.remove(ret);
         }
         return ret;
     }

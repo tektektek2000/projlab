@@ -457,6 +457,19 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 l = NotificationManager.getMessage();
             }
         }
+        String l = NotificationManager.getWarning();
+        while(l != null){
+            Label error = new Label(l);
+            error.setPrefWidth(12 * l.length());
+            error.setMinWidth(error.getPrefWidth());
+            error.setMaxWidth(error.getPrefWidth());
+            error.setMinHeight(error.getPrefHeight());
+            error.setMaxHeight(error.getPrefHeight());;
+            error.getStylesheets().add(this.getClass().getResource("game.css").toExternalForm());
+            error.getStyleClass().add("warning");
+            new Notification(error,NotificationVBox,4000.0,5000.0,Color.YELLOW);
+            l = NotificationManager.getWarning();
+        }
     }
 
     public void Refresh(){

@@ -28,7 +28,9 @@ public class Notification {
                 ae -> Tick()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        msg.setTextFill(c);
         Target.getChildren().add(msg);
+        msg.setTextFill(c);
         parent.setVisible(true);
         original = c;
     }

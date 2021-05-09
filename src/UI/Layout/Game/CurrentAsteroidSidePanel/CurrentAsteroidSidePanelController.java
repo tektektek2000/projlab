@@ -31,23 +31,22 @@ public class CurrentAsteroidSidePanelController {
     }
 
     public void Show(FieldImage f){
-        if(shown != f.getField()) {
-            shown = f.getField();
-            InfoPanelVisitor ipv = new InfoPanelVisitor(shown);
-            if (ipv.isAsteroid) {
-                ShellField.setText(Integer.toString(ipv.Shell));
+        InfoPanelVisitor ipv = new InfoPanelVisitor(f.getField());
+        if (ipv.isAsteroid) {
+            ShellField.setText(Integer.toString(ipv.Shell));
+            CoreField.getChildren().clear();
+            if(ipv.Core != null) {
                 ImageVisitor iv = new ImageVisitor(ipv.Core);
                 ImageView MaterialImage = new ImageView(iv.getImage());
-                CoreField.getChildren().clear();
                 MaterialImage.setPreserveRatio(true);
                 MaterialImage.setFitHeight(MagicConstants.CoreInfoImageSize);
                 AnchorPane.setRightAnchor(MaterialImage, 30.0 + MaterialImage.getFitWidth());
-                AnchorPane.setTopAnchor(MaterialImage, (CoreField.getHeight()-MaterialImage.getFitHeight())/2);
+                AnchorPane.setTopAnchor(MaterialImage, (CoreField.getHeight() - MaterialImage.getFitHeight()) / 2);
                 CoreField.getChildren().add(MaterialImage);
-            } else {
-                CurrentAsteroidPanel.setVisible(false);
             }
         }
+        else
+            CurrentAsteroidPanel.setVisible(false);
     }
 
 }

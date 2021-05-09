@@ -62,7 +62,7 @@ public class Sun {
      */
     public void SunStorm(Sector s){
         System.out.println("ss");
-        NotificationManager.AddMessage("Sunstorm in Sector" + target.GetUID() + ".");
+        NotificationManager.AddWarning("Sunstorm in Sector" + target.GetUID() + ".");
         s.SunStorm();
         RoundsUntillStorm = new Random().nextInt(6)+4;
     }
@@ -77,6 +77,9 @@ public class Sun {
             ArrayList<Sector> sectors = map.getSectors();
             Random rand = new Random();
             target = sectors.get(rand.nextInt(sectors.size()));
+        }
+        else{
+            NotificationManager.AddWarning("Sunstorm will happen in Sector" + target.GetUID() + " in " + RoundsUntillStorm + "turns.");
         }
     }
 

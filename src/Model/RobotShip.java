@@ -73,6 +73,13 @@ public class RobotShip extends Ship {
     }
 
     @Override
+    public void Move(Field f){
+        Asteroid a = asteroid;
+        super.Move(f);
+        NotificationManager.AddMessage("Robot" + GetUID() + " moved to Asteroid" + asteroid.GetUID());
+    }
+
+    @Override
     public void accept(IVisitor v) {
         v.visit(this);
     }

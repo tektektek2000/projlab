@@ -30,3 +30,11 @@
     -fx-background: rgba(0, 0, 0, 0);
     -fx-text-fill: rgba(255,0,0,255)
 }
+
+.warning{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Courier New";
+    -fx-base: rgb(255, 255, 0);
+    -fx-background: rgba(0, 0, 0, 0);
+    -fx-text-fill: rgba(255,255,0,255)
+}

@@ -170,7 +170,7 @@ public class MapBuilder {
         */
 
         // creating players on random asteroid
-        for (int i = 0; i < MagicConstants.shipNumberMin+random.nextInt(MagicConstants.shipNumberMax); i++) {
+        for (int i = 0; i < 1; i++) {
             PlayerShip p = new PlayerShip(asteroids.get(random.nextInt(asteroids.size())));
             GC.ps.add(p);
         }
