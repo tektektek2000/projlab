@@ -43,6 +43,14 @@ public class FileController {
         return s.replaceAll(" ","");
     }
 
+
+    /**
+     * The file next line should start with the UID
+     * @param FScanner The file scanner
+     * @param map The map we are building
+     * @return With a new UID
+     * @throws BadFileFormat
+     */
     private int NextLineShouldBeUID(Scanner FScanner,Map map) throws BadFileFormat {
         String data = Trim(FScanner.nextLine());
         if(data.contains(":")){

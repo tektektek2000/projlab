@@ -339,10 +339,21 @@ public class Asteroid extends Field {
         }
     }
 
+    /**
+     * Distance between an Asteroid and coordinates
+     * @param a1 an Asteroid
+     * @param x coordinate x axle
+     * @param y coordinate y axle
+     * @return with a double what is the distance between the coordinates
+     */
     public double distance(Asteroid a1, double x, double y){
         return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
     }
 
+    /**
+     * The method which handles if the Asteroid is close to the Sun
+     * @return true if close, false if not
+     */
     public boolean getSunClose(){
         if(distance(this,0.0,0.0)<0.6){
             return true;

@@ -72,6 +72,10 @@ public class RobotShip extends Ship {
         os.println("}");
     }
 
+    /**
+     * The move method for the RobotShip class.
+     * @param f The field where we want to move the ship.
+     */
     @Override
     public void Move(Field f){
         Asteroid a = asteroid;

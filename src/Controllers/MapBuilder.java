@@ -18,6 +18,12 @@ public class MapBuilder {
     // The map
     Map map;
 
+
+    /**
+     * Help for making graph
+     * @param a An asteroid
+     * @param graph An Asteroid arraylist
+     */
     private void DiscoverGraphHelper(Asteroid a,ArrayList<Asteroid> graph){
         graph.add(a);
         for(Field it :a.getNeighbours()){
@@ -27,12 +33,25 @@ public class MapBuilder {
         }
     }
 
+
+    /**
+     * Discovering the graph
+     * @param a An asteroid
+     * @return the Graph we discovered
+     */
     private ArrayList<Asteroid> DiscoverGraph(Asteroid a){
         ArrayList<Asteroid> Graph = new ArrayList<>();
         DiscoverGraphHelper(a,Graph);
         return Graph;
     }
 
+
+    /**
+     * Finding the best asteroid to make neighbours (links)
+     * @param graph1 an Asteroid Arraylist graph
+     * @param graph2 another Asteroid Arraylist graph
+     * @return with the best link what we found
+     */
     private Pair<Pair<Asteroid,Asteroid>,Double> FindBestLink(ArrayList<Asteroid> graph1, ArrayList<Asteroid> graph2){
         Pair<Pair<Asteroid,Asteroid>,Double> BestLink = new Pair<Pair<Asteroid,Asteroid>,Double>(new Pair<Asteroid,Asteroid>(graph1.get(0),graph2.get(0)),distance(graph1.get(0),graph2.get(0)));
         for(Asteroid a : graph1) {
@@ -45,6 +64,11 @@ public class MapBuilder {
         return BestLink;
     }
 
+
+    /**
+     * Makes the asteroids traversable
+     * @param asteroids An Asteroid Arraylist
+     */
     private void MakeGraphTraversable(ArrayList<Asteroid> asteroids){
         ArrayList<ArrayList<Asteroid>> Graphs = new ArrayList<>();
         do {
@@ -97,6 +121,8 @@ public class MapBuilder {
             PlayerShip p = new PlayerShip(map);
             GC.ps.add(p);
         }
+
+
 
         // creating sectors
         for (int i = 0; i < MagicConstants.sectorNumber; i++)
@@ -186,6 +212,12 @@ public class MapBuilder {
     }
 
 
+    /**
+     * Returns true if the fields are too close to each other
+     * @param asteroids A Field Arraylist what makes our map
+     * @param a a Field
+     * @return true if the field is too close for the asteroids, false if not
+     */
     public static boolean tooClose(ArrayList<Field> asteroids, Field a){
         for(Field a2: asteroids)
             if(closeEnough(a,a2,MagicConstants.asteroidTooClose))
@@ -194,12 +226,25 @@ public class MapBuilder {
         return false;
     }
 
+    /**
+     * Says if the field is too close for the Sun
+     * @param a a Field
+     * @return true if the field is too close for the Sun, false if not
+     */
     public static boolean tooCloseToSun(Field a){
         if(closeEnough(a,0,0,MagicConstants.sunTooClose))
             return true;
         return false;
     }
 
+
+    /**
+     * Generates random Asteroid
+     * @param GC the GameCOntroller
+     * @param asteroids a Field ArrayList
+     * @param r random number
+     * @return with an Asteroid we just generated
+     */
     private Asteroid genRndAsteroid(GameController GC, ArrayList<Field> asteroids, Random r) {
         Asteroid a = new Asteroid(map.GetNewUID(), null, genRndMaterial(GC) , random.nextInt(6)+4);
         do{
@@ -260,26 +305,53 @@ public class MapBuilder {
         return new Point(x,y);
     }
 
+    /**
+     * Distance between two Fields
+     * @param a1 a Field
+     * @param a2 another Field
+     * @return with a double what is the distance between the two fields
+     */
     public static double distance(Field a1, Field a2){
         return Math.sqrt(Math.pow(a1.getX()-a2.getX(),2) + Math.pow(a1.getY()-a2.getY(),2));
     }
 
+    /**
+     * Distance between a Field and coordinates
+     * @param a1 a Field
+     * @param x coordinate x axle
+     * @param y coordinate y axle
+     * @return with a double what is the distance between the  field and the coordinate
+     */
     public static double distance(Field a1, double x, double y){
         return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
     }
 
+
+    /**
+     * Helps to make neighbours when the fields are close enough for each other
+     * @param a1 a Field
+     * @param a2 another Field
+     * @param maxDistance double for the max distance
+     * @return true if the distance is equal or smaller than the maximum distance, false if not
+     */
     private static boolean closeEnough(Field a1, Field a2, double maxDistance){
         if(a1 == a2){
             return false;
         }
         double d = distance(a1, a2);
-        //System.out.println(d);
         return d <= maxDistance;
     }
 
+    /**
+     * Helps to make neighbours when a field and the coordinates are close enough for each other
+     * @param a1 a Field
+     * @param x coordinate x axle
+     * @param y coordinate y axle
+     * @param maxDistance double for the max distance
+     * @return true if the distance is equal or smaller than the maximum distance, false if not
+     */
     private static boolean closeEnough(Field a1, double x, double y, double maxDistance){
         double d = distance(a1, x, y);
-        //System.out.println(d);
         return d <= maxDistance;
     }
 
