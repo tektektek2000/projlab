@@ -41,15 +41,19 @@ public class NotificationManager {
      */
     static boolean LastCommandSuccess = true;
 
+    //Getter of GameOver
     public static boolean getGameOver() {
         return GameOver;
     }
+    //Getter of PlayerWon
     public static boolean getPlayersWon(){
         return PlayersWon;
     }
+    //Setter of GamOver
     public static void setGameOver(boolean GO){
         GameOver = GO;
     }
+    //Setter of PlayerWon
     public static void setPlayersWon(boolean PW){
         PlayersWon = PW;
     }
@@ -63,6 +67,9 @@ public class NotificationManager {
      * True, if the game is over, false if not.
      */
     static boolean GameOver = false;
+    /**
+     * True, if players are won, false if not
+     */
     static boolean PlayersWon = false;
 
     // Setter for LastCommandSuccess

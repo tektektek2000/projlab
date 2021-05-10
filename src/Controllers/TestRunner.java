@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class is responsible for running tests
+ */
 public class TestRunner {
     File TestDir;
     String Path;
@@ -28,6 +31,11 @@ public class TestRunner {
         System.out.println("Found " + files.length + " files of which " + DirNum + " are test directories.");
     }
 
+    /**
+     * @param Test the file where the commands are
+     * @param gc the GameController
+     * @throws Exception
+     */
     void Run(File Test,GameController gc) throws Exception {
         File cmd = new File(Test.getCanonicalPath() + "\\cmd.txt");
         Scanner FScanner = new Scanner(cmd);
@@ -38,6 +46,10 @@ public class TestRunner {
         }
     }
 
+    /**
+     * This method run all the tests we have
+     * @param gc
+     */
     public void RunAllTests(GameController gc){
         File[] files = TestDir.listFiles();
         String oldCurr = gc.CurrentWorkingDirectory;

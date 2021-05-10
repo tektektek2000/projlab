@@ -75,6 +75,12 @@ public class BillCreator {
         return bill;
     }
 
+    /**
+     * It's for searching an exact material in a player inventory
+     * @param inventory where we want to search
+     * @param Comparator what we search
+     * @return the UID of the searched material
+     */
     public int Search(ArrayList<Material> inventory,Material Comparator){
         int Count=0;
         for(Material it : inventory){
@@ -85,15 +91,38 @@ public class BillCreator {
         return -1;
     }
 
+    /**
+     * It's for searching coal in a player inventory
+     * @param inventory where we want to search coal
+     * @return
+     */
     public int SearchCoal(ArrayList<Material> inventory){
        return Search(inventory,new Coal(new Map()));
     }
+
+    /**
+     * It's for searching iron in a player inventory
+     * @param inventory where we want to search iron
+     * @return
+     */
     public int SearchIron(ArrayList<Material> inventory){
         return Search(inventory,new Iron(new Map()));
     }
+
+    /**
+     * It's for searching ice in a player inventory
+     * @param inventory where we want to search ice
+     * @return
+     */
     public int SearchIce(ArrayList<Material> inventory){
         return Search(inventory,new Ice(new Map()));
     }
+
+    /**
+     * It's for searching uranium in a player inventory
+     * @param inventory where we want to search uranium
+     * @return
+     */
     public int SearchUranium(ArrayList<Material> inventory){
         return Search(inventory,new Uranium(new Map()));
     }

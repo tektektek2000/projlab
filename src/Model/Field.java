@@ -33,18 +33,19 @@ public abstract class Field extends Saveable implements IVisitable{
     double y;
 
 
+    //Getter of the x coordinate
     public double getX(){
         return x;
     }
-
+    //Getter of the y coordinate
     public double getY(){
         return y;
     }
-
+    //Setter of the x coordinate
     public void setX(double X){
         x=X;
     }
-
+    //Setter of the y coordinate
     public void setY(double Y){
         y=Y;
     }

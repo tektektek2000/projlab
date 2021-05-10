@@ -722,6 +722,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             GameContent.getChildren().add(explosion.getImage());
             PositionExplosion(explosion);
         }
+
     }
 
     public void HandleExplosions(){

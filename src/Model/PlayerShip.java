@@ -179,6 +179,9 @@ public class PlayerShip extends Ship {
         }
     }
 
+    /**
+     * The player drill
+     */
     public void Drill(){
         NotificationManager.setLastCommandSuccess(true);
         if(asteroid.GetDrilled()){

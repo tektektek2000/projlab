@@ -62,6 +62,7 @@ public class GameController {
         controller = val;
     }
 
+    //getter of the map
     public Map getMap(){return map;}
 
     /**
