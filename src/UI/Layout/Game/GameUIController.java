@@ -811,11 +811,6 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
-    @FXML
-    public void Save(){
-
-    }
-
     private void NotificationRefresh(){
         String l = NotificationManager.getError();
         while(l != null){
@@ -907,6 +902,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     }
 
+    /**
+     * handles the explosions, deletes them if they are done.
+     */
     public void HandleExplosions(){
         ArrayList<Explosion> Delete = new ArrayList<>();
         for(Explosion e : explosions){
@@ -921,6 +919,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         explosions.removeAll(Delete);
     }
 
+    /**
+     * refreshes the games current state, moves the camera, draws the elements, calls handles
+     */
     public void Refresh(){
         NotificationRefresh();
         if(NotificationManager.getLastCommandSuccess()){
@@ -933,6 +934,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
             PaneHalf = GameContent.getWidth() / 2.0;
         else
             PaneHalf = GameContent.getHeight() / 2.0;
+
+        // camera moves / zooms
         for (String s : CameraShift) {
             if (s.equals("Left"))
                 camera.setX(camera.getX() - (CamShift / camera.getZoom()));
@@ -947,6 +950,8 @@ public class GameUIController implements EventHandler<KeyEvent> {
             else if (s.equals("Unzoom"))
                 camera.setZoom(camera.getZoom() / CamZoom);
         }
+
+        // if something called for invalidate, refreshes the elemnts
         if(invalidState) {
             sidePanelController.Refresh();
             System.out.println("Invalidated");
@@ -995,6 +1000,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 camera.setY(gameController.getCurrentPlayer().getAsteroid().getY());
             }
         }
+        // else, handles the changes
         else {
             HandleExplosions();
             PositionSelectedCircle();
@@ -1010,10 +1016,17 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * sets the invalidState's value to true, it invalidates
+     */
     public void Invalidate(){
         invalidState = true;
     }
 
+    /**
+     * handles the camera moving and zooming
+     * @param keyEvent the key event
+     */
     @Override
     public void handle(KeyEvent keyEvent) {
         if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
@@ -1066,6 +1079,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
             }
     }
 
+    /**
+     * cleans up the timeline and the eventhandler
+     */
     public void CleanUp(){
         Anchor.removeEventHandler(KeyEvent.KEY_PRESSED,this);
         Anchor.removeEventHandler(KeyEvent.KEY_RELEASED,this);
@@ -1074,6 +1090,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Anchor = null;
     }
 
+    /**
+     * deselects a panel, preventing glitches
+     */
     @FXML
     public void UnstuckSelect(){
         if(SelectStuck) {
