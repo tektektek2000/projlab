@@ -39,8 +39,10 @@ public class TeleportGate extends Field{
         WashHitByStorm = washHitByStorm;
     }
 
+    //getter for the Teleportgate hit by storm
     public boolean getWasHitByStorm(){return WashHitByStorm;}
 
+    //getter for the Teleportgate pair
     public TeleportGate getPair(){return pair;}
 
     /**
@@ -111,6 +113,9 @@ public class TeleportGate extends Field{
         }
     }
 
+    /**
+     * The method for the crazy Teleportgate reposition
+     */
     public void Reposition(){
         Random r = new Random();
         ArrayList<Field> AllFields = new ArrayList<>();
@@ -183,10 +188,18 @@ public class TeleportGate extends Field{
         os.println("}");
     }
 
+    /**
+     * The method for the distance between a teleportgate and coordinates
+     * @param a1 a Teleportgate
+     * @param x coordinate x axle
+     * @param y coordinate y axle
+     * @return double distance between the teleportgate and the coordinates
+     */
     public double distance(TeleportGate a1, double x, double y){
         return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
     }
 
+   //Teleportgate is close to the SUn or not
     public boolean getSunClose(){
         if(distance(this,0.0,0.0)<0.6){
             return true;

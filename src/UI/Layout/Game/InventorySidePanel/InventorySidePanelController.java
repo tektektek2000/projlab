@@ -8,17 +8,37 @@ import javafx.scene.control.Label;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+/**
+ * The Inventory Side Panel Controller class
+ */
 public class InventorySidePanelController {
+    /**
+     * The control of the game UI
+     */
     GameUIController gameUIController;
+    /**
+     * Label for Coal Number
+     */
     @FXML
     Label CoalNumb;
+    /**
+     *Label for Iron Number
+     */
     @FXML
     Label IronNumb;
+    /**
+     * Label for Ice Number
+     */
     @FXML
     Label IceNumb;
+    /**
+     * Label for Uranium Number
+     */
     @FXML
     Label UranNumb;
+    /**
+     * Label for Teleportgate Number
+     */
     @FXML
     Label PortalNumb;
 
@@ -26,10 +46,16 @@ public class InventorySidePanelController {
         gameUIController = GUIC;
     }
 
+    /**
+     * Initialization for the panel
+     */
     public void Init(){
         Refresh();
     }
 
+    /**
+     *Refreshes the Inventory Side Panel if the player mined, or crafted something
+     */
     public void Refresh() {
         ArrayList<Material> inv = gameUIController.getGameController().getCurrentPlayer().getMaterials();
         BillCreator bc = BillCreator.GetInstance();

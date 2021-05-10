@@ -11,15 +11,32 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 
 import java.util.ArrayList;
-
+/**
+ * The Put Down Side Panel Controller class
+ */
 public class PutDownSidePanelController implements ISidePanelController {
+    /**
+     * The control of the game UI
+     */
     GameUIController gameUIController;
+    /**
+     * Button for putting down Teleport1
+     */
     @FXML
     Button Teleport1Button;
+    /**
+     * Button for putting down Teleport2
+     */
     @FXML
     Button Teleport2Button;
+    /**
+     * Button for putting down Teleport3
+     */
     @FXML
     Button Teleport3Button;
+    /**
+     * Cancel button
+     */
     @FXML
     Button CancelButton;
 
@@ -27,6 +44,9 @@ public class PutDownSidePanelController implements ISidePanelController {
             gameUIController = GUIC;
         }
 
+    /**
+     * Initialization for the Options Side Panel
+     */
     public void Init() {
         new SelectHandler(Teleport1Button);
         new SelectHandler(Teleport2Button);
@@ -44,7 +64,9 @@ public class PutDownSidePanelController implements ISidePanelController {
     }
 
 
-
+    /**
+     * Generates the command for the teleportgate1
+     */
     @FXML
     public void Teleport1(){
         try {
@@ -59,6 +81,10 @@ public class PutDownSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Generates the command for the teleportgate2
+     */
     @FXML
     public void Teleport2(){
         try {
@@ -72,6 +98,10 @@ public class PutDownSidePanelController implements ISidePanelController {
         e.printStackTrace();
         }
     }
+
+    /**
+     * Generates the command for the teleportgate3
+     */
     @FXML
     public void Teleport3(){
         try {
@@ -85,11 +115,18 @@ public class PutDownSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * The method for cancel the current panel, switch to the Action Side Panel
+     */
     @FXML
     public void Cancel() {
         gameUIController.SwitchToActionSidePanel();
     }
 
+    /**
+     * Refreshes the Put Down Side Panel if the player puts down a teleportgate
+     */
     @Override
     public void Refresh() {
         PlayerShip curr = gameUIController.getGameController().getCurrentPlayer();

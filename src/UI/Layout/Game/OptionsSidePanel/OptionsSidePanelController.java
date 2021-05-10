@@ -14,18 +14,41 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import static java.lang.System.exit;
 
-
+/**
+ * The Options Side Panel Controller class
+ */
 public class OptionsSidePanelController {
 
+    /**
+     * The control of the game UI
+     */
     GameUIController gameUIController;
+    /**
+     * Stage for the controller
+     */
     Stage stage;
+    /**
+     * Anchor Pane
+     */
     AnchorPane Anchor;
+    /**
+     * Represents the Save button on the panel
+     */
     @FXML
     Button SaveButton;
+    /**
+     * Represents the Menu button on the panel
+     */
     @FXML
     Button MenuButton;
+    /**
+     * Represents the Exit button on the panel
+     */
     @FXML
     Button ExitButton;
+    /**
+     * Represents the Cancel button on the panel
+     */
     @FXML
     Button CancelButton;
 
@@ -38,6 +61,9 @@ public class OptionsSidePanelController {
         Anchor = a;
     }
 
+    /**
+     *  Initialization for the Options Side Panel
+     */
     public void Init(){
         new SelectHandler(SaveButton);
         new SelectHandler(MenuButton);
@@ -45,6 +71,9 @@ public class OptionsSidePanelController {
         new SelectHandler(CancelButton);
     }
 
+    /**
+     * The method for saving the game
+     */
     @FXML
     public void Save(){
         try {
@@ -54,6 +83,10 @@ public class OptionsSidePanelController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * The method for the Main Menu
+     */
     @FXML
     public void Menu(){
         gameUIController.CleanUp();
@@ -73,10 +106,18 @@ public class OptionsSidePanelController {
         stage.setFullScreen(MagicConstants.FullScreen);
         mainMenuController.Init();
     }
+
+    /**
+     * The method for exit the game, closes the window
+     */
     @FXML
     public void Exit(){
         stage.close();
     }
+
+    /**
+     * The method for cancel the current panel, switch to the Action Side Panel
+     */
     @FXML
     public void Cancel(){ gameUIController.SwitchToActionSidePanel(); }
 }

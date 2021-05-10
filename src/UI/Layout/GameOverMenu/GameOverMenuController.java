@@ -12,13 +12,27 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * The Game Over Menu Controller class
+ */
 public class GameOverMenuController {
+    /**
+     * Stage for the controller
+     */
     public Stage stage;
+    /**
+     * Anchor Pane
+     */
     @FXML
     AnchorPane Anchor;
+    /**
+     * Button for restarting the game
+     */
     @FXML
     Button Restart_button;
+    /**
+     * Button for exit the game
+     */
     @FXML
     Button Exit_button;
 
@@ -26,6 +40,10 @@ public class GameOverMenuController {
         stage = s;
     }
 
+    /**
+     * Shows the game over pane
+     * @param a an Anchor Pane
+     */
     public void setAnchor(AnchorPane a){
         Anchor = a;
         Anchor.getStylesheets().clear();
@@ -34,11 +52,17 @@ public class GameOverMenuController {
         Anchor.getStyleClass().add("anchor");
     }
 
+    /**
+     * Initialization for the Game Over Menu
+     */
     public void Init(){
         new SelectHandler(Restart_button);
         new SelectHandler(Exit_button);
     }
 
+    /**
+     * Restarts the game with the same options
+     */
     @FXML
     public void Restart(){
         MainMenuController mainMenuController = new MainMenuController(stage);
@@ -57,6 +81,10 @@ public class GameOverMenuController {
         stage.setFullScreen(MagicConstants.FullScreen);
         mainMenuController.Init();
     }
+
+    /**
+     * The method for exit the game, closes the window
+     */
     @FXML
     public void Exit(){
         stage.close();

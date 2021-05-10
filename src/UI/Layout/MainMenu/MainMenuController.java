@@ -11,15 +11,33 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * The Main Menu Controller class
+ */
 public class MainMenuController {
+
+    /**
+     *  Stage for the controller
+     */
     public Stage stage;
+    /**
+     * Anchor Pane
+     */
     @FXML
     AnchorPane Anchor;
+    /**
+     * Button for starting the game
+     */
     @FXML
     Button Start_button;
+    /**
+     * Button for loading a game
+     */
     @FXML
     Button Load_button;
+    /**
+     * Button for exit the game
+     */
     @FXML
     Button Exit_button;
 
@@ -35,11 +53,18 @@ public class MainMenuController {
         Anchor.getStyleClass().add("anchor");
     }
 
+    /**
+     * Initialization for the Main Menu
+     */
     public void Init(){
         new SelectHandler(Start_button);
         new SelectHandler(Load_button);
         new SelectHandler(Exit_button);
     }
+
+    /**
+     * Starts the game
+     */
     @FXML
     public void Start(){
         StartMenuController startMenuController = new StartMenuController(stage);
@@ -59,6 +84,10 @@ public class MainMenuController {
         CleanUp();
         startMenuController.Init();
     }
+
+    /**
+     * Loads the game from saved txt
+     */
     @FXML
     public void Load(){
         LoadMenuController loadMenuController = new LoadMenuController(stage);
@@ -78,11 +107,18 @@ public class MainMenuController {
         CleanUp();
         loadMenuController.Init();
     }
+
+    /**
+     * The method for exit the game, closes the window
+     */
     @FXML
     public void Exit(){
        stage.close();
     }
 
+    /**
+     * Cleans up the menu
+     */
     public void CleanUp(){
         Anchor = null;
         Start_button = null;
