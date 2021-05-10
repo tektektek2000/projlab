@@ -776,6 +776,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
     /**
+     * It returns if we are inside of the info wrapper
      * @param x
      * @param y
      * @return
@@ -785,6 +786,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 && (InfoWrapper.getLayoutY() <= y && y <= InfoWrapper.getLayoutY() + InfoWrapper.getHeight());
     }
 
+    /**
+     * @param f
+     * @return
+     */
     private boolean InFrontOfField(FieldImage f){
         return Inside(f.getLayoutX(),f.getLayoutY())
                 || Inside(f.getLayoutX() + f.getFitWidth(),f.getLayoutY())
@@ -792,6 +797,13 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 || Inside(f.getLayoutX(),f.getLayoutY() + f.getFitHeight());
     }
 
+    /**
+     * Changes the field's background if the mouse is on it
+     * @param f
+     * @param Force
+     * @param x
+     * @param y
+     */
     public void Deselect(FieldImage f, boolean Force, double x ,double y){
         if(f == selected) {
             if((!InFrontOfField(f)) || Force){
@@ -811,6 +823,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * Refreshes the notification pane with the new messages
+     */
     private void NotificationRefresh(){
         String l = NotificationManager.getError();
         while(l != null){
