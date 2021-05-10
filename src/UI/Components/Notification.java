@@ -8,15 +8,47 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
+/**
+ * represents the in-game notifications
+ */
 public class Notification {
+    /**
+     * a customized label with an error message
+     */
     private Label msg;
+    /**
+     * the VBox, where we want to print out the notification
+     */
     private VBox parent;
+    /**
+     * the time, when the notification starts to fade out
+     */
     private final double FadeStart;
+    /**
+     * the time, when the notification ends to fade out
+     */
     private final double FadeEnd;
+    /**
+     * the elapsed time
+     */
     private double TimePassed;
+    /**
+     * a timeline for the fading
+     */
     private Timeline timeline;
+    /**
+     * the color of the notification
+     */
     private Color original;
 
+    /**
+     * sets the values and starts the timeline
+     * @param Message the message
+     * @param Target the VBox, where we want to print out the notification
+     * @param fadeStart the time, when the notification ends to fade out
+     * @param fadeEnd the time, when the notification ends to fade out
+     * @param c the color of the notification
+     */
     public Notification(Label Message, VBox Target, double fadeStart, double fadeEnd, Color c){
         msg = Message;
         parent = Target;
@@ -35,6 +67,9 @@ public class Notification {
         original = c;
     }
 
+    /**
+     * the timeline ticks, creates the fading
+     */
     private void Tick(){
         TimePassed += 10.0;
         if(TimePassed > FadeStart && TimePassed < FadeEnd){

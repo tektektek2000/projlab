@@ -5,8 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * represents the ship's image
+ */
 public class ShipImage extends ImageView {
+    /**
+     * the ship
+     */
     Ship ship;
+    /**
+     * the size of the ship
+     */
     public double size;
 
     ShipImage(Ship s){
@@ -18,10 +27,12 @@ public class ShipImage extends ImageView {
         size = MagicConstants.ShipSize;
         this.setPreserveRatio(true);
         ship = s;
-
-        //TODO
     }
 
+    /**
+     * getter for the ship
+     * @return the ship
+     */
     public Ship getShip(){
         return ship;
     }

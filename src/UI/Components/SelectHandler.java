@@ -4,10 +4,16 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-
+/**
+ * class for handling if the player selected a button or pressed it
+ */
 public class SelectHandler implements EventHandler<MouseEvent> {
     Button button;
 
+    /**
+     * the button's border is transparent by default
+     * @param b
+     */
     public SelectHandler(Button b){
         button = b;
         b.getStylesheets().add(this.getClass().getResource("CustomButton.css").toExternalForm());
@@ -15,6 +21,10 @@ public class SelectHandler implements EventHandler<MouseEvent> {
         b.getStyleClass().add("transparent");
     }
 
+    /**
+     * handles if the player move the cursor above a button and clicks on it
+     * @param mouseEvent the mouse event
+     */
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_ENTERED){

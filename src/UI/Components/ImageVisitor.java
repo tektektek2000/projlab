@@ -13,28 +13,97 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * visitor class for setting the right images
+ */
 public class ImageVisitor implements IVisitor {
+    /**
+     * the image
+     */
     Image image = null;
+    /**
+     * the path where the image is
+     */
     String filePath;
+    /**
+     * the ships on the field
+     */
     ArrayList<Ship> ships = null;
+    /**
+     * the base on the field
+     */
     Base base = null;
+    /**
+     * the pair of the teleport
+     */
     TeleportGate pair = null;
+    /**
+     * the image of the asteroid
+     */
     static Image AsteroidImage = null;
+    /**
+     * the image of the active teleport
+     */
     static Image ActiveTeleportImage = null;
+    /**
+     * the image of the crazy teleport
+     */
     static Image InsaneTeleportImage = null;
+    /**
+     * the image of the inactive teleport
+     */
     static Image InactiveTeleportImage = null;
+    /**
+     * the image of the first player
+     */
     static Image Player1 = null;
+    /**
+     * the image of the second player
+     */
     static Image Player2 = null;
+    /**
+     * the image of the third player
+     */
     static Image Player3 = null;
+    /**
+     * the image of the forth player
+     */
     static Image Player4 = null;
+    /**
+     * the image of the fifth player
+     */
     static Image Player5 = null;
+    /**
+     * the image of the robot
+     */
     static Image Robot = null;
+    /**
+     * the image of the UFO
+     */
     static Image UFO = null;
+    /**
+     * the image of the uranium
+     */
     static Image Uranium = null;
+    /**
+     * the image of the iron
+     */
     static Image Iron = null;
+    /**
+     * the image of the ice
+     */
     static Image Ice = null;
+    /**
+     * the image of the coal
+     */
     static Image Coal = null;
+    /**
+     * the image of the base foundation
+     */
     static Image BaseFoundation = null;
+    /**
+     * the image of the completed base
+     */
     static Image BaseComplete = null;
 
     public ImageVisitor(IVisitable v){
@@ -43,15 +112,36 @@ public class ImageVisitor implements IVisitor {
         v.accept(this);
     }
 
+    /**
+     * getter for image
+     * @return the current image
+     */
     public Image getImage(){
         return image;
     }
+
+    /**
+     * getter for ships
+     * @return the ships
+     */
     public ArrayList<Ship> getShips(){return ships;}
 
+    /**
+     * getter for base
+     * @return the base
+     */
     public Base getBase(){return base;}
 
+    /**
+     * getter for pair
+     * @return the pair of the field (teleport)
+     */
     public TeleportGate getPair(){return pair;}
 
+    /**
+     * visit method for the teleport, it selects which image should be loaded
+     * @param tg the teleport
+     */
     @Override
     public void visit(TeleportGate tg){
         if(tg.getWasHitByStorm()){
@@ -94,6 +184,10 @@ public class ImageVisitor implements IVisitor {
         pair = tg.getPair();
     }
 
+    /**
+     * visit method for the asteroid, loads the image of the asteroid and sets it's base and ships
+     * @param a the asteroid
+     */
     @Override
     public void visit(Asteroid a) {
         if(AsteroidImage == null) {
@@ -110,6 +204,10 @@ public class ImageVisitor implements IVisitor {
         base = a.GetBase();
     }
 
+    /**
+     * visit method fot the player, it selects which image should be loaded
+     * @param p the player
+     */
     @Override
     public void visit(PlayerShip p) {
         switch (p.GetUID() % 5 + 1){
@@ -176,6 +274,10 @@ public class ImageVisitor implements IVisitor {
         }
     }
 
+    /**
+     * visit method for the robot, loads the image of the robot
+     * @param r
+     */
     @Override
     public void visit(RobotShip r) {
         if(Robot == null){
@@ -190,6 +292,10 @@ public class ImageVisitor implements IVisitor {
         image = Robot;
     }
 
+    /**
+     * visit method for the UFO, loads the image of the UFO
+     * @param u the UFO
+     */
     @Override
     public void visit(UFO u) {
         if(UFO == null){
@@ -204,6 +310,10 @@ public class ImageVisitor implements IVisitor {
         image = UFO;
     }
 
+    /**
+     * visit method for the uranium, loads the image of the uranium
+     * @param u the uranium
+     */
     @Override
     public void visit(Uranium u) {
         if(Uranium == null){
@@ -218,6 +328,10 @@ public class ImageVisitor implements IVisitor {
         image = Uranium;
     }
 
+    /**
+     * visit method for the iron, loads the image of the iron
+     * @param i the iron
+     */
     @Override
     public void visit(Iron i) {
         if(Iron == null){
@@ -232,6 +346,10 @@ public class ImageVisitor implements IVisitor {
         image = Iron;
     }
 
+    /**
+     * visit method for the ice, loads the image of the ice
+     * @param i the
+     */
     @Override
     public void visit(Ice i) {
         if(Ice == null){
@@ -246,8 +364,12 @@ public class ImageVisitor implements IVisitor {
         image = Ice;
     }
 
+    /**
+     * visit method for the coal, loads the image of the coal
+     * @param c the coal
+     */
     @Override
-    public void visit(Coal tg) {
+    public void visit(Coal c) {
         if(Coal == null){
             try{
                 filePath += "Coal.png";
@@ -260,6 +382,10 @@ public class ImageVisitor implements IVisitor {
         image = Coal;
     }
 
+    /**
+     * visit method for the base, loads the image of the base
+     * @param b the
+     */
     @Override
     public void visit(Base b) {
         if(b.CheckComplete()){
