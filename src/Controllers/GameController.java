@@ -315,6 +315,10 @@ public class GameController {
             tgs.add(gate);
             NotificationManager.AddNewTeleport(gate); //Pushing it back so the UI can see it as well.
         }
+        RobotShip r = NotificationManager.getNewRobot();
+        if(r != null){
+            rs.add(r);
+        }
         if(current.getAsteroid()==null)
             ps.remove(current);
     }
@@ -468,22 +472,26 @@ public class GameController {
         Sun.GetInstance().TurnOver();
         AIController ai = new AIController();
         if(controller) {
+            ArrayList<RobotShip> rDel = new ArrayList<>();
             for (RobotShip r : rs) {
                 if (r.getAsteroid() == null)
-                    rs.remove(r);
+                    rDel.add(r);
                 else
                     ai.TakeTurn(r);
                 if (r.getAsteroid() == null)
-                    rs.remove(r);
+                    rDel.add(r);
             }
+            rs.removeAll(rDel);
+            ArrayList<UFO> uDel = new ArrayList<>();
             for (UFO u : ufos) {
                 if (u.getAsteroid() == null)
-                    rs.remove(u);
+                    uDel.add(u);
                 else
                     ai.TakeTurn(u);
                 if (u.getAsteroid() == null)
-                    rs.remove(u);
+                    uDel.add(u);
             }
+            ufos.removeAll(uDel);
             for (TeleportGate t : tgs) {
                 t.TurnOver();
             }

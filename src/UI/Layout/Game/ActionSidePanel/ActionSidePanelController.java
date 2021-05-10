@@ -103,7 +103,7 @@ public class ActionSidePanelController implements ISidePanelController {
                 DrillButton.setEffect(null);
             }
 
-            if(curr.getAsteroid().GetCore() == null){
+            if(curr.getAsteroid().GetCore() == null || curr.getAsteroid().GetShell() != 0){
                 MineButton.setEffect(new ColorAdjust(0, 1, 0, 0));
             } else{
                 MineButton.setEffect(null);

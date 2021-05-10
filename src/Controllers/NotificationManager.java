@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Asteroid;
 import Model.PlayerShip;
+import Model.RobotShip;
 import Model.TeleportGate;
 import Utils.Pair;
 
@@ -31,6 +32,10 @@ public class NotificationManager {
      * List of Recently exploded asteroids.
      */
     static ArrayList<TeleportGate> NewTeleports = new ArrayList<>();
+    /**
+     * List of Recently added Robots.
+     */
+    static ArrayList<RobotShip> NewRobots = new ArrayList<>();
     /**
      * True, if the last command ran successful, false if not.
      */
@@ -157,16 +162,16 @@ public class NotificationManager {
     }
 
     /**
-     * Adds an asteroid to the list.
-     * @param a The asteroid we want to add.
+     * Adds a Teleport to the list.
+     * @param a The teleport we want to add.
      */
     public static void AddNewTeleport(TeleportGate a){
         NewTeleports.add(a);
     }
 
     /**
-     * Gets an asteroid and removes it from the list.
-     * @return The first Asteroid from the list.
+     * Gets an teleport and removes it from the list.
+     * @return The first Teleport from the list.
      */
     public static TeleportGate getNewTeleport(){
         TeleportGate ret = null;
@@ -174,6 +179,28 @@ public class NotificationManager {
             ret = NewTeleports.get(0);
         if(ret != null){
             NewTeleports.remove(ret);
+        }
+        return ret;
+    }
+
+    /**
+     * Adds an robot to the list.
+     * @param a The robot we want to add.
+     */
+    public static void AddNewRobot(RobotShip a){
+        NewRobots.add(a);
+    }
+
+    /**
+     * Gets an robot and removes it from the list.
+     * @return The first robot from the list.
+     */
+    public static RobotShip getNewRobot(){
+        RobotShip ret = null;
+        if(NewRobots.size() != 0)
+            ret = NewRobots.get(0);
+        if(ret != null){
+            NewRobots.remove(ret);
         }
         return ret;
     }
