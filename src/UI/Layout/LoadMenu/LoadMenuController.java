@@ -17,21 +17,54 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The controller of the Load Menu
+ */
 public class LoadMenuController {
+    /**
+     * The stage of the game
+     */
     public Stage stage;
+    /**
+     * the saved files' name
+     */
     private ArrayList<String> saves = new ArrayList<>();
+    /**
+     * the saves files' path
+     */
     private String path = new File("").getAbsolutePath() + "\\saves";
+    /**
+     * the current save's index
+     */
     private int currentIndex = 0;
+    /**
+     * the base of the panel
+     */
     @FXML
     AnchorPane Anchor;
+    /**
+     * Saved file name
+     */
     @FXML
     Label Save_label;
+    /**
+     * Back button
+     */
     @FXML
     Button Back_button;
+    /**
+     * Load button
+     */
     @FXML
     Button Load_button;
+    /**
+     * Left arrow button
+     */
     @FXML
     Button Left_button;
+    /**
+     * Right arrow button
+     */
     @FXML
     Button Right_button;
 
@@ -43,6 +76,9 @@ public class LoadMenuController {
         Anchor = a;
     }
 
+    /**
+     * It's initialize the panel
+     */
     public void Init() {
         new SelectHandler(Back_button);
         new SelectHandler(Load_button);
@@ -63,6 +99,10 @@ public class LoadMenuController {
         }
         Save_label.setText(saves.get(currentIndex));
     }
+
+    /**
+     * It will bring you back to the Main Menu
+     */
     @FXML
     public void Back(){
         MainMenuController mainMenuController = new MainMenuController(stage);
@@ -82,6 +122,10 @@ public class LoadMenuController {
         Anchor = null;
         mainMenuController.Init();
     }
+
+    /**
+     * It will load the selected game
+     */
     @FXML
     public void Load() {
         GameController gc = new GameController();
@@ -107,12 +151,19 @@ public class LoadMenuController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * you can select which saved game will be played next
+     */
     @FXML
     public void Left(){
         if(currentIndex > 0) currentIndex --;
         else currentIndex = saves.size()-1;
         Save_label.setText(saves.get(currentIndex));
     }
+    /**
+     * you can select which saved game will be played next
+     */
     @FXML
     public void Right(){
         if(currentIndex < saves.size()-1) currentIndex ++;

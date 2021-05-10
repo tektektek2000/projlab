@@ -12,13 +12,27 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * The Won Menu Controller class
+ */
 public class WonMenuController {
+    /**
+     *  Stage for the controller
+     */
     public Stage stage;
+    /**
+     *Anchor Pane
+     */
     @FXML
     AnchorPane Anchor;
+    /**
+     * Button for restarting the game
+     */
     @FXML
     Button Restart_button;
+    /**
+     * Button for exit the game
+     */
     @FXML
     Button Exit_button;
 
@@ -34,11 +48,17 @@ public class WonMenuController {
         Anchor.getStyleClass().add("anchor");
     }
 
+    /**
+     *  Initialization for the Won Menu
+     */
     public void Init(){
         new SelectHandler(Restart_button);
         new SelectHandler(Exit_button);
     }
 
+    /**
+     * Restarts the game with the same options
+     */
     @FXML
     public void Restart(){
         MainMenuController mainMenuController = new MainMenuController(stage);
@@ -57,6 +77,10 @@ public class WonMenuController {
         stage.setFullScreen(MagicConstants.FullScreen);
         mainMenuController.Init();
     }
+
+    /**
+     * The method for exit the game, closes the window
+     */
     @FXML
     public void Exit(){
         stage.close();

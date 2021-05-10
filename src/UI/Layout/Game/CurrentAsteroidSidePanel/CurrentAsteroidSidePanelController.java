@@ -18,19 +18,42 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+/**
+ * The Current Asteroid Side Panel Controller class
+ */
 public class CurrentAsteroidSidePanelController {
+    /**
+     * The control of the game UI
+     */
     GameUIController gameUIController;
+    /**
+     * Label for the Panel's name
+     */
     @FXML
     Label NameLabel;
+    /**
+     * VBox for the buttons
+     */
     @FXML
     VBox CurrentAsteroidPanel;
+    /**
+     * TextField for the Shell Field
+     */
     @FXML
     TextField ShellField;
+    /**
+     * Anchor Pane for the Core Field
+     */
     @FXML
     AnchorPane CoreField;
+    /**
+     * TextField for the Sector Field
+     */
     @FXML
     TextField SectorField;
+    /**
+     * Anchor Pane for the Close Field
+     */
     @FXML
     AnchorPane CloseField;
     static Image X = null;
@@ -44,6 +67,10 @@ public class CurrentAsteroidSidePanelController {
 
     }
 
+    /**
+     * Shows the Current Asteroid panel with the datas of the asteroid
+     * @param f a FieldImage
+     */
     public void Show(FieldImage f){
         InfoPanelVisitor ipv = new InfoPanelVisitor(f.getField());
         if (ipv.isAsteroid) {
@@ -101,6 +128,9 @@ public class CurrentAsteroidSidePanelController {
             CurrentAsteroidPanel.setVisible(false);
     }
 
+    /**
+     * Cleans up the panel
+     */
     public void CleanUp(){
         gameUIController = null;
         NameLabel = null;

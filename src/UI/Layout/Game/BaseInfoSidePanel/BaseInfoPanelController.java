@@ -7,17 +7,35 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
-
+/**
+ * The Base Info Panel Controller class
+ */
 public class BaseInfoPanelController {
+    /**
+     * Coal label
+     */
     @FXML
     Label Coal;
+    /**
+     * Iron label
+     */
     @FXML
     Label Iron;
+    /**
+     * Ice label
+     */
     @FXML
     Label Ice;
+    /**
+     * Uranium label
+     */
     @FXML
     Label Uranium;
 
+    /**
+     * Shows the Base panel with the Materials
+     * @param base we just built
+     */
     public void Show(Base base){
         ArrayList<Material> inv = base.getMaterials();
         BillCreator bc = BillCreator.GetInstance();

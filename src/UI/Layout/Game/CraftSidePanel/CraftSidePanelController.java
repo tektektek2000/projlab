@@ -8,16 +8,33 @@ import UI.Layout.Game.ISidePanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
-
+/**
+ * The Craft Side Panel Controller class
+ */
 public class CraftSidePanelController implements ISidePanelController {
 
+    /**
+     * The control of the game UI
+     */
         GameUIController gameUIController;
+    /**
+     * Represents the Robot button on the panel
+     */
         @FXML
         Button RobotButton;
+    /**
+     * Represents the Teleports button on the panel
+     */
         @FXML
         Button TeleportsButton;
+    /**
+     * Represents the Base button on the panel
+     */
         @FXML
         Button BaseButton;
+    /**
+     * Represents the Cancel button on the panel
+     */
         @FXML
         Button CancelButton;
 
@@ -25,6 +42,9 @@ public class CraftSidePanelController implements ISidePanelController {
         gameUIController = GUIC;
     }
 
+    /**
+     * Initialisation for the Craft Side Panel
+     */
     public void Init(){
         new SelectHandler(RobotButton);
         new SelectHandler(TeleportsButton);
@@ -33,6 +53,9 @@ public class CraftSidePanelController implements ISidePanelController {
         Refresh();
     }
 
+    /**
+     * Generates the command for the robot crafting
+     */
     @FXML
     public void Robot(){
         try {
@@ -43,6 +66,10 @@ public class CraftSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+
+    /**
+     *  Generates the command for the teleports crafting
+     */
     @FXML
     public void Teleports(){try {
         gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft teleports");
@@ -51,6 +78,10 @@ public class CraftSidePanelController implements ISidePanelController {
     } catch (Exception e) {
         e.printStackTrace();
     }}
+
+    /**
+     *  Generates the command for the base crafting
+     */
     @FXML
     public void Base(){ try {
         gameUIController.getGameController().InterpretCommand("p " + gameUIController.getGameController().getCurrentPlayer().GetUID() + " craft base");
@@ -59,9 +90,16 @@ public class CraftSidePanelController implements ISidePanelController {
     } catch (Exception e) {
         e.printStackTrace();
     } }
+
+    /**
+     * If the player clicks the Cancel button, then the Action Side Panel shows up
+     */
     @FXML
     public void Cancel(){ gameUIController.SwitchToActionSidePanel(); }
 
+    /**
+     * Refreshes the Craft Side Panel if the player has enough materials for crafting something
+     */
     @Override
     public void Refresh() {
         PlayerShip curr = gameUIController.getGameController().getCurrentPlayer();

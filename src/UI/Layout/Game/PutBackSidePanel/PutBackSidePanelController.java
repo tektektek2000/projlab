@@ -10,15 +10,33 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 
 public class PutBackSidePanelController implements ISidePanelController {
+    /**
+     * the controller of the GameUI
+     */
     GameUIController gameUIController;
+    /**
+     * it represent the Coal button on the panel
+     */
     @FXML
     Button CoalButton;
+    /**
+     * it represent the Iron button on the panel
+     */
     @FXML
     Button IronButton;
+    /**
+     * it represent the Ice button on the panel
+     */
     @FXML
     Button IceButton;
+    /**
+     * it represent the Uran button on the panel
+     */
     @FXML
     Button UranButton;
+    /**
+     * it represent the Cancel button on the panel
+     */
     @FXML
     Button CancelButton;
 
@@ -26,6 +44,9 @@ public class PutBackSidePanelController implements ISidePanelController {
         gameUIController = GUIC;
     }
 
+    /**
+     * It's initialize the panel
+     */
     public void Init(){
         new SelectHandler(CoalButton);
         new SelectHandler(IronButton);
@@ -35,6 +56,9 @@ public class PutBackSidePanelController implements ISidePanelController {
         Refresh();
     }
 
+    /**
+     * The coal will be put back in the current asteroid
+     */
     @FXML
     public void Coal(){
         BillCreator bc=BillCreator.GetInstance();
@@ -46,6 +70,9 @@ public class PutBackSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+    /**
+     * The iron will be put back in the current asteroid
+     */
     @FXML
     public void Iron(){
         BillCreator bc=BillCreator.GetInstance();
@@ -57,6 +84,9 @@ public class PutBackSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+    /**
+     * The ice will be put back in the current asteroid
+     */
     @FXML
     public void Ice(){
         BillCreator bc=BillCreator.GetInstance();
@@ -68,6 +98,9 @@ public class PutBackSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+    /**
+     * The uranium will be put back in the current asteroid
+     */
     @FXML
     public void Uran(){  BillCreator bc=BillCreator.GetInstance();
         try {
@@ -77,11 +110,18 @@ public class PutBackSidePanelController implements ISidePanelController {
         } catch (Exception e) {
             e.printStackTrace();
         } }
+
+    /**
+     * It cancel the putting back method and goes back to the Action Panel
+     */
     @FXML
     public void Cancel(){
         gameUIController.SwitchToActionSidePanel();
     }
 
+    /**
+     * It's refresh the game if you click any of the buttons
+     */
     @Override
     public void Refresh() {
         PlayerShip curr = gameUIController.getGameController().getCurrentPlayer();

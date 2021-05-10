@@ -45,46 +45,142 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The controller of the GameUI
+ */
 public class GameUIController implements EventHandler<KeyEvent> {
+    /**
+     * it contains the camerashifts
+     */
     ArrayList<String> CameraShift = new ArrayList<>();
+    /**
+     * the controller of the side panels
+     */
     ISidePanelController sidePanelController;
 
+    /**
+     * the controller of the game
+     */
     GameController gameController;
+    /**
+     * the stage of the game
+     */
     Stage stage;
+    /**
+     * the name of the current gameplay
+     */
     String fileName;
+    /**
+     * it is the state of the invalidation
+     */
     boolean invalidState = true;
+    /**
+     * the half of the pane
+     */
     double PaneHalf = 1920.0/2.0;
+    /**
+     * the camera of the game
+     */
     Camera camera = new Camera(0,0,2);
+    /**
+     * Sun's image
+     */
     static ImageView SunImage = null;
+    /**
+     * it shows for the players the selected field
+     */
     FieldImage selected = null;
+    /**
+     * Selected circle
+     */
     Circle selectedCircle = null;
+    /**
+     * it shows which player's turn is active
+     */
     Circle selectedPlayer = null;
+    /**
+     * it shows where the players can go
+     */
     ArrayList<Circle> MovableCircle = new ArrayList<>();
+    /**
+     * It shows where will be sun storm
+     */
     ArrayList<Circle> SunStormCircle = new ArrayList<>();
+    /**
+     * it contains the fieldImages
+     */
     ArrayList<FieldImage> fieldImages = new ArrayList<>();
+    /**
+     * it contains the connections of the fields
+     */
     ArrayList<Connection> connections = new ArrayList<>();
+    /**
+     * it contains the explosions
+     */
     ArrayList<Explosion> explosions = new ArrayList<>();
+    /**
+     * the base of the panel
+     */
     @FXML
     AnchorPane Anchor;
+    /**
+     * the options button
+     */
     @FXML
     Button OptionsButton;
+    /**
+     * The side panels will be there
+     */
     @FXML
     Pane SidePanelWrapper;
+    /**
+     * where the game is
+     */
     @FXML
     Pane GameContent;
+    /**
+     * the inventory panel will be there
+     */
     @FXML
     Pane InventoryWrapper;
+    /**
+     * the infos will be there
+     */
     @FXML
     Pane InfoWrapper;
+    /**
+     * the base info side panel will be there
+     */
     @FXML
     Pane BaseInfoSidePanelWrapper;
+    /**
+     * the controller of the base info panel
+     */
     BaseInfoPanelController baseInfoPanelController;
+    /**
+     * it shows that the base info panel is active or not
+     */
     boolean BaseInfoActive = false;
+    /**
+     * it contains the infos
+     */
     VBox InfoPanel;
+    /**
+     * it shows the notifications
+     */
     @FXML
     VBox NotificationVBox;
+    /**
+     * the timeline of the game
+     */
     public Timeline timeline;
+    /**
+     * the controller of the current asteroid side panel
+     */
     CurrentAsteroidSidePanelController currentAsteroidSidePanelController;
+    /**
+     * the controller of the current teleport side panel
+     */
     CurrentTeleportSidePanelController currentTeleportSidePanelController;
     boolean SelectStuck = false;
 
@@ -101,15 +197,25 @@ public class GameUIController implements EventHandler<KeyEvent> {
         return fileName;
     }
 
+    /**
+     * it shows the base panel if it's exist
+     * @param b
+     */
     public void SwitchToBasePanel(Base b){
         BaseInfoSidePanelWrapper.setVisible(true);
         baseInfoPanelController.Show(b);
     }
 
+    /**
+     * it closes the base panel
+     */
     public void CloseBasePanel(){
         BaseInfoSidePanelWrapper.setVisible(false);
     }
 
+    /**
+     * it shows the action side panel
+     */
     public void SwitchToActionSidePanel(){
         SidePanelWrapper.getChildren().clear();
         ActionSidePanelController actionSidePanelController = new ActionSidePanelController(this);
@@ -126,6 +232,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         sidePanelController = actionSidePanelController;
         OptionsButton.setVisible(true);
     }
+
+    /**
+     * it shows the craft side panel
+     */
     public void SwitchToCraftSidePanel(){
         SidePanelWrapper.getChildren().clear();
         CraftSidePanelController craftSidePanelController = new CraftSidePanelController(this);
@@ -142,6 +252,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         OptionsButton.setVisible(true);
     }
 
+    /**
+     * it shows the option side panel
+     */
     public void SwitchToOptionsSidePanel(){
         SidePanelWrapper.getChildren().clear();
         OptionsSidePanelController optionsSidePanelController = new OptionsSidePanelController(this, stage);
@@ -159,6 +272,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         OptionsButton.setVisible(false);
     }
 
+    /**
+     * it shows the current asteroid side panel
+     */
     public void SwitchToCurrentAsteroidSidePanel(){
         SidePanelWrapper.getChildren().clear();
         CurrentAsteroidSidePanelController currentAsteroidSidePanelController = new CurrentAsteroidSidePanelController(this);
@@ -174,6 +290,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         currentAsteroidSidePanelController.Init();
     }
 
+    /**
+     * it shows the current teleport side panel
+     */
     public void SwitchToCurrentTeleportSidePanel(){
         SidePanelWrapper.getChildren().clear();
         CurrentTeleportSidePanelController currentTeleportSidePanelController = new CurrentTeleportSidePanelController(this);
@@ -189,22 +308,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         currentTeleportSidePanelController.Init();
     }
 
-    public void SwitchToInventorySidePanel(){
-        SidePanelWrapper.getChildren().clear();
-        InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setController(inventorySidePanelController);
-        fxmlLoader.setLocation(getClass().getResource("/UI/Layout/Game/InventorySidePanel/InventorySidePanel.fxml"));
-        try {
-            GridPane InventorySidePanel = fxmlLoader.load();
-            SidePanelWrapper.getChildren().add(InventorySidePanel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        inventorySidePanelController.Init();
-    }
-
-
+    /**
+     * it shows the put down side panel
+     */
     public void SwitchToPutDownSidePanel(){
         SidePanelWrapper.getChildren().clear();
         PutDownSidePanelController putDownSidePanelController = new PutDownSidePanelController(this);
@@ -220,6 +326,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         putDownSidePanelController.Init();
     }
 
+    /**
+     * it shows the put back side panel
+     */
     public void SwitchToPutBackSidePanel(){
         SidePanelWrapper.getChildren().clear();
         PutBackSidePanelController putBackSidePanelController = new PutBackSidePanelController(this);
@@ -235,6 +344,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         putBackSidePanelController.Init();
     }
 
+    /**
+     * it shows the inventory side panel
+     */
     public void SwitchToInventory(){
         InventoryWrapper.getChildren().clear();
         InventorySidePanelController inventorySidePanelController = new InventorySidePanelController(this);
@@ -250,6 +362,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         inventorySidePanelController.Init();
     }
 
+    /**
+     * it shows the asteroid info panel
+     */
     public void SwitchToAsteroidInfo(){
         if(currentTeleportSidePanelController != null){
             currentTeleportSidePanelController.CleanUp();
@@ -271,6 +386,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         InfoWrapper.setVisible(false);
     }
 
+    /**
+     * it shows the Game over stage
+     */
     public void SwitchToGameOver(){
         Anchor.getChildren().clear();
         GameOverMenuController gameOverMenuController=new GameOverMenuController(stage);
@@ -289,6 +407,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         gameOverMenuController.Init();
     }
 
+    /**
+     * it shows the Won stage
+     */
     public void SwitchToWon(){
         Anchor.getChildren().clear();
         WonMenuController wonMenuController=new WonMenuController(stage);
@@ -307,6 +428,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         wonMenuController.Init();
     }
 
+    /**
+     * it shows the teleport info panel
+     */
     public void SwitchToTeleportInfo(){
         if(currentAsteroidSidePanelController != null){
             currentAsteroidSidePanelController.CleanUp();
@@ -341,6 +465,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         Anchor.getStyleClass().add("anchor");
     }
 
+    /**
+     * It's initializing the game
+     */
     public void Init(){
         NotificationManager.setGameOver(false);
         NotificationManager.setPlayersWon(false);
@@ -369,14 +496,28 @@ public class GameUIController implements EventHandler<KeyEvent> {
         BaseInfoSidePanelWrapper.setVisible(false);
     }
 
+    /**
+     * the Field's x coordinate
+     * @param x
+     * @return
+     */
     private double FieldX(double x){
         return GameContent.getWidth()/2.0 + camera.TransformX(x) * PaneHalf;
     }
 
+    /**
+     * the Field's y coordinate
+     * @param y
+     * @return
+     */
     private double FieldY(double y){
         return GameContent.getHeight()/2.0 + camera.TransformY(y) * PaneHalf;
     }
 
+    /**
+     * It places the current ship in the middle of the screen
+     * @param image
+     */
     private void PositionField(FieldImage image){
         image.setFitWidth(camera.TransformWidth(image.size));
         image.setFitHeight(camera.TransformHeight(image.size));
@@ -432,6 +573,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * Places the field images
+     * @param image
+     */
     private void PlaceField(FieldImage image){
         //System.out.println(posx + " " + posy);
         GameContent.getChildren().add(image);
@@ -454,6 +599,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         PositionField(image);
     }
 
+    /**
+     * places the sun image
+     */
     private void PlaceSun(){
         if(SunImage == null){
             String filePath = new File("").getAbsolutePath();
@@ -480,6 +628,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
     }
 
 
+    /**
+     * it calculates the connections between the fields
+     * @param connection
+     */
     private void PositionConnection(Connection connection){
         FieldImage f1 = new FieldImage(connection.getF1());
         double f1posx = FieldX(f1.x);
@@ -493,6 +645,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         connection.line.setEndY(f2posy);
     }
 
+    /**
+     * the selected field's background will be white
+     */
     public void PositionSelectedCircle(){
         if(selected != null) {
             GameContent.getChildren().remove(selectedCircle);
@@ -505,6 +660,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * the selected field's neighbours' background will be blue
+     */
     public void PositionMovableCircles(){
         GameContent.getChildren().removeAll(MovableCircle);
         MovableCircle.clear();
@@ -523,6 +681,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * the sector's background where the sunstorm will be will be red
+     */
     public void PositionSunStormCircles(){
         GameContent.getChildren().removeAll(SunStormCircle);
         SunStormCircle.clear();
@@ -539,6 +700,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * it's responsible the boom effect
+     * @param explosion
+     */
     private void PositionExplosion(Explosion explosion){
         ImageView image = explosion.getImage();
         image.setFitHeight(camera.TransformHeight(explosion.getHeight()));
@@ -552,6 +717,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         System.out.println("Explosion at: x" + posx + " y" + posy);
     }
 
+    /**
+     * it places the connections
+     * @param connection
+     */
     private void PlaceConnection(Connection connection){
         Line line = new Line();
         if(gameController.getCurrentPlayer() != null && gameController.getCurrentPlayer().getAsteroid() != null) {
@@ -567,6 +736,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * Player ship moves to the clicked asteroid
+     * @param f
+     */
     public void Move(FieldImage f){
         System.out.println("Move to " + f.getField().GetUID());
         try {
@@ -577,6 +750,10 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * it shows the current field's infos
+     * @param image
+     */
     public void Select(FieldImage image){
         selected = image;
         PositionSelectedCircle();
@@ -598,6 +775,11 @@ public class GameUIController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean Inside(double x,double y){
         return (InfoWrapper.getLayoutX() <= x && x <= InfoWrapper.getLayoutX() + InfoWrapper.getWidth())
                 && (InfoWrapper.getLayoutY() <= y && y <= InfoWrapper.getLayoutY() + InfoWrapper.getHeight());
@@ -631,7 +813,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
 
     @FXML
     public void Save(){
-        System.out.println("Nem működik a mentés még tesókám, erre bizony alaposan rábasztál!");
+
     }
 
     private void NotificationRefresh(){
