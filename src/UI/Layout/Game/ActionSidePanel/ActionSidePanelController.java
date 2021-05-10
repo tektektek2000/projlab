@@ -12,20 +12,47 @@ import javafx.scene.effect.ColorAdjust;
 
 import java.awt.*;
 
+/**
+ * The Action Panel's controller
+ */
 public class ActionSidePanelController implements ISidePanelController {
+    /**
+     * the control of the gameUI
+     */
     GameUIController gameUIController;
+    /**
+     * it represent the Drill button on the panel
+     */
     @FXML
     Button DrillButton;
+    /**
+     * it represent the Mine button on the panel
+     */
     @FXML
     Button MineButton;
+    /**
+     * it represent the Build button on the panel
+     */
     @FXML
     Button BuildButton;
+    /**
+     * it represent the Craft button on the panel
+     */
     @FXML
     Button CraftButton;
+    /**
+     * it represent the PutBack button on the panel
+     */
     @FXML
     Button PutBackButton;
+    /**
+     * it represent the PutDown button on the panel
+     */
     @FXML
     Button PutDownButton;
+    /**
+     * it represent the Skip button on the panel
+     */
     @FXML
     Button SkipButton;
 
@@ -33,6 +60,9 @@ public class ActionSidePanelController implements ISidePanelController {
         gameUIController = GUIC;
     }
 
+    /**
+     * It's initialize the panel
+     */
     public void Init(){
         new SelectHandler(DrillButton);
         new SelectHandler(MineButton);
@@ -44,6 +74,9 @@ public class ActionSidePanelController implements ISidePanelController {
         Refresh();
     }
 
+    /**
+     * If you click the Drill button the player will drill
+     */
     @FXML
     public void Drill(){
         try {
@@ -52,6 +85,10 @@ public class ActionSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * If you click the Mine button the player will mine
+     */
     @FXML
     public void Mine(){
         try {
@@ -62,6 +99,10 @@ public class ActionSidePanelController implements ISidePanelController {
         }
 
     }
+
+    /**
+     * If you click the Build button the player will build the base
+     */
     @FXML
     public void Build(){
         try {
@@ -71,16 +112,32 @@ public class ActionSidePanelController implements ISidePanelController {
             e.printStackTrace();
         }
     }
+
+    /**
+     *  If you click the Craft button the Craft Panel will appear
+     */
     @FXML
     public void Craft(){
         gameUIController.SwitchToCraftSidePanel();
     }
+
+    /**
+     * If you click the PutBack button the PutBack Panel will appear
+     */
     @FXML
     public void PutBack(){ gameUIController.SwitchToPutBackSidePanel();}
+
+    /**
+     * If you click the PutDown button the PutDown Panel will appear
+     */
     @FXML
     public void PutDown(){
         gameUIController.SwitchToPutDownSidePanel();
     }
+
+    /**
+     * If you click the Skip button the turn will be skiped
+     */
     @FXML
     public void Skip(){
         try {
@@ -91,6 +148,9 @@ public class ActionSidePanelController implements ISidePanelController {
         }
     }
 
+    /**
+     * It's refresh the game if you click any of the buttons
+     */
     @Override
     public void Refresh(){
         PlayerShip curr = gameUIController.getGameController().getCurrentPlayer();

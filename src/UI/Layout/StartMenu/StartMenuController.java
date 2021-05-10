@@ -19,24 +19,54 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The controller of the Start Menu
+ */
 public class StartMenuController {
     public Stage stage;
+    /**
+     * it represent how many players will be
+     */
     private int playerNum = 1;
 
+    /**
+     * the base of the panel
+     */
     @FXML
     AnchorPane Anchor;
+    /**
+     * it represent the Start button
+     */
     @FXML
     Button Start_button;
+    /**
+     * it represent the Back button
+     */
     @FXML
     Button Back_button;
+    /**
+     * it represent the Small button
+     */
     @FXML
     Button Small_button;
+    /**
+     * it represent the Normal button
+     */
     @FXML
     Button Normal_button;
+    /**
+     * it represent the Large button
+     */
     @FXML
     Button Large_button;
+    /**
+     * it represent the Counter field
+     */
     @FXML
     TextField Counter_field;
+    /**
+     * it represent the File name field
+     */
     @FXML
     TextField File_name_field;
 
@@ -48,6 +78,9 @@ public class StartMenuController {
         Anchor = a;
     }
 
+    /**
+     * It's initialize the panel
+     */
     public void Init(){
         new SelectHandler(Start_button);
         new SelectHandler(Back_button);
@@ -57,6 +90,9 @@ public class StartMenuController {
         Small_button.setEffect(new Glow(0.5));
     }
 
+    /**
+     * It's resposible for the number of the players
+     */
     @FXML
     public void Counter(){
         if(Counter_field.getText().length() == 0){
@@ -80,6 +116,10 @@ public class StartMenuController {
         Counter_field.setText(Integer.toString(playerNum));
         MagicConstants.setShipNumber(playerNum);
     }
+
+    /**
+     * It start the game
+     */
     @FXML
     public void Start(){
 
@@ -107,6 +147,10 @@ public class StartMenuController {
         gameUIController.Init();
 
     }
+
+    /**
+     * It will bring you back to the Main Menu
+     */
     @FXML
     public void Back(){
         MainMenuController mainMenuController = new MainMenuController(stage);
@@ -126,6 +170,10 @@ public class StartMenuController {
         CleanUp();
         mainMenuController.Init();
     }
+
+    /**
+     * The map will be small
+     */
     @FXML
     public void Small(){
         Small_button.setEffect(new Glow(0.5));
@@ -133,6 +181,10 @@ public class StartMenuController {
         Large_button.setEffect(null);
         MagicConstants.setMapSize(0);
     }
+
+    /**
+     * The map will be normal
+     */
     @FXML
     public void Normal(){
         Small_button.setEffect(null);
@@ -140,6 +192,10 @@ public class StartMenuController {
         Large_button.setEffect(null);
         MagicConstants.setMapSize(1);
     }
+
+    /**
+     * The map will be large
+     */
     @FXML
     public void Large(){
         Small_button.setEffect(null);
@@ -148,6 +204,9 @@ public class StartMenuController {
         MagicConstants.setMapSize(2);
     }
 
+    /**
+     * It's reset the panel's attributes
+     */
     public void CleanUp(){
         Anchor = null;
         Start_button = null;

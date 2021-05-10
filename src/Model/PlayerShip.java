@@ -180,7 +180,7 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * The player drill
+     * The player drills
      */
     public void Drill(){
         NotificationManager.setLastCommandSuccess(true);

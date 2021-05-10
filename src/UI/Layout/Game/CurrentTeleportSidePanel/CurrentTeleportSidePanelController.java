@@ -21,19 +21,40 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * The Current Teleport Panel's controller
+ */
 public class CurrentTeleportSidePanelController {
     Field shown;
     GameUIController gameUIController;
+    /**
+     * The teleport's name
+     */
     @FXML
     Label NameLabel;
+    /**
+     * It's the base of the panel
+     */
     @FXML
     VBox CurrentTeleportPanel;
+    /**
+     * It's shows that the teleport is active or not
+     */
     @FXML
     AnchorPane ActiveField;
+    /**
+     * It's shows that the teleport is crazy or not
+     */
     @FXML
     AnchorPane CrazyField;
+    /**
+     * It's shows that the teleport is in which sector
+     */
     @FXML
     TextField SectorField;
+    /**
+     * It's shows that the teleport is close to the Sun or not
+     */
     @FXML
     AnchorPane CloseField;
     static Image X = null;
@@ -47,6 +68,10 @@ public class CurrentTeleportSidePanelController {
 
     }
 
+    /**
+     * Shows the Current Teleport Panel
+     * @param f
+     */
     public void Show(FieldImage f){
         InfoPanelVisitor ipv = new InfoPanelVisitor(f.getField());
         if (!ipv.isAsteroid) {
@@ -152,6 +177,9 @@ public class CurrentTeleportSidePanelController {
             CurrentTeleportPanel.setVisible(false);
     }
 
+    /**
+     * It's reset the Panel's attributes
+     */
     public void CleanUp(){
         gameUIController = null;
         NameLabel = null;

@@ -117,6 +117,10 @@ public class UFO extends Ship{
         }
     }
 
+    /**
+     * UFO moves to an asteroid
+     * @param f The field where the UFO will move.
+     */
     @Override
     public void Move(Field f){
         Asteroid a = asteroid;
