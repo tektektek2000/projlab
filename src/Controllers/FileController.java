@@ -62,7 +62,7 @@ public class FileController {
                 return newid;
             }
         }
-        System.out.println("Failed with:" + data);
+        //System.out.println("Failed with:" + data);
         throw(new BadFileFormat(data,"Invalid UID. First line of object definition should always be UID"));
     }
 

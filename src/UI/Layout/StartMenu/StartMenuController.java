@@ -111,7 +111,7 @@ public class StartMenuController {
             playerNum = p;
         }
         catch (Exception e){
-            System.out.println("Invalid value! Please enter a number between 1 and 5.");
+            //System.out.println("Invalid value! Please enter a number between 1 and 5.");
         }
         Counter_field.setText(Integer.toString(playerNum));
         MagicConstants.setShipNumber(playerNum);

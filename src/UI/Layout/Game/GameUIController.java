@@ -523,7 +523,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         image.setFitHeight(camera.TransformHeight(image.size));
         double posx = FieldX(image.x) - (camera.TransformWidth(image.size)/2);
         double posy = FieldY(image.y) - (camera.TransformWidth(image.size)/2);
-        //System.out.println(image.getFitWidth());
+        ////System.out.println(image.getFitWidth());
         image.relocate(posx,posy);
         GridPane ships = image.getShips();
         if(ships != null) {
@@ -578,7 +578,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
      * @param image
      */
     private void PlaceField(FieldImage image){
-        //System.out.println(posx + " " + posy);
+        ////System.out.println(posx + " " + posy);
         GameContent.getChildren().add(image);
         image.addEventHandler(MouseEvent.ANY,new FieldImageMouseHandler(image,this));
         GridPane ships = image.getShips();
@@ -622,9 +622,9 @@ public class GameUIController implements EventHandler<KeyEvent> {
         SunImage.setFitHeight(camera.TransformHeight(SunImage.getFitHeight()));
         double posx = FieldX(0) - (SunImage.getFitWidth()/2);
         double posy = FieldY(0) - (SunImage.getFitHeight()/2);
-        //System.out.println(image.getFitWidth());
+        ////System.out.println(image.getFitWidth());
         SunImage.relocate(posx,posy);
-        //System.out.println(posx + " " + posy);
+        ////System.out.println(posx + " " + posy);
     }
 
 
@@ -674,7 +674,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
                 Add.setCenterY(FieldY(field.y));
                 Add.setRadius(camera.TransformWidth(field.size) / 2.0 * 1.2);
                 Add.setFill(Color.AQUA);
-                //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
+                ////System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
                 GameContent.getChildren().add(0, Add);
                 MovableCircle.add(Add);
             }
@@ -694,7 +694,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             Add.setCenterY(FieldY(field.y));
             Add.setRadius(camera.TransformWidth(field.size) / 2.0 * 1.4);
             Add.setFill(Color.RED);
-            //System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
+            ////System.out.println("Movable circle x" + Add.getCenterX() + " y" + Add.getCenterY() + " r" + Add.getRadius());
             GameContent.getChildren().add(0, Add);
             SunStormCircle.add(Add);
         }
@@ -714,7 +714,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
             GameContent.getChildren().add(image);
         }
         image.relocate(posx,posy);
-        System.out.println("Explosion at: x" + posx + " y" + posy);
+        //System.out.println("Explosion at: x" + posx + " y" + posy);
     }
 
     /**
@@ -741,7 +741,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
      * @param f
      */
     public void Move(FieldImage f){
-        System.out.println("Move to " + f.getField().GetUID());
+        //System.out.println("Move to " + f.getField().GetUID());
         try {
             gameController.InterpretCommand("p " + gameController.getCurrentPlayer().GetUID() + " move " + f.getField().GetUID());
             SwitchToInventory();
@@ -969,7 +969,7 @@ public class GameUIController implements EventHandler<KeyEvent> {
         // if something called for invalidate, refreshes the elemnts
         if(invalidState) {
             sidePanelController.Refresh();
-            System.out.println("Invalidated");
+            //System.out.println("Invalidated");
             selectedPlayer = null;
             Map map = gameController.getMap();
             GameContent.getChildren().clear();

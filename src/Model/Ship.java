@@ -50,7 +50,7 @@ public abstract class Ship extends Saveable implements IVisitable {
      * Hides the ship. Not implemented yet.
      */
     public void Hide(){
-        System.out.println("The ship survives.");
+        //System.out.println("The ship survives.");
     }
 
     /**

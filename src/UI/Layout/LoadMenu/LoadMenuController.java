@@ -86,11 +86,11 @@ public class LoadMenuController {
         new SelectHandler(Right_button);
 
         File dir = new File(path);
-        System.out.println(path);
+        //System.out.println(path);
 
         if(!dir.exists()) {
             dir.mkdir();
-            System.out.println("Invalid directory.");
+            //System.out.println("Invalid directory.");
         }
 
         File [] files = dir.listFiles();

@@ -61,7 +61,7 @@ public class Sun {
      * @param s The sector where the sun storm will happen.
      */
     public void SunStorm(Sector s){
-        System.out.println("ss");
+        //System.out.println("ss");
         NotificationManager.AddWarning("Sunstorm in Sector" + target.GetUID() + ".");
         s.SunStorm();
         RoundsUntillStorm = new Random().nextInt(6)+4;

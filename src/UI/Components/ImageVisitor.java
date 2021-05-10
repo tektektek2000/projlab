@@ -151,7 +151,7 @@ public class ImageVisitor implements IVisitor {
                     filePath += "Insane_teleportgate.png";
                     InsaneTeleportImage = new Image(new FileInputStream(filePath));
                 } catch (FileNotFoundException e){
-                    System.out.println(filePath);
+                    //System.out.println(filePath);
                     e.printStackTrace();
                 }
             }
@@ -163,7 +163,7 @@ public class ImageVisitor implements IVisitor {
                     filePath += "Active_teleportgate.png";
                     ActiveTeleportImage = new Image(new FileInputStream(filePath));
                 } catch (FileNotFoundException e){
-                    System.out.println(filePath);
+                    //System.out.println(filePath);
                     e.printStackTrace();
                 }
             }
@@ -175,7 +175,7 @@ public class ImageVisitor implements IVisitor {
                     filePath += "Not_active_teleportgate.PNG";
                     InactiveTeleportImage = new Image(new FileInputStream(filePath));
                 } catch (FileNotFoundException e){
-                    System.out.println(filePath);
+                    //System.out.println(filePath);
                     e.printStackTrace();
                 }
             }
@@ -195,7 +195,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "Asteroid.png";
                 AsteroidImage = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e) {
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -217,7 +217,7 @@ public class ImageVisitor implements IVisitor {
                         filePath += "PlayerShip1.png";
                         Player1 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
-                        System.out.println(filePath);
+                        //System.out.println(filePath);
                         e.printStackTrace();
                     }
                 }
@@ -229,7 +229,7 @@ public class ImageVisitor implements IVisitor {
                         filePath += "PlayerShip2.png";
                         Player2 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
-                        System.out.println(filePath);
+                        //System.out.println(filePath);
                         e.printStackTrace();
                     }
                 }
@@ -241,7 +241,7 @@ public class ImageVisitor implements IVisitor {
                         filePath += "PlayerShip3.png";
                         Player3 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
-                        System.out.println(filePath);
+                        //System.out.println(filePath);
                         e.printStackTrace();
                     }
                 }
@@ -253,7 +253,7 @@ public class ImageVisitor implements IVisitor {
                         filePath += "PlayerShip4.png";
                         Player4 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
-                        System.out.println(filePath);
+                        //System.out.println(filePath);
                         e.printStackTrace();
                     }
                 }
@@ -265,7 +265,7 @@ public class ImageVisitor implements IVisitor {
                         filePath += "PlayerShip5.png";
                         Player5 = new Image(new FileInputStream(filePath));
                     } catch (FileNotFoundException e) {
-                        System.out.println(filePath);
+                        //System.out.println(filePath);
                         e.printStackTrace();
                     }
                 }
@@ -285,7 +285,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "Robot.png";
                 Robot = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e){
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -303,7 +303,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "UFO.png";
                 UFO = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e){
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -321,7 +321,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "Uranium.png";
                 Uranium = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e){
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -339,7 +339,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "Iron.png";
                 Iron = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e){
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -357,7 +357,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "Ice.png";
                 Ice = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e){
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -375,7 +375,7 @@ public class ImageVisitor implements IVisitor {
                 filePath += "Coal.png";
                 Coal = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e){
-                System.out.println(filePath);
+                //System.out.println(filePath);
                 e.printStackTrace();
             }
         }
@@ -394,7 +394,7 @@ public class ImageVisitor implements IVisitor {
                     filePath += "BaseDone.png";
                     BaseComplete = new Image(new FileInputStream(filePath));
                 } catch (FileNotFoundException e) {
-                    System.out.println(filePath);
+                    //System.out.println(filePath);
                     e.printStackTrace();
                 }
             }
@@ -406,7 +406,7 @@ public class ImageVisitor implements IVisitor {
                     filePath += "BaseFoundation.png";
                     BaseFoundation = new Image(new FileInputStream(filePath));
                 } catch (FileNotFoundException e) {
-                    System.out.println(filePath);
+                    //System.out.println(filePath);
                     e.printStackTrace();
                 }
             }

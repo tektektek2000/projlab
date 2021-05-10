@@ -14,7 +14,7 @@ public class Program {
             MenuController m = new MenuController();
             m.Start();
         } catch (Exception e){
-            System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
+            //System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
     }
 }

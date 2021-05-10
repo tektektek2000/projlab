@@ -134,7 +134,7 @@ public class MapBuilder {
             ArrayList<Field> idc = new ArrayList<>();
             idc.addAll(asteroids);
             Asteroid a = genRndAsteroid(GC, idc, r);
-            System.out.println(a.getX()+" "+a.getY());
+            //System.out.println(a.getX()+" "+a.getY());
             asteroids.add(a);
         }
 
@@ -158,7 +158,7 @@ public class MapBuilder {
         // linking asteroids which has 0 neighbours
         for(Asteroid a1 : asteroids){
             if(a1.getNeighbours().size()==0){
-                //System.out.println("NO NE");
+                ////System.out.println("NO NE");
                 double minDistance = 2.0;
                 Asteroid minAsteroid = null;
                 for(Asteroid a2 : asteroids){

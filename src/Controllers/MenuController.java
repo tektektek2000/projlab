@@ -20,7 +20,7 @@ public class MenuController {
      * The pre-game menu handler.
      */
     public void Start(){
-        System.out.println("Asteroid Miner");
+        //System.out.println("Asteroid Miner");
         Scanner in = new Scanner(System.in);
         boolean exit = false;
         while(!exit){
@@ -49,13 +49,13 @@ public class MenuController {
                     Game();
                 }
                 catch (InvalidCommand e) {
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getMessage());
                 }
                 catch (BadFileFormat e) {
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getMessage());
                 }
                 catch (Exception e) {
-                    System.out.println("Unknown error while loading file");
+                    //System.out.println("Unknown error while loading file");
                     e.printStackTrace();
                 }
             }
@@ -63,14 +63,14 @@ public class MenuController {
                 exit = true;
             }
             else if(parts[0].equals("help")){
-                System.out.println("Usable commands:");
-                System.out.println("start -> Creates a new map and starts game");
-                System.out.println("load filename -> Loads a given map and starts game");
-                System.out.println("runtests -> Runs all the tests, and gives results");
-                System.out.println("exit -> Exits from game");
+                //System.out.println("Usable commands:");
+                //System.out.println("start -> Creates a new map and starts game");
+                //System.out.println("load filename -> Loads a given map and starts game");
+                //System.out.println("runtests -> Runs all the tests, and gives results");
+                //System.out.println("exit -> Exits from game");
             }
             else{
-                System.out.println("Unknown command");
+                //System.out.println("Unknown command");
             }
         }
     }
@@ -87,12 +87,12 @@ public class MenuController {
         while (!exit){
             PrintStream out = new PrintStream(System.out);
             if(last != gc.getCurrentPlayer()) {
-                System.out.println("Current Player:");
+                //System.out.println("Current Player:");
                 gc.getCurrentPlayer().Save(out, false);
-                System.out.println("Current Asteroid:");
+                //System.out.println("Current Asteroid:");
                 gc.getCurrentPlayer().getAsteroid().Save(out, false);
                 if(gc.getCurrentPlayer().getAsteroid().GetCore() != null) {
-                    System.out.println("With Material:");
+                    //System.out.println("With Material:");
                     gc.getCurrentPlayer().getAsteroid().GetCore().Save(out, false);
                 }
                 last = gc.getCurrentPlayer();
@@ -106,44 +106,44 @@ public class MenuController {
                 exit = true;
             }
             else if(parts[0].equals("neighbours")){
-                System.out.println("Neighbouring fields:");
+                //System.out.println("Neighbouring fields:");
                 for(Field f : gc.getCurrentPlayer().getAsteroid().getNeighbours()){
                     f.Save(out,false);
                 }
             }
             else if(parts[0].equals("inventory")){
-                System.out.println("Player Inventory:");
+                //System.out.println("Player Inventory:");
                 for(Material f : gc.getCurrentPlayer().getMaterials()){
                     f.Save(out,false);
                 }
             }
             else if(parts[0].equals("sun")){
                 Sun s = Sun.GetInstance();
-                System.out.println("Next sunstorm will hit Sector" + s.getTarget().GetUID() + " in " + s.getRoundsUntillStorm() + "turns.");
+                //System.out.println("Next sunstorm will hit Sector" + s.getTarget().GetUID() + " in " + s.getRoundsUntillStorm() + "turns.");
             }
             else if(parts[0].equals("help")){
-                System.out.println("Usable commands:");
-                System.out.println("move FieldID -> Moves current player to given asteroid");
-                System.out.println("drill -> Current player drills once");
-                System.out.println("mine -> Current player mines");
-                System.out.println("craft robot/teleports/base -> Current player crafts the specified item/s");
-                System.out.println("build -> Current player uses resources to build on the base that is on the same field.");
-                System.out.println("put_back MaterialID -> Attempts to put back the given material inside the asteroid the player is on.");
-                System.out.println("neighbours -> List every neighbouring field of the asteroid the player currently is on.");
-                System.out.println("inventory -> List every material of the player.");
-                System.out.println("sun -> List the details of the next sun storm.");
-                System.out.println("save filename -> saves map to the given file");
-                System.out.println("exit -> Exits from game");
+                //System.out.println("Usable commands:");
+                //System.out.println("move FieldID -> Moves current player to given asteroid");
+                //System.out.println("drill -> Current player drills once");
+                //System.out.println("mine -> Current player mines");
+                //System.out.println("craft robot/teleports/base -> Current player crafts the specified item/s");
+                //System.out.println("build -> Current player uses resources to build on the base that is on the same field.");
+                //System.out.println("put_back MaterialID -> Attempts to put back the given material inside the asteroid the player is on.");
+                //System.out.println("neighbours -> List every neighbouring field of the asteroid the player currently is on.");
+                //System.out.println("inventory -> List every material of the player.");
+                //System.out.println("sun -> List the details of the next sun storm.");
+                //System.out.println("save filename -> saves map to the given file");
+                //System.out.println("exit -> Exits from game");
             }
             else if(parts[0].equals("ls") || parts[0].equals("save")){
                 try {
                     gc.InterpretCommand(line);
                 }
                 catch (InvalidCommand e) {
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getMessage());
                 }
                 catch (Exception e) {
-                    System.out.println("Invalid command");
+                    //System.out.println("Invalid command");
                 }
             }
             else{
@@ -152,24 +152,24 @@ public class MenuController {
                     if(!NotificationManager.LastCommandSuccess){
                         String l = NotificationManager.getError();
                         while(l != null){
-                            System.out.println(ANSI_RED + l + ANSI_RESET);
+                            //System.out.println(ANSI_RED + l + ANSI_RESET);
                             l = NotificationManager.getError();
                         }
-                        System.out.println("Command failed");
+                        //System.out.println("Command failed");
                     }
                     else{
                         String l = NotificationManager.getMessage();
                         while(l != null){
-                            System.out.println(l);
+                            //System.out.println(l);
                             l = NotificationManager.getMessage();
                         }
                     }
                 }
                 catch (InvalidCommand e) {
-                    System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+                    //System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
                 }
                 catch (Exception e) {
-                    System.out.println(ANSI_RED + "Invalid command" + ANSI_RESET);
+                    //System.out.println(ANSI_RED + "Invalid command" + ANSI_RESET);
                 }
             }
             if(NotificationManager.GameOver)
