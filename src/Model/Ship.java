@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * It represents the ships of the game.
  */
-public abstract class Ship extends Saveable {
+public abstract class Ship extends Saveable implements IVisitable {
     /**
      * The asteroid where the ship is.
      */
@@ -20,6 +20,10 @@ public abstract class Ship extends Saveable {
         super(a.sector.map);
         asteroid = a;
         asteroid.Add(this);
+    }
+
+    public Ship(Map map){
+        super(map);
     }
 
     public Ship(int uid) {
@@ -46,7 +50,7 @@ public abstract class Ship extends Saveable {
      * Hides the ship. Not implemented yet.
      */
     public void Hide(){
-        System.out.println("The ship survives.");
+        //System.out.println("The ship survives.");
     }
 
     /**
@@ -90,8 +94,9 @@ public abstract class Ship extends Saveable {
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override

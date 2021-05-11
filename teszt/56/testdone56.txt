@@ -143,9 +143,9 @@ Shell: 0
 Controller{
 controller: false
 Order: 14,16
-Current: 2
+Current: 14
 }
 Sun{
 Target: 29
-Rounds: 6
+Rounds: 8
 }

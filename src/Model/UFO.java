@@ -49,8 +49,9 @@ public class UFO extends Ship{
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -114,5 +115,21 @@ public class UFO extends Ship{
                 NotificationManager.AddMessage("UFO" + GetUID() + " mined Asteroid" + asteroid.GetUID());
             }
         }
+    }
+
+    /**
+     * UFO moves to an asteroid
+     * @param f The field where the UFO will move.
+     */
+    @Override
+    public void Move(Field f){
+        Asteroid a = asteroid;
+        super.Move(f);
+        NotificationManager.AddMessage("UFO" + GetUID() + " moved to Asteroid" + asteroid.GetUID());
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

@@ -50,8 +50,9 @@ public class RobotShip extends Ship {
 
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -69,5 +70,21 @@ public class RobotShip extends Ship {
         os.println("RobotShip{");
         super.Save(os, CallChildren);
         os.println("}");
+    }
+
+    /**
+     * The move method for the RobotShip class.
+     * @param f The field where we want to move the ship.
+     */
+    @Override
+    public void Move(Field f){
+        Asteroid a = asteroid;
+        super.Move(f);
+        NotificationManager.AddMessage("Robot" + GetUID() + " moved to Asteroid" + asteroid.GetUID());
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

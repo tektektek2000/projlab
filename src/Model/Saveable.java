@@ -35,8 +35,9 @@ public abstract class Saveable {
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     public abstract void Link(ArrayList<StringPair> args, FileController fc) throws LinkerException;

@@ -33,7 +33,7 @@ public class Sun {
     private Sector target;
 
     private Sun(){
-        RoundsUntillStorm = new Random().nextInt(6)+3;
+        RoundsUntillStorm = new Random().nextInt(6)+4;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Sun {
     public void SetMap(Map m){
         map = m;
         target = m.getSectors().get(new Random().nextInt(m.getSectors().size()));
-        RoundsUntillStorm = new Random().nextInt(6)+3;
+        RoundsUntillStorm = new Random().nextInt(6)+4;
     }
 
     /**
@@ -61,9 +61,10 @@ public class Sun {
      * @param s The sector where the sun storm will happen.
      */
     public void SunStorm(Sector s){
-        NotificationManager.AddMessage("Sunstorm in Sector" + target.GetUID() + ".");
+        //System.out.println("ss");
+        NotificationManager.AddWarning("Sunstorm in Sector" + target.GetUID() + ".");
         s.SunStorm();
-        RoundsUntillStorm = new Random().nextInt(6)+3;
+        RoundsUntillStorm = new Random().nextInt(6)+4;
     }
 
     /**
@@ -76,6 +77,9 @@ public class Sun {
             ArrayList<Sector> sectors = map.getSectors();
             Random rand = new Random();
             target = sectors.get(rand.nextInt(sectors.size()));
+        }
+        else{
+            NotificationManager.AddWarning("Sunstorm will happen in Sector" + target.GetUID() + " in " + RoundsUntillStorm + "turns.");
         }
     }
 
@@ -109,15 +113,6 @@ public class Sun {
      */
     public int getRoundsUntillStorm(){
         return RoundsUntillStorm;
-    }
-
-    /**
-     * Checks if the given asteroid is in sun close area.
-     * @param a The asteroid which can be close or not close to the sun.
-     * @return True, if it's close and false if not.
-     */
-    public boolean isClose(Asteroid a){
-        return false;
     }
 
     /**

@@ -2,6 +2,7 @@ package Model.Materials;
 
 import Controllers.FileController;
 import Model.Map;
+import Model.IVisitor;
 import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Coal extends Material{
 
-    Coal(Map m){super(m);}
+    public Coal(Map m){super(m);}
 
     public Coal(int uid) {super(uid);}
 
@@ -26,8 +27,9 @@ public class Coal extends Material{
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws RuntimeErrorException
      */
     @Override
@@ -45,5 +47,10 @@ public class Coal extends Material{
         os.println("Coal{");
         super.Save(os, CallChildren);
         os.println("}");
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

@@ -20,53 +20,5 @@ Current: 2
 }
 Sun{
 Target: 3
-Rounds: 3
-}
-Sector{
-UID: 3
-Fields: 1
-isClose: false
-}
-Asteroid{
-UID: 1
-Sector: 3
-Shell: 5
-Ships: 2
-}
-PlayerShip{
-UID: 2
-Asteroid: 1
-}
-Controller{
-controller: false
-Order: 2
-Current: 2
-}
-Sun{
-Target: 3
 Rounds: 8
-}
-Sector{
-UID: 3
-Fields: 1
-isClose: false
-}
-Asteroid{
-UID: 1
-Sector: 3
-Shell: 5
-Ships: 2
-}
-PlayerShip{
-UID: 2
-Asteroid: 1
-}
-Controller{
-controller: false
-Order: 2
-Current: 2
-}
-Sun{
-Target: 3
-Rounds: 7
 }

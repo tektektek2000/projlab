@@ -1,7 +1,9 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.MapBuilder;
 import Controllers.NotificationManager;
+import UI.Components.MagicConstants;
 import Utils.LinkerException;
 import Utils.StringPair;
 import java.io.PrintStream;
@@ -37,6 +39,12 @@ public class TeleportGate extends Field{
         WashHitByStorm = washHitByStorm;
     }
 
+    //getter for the Teleportgate hit by storm
+    public boolean getWasHitByStorm(){return WashHitByStorm;}
+
+    //getter for the Teleportgate pair
+    public TeleportGate getPair(){return pair;}
+
     /**
      * The setter for the teleport gate's sector.
      * @param s The sector, we want to set for the teleport gate.
@@ -62,7 +70,7 @@ public class TeleportGate extends Field{
      * Check whether the teleport gate is active or not.
      * @return True if it's active (it's pair is placed and has a neighbour), false if not.
      */
-    boolean isActive(){
+    public boolean isActive(){
         return pair != null && pair.Neighbours.size() != 0;
     }
 
@@ -85,6 +93,7 @@ public class TeleportGate extends Field{
         Neighbours.remove(Neighbours.get(0));
         Neighbours.add(dest);
         dest.AddNeighbour(this);
+        Reposition();
         NotificationManager.AddMessage("Teleport" + GetUID() + " moved to Asteroid" + f.GetUID() + ".");
     }
 
@@ -102,6 +111,24 @@ public class TeleportGate extends Field{
                 Move(dest);
             }
         }
+    }
+
+    /**
+     * The method for the crazy Teleportgate reposition
+     */
+    public void Reposition(){
+        Random r = new Random();
+        ArrayList<Field> AllFields = new ArrayList<>();
+        Field asteroid = getNeighbours().get(0);
+        for(Sector s : asteroid.getSector().getMap().getSectors()){
+            AllFields.addAll(s.getFields());
+        }
+        do{
+            double alfa = r.nextDouble() * 2.0 * Math.PI;
+            double dist = r.nextDouble() * (MagicConstants.neighbourMaxDistance - MagicConstants.asteroidTooClose) + MagicConstants.asteroidTooClose;
+            setX(asteroid.x+Math.cos(alfa)*dist);
+            setY(asteroid.y+Math.sin(alfa)*dist);
+        }while(MapBuilder.tooClose(AllFields,this) || MapBuilder.tooCloseToSun(this));
     }
 
     @Override
@@ -129,8 +156,9 @@ public class TeleportGate extends Field{
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -158,5 +186,29 @@ public class TeleportGate extends Field{
         if(pair!=null)
             os.println("Pair:" + pair.GetUID());
         os.println("}");
+    }
+
+    /**
+     * The method for the distance between a teleportgate and coordinates
+     * @param a1 a Teleportgate
+     * @param x coordinate x axle
+     * @param y coordinate y axle
+     * @return double distance between the teleportgate and the coordinates
+     */
+    public double distance(TeleportGate a1, double x, double y){
+        return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
+    }
+
+   //Teleportgate is close to the SUn or not
+    public boolean getSunClose(){
+        if(distance(this,0.0,0.0)<0.6){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

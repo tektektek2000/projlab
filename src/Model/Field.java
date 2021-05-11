@@ -10,15 +10,45 @@ import java.util.Comparator;
 /**
  * Represents the fields in the game.
  */
-public abstract class Field extends Saveable {
+public abstract class Field extends Saveable implements IVisitable{
     /**
      * The neighbours (fields) of the field.
      */
     ArrayList<Field> Neighbours = new ArrayList<>();
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
+    }
+
+    public Sector getSector() {
+        return sector;
+    }
+
     /**
      * The sector where the field is.
      */
     Sector sector;
+    double x;
+
+    double y;
+
+
+    //Getter of the x coordinate
+    public double getX(){
+        return x;
+    }
+    //Getter of the y coordinate
+    public double getY(){
+        return y;
+    }
+    //Setter of the x coordinate
+    public void setX(double X){
+        x=X;
+    }
+    //Setter of the y coordinate
+    public void setY(double Y){
+        y=Y;
+    }
 
     Field(Map m){
         super(m);
@@ -58,7 +88,7 @@ public abstract class Field extends Saveable {
      * @param f The field we want to be added to the neighbour.
      */
     public void AddNeighbour(Field f){
-        Neighbours.add(f);
+        if(!Neighbours.contains(f)) Neighbours.add(f);
     }
 
     // Getter for the neighbours
@@ -72,8 +102,9 @@ public abstract class Field extends Saveable {
     public abstract void SunStorm();
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -88,6 +119,12 @@ public abstract class Field extends Saveable {
             else if(it.first.equals("Sector")){
                 sector = (Sector) fc.GetWithUID(Integer.parseInt(it.second));
             }
+            else if(it.first.equals("X")){
+                x = Double.parseDouble(it.second);
+            }
+            else if(it.first.equals("Y")){
+                y = Double.parseDouble(it.second);
+            }
         }
     }
 
@@ -98,6 +135,8 @@ public abstract class Field extends Saveable {
     @Override
     public void Save(PrintStream os, boolean CallChildren) {
         os.println("UID: " + GetUID());
+        os.println("X: " + x);
+        os.println("Y: " + y);
         if(sector!=null) {
             os.println("Sector: " + sector.GetUID());
         }

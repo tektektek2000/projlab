@@ -37,9 +37,9 @@ Pair:3
 Controller{
 controller: false
 Order: 5
-Current: 2
+Current: 5
 }
 Sun{
 Target: 6
-Rounds: 5
+Rounds: 6
 }

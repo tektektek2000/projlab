@@ -1,17 +1,19 @@
 package Model;
 
 import Controllers.FileController;
+import Controllers.MapBuilder;
 import Controllers.NotificationManager;
 import Model.Materials.BillCreator;
 import Model.Materials.BillOfMaterial;
 import Model.Materials.Material;
+import UI.Components.MagicConstants;
 import Utils.LinkerException;
 import Utils.StringPair;
 
-import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * It bases from the Ship class. Represents the player's ship in the game.
@@ -37,6 +39,10 @@ public class PlayerShip extends Ship {
         super(start);
         materials = new ArrayList<>();
         teleports = new ArrayList<>();
+    }
+
+    public PlayerShip(Map map) {
+        super(map);
     }
 
     /**
@@ -124,7 +130,7 @@ public class PlayerShip extends Ship {
         if(bill != null) {
             Remove(bill);
             RobotShip rs = new RobotShip(asteroid);
-            asteroid.Add(rs);
+            NotificationManager.AddNewRobot(rs);
             NotificationManager.AddMessage("Player" + GetUID() + " built a robot.");
         }
         else{
@@ -173,6 +179,9 @@ public class PlayerShip extends Ship {
         }
     }
 
+    /**
+     * The player drills
+     */
     public void Drill(){
         NotificationManager.setLastCommandSuccess(true);
         if(asteroid.GetDrilled()){
@@ -217,13 +226,16 @@ public class PlayerShip extends Ship {
      */
     public void PutDown(TeleportGate t){
         // Checks whether is player ship has teleport.
+        Random r = new Random();
         if(teleports.size()>0){
             Remove(t);
             t.AddNeighbour(asteroid);
             t.SetSector(asteroid.sector);
             asteroid.sector.Add(t);
             asteroid.AddNeighbour(t);
+            t.Reposition();
             NotificationManager.AddMessage("Player" + GetUID() + " successfully put Teleport" + t.GetUID() + " down.");
+            NotificationManager.AddNewTeleport(t);
         }
     }
 
@@ -281,8 +293,9 @@ public class PlayerShip extends Ship {
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -358,4 +371,8 @@ public class PlayerShip extends Ship {
         }
     }
 
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
+    }
 }

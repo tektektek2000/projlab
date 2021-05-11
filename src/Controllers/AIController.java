@@ -8,6 +8,9 @@ import Model.UFO;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A simple AI class for the robot and the UFO
+ */
 public class AIController {
 
     private static final Random random = new Random();

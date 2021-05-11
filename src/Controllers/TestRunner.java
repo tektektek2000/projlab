@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class is responsible for running tests
+ */
 public class TestRunner {
     File TestDir;
     String Path;
@@ -25,19 +28,28 @@ public class TestRunner {
             if(f.isDirectory())
                 DirNum++;
         }
-        System.out.println("Found " + files.length + " files of which " + DirNum + " are test directories.");
+        //System.out.println("Found " + files.length + " files of which " + DirNum + " are test directories.");
     }
 
+    /**
+     * @param Test the file where the commands are
+     * @param gc the GameController
+     * @throws Exception
+     */
     void Run(File Test,GameController gc) throws Exception {
         File cmd = new File(Test.getCanonicalPath() + "\\cmd.txt");
         Scanner FScanner = new Scanner(cmd);
         while (FScanner.hasNextLine()) {
             String data = FScanner.nextLine();
-            System.out.println(data);
+            //System.out.println(data);
             gc.InterpretCommand(data);
         }
     }
 
+    /**
+     * This method run all the tests we have
+     * @param gc
+     */
     public void RunAllTests(GameController gc){
         File[] files = TestDir.listFiles();
         String oldCurr = gc.CurrentWorkingDirectory;
@@ -45,33 +57,33 @@ public class TestRunner {
         for(File f : files){
             if(f.isDirectory()) {
                 try {
-                    System.out.println();
-                    System.out.println("Test[" + f.getName() + "]");
+                    //System.out.println();
+                    //System.out.println("Test[" + f.getName() + "]");
                     try {
                         gc.CurrentWorkingDirectory = f.getPath();
                         Run(f,gc);
-                        System.out.println("Test Done");
+                        //System.out.println("Test Done");
                         SuccessfulTests++;
                     }
                     catch (InvalidCommand invalidCommand) {
-                        System.out.println(invalidCommand.getMessage());
+                        //System.out.println(invalidCommand.getMessage());
                     } catch (BadFileFormat badFileFormat) {
-                        System.out.println(badFileFormat.getMessage());
+                        //System.out.println(badFileFormat.getMessage());
                     }
                     catch (AssertException e){
-                        System.out.println(e.getMessage());
+                        //System.out.println(e.getMessage());
                     }
-                    //System.out.println("Test[" + f.getName() + "] Done");
+                    ////System.out.println("Test[" + f.getName() + "] Done");
                 } catch (IOException e) {
-                    System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
+                    //System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
                 }
                 catch (Exception e) {
-                    System.out.println(e.getStackTrace());
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getStackTrace());
+                    //System.out.println(e.getMessage());
                 }
             }
         }
-        System.out.println(SuccessfulTests + " tests were successful out of " + DirNum);
+        //System.out.println(SuccessfulTests + " tests were successful out of " + DirNum);
         gc.CurrentWorkingDirectory = oldCurr;
     }
 
@@ -79,23 +91,23 @@ public class TestRunner {
         String oldCurr = gc.CurrentWorkingDirectory;
         File f = new File(TestDir + "//" + Test);
         try {
-            System.out.println();
-            System.out.println("Test[" + f.getName() + "]");
+            //System.out.println();
+            //System.out.println("Test[" + f.getName() + "]");
             try {
                 gc.CurrentWorkingDirectory = f.getPath();
                 Run(f,gc);
-                System.out.println("Test Done");
+                //System.out.println("Test Done");
             }
             catch (InvalidCommand invalidCommand) {
-                System.out.println(invalidCommand.getMessage());
+                //System.out.println(invalidCommand.getMessage());
             } catch (BadFileFormat badFileFormat) {
-                System.out.println(badFileFormat.getMessage());
+                //System.out.println(badFileFormat.getMessage());
             }
             catch (AssertException e){
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
             }
         } catch (IOException e) {
-            System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
+            //System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
         }
         catch (Exception e) {
             e.printStackTrace();

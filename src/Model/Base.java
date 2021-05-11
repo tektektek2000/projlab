@@ -14,7 +14,7 @@ import java.util.Comparator;
 /**
  * Represents the base in the game.
  */
-public class Base extends Saveable{
+public class Base extends Saveable implements IVisitable{
     /**
      * The materials, that are in the base.
      */
@@ -22,6 +22,10 @@ public class Base extends Saveable{
 
     public Base(int uid) {
         super(uid);
+    }
+
+    public ArrayList<Material> getMaterials(){
+        return materials;
     }
 
     /**
@@ -49,12 +53,14 @@ public class Base extends Saveable{
     /**
      * Checks whether or not the base has enough resources to be considered complete.
      */
-    public void CheckComplete() {
+    public boolean CheckComplete() {
         BillCreator bc = BillCreator.GetInstance();
         BillOfMaterial Bill = bc.CreateForBase(materials); // Creating a bill to see if the base is complete
         if(Bill != null){ // If the bill is not null than the base has enough materials
             NotificationManager.PlayersWon();
+            return true;
         }
+        return false;
     }
 
     /**
@@ -66,8 +72,9 @@ public class Base extends Saveable{
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -114,5 +121,10 @@ public class Base extends Saveable{
                 it.Save(os, CallChildren);
             }
         }
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

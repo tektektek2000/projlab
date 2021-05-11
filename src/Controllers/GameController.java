@@ -3,38 +3,74 @@ package Controllers;
 import Model.*;
 import Model.Materials.Material;
 import Model.Materials.Uranium;
+import UI.Components.Notification;
 import Utils.InvalidCommand;
 
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * A controller class, which handles the in-game commands.
+ */
 public class GameController {
+    // the players
     ArrayList<PlayerShip> ps = new ArrayList<>();
+    // the robots
     ArrayList<RobotShip> rs = new ArrayList<>();
+    // the ufos
     ArrayList<UFO> ufos = new ArrayList<>();
+    // the teleport gates
     ArrayList<TeleportGate> tgs = new ArrayList<>();
+    // the uraniums
     ArrayList<Uranium> urans = new ArrayList<>();
+    // the map
     Map map=null;
+    // controller on/off switch
     boolean controller = true;
+    // the currently active working directory
     String CurrentWorkingDirectory = System.getProperty("user.dir");
+    //the current player
     private PlayerShip CurrentPlayer;
 
-    PlayerShip getCurrentPlayer(){
+    public void SetCurrentWorkingDirectory(String CWD){
+        CurrentWorkingDirectory += CWD;
+    }
+
+    // getter for the current player
+    public PlayerShip getCurrentPlayer(){
         if(CurrentPlayer==null){
+            if(ps.size() == 0){
+                NotificationManager.PlayersLost();
+                return null;
+            }
             CurrentPlayer = ps.get(0);
+        }
+        if(CurrentPlayer.getAsteroid() == null){
+            ps.remove(CurrentPlayer);
+            CurrentPlayer = null;
+            return getCurrentPlayer();
         }
         return CurrentPlayer;
     }
-
+    // setter for the current player
     void setCurrentPlayer(PlayerShip p){
         CurrentPlayer = p;
     }
 
+    // setter for the controller switch
     void setController(boolean val){
         controller = val;
     }
 
-    void InterpretCommand(String CommandLine) throws Exception {
+    //getter of the map
+    public Map getMap(){return map;}
+
+    /**
+     * It handles the in-game command.
+     * @param CommandLine the given command line
+     * @throws Exception
+     */
+    public void InterpretCommand(String CommandLine) throws Exception {
         String[] parts = CommandLine.split(" ");
 
         if (parts[0].equals("@Fail")){
@@ -174,7 +210,13 @@ public class GameController {
         }
     }
 
-
+    /**
+     * It handles the player commands.
+     * @param UID The UID of the player.
+     * @param command The command what he want to do.
+     * @param Args The argument of the command:
+     * @throws InvalidCommand
+     */
     public void PlayerDoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
         PlayerShip current = null;
         for(PlayerShip it : ps){
@@ -245,6 +287,9 @@ public class GameController {
         else if(command.equals("build_base")){
             current.BuildBase();
         }
+        else if(command.equals("skip")){
+            NotificationManager.setLastCommandSuccess(true);
+        }
         else{
             throw(new InvalidCommand("p "+ UID + " " + command, Args , "-> Unkown command"));
         }
@@ -266,11 +311,26 @@ public class GameController {
                 }
             }
         }
+        TeleportGate gate = NotificationManager.getNewTeleport();
+        if(gate != null){
+            tgs.add(gate);
+            NotificationManager.AddNewTeleport(gate); //Pushing it back so the UI can see it as well.
+        }
+        RobotShip r = NotificationManager.getNewRobot();
+        if(r != null){
+            rs.add(r);
+        }
         if(current.getAsteroid()==null)
             ps.remove(current);
     }
 
-
+    /**
+     * It handles the robot commands.
+     * @param UID The UID of the robot.
+     * @param command The command what he want to do.
+     * @param Args The argument of the command:
+     * @throws InvalidCommand
+     */
     public void RobotDoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
         RobotShip current = null;
         for(RobotShip it : rs){
@@ -299,6 +359,13 @@ public class GameController {
             rs.remove(current);
     }
 
+    /**
+     * It handles the UFO commands.
+     * @param UID The UID of the UFO.
+     * @param command The command what he want to do.
+     * @param Args The argument of the command:
+     * @throws InvalidCommand
+     */
     public void UFODoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
         UFO current = null;
         for(UFO it : ufos){
@@ -327,6 +394,13 @@ public class GameController {
             ufos.remove(current);
     }
 
+    /**
+     * It handles the teleport commands.
+     * @param UID The UID of the teleport.
+     * @param command The command what he want to do.
+     * @param Args The argument of the command:
+     * @throws InvalidCommand
+     */
     public void TeleportDoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
         TeleportGate current = null;
         for(TeleportGate it : tgs){
@@ -353,6 +427,13 @@ public class GameController {
         }
     }
 
+    /**
+     * It handles the uranium commands.
+     * @param UID The UID of the uranium.
+     * @param command The command what he want to do.
+     * @param Args The argument of the command:
+     * @throws InvalidCommand
+     */
     public void UraniumDoes(int UID, String command, ArrayList<String> Args) throws InvalidCommand {
         Uranium current = null;
         for(Uranium it : urans){
@@ -367,6 +448,11 @@ public class GameController {
         }
     }
 
+    /**
+     * It handles if the command was calling a sun storm.
+     * @param UID The UID of the sector where the sun storm will happen.
+     * @throws InvalidCommand
+     */
     public void SunStorm(int UID) throws InvalidCommand {
         ArrayList<Sector> sectors = map.getSectors();
         Sector target = null;
@@ -376,39 +462,62 @@ public class GameController {
             }
         }
         if(target == null)
-            throw(new InvalidCommand("sunstorm "+ UID +  "-> Robot UID not found"));
+            throw(new InvalidCommand("sunstorm "+ UID +  "-> Sector UID not found"));
         Sun.GetInstance().SunStorm(target);
     }
 
+    /**
+     * It handles if a turn ends (called).
+     */
     public void EndTurn(){
         Sun.GetInstance().TurnOver();
         AIController ai = new AIController();
-        for(RobotShip r : rs){
-            if(r.getAsteroid()==null)
-                rs.remove(r);
-            else
-                ai.TakeTurn(r);
-            if(r.getAsteroid()==null)
-                rs.remove(r);
-        }
-        for(UFO u : ufos){
-            if(u.getAsteroid()==null)
-                rs.remove(u);
-            else
-                ai.TakeTurn(u);
-            if(u.getAsteroid()==null)
-                rs.remove(u);
+        if(controller) {
+            ArrayList<RobotShip> rDel = new ArrayList<>();
+            for (RobotShip r : rs) {
+                if (r.getAsteroid() == null)
+                    rDel.add(r);
+                else
+                    ai.TakeTurn(r);
+                if (r.getAsteroid() == null)
+                    rDel.add(r);
+            }
+            rs.removeAll(rDel);
+            ArrayList<UFO> uDel = new ArrayList<>();
+            for (UFO u : ufos) {
+                if (u.getAsteroid() == null)
+                    uDel.add(u);
+                else
+                    ai.TakeTurn(u);
+                if (u.getAsteroid() == null)
+                    uDel.add(u);
+            }
+            ufos.removeAll(uDel);
+            for (TeleportGate t : tgs) {
+                t.TurnOver();
+            }
         }
         for(Uranium uranium : urans){
             uranium.TurnOver();
         }
-        for(TeleportGate t : tgs){
-            t.TurnOver();
+        ArrayList<PlayerShip> deletable = new ArrayList<>();
+        for(PlayerShip current : ps){
+            if(current.getAsteroid()==null)
+                deletable.add(current);
         }
+        ps.removeAll(deletable);
+        if(ps.size()==0){
+            NotificationManager.PlayersLost();
+        }
+
     }
 
+    /**
+     * Creates a new map.
+     */
     public void NewMap(){
         MapBuilder mb = new MapBuilder();
         map = mb.BuildMap(this);
+        Sun.GetInstance().SetMap(map);
     }
 }

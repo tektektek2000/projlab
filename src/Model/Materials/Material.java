@@ -7,6 +7,7 @@ import Controllers.FileController;
 import Model.Asteroid;
 import Model.Map;
 import Model.Saveable;
+import Model.IVisitable;
 import Utils.StringPair;
 
 import javax.management.RuntimeErrorException;
@@ -14,7 +15,7 @@ import javax.management.RuntimeErrorException;
 /**
  * The parent class of all the materials.
  */
-public abstract class Material extends Saveable {
+public abstract class Material extends Saveable implements IVisitable {
 
     Material(Map m){
         super(m);
@@ -51,8 +52,9 @@ public abstract class Material extends Saveable {
     public void PickedUp(){}
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws RuntimeErrorException
      */
     @Override

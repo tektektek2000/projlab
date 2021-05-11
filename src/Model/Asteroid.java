@@ -40,12 +40,15 @@ public class Asteroid extends Field {
      */
     private boolean SunStorm = false;
 
+
     public Asteroid(Sector s){
         super(s);
         ships = new ArrayList<>();
         Removables = new ArrayList<>();
         base=null;
-        shell = new Random().nextInt(6);
+        shell = new Random().nextInt(6)+4;
+        x=0;
+        y=0;
     }
     public Asteroid(Sector s,int Shell){
         super(s);
@@ -53,6 +56,8 @@ public class Asteroid extends Field {
         Removables = new ArrayList<>();
         base=null;
         shell = Shell;
+        x=0;
+        y=0;
     }
     public Asteroid(Sector s,Material Core,int Shell){
         super(s);
@@ -61,6 +66,8 @@ public class Asteroid extends Field {
         core = Core;
         base=null;
         shell = Shell;
+        x=0;
+        y=0;
     }
     public Asteroid(int UID, Sector s, Material _core, int _shell) {
         super(UID, s);
@@ -69,13 +76,17 @@ public class Asteroid extends Field {
         core = _core;
         base = null;
         shell = _shell;
+        x=0;
+        y=0;
     }
     public Asteroid(int UID) {
         super(UID);
         ships = new ArrayList<>();
         Removables = new ArrayList<>();
         base=null;
-        shell = new Random().nextInt(6);
+        shell = new Random().nextInt(6)+4;
+        x=0;
+        y=0;
     }
 
     /**
@@ -124,7 +135,7 @@ public class Asteroid extends Field {
         }
         if(shell == 0 && core == null){
             core = m;
-            if(sector.getSunClose()){
+            if(this.getSunClose()){
                 core.DrilledThroughSunClose(this);
             }
             return true;
@@ -156,7 +167,7 @@ public class Asteroid extends Field {
      * @param s The ship we want to be added to the asteroid.
      */
     public void Add(Ship s){
-        ships.add(s);
+        if(!ships.contains(s)) ships.add(s);
     }
 
     /**
@@ -169,7 +180,7 @@ public class Asteroid extends Field {
         shell--;
         // if shell size is zero then checks whether it is in sun close area
         if(shell==0){
-            if (sector.getSunClose()) {
+            if (this.getSunClose()) {
                 core.DrilledThroughSunClose(this);
             }
         }
@@ -196,6 +207,10 @@ public class Asteroid extends Field {
         core = null;
         ret.PickedUp();
         return ret;
+    }
+
+    public ArrayList<Ship> getShips(){
+        return ships;
     }
 
     /**
@@ -225,7 +240,6 @@ public class Asteroid extends Field {
      * The asteroid explodes.
      */
     public void Explode(){
-        NotificationManager.AddMessage("Asteroid" + GetUID() + " exploded.");
         // calls for each ship exploding action
         for (int i=0;i<ships.size();i++) {
             for (Ship ship : ships) {
@@ -233,12 +247,17 @@ public class Asteroid extends Field {
                 break;
             }
         }
+        ships.clear();
         // Removes asteroid from all neighbours.
         for(Field f : Neighbours){
             f.RemoveNeighbour(this);
         }
         sector.Remove(this);
         Neighbours.clear();
+        core.PickedUp();
+        core = null;
+        NotificationManager.AddExplodedAsteroid(this);
+        NotificationManager.AddWarning("Asteroid" + GetUID() + " exploded");
     }
 
     /**
@@ -246,11 +265,13 @@ public class Asteroid extends Field {
      */
     public void Evaporate(){
         core = null;
+        NotificationManager.AddWarning("Ice from Asteroid" + GetUID() + " evaporated");
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws LinkerException
      */
     @Override
@@ -316,5 +337,32 @@ public class Asteroid extends Field {
                 s.Save(os, CallChildren);
             }
         }
+    }
+
+    /**
+     * Distance between an Asteroid and coordinates
+     * @param a1 an Asteroid
+     * @param x coordinate x axle
+     * @param y coordinate y axle
+     * @return with a double what is the distance between the coordinates
+     */
+    public double distance(Asteroid a1, double x, double y){
+        return Math.sqrt(Math.pow(a1.getX()-x,2) + Math.pow(a1.getY()-y,2));
+    }
+
+    /**
+     * The method which handles if the Asteroid is close to the Sun
+     * @return true if close, false if not
+     */
+    public boolean getSunClose(){
+        if(distance(this,0.0,0.0)<0.6){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }

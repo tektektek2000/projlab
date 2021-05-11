@@ -3,6 +3,7 @@ package Model.Materials;
 import Controllers.FileController;
 import Model.Asteroid;
 import Model.Map;
+import Model.IVisitor;
 import Utils.StringPair;
 import javax.management.RuntimeErrorException;
 import java.io.PrintStream;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Ice extends Material {
 
-    Ice(Map m){super(m);}
+    public Ice(Map m){super(m);}
 
     public Ice(int uid) {super(uid);}
 
@@ -37,8 +38,9 @@ public class Ice extends Material {
     }
 
     /**
-     * @param args
-     * @param fc
+     * Links the objects attributes with their "value"
+     * @param args The pairs we want to match.
+     * @param fc The file controller.
      * @throws RuntimeErrorException
      */
     @Override
@@ -56,5 +58,10 @@ public class Ice extends Material {
         os.println("Ice{");
         super.Save(os, CallChildren);
         os.println("}");
+    }
+
+    @Override
+    public void accept(IVisitor v) {
+        v.visit(this);
     }
 }
