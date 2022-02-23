@@ -1,5 +1,7 @@
 Asteroid{
 	UID: 1
+X: @Ignore
+Y: @Ignore
 	Neighbours: 2, 12
 	Shell: 1
 	Ships: 13, 14
@@ -22,6 +24,8 @@ Asteroid{
 }
 Asteroid{
 	UID: 4
+	X: 100.0
+    Y: 100.0
 	Neighbours: 3, 5
 	Shell: 1
 	Core: 20
@@ -29,6 +33,8 @@ Asteroid{
 }
 Asteroid{
 	UID: 5
+	X: 100.0
+    Y: 100.0
 	Neighbours: 4, 6
 	Shell: 1
 	Core: 21
@@ -36,6 +42,8 @@ Asteroid{
 }
 Asteroid{
 	UID: 6
+	X: 100.0
+    Y: 100.0
 	Neighbours: 5, 7
 	Shell: 1
 	Core: 22

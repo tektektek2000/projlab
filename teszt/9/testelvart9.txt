@@ -1,5 +1,7 @@
 Asteroid{
 	UID: 1
+X: @Ignore
+Y: @Ignore
 	Shell: 5
 	Ships: 2
 	Sector: 9
@@ -26,11 +28,17 @@ Uranium{
 }
 TeleportGate{
 	UID: 7
+	X: @Ignore
+
+    Y: @Ignore
 	Pair: 8
 	WasHitBySunStorm: false
 }
 TeleportGate{
 	UID: 8
+	X: @Ignore
+
+    Y: @Ignore
 	Pair: 7
 	WasHitBySunStorm: false
 }

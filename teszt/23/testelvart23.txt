@@ -1,5 +1,7 @@
 Asteroid{
 	UID: 1
+X: @Ignore
+Y: @Ignore
 	Shell: 5
 	Ships: 2
 	Base: 8

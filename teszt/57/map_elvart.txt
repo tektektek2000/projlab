@@ -5,18 +5,24 @@ isClose: false
 }
 Asteroid{
 UID: 1
+X: 0.0
+Y: 0.0
 Sector: 11
 Neighbours: 2,7
 Shell: 0
 }
 Asteroid{
 UID: 2
+X: 0.0
+Y: 0.0
 Sector: 11
 Neighbours: 1,3,9
 Shell: 5
 }
 TeleportGate{
 UID: 7
+X: 0.0
+Y: 0.0
 Sector: 11
 Neighbours: 1
 WasHitBySunStorm: false
@@ -24,6 +30,8 @@ Pair:8
 }
 TeleportGate{
 UID: 8
+X: 0.0
+Y: 0.0
 Sector: 11
 Neighbours: 3
 WasHitBySunStorm: false
@@ -31,6 +39,8 @@ Pair:7
 }
 TeleportGate{
 UID: 9
+X: 0.0
+Y: 0.0
 Sector: 11
 Neighbours: 2
 WasHitBySunStorm: false
@@ -43,6 +53,8 @@ isClose: true
 }
 Asteroid{
 UID: 3
+X: 0.0
+Y: 0.0
 Sector: 12
 Neighbours: 2,8
 Shell: 0
@@ -61,6 +73,8 @@ Teleports: 10
 }
 TeleportGate{
 UID: 10
+X: 0.0
+Y: 0.0
 WasHitBySunStorm: false
 Pair:9
 }
@@ -74,6 +88,6 @@ Order: 4
 Current: 4
 }
 Sun{
-Target: 11
-Rounds: 4
+Target: 12
+Rounds: 6
 }

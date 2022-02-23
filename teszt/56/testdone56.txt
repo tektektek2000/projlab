@@ -5,36 +5,48 @@ isClose: false
 }
 Asteroid{
 UID: 1
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 2,12
 Shell: 0
 }
 Asteroid{
 UID: 2
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 1,3
 Shell: 0
 }
 Asteroid{
 UID: 3
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 2,4
 Shell: 0
 }
 Asteroid{
 UID: 4
+X: 100.0
+Y: 100.0
 Sector: 29
 Neighbours: 3,5
 Shell: 0
 }
 Asteroid{
 UID: 5
+X: 100.0
+Y: 100.0
 Sector: 29
 Neighbours: 4,6
 Shell: 0
 }
 Asteroid{
 UID: 6
+X: 100.0
+Y: 100.0
 Sector: 29
 Neighbours: 5,7
 Shell: 0
@@ -46,6 +58,8 @@ Asteroid: 6
 }
 Asteroid{
 UID: 7
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 6,8
 Shell: 0
@@ -112,30 +126,40 @@ Asteroid: 7
 }
 Asteroid{
 UID: 8
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 7,9
 Shell: 0
 }
 Asteroid{
 UID: 9
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 8,10
 Shell: 0
 }
 Asteroid{
 UID: 10
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 9,11
 Shell: 0
 }
 Asteroid{
 UID: 11
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 10,12
 Shell: 0
 }
 Asteroid{
 UID: 12
+X: 0.0
+Y: 0.0
 Sector: 29
 Neighbours: 1,11
 Shell: 0
@@ -147,5 +171,5 @@ Current: 14
 }
 Sun{
 Target: 29
-Rounds: 8
+Rounds: 6
 }

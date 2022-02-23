@@ -5,6 +5,8 @@ isClose: false
 }
 Asteroid{
 UID: 1
+X: 0.0
+Y: 0.0
 Sector: 4
 Neighbours: 2
 Shell: 10
@@ -16,6 +18,8 @@ Asteroid: 1
 }
 TeleportGate{
 UID: 2
+X: 0.0
+Y: 0.0
 Sector: 4
 Neighbours: 1
 WasHitBySunStorm: false
