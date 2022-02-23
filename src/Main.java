@@ -78,6 +78,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        boolean commandLine = false;
         for(String s : args){
             if(s.equals("runtests")){
                 TestRunner tc = null;
@@ -89,7 +90,15 @@ public class Main extends Application {
                 GameController gc = new GameController();
                 tc.RunAllTests(gc);
             }
+            else if(s.equals("cmdline")){
+                commandLine = true;
+            }
         }
-        launch(args);
+        if(commandLine){
+            Program.main(args);
+        }
+        else{
+            launch(args);
+        }
     }
 }
