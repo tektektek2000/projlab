@@ -5,6 +5,8 @@ isClose: false
 }
 Asteroid{
 UID: 1
+X: 0.0
+Y: 0.0
 Sector: 8
 Shell: 5
 Ships: 2
@@ -17,11 +19,15 @@ Teleports: 9,10
 }
 TeleportGate{
 UID: 9
+X: 0.0
+Y: 0.0
 WasHitBySunStorm: false
 Pair:10
 }
 TeleportGate{
 UID: 10
+X: 0.0
+Y: 0.0
 WasHitBySunStorm: false
 Pair:9
 }
@@ -35,5 +41,5 @@ Current: 2
 }
 Sun{
 Target: 8
-Rounds: 8
+Rounds: 4
 }

@@ -87,7 +87,7 @@ public class GameController {
                 Failed = true;
             }
             if(!Failed) {
-                throw (new InvalidCommand(CommandLine + "-> Line marked as Fail didn't fail"));
+                throw (new InvalidCommand(CommandLine + "-> Line marked as @Fail didn't fail"));
             }
         }
         else if (parts[0].equals("sunStorm")){

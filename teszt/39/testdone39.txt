@@ -5,6 +5,8 @@ isClose: false
 }
 Asteroid{
 UID: 1
+X: 0.0
+Y: 0.0
 Sector: 3
 Shell: 2
 Ships: 2
@@ -20,5 +22,5 @@ Current: 2
 }
 Sun{
 Target: 3
-Rounds: 7
+Rounds: 6
 }

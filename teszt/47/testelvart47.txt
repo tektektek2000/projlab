@@ -1,5 +1,7 @@
 Asteroid{
 	UID: 1
+X: @Ignore
+Y: @Ignore
 	Neighbours: 2
 	Shell: 10
 	Ships: 3
@@ -7,6 +9,9 @@ Asteroid{
 }
 TeleportGate{
 	UID: 2
+	X: @Ignore
+
+    Y: @Ignore
 	Neighbours: 1
 	Sector: 4
 	WasHitBySunStorm: false

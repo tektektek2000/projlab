@@ -15,7 +15,7 @@ import com.sun.jdi.ClassType;
  * A class for file control. Save, load, etc..
  */
 public class FileController {
-    ArrayList<Pair<Saveable, ArrayList<StringPair>>> Linkeables = new ArrayList<>();;
+    ArrayList<Pair<Saveable, ArrayList<StringPair>>> Linkeables = new ArrayList<>();
 
     static void Assert(boolean Condition,String Text) throws Exception {
         if(!Condition)
@@ -145,7 +145,7 @@ public class FileController {
                 if(!SpecificLine) {
                     do {
                         data = Trim(FScanner.nextLine());
-                        if (!data.contains("}")) {
+                        if (!data.contains("}") && !data.equals("")) {
                             current.second.add(new StringPair(data.split(":")));
                         }
                     } while (!data.contains("}"));
@@ -250,6 +250,7 @@ public class FileController {
         Linkeables = BuildLinkeables(file,GC,map);
         for(Pair<Saveable, ArrayList<StringPair>> it : Linkeables){
             try {
+                it.second.removeIf(x -> x.second.equals("@Ignore"));
                 it.first.Link(it.second,this);
             }
             catch (LinkerException e){
@@ -274,7 +275,7 @@ public class FileController {
         if(f.exists())
             f.delete();
         PrintStream os = new PrintStream(
-                new FileOutputStream(f, true));
+                new FileOutputStream(f, false));
         map.Save(os);
 
         os.println("Controller{");
@@ -289,7 +290,9 @@ public class FileController {
                     os.println();
                 }
             }
-            os.println("Current: " + gc.getCurrentPlayer().GetUID());
+            if(gc.getCurrentPlayer() != null) {
+                os.println("Current: " + gc.getCurrentPlayer().GetUID());
+            }
         }
         os.println("}");
         os.println("Sun{");
@@ -324,8 +327,10 @@ public class FileController {
                         for(StringPair ParamIt2 : it2.second){
                             if(ParamIt1.first.equals(ParamIt2.first)){
                                 paramFound = true;
-                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter mismatch: "
-                                        + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
+                                if(!ParamIt1.second.equals("@Ignore") && !ParamIt2.second.equals("@Ignore")) {
+                                    Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter mismatch: "
+                                            + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
+                                }
                             }
                         }
                         Assert(paramFound , "Parameter not found: Object UID:" + it1.first.GetUID() + " Paramtype: " + ParamIt1.first);
@@ -347,8 +352,10 @@ public class FileController {
                         for(StringPair ParamIt2 : it2.second){
                             if(ParamIt1.first.equals(ParamIt2.first)){
                                 paramFound = true;
-                                Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter mismatch: "
-                                        + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
+                                if(!ParamIt1.second.equals("@Ignore") && !ParamIt2.second.equals("@Ignore")) {
+                                    Assert(ParamIt1.second.equals(ParamIt2.second), "Comparison objects: UID1:" + it1.first.GetUID() + " UID2:" + it2.first.GetUID() + "| Parameter mismatch: "
+                                            + ParamIt1.first + "  It1:" + ParamIt1.second + " It2:" + ParamIt2.second);
+                                }
                             }
                         }
                         Assert( paramFound , "Parameter not found: Object UID" + it1.first.GetUID() + " Paramtype: " + ParamIt1.first);

@@ -49,13 +49,13 @@ public class MenuController {
                     Game();
                 }
                 catch (InvalidCommand e) {
-                    //System.out.println(e.getMessage());
+                    System.out.println(e.getMessage());
                 }
                 catch (BadFileFormat e) {
-                    //System.out.println(e.getMessage());
+                    System.out.println(e.getMessage());
                 }
                 catch (Exception e) {
-                    //System.out.println("Unknown error while loading file");
+                    System.out.println("Unknown error while loading file");
                     e.printStackTrace();
                 }
             }
@@ -63,14 +63,14 @@ public class MenuController {
                 exit = true;
             }
             else if(parts[0].equals("help")){
-                //System.out.println("Usable commands:");
-                //System.out.println("start -> Creates a new map and starts game");
-                //System.out.println("load filename -> Loads a given map and starts game");
-                //System.out.println("runtests -> Runs all the tests, and gives results");
-                //System.out.println("exit -> Exits from game");
+                System.out.println("Usable commands:");
+                System.out.println("start -> Creates a new map and starts game");
+                System.out.println("load filename -> Loads a given map and starts game");
+                System.out.println("runtests -> Runs all the tests, and gives results");
+                System.out.println("exit -> Exits from game");
             }
             else{
-                //System.out.println("Unknown command");
+                System.out.println("Unknown command");
             }
         }
     }

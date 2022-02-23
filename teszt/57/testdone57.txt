@@ -1,5 +1,7 @@
 Asteroid{
 	UID: 1
+X: @Ignore
+Y: @Ignore
 	Neighbours: 2, 7
 	Shell: 0
 	Sector: 11

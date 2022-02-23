@@ -5,15 +5,15 @@ isClose: true
 }
 Asteroid{
 UID: 2
+X: 0.0
+Y: 0.0
 Sector: 5
 Shell: 3
 }
 Controller{
 controller: false
-Order: 3
-Current: 3
 }
 Sun{
 Target: 5
-Rounds: 3
+Rounds: 5
 }
