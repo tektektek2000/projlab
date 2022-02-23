@@ -1,4 +1,5 @@
 import Controllers.GameController;
+import Controllers.TestRunner;
 import UI.Components.MagicConstants;
 import UI.Layout.MainMenu.MainMenuController;
 import UI.Layout.GameOverMenu.GameOverMenuController;
@@ -10,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import UI.Layout.Game.GameUIController;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -75,6 +78,18 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        for(String s : args){
+            if(s.equals("runtests")){
+                TestRunner tc = null;
+                try {
+                    tc = new TestRunner("teszt");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                GameController gc = new GameController();
+                tc.RunAllTests(gc);
+            }
+        }
         launch(args);
     }
 }
