@@ -3,5 +3,5 @@ controller off
 p 4 mine
 p 4 move 7
 p 4 put_back 6
-save map_elvart.txt
+save testdone57.txt
 compare testdone57.txt testelvart57.txt

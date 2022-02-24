@@ -67,14 +67,16 @@ public class TestRunner {
                     }
                     catch (InvalidCommand invalidCommand) {
                         System.out.println("\u001B[31m" + invalidCommand.getMessage() + "\u001B[0m");
-                    } catch (BadFileFormat badFileFormat) {
+                    }
+                    catch (BadFileFormat badFileFormat) {
                         System.out.println("\u001B[31m" + badFileFormat.getMessage() + "\u001B[0m");
                     }
                     catch (AssertException e){
                         System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
                     }
                     System.out.println("Test[" + f.getName() + "] Done");
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
                 }
                 catch (Exception e) {
@@ -96,17 +98,19 @@ public class TestRunner {
             try {
                 gc.CurrentWorkingDirectory = f.getPath();
                 Run(f,gc);
-                System.out.println("Test Done");
+                System.out.println("\u001B[32m" + "Test Successful" + "\u001B[0m");
             }
             catch (InvalidCommand invalidCommand) {
-                System.out.println(invalidCommand.getMessage());
-            } catch (BadFileFormat badFileFormat) {
-                System.out.println(badFileFormat.getMessage());
+                System.out.println("\u001B[31m" + invalidCommand.getMessage() + "\u001B[0m");
+            }
+            catch (BadFileFormat badFileFormat) {
+                System.out.println("\u001B[31m" + badFileFormat.getMessage() + "\u001B[0m");
             }
             catch (AssertException e){
-                System.out.println(e.getMessage());
+                System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("Invalid Test Directory in Test Root. Invalid Dir: " + f.getName());
         }
         catch (Exception e) {

@@ -26,14 +26,19 @@ public class MenuController {
         while(!exit){
             String line = in.nextLine();
             String parts[] = line.split(" ");
-            if(parts[0].equals("runtests")){
+            if(parts[0].equals("run")){
                 TestRunner tc = null;
                 try {
                     tc = new TestRunner("teszt");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                tc.RunAllTests(gc);
+                if(parts[1].equals("all")){
+                    tc.RunAllTests(gc);
+                }
+                else{
+                    tc.RunTest(parts[1],gc);
+                }
             }
             else if(parts[0].equals("start")){
                 try {
@@ -66,7 +71,7 @@ public class MenuController {
                 System.out.println("Usable commands:");
                 System.out.println("start -> Creates a new map and starts game");
                 System.out.println("load filename -> Loads a given map and starts game");
-                System.out.println("runtests -> Runs all the tests, and gives results");
+                System.out.println("run [all]/[test number] -> Runs all the tests, and gives results or runs the specified test");
                 System.out.println("exit -> Exits from game");
             }
             else{
